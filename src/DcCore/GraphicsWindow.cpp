@@ -421,7 +421,7 @@ GraphicsWindow::GraphicsWindow(EntityBase* parent, bool startWithStartEvent,
   this->hud = new Rcs::HUD();
   add(hud.get());
   this->vertexNode = new Rcs::VertexArrayNode();
-  vertexNode->hide();
+  //vertexNode->hide();
   add(vertexNode.get());
 
   subscribeAll();

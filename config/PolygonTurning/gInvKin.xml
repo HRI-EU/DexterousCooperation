@@ -1,4 +1,4 @@
-<Graph xmlns:xi="http://www.w3.org/2003/XInclude" name="InitialPose" >
+<Graph xmlns:xi="http://www.w3.org/2003/XInclude" resourcePath="${SIT}/Data/RobotMeshes/1.0/data" name="InitialPose" >
 
   <Body name="Lab Frame" physics="kinematic" >
     <Shape type="BOX" extents="6.0 6.0 0.04" transform="0 0 -0.02 0 0 0"
@@ -6,78 +6,58 @@
     <Shape type="FRAME" scale="1.0" />
   </Body>
 
-
-
-
-
-<!--
-  <Body name="ImetronPlatform" prev="Lab Frame" mass="100" cogVector="0 0 0.1" >
-    <Shape type="SSR" extents="0.85 1.25 0.28" graphics="false" physics="false" distance="true"  transform="0 0 0.14 0 0 0" color="DARKGRAY" />
-    <Shape type="BOX" extents="0.85 1.25 0.2"  graphics="true"   physics="true"  distance="false" transform="0 0 0.1 0 0 0"  color="DARKGRAY" />
-    <Joint name="DofBaseX"   type="TransX" range="-4 0 4"     weightJL="0.0" weightMetric="0.5"   constraint="false" />
-    <Joint name="DofBaseY"   type="TransY" range="-1.5 0 1.5" weightJL="1"   weightMetric="0.01"  constraint="false" />
-    <Joint name="DofBaseThZ" type="RotZ"   range="-60 0 60"   weightJL="1"   weightMetric="0.001" constraint="true" />
+  <Body name="Vicon IME" prev="Lab Frame" rigid_body_joints="0 0 0 0 0 0" >
+    <Shape type="FRAME" scale="0.2" />
   </Body>
- 
+
+  <Body name="ImetronPlatform" prev="Lab Frame" mass="100" cogVector="0 0 0.1" >
+    <Shape type="SSR" extents="0.85 1.25 0.28" graphics="false" physics="false"
+	   distance="true"  transform="0 0 0.14 0 0 0" color="DARKGRAY" />
+    <Shape type="BOX" extents="0.85 1.25 0.2"  graphics="true"   physics="true"
+	   distance="false" transform="0 0 0.1 0 0 0"  color="DARKGRAY" />
+    <Joint name="DofBaseX"   type="TransX" range="-4 0 4"     weightJL="0.0" weightMetric="0.1"   constraint="false" />
+    <Joint name="DofBaseY"   type="TransY" range="-1.5 0 1.5" weightJL="1"   weightMetric="0.01"  constraint="false" />
+    <Joint name="DofBaseThZ" type="RotZ"   range="-60 0 60"   weightJL="1"   weightMetric="0.1" constraint="false" />
+  </Body>
+
+  <Body name="kinect2_dexco" prev="ImetronPlatform"
+	gerade_transform="0.117706 -0.090781 1.919833 180   90 90" 
+	transform="0.117706 -0.090781 1.919833   177.426981 52.662390 91.457496" 
+	horizontal_transform="0.117706 -0.090781 1.919833   180 90 90" >
+    <Shape type="FRAME" scale="1.25" />
+  </Body>
+
   <Group prev="ImetronPlatform" transform="0 0 0.2 0 0 0">
-    <xi:include href="TwoArmLBR.xml" />
+    <xi:include href="../BoxTurning/TwoArmLBR.xml" />
   </Group >
--->
-
-
-
-<!--
--->
-  <Group prev="Lab Frame" transform="0 0 0 0 0 0">
-    <xi:include href="gRobo.xml" />
-  </Group >
-
 
   <Body name="Box Base" prev="Lab Frame" transform="0 0 0 90 -90 0" >
     <Shape type="FRAME" scale="0.2" />
   </Body>
 
-  <Body name="kinect2_dexco" prev="ImetronPlatform" transform="0.117706 -0.090781 1.919833   177.426981 52.662390 91.457496" better_transform="0.1 0 1.9 0 130 180" was_transform="0.1 0 1.9 0 40 0" >
-    <Shape type="FRAME" scale="1.25" />
-    <xxShape type="MESH" meshFile="frustrum.stl" distance="true" graphics="true" transform="0 0 1 180 0 0" />
-  </Body>
-
   <Body name="Box_v" prev="Box Base" >
     <Joint name="DofX_v"   type="TransX" range="-10 0 10"       weightJL="0"  />
-    <Joint name="DofY_v"   type="TransY" range="-10 1.13 10"   weightJL="1"  weightMetric="0.1" />
+    <Joint name="DofY_v"   type="TransY" range="-10 1.13 10"    weightJL="1"  weightMetric="0.1" />
     <Joint name="DofZ_v"   type="TransZ" range="-10 -0.86 10"   weightJL="10" weightMetric="0.1" />
     <Joint name="DofThX_v" type="RotX"   range="-10000 0 10000" weightJL="0" />
     <Joint name="DofThY_v" type="RotY"   range="-10000 0 10000" weightJL="0" />
     <Joint name="DofThZ_v" type="RotZ"   range="-10000 0 10000" weightJL="0" />
-    <Shape type="FRAME" scale="0.2" />
-    <Shape type="SPHERE" radius="0.05" graphics="false" distance="true" />
+    <Shape type="FRAME" scale="01.2" />
+    <noShape type="SPHERE" radius="0.05" graphics="true" distance="true" />
   </Body>
 
-  <Body name="Box_real" prev="Box_v" mass="10" physics="dynamic" rigid_body_joints="0 0 0 0 0 0" >
-    <!-- <Shape type="BOX" extents="0.96 0.63 0.36" graphics="true" physics="true" distance="true" -->
-    <!--        transform="0 0 -0.5 90 0 90" notextureFile="textures/fMRT_bavaria.jpg" color="DARKRED_TRANS" /> -->
-    <Shape type="BOX" extents="0.63 0.36 0.96 " graphics="true" physics="true" distance="true"
-           transform="0 0 -0.5 0 0 0" notextureFile="textures/fMRT_bavaria.jpg" color="DARKRED_TRANS" />
-   <Shape type="FRAME" scale="0.5" />
+
+  <!-- A few objects for depth-rendering -->
+  <!-- <xi:include href="gDepthRenderObjects.xml" /> -->
+  <Body name="MiimoBox" prev="Box_v" mass="10" physics="dynamic" transform="0 0 -0.48 0 0 0" color="PUREWHITE" >
+    <Shape type="BOX" extents="0.63 0.36 0.96 " graphics="true" physics="true" distance="true" />
   </Body>
 
-  <Body name="Box_real_center" prev="Box_real" transform="0 0 -0.5 0 0 0">
-    <Shape type="FRAME" scale="0.1" />
-  </Body>
+  
 
-  <Body name="Cylinder_real" prev="Box_v" mass="10" physics="dynamic" rigid_body_joints="0 0 0 0 0 0" >
-    <Shape type="CYLINDER" radius="0.3" length="1" material="high_friction" graphics="true" physics="true" distance="true"
-           transform="0 0 -0.5 0 0 0" textureFile="textures/fMRT_bavaria.jpg" />
-  </Body>
-
-  <Body name="LShape_real" prev="Box_v" mass="10" physics="dynamic" rigid_body_joints="0 0 0 0 0 0" >
-    <Shape type="BOX" extents="0.5 0.125 1" graphics="true" physics="true" distance="true"
-           transform="0.08 -0.1075 -0.5  0 0 0" notextureFile="textures/fMRT_bavaria.jpg" color="DARKRED_TRANS" />
-    <Shape type="BOX" extents="0.125 0.375 1" graphics="true" physics="true" distance="true"
-           notextureFile="textures/fMRT_bavaria.jpg" transform="-0.1075 0.1425 -0.5   0 0 0" color="DARKRED_TRANS" />
-  </Body>
-
-  <Body name="Partner_Box_v" prev="Box_v" transform="0 0 -1 0 180 0" >
+  <Body name="Partner_Box_v" prev="Box_v" transform="0 0 0 0 180 0" >
+    <Joint name="ObjectLength"   type="TransZ" range="-2 -0.75 2"   weightJL="0" />
+    <noShape type="SPHERE" radius="0.05" graphics="true" distance="true" />
     <Shape type="FRAME" scale="0.15" />
   </Body>
 
@@ -97,9 +77,9 @@
   </Body>
 
   <Body name="PartnerGrasp_L" prev="PartnerAnchor_L" physics="fixed" mass="1" >
-    <Shape type="BOX" extents="0.1 0.2 0.02" graphics="true" physics="true"
+    <Shape type="BOX" extents="0.1 0.2 0.02" graphics="false" physics="true"
            transform="0 0.1 0.01 0 0 0" />
-    <Shape type="BOX" extents="0.1 0.02 0.2" graphics="true" physics="true"
+    <Shape type="BOX" extents="0.1 0.02 0.2" graphics="false" physics="true"
            transform="0 -0.01 -0.1 0 0 0" />
     <Shape type="FRAME" scale="0.25" />
   </Body>
@@ -120,12 +100,14 @@
   </Body>
   
   <Body name="PartnerGrasp_R" prev="PartnerAnchor_R" physics="fixed" mass="1" >
-    <Shape type="BOX" extents="0.1 0.2 0.02" graphics="true" physics="true"
+    <Shape type="BOX" extents="0.1 0.2 0.02" graphics="false" physics="true"
            transform="0 0.1 0.01 0 0 0" />
-    <Shape type="BOX" extents="0.1 0.02 0.2" graphics="true" physics="true"
+    <Shape type="BOX" extents="0.1 0.02 0.2" graphics="false" physics="true"
            transform="0 -0.01 -0.1 0 0 0" />
     <Shape type="FRAME" scale="0.25" />
   </Body>
+
+   
    
    
    

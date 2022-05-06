@@ -135,6 +135,198 @@ public:
   }
 };
 
+
+/*******************************************************************************
+ * bin/TestPolygonPlanner -m 3 -ime_odometry -ief -lbr1 -lbr2 -sdh1 -sdh2
+ ******************************************************************************/
+static void testIK(const char* cfgFile)
+{
+  Rcs::CmdLineParser argP;
+  double dt = 0.01;
+  char physicsEngine[32] = "Bullet";
+  char physicsCfg[128] = "config/physics/physics.xml";
+  unsigned int speedUp = 1, loopCount = 0;
+  argP.getArgument("-physicsEngine", physicsEngine,
+                   "Physics engine (default is \"%s\")", physicsEngine);
+  argP.getArgument("-physics_config", physicsCfg, "Configuration file name"
+                   " for physics (default is %s)", physicsCfg);
+  argP.getArgument("-dt", &dt, "Time step (default is %f)", dt);
+  argP.getArgument("-speedUp", &speedUp, "Speed-up factor (default is %d)",
+                   speedUp);
+  bool withGui = argP.hasArgument("-gui", "Task gui (only visualization)");
+  bool noEventGui = argP.hasArgument("-noEventGui", "Don't launch EventGui");
+  bool noSpeedCheck = argP.hasArgument("-nospeed", "No speed limit checks");
+  bool noJointCheck = argP.hasArgument("-nojl", "Disable joint limit checks");
+  bool noCollCheck = argP.hasArgument("-nocoll", "Disable collision checks");
+  bool seqSim = argP.hasArgument("-sequentialPhysics", "Physics simulation step"
+                                 "in updateGraph()");
+  bool seqViewer = argP.hasArgument("-sequentialViewer", "Viewer frame call "
+                                    "in \"Render\" event");
+  bool zigzag = argP.hasArgument("-zigzag", "Zig-zag trajectory");
+  bool pause = argP.hasArgument("-pause", "Pause after each process() call");
+  bool sync = argP.hasArgument("-sync", "Run as sequential as possible");
+  bool noLimits = argP.hasArgument("-noLimits", "Ignore joint, speed and "
+                                   "collision limits");
+  bool simpleGraphics = argP.hasArgument("-simpleGraphics", "OpenGL without "
+                                         "shadows and anti-aliasing");
+  bool valgrind = argP.hasArgument("-valgrind",
+                                   "Start without Guis and graphics");
+  bool physics = argP.hasArgument("-physics", "Run simulator");
+  bool skipTrajectoryCheck = argP.hasArgument("-skipTrajectoryCheck",
+                                              "Perform plan without checking trajectory");
+
+  if (noLimits)
+  {
+    noSpeedCheck = true;
+    noJointCheck = true;
+    noCollCheck = true;
+  }
+
+  if (sync)
+  {
+    seqSim = true;
+    seqViewer = true;
+  }
+
+  if (valgrind)
+  {
+    noEventGui = true;
+  }
+
+  Rcs::EntityBase entity;
+  entity.setDt(dt);
+  if (pause)
+  {
+    entity.call("TogglePause");
+  }
+
+  Rcs::ControllerBase* controller = new Rcs::ControllerBase(cfgFile);
+  RcsGraph* graph = controller->getGraph();
+
+  auto updateGraph = entity.registerEvent<RcsGraph*>("UpdateGraph");
+  auto postUpdateGraph = entity.registerEvent<RcsGraph*, RcsGraph*>("PostUpdateGraph");
+  auto computeKinematics = entity.registerEvent<RcsGraph*>("ComputeKinematics");
+  auto setTaskCommand = entity.registerEvent<const MatNd*, const MatNd*>("SetTaskCommand");
+  auto setJointCommand = entity.registerEvent<const MatNd*>("SetJointCommand");
+  auto setRenderCommand = entity.registerEvent<>("Render");
+
+  entity.registerEvent<>("Start");
+  entity.registerEvent<>("Stop");
+  entity.registerEvent<>("EmergencyStop");
+  entity.registerEvent<>("EmergencyRecover");
+  entity.registerEvent<>("Quit");
+  entity.subscribe("Quit", &quit);
+
+  std::shared_ptr<Rcs::GraphicsWindow> viewer;
+
+  if (!valgrind)
+  {
+    viewer = std::make_shared<Rcs::GraphicsWindow>(&entity, false, seqViewer,
+                                                   simpleGraphics);
+  }
+
+  Rcs::GraphComponent graphC(&entity, graph);
+  Rcs::IKComponent ikc(&entity, controller);
+  ikc.setSpeedLimitCheck(!noSpeedCheck);
+  ikc.setJointLimitCheck(!noJointCheck);
+  ikc.setCollisionCheck(!noCollCheck);
+  Rcs::TaskGuiComponent gui(&entity, controller);
+
+  Rcs::ComponentFactory::print();
+  std::vector<Rcs::ComponentBase*> hwc = getHardwareComponents(entity, graph);
+  if (hwc.empty())
+  {
+    physics = true;
+  }
+
+  if (physics)
+  {
+    // Make simulator use the position control interface
+    RCSGRAPH_TRAVERSE_JOINTS(graph)
+    {
+      JNT->ctrlType = RCSJOINT_CTRL_POSITION;
+    }
+
+    Rcs::PhysicsComponent* pc = new Rcs::PhysicsComponent(&entity, graph,
+                                                          physicsEngine,
+                                                          physicsCfg, !seqSim);
+    if (pc->getPhysicsSimulation() && viewer)
+    {
+      viewer->add(new NamedBodyForceDragger(pc->getPhysicsSimulation()));
+    }
+    else
+    {
+      graphC.setEnableRender(false);
+    }
+
+    hwc.push_back(pc);
+  }
+
+  delete controller;
+
+  if (viewer)
+  {
+    viewer->setKeyCallback('d', [&entity](char k)
+    {
+      entity.publish("ResetErrorFlag");
+    }, "Reseting IME failure flag");
+
+  }   // if (viewer)
+
+
+  if (argP.hasArgument("-h"))
+  {
+    entity.print(std::cout);
+    return;
+  }
+
+
+
+  if (noEventGui == false)
+  {
+    Rcs::EventGui::create(&entity);
+  }
+
+  entity.initialize(graphC.getGraph());
+
+  entity.publish("RenderCommand", std::string("Physics"), std::string("hide"));
+  entity.publish("RenderCommand", std::string("IK"), std::string("show"));
+  entity.publish("RenderCommand", std::string("IK"),
+                 std::string("unsetGhostMode"));
+  entity.publish("SetDebugRendering", false);
+
+
+
+  while (runLoop)
+  {
+    double dtProcess = Timer_getSystemTime();
+    updateGraph->call(graphC.getGraph());
+    computeKinematics->call(graphC.getGraph());
+    setTaskCommand->call(gui.getActivationPtr(), gui.getTaskCommandPtr());
+    setJointCommand->call(ikc.getJointCommandPtr());
+    setRenderCommand->call();
+    postUpdateGraph->call(ikc.getGraph(), graphC.getGraph());
+    entity.process();
+    entity.stepTime();
+    dtProcess = Timer_getSystemTime() - dtProcess;
+
+    loopCount++;
+    if (loopCount%speedUp==0)
+    {
+      Timer_waitDT(entity.getDt() - dtProcess);
+    }
+  }
+
+  entity.publish<>("Stop");
+  entity.process();
+
+  for (size_t i = 0; i < hwc.size(); ++i)
+  {
+    delete hwc[i];
+  }
+
+}
+
 /*******************************************************************************
  * bin/TestPolygonPlanner -m 1 -polyDebug -ime -ief -lbr1 -lbr2 -sdh1 -sdh2
  ******************************************************************************/
@@ -740,6 +932,10 @@ int main(int argc, char** argv)
 
     case 2:
       testPolyFromClass(argc, argv);
+      break;
+
+    case 3:
+      testIK("cInvKin.xml");
       break;
 
     default:
