@@ -1,0 +1,182 @@
+<ConstraintSet type="ConstraintSet" >
+  <ConstraintSet type="ConstraintSet" >
+    <ConstraintSet type="ActivationSet" >
+      <Activation t="0" switchesOn="true" horizon="0" trajectory="RoboHand_R" />
+      <Activation t="0" switchesOn="true" horizon="0" trajectory="RoboHand_L" />
+
+      <Activation t="0" switchesOn="true" horizon="0" trajectory="XYZ_R" />
+      <Activation t="0" switchesOn="true" horizon="0" trajectory="XYZ_L" />
+      <Activation t="0" switchesOn="true" horizon="0" trajectory="ABC_R" />
+      <Activation t="0" switchesOn="true" horizon="0" trajectory="ABC_L" />
+      <Activation t="0" switchesOn="true" horizon="0" trajectory="Phi_Box" />
+      <Activation t="0" switchesOn="true" horizon="0" trajectory="XYZ_Box" />
+      <ConstraintSet type="PositionConstraint" t="5" pos="0 0 0" trajectory="Phi_Box" />
+      <ConstraintSet type="PoseConstraint" t="5" pos="0.2079 -0.18 0 -0 20 -0" trajectory="XYZ_R ABC_R" />
+      <ConstraintSet type="PoseConstraint" t="5" pos="-0.2079 -0.18 0 0 -20 0" trajectory="XYZ_L ABC_L" />
+    </ConstraintSet>
+    <ConstraintSet type="ActivationSet" >
+      <Activation t="0" switchesOn="true" horizon="0" trajectory="Partner_XYZ_R" />
+      <Activation t="0" switchesOn="true" horizon="0" trajectory="Partner_XYZ_L" />
+      <Activation t="0" switchesOn="true" horizon="0" trajectory="Partner_ABC_R" />
+      <Activation t="0" switchesOn="true" horizon="0" trajectory="Partner_ABC_L" />
+      <ConstraintSet type="PoseConstraint" t="5" pos="0.2079 -0.18 0 -0 0 -0" trajectory="Partner_XYZ_R Partner_ABC_R" />
+      <ConstraintSet type="PoseConstraint" t="5" pos="-0.2079 -0.18 0 -0 0 -0" trajectory="Partner_XYZ_L Partner_ABC_L" />
+    </ConstraintSet>
+  </ConstraintSet>
+  <ConstraintSet type="ConstraintSet" >
+    <ConstraintSet type="ActivationSet" >
+      <Constraint t="5.3" pos="0" vel="0" acc="0" flag="1" trajectory="XYZ_L 2"  />
+      <Constraint t="5.6" pos="0" vel="0" acc="0" flag="1" trajectory="XYZ_L 2"  />
+      <Constraint t="8" pos="0.15" vel="0" acc="0" flag="1" trajectory="XYZ_L 2"  />
+      <Constraint t="5.3" pos="-0.175" vel="0" acc="0" flag="1" trajectory="XYZ_L 1"  />
+      <Constraint t="5.3" pos="-0.2079" vel="0" acc="0" flag="1" trajectory="XYZ_L 0"  />
+      <Constraint t="5.6" pos="-0.2079" vel="0" acc="0" flag="1" trajectory="XYZ_L 0"  />
+      <Constraint t="6.8" pos="-0.28" vel="0" acc="0" flag="1" trajectory="XYZ_L 1"  />
+      <Constraint t="9.2" pos="-0.415" vel="0" acc="0" flag="1" trajectory="XYZ_L 0"  />
+      <ConstraintSet type="PositionConstraint" t="11" pos="0 0 0" trajectory="Phi_Box" />
+      <ConstraintSet type="PoseConstraint" t="11" pos="0.2079 -0.18 0 -0 20 -0" trajectory="XYZ_R ABC_R" />
+      <ConstraintSet type="PoseConstraint" t="11" pos="-0.315 0.1188 0 -20 -1.59028e-15 -90" trajectory="XYZ_L ABC_L" />
+    </ConstraintSet>
+    <ConstraintSet type="ActivationSet" >
+      <ConstraintSet type="PoseConstraint" t="11" pos="0.2079 -0.18 0 -0 0 -0" trajectory="Partner_XYZ_R Partner_ABC_R" />
+      <ConstraintSet type="PoseConstraint" t="11" pos="-0.2079 -0.18 0 -0 0 -0" trajectory="Partner_XYZ_L Partner_ABC_L" />
+    </ConstraintSet>
+    <ConstraintSet type="ActivationSet" >
+      <ConstraintSet type="PositionConstraint" t="17" pos="0 0 0" trajectory="Phi_Box" />
+      <ConstraintSet type="PoseConstraint" t="17" pos="0.2079 -0.18 0 -0 20 -0" trajectory="XYZ_R ABC_R" />
+      <ConstraintSet type="PoseConstraint" t="17" pos="-0.315 0.1188 0 -20 -1.59028e-15 -90" trajectory="XYZ_L ABC_L" />
+    </ConstraintSet>
+    <ConstraintSet type="ActivationSet" >
+      <Constraint t="11.3" pos="0" vel="0" acc="0" flag="1" trajectory="Partner_XYZ_R 2"  />
+      <Constraint t="11.6" pos="0" vel="0" acc="0" flag="1" trajectory="Partner_XYZ_R 2"  />
+      <Constraint t="14" pos="0.15" vel="0" acc="0" flag="1" trajectory="Partner_XYZ_R 2"  />
+      <Constraint t="11.3" pos="-0.175" vel="0" acc="0" flag="1" trajectory="Partner_XYZ_R 1"  />
+      <Constraint t="11.3" pos="0.2079" vel="0" acc="0" flag="1" trajectory="Partner_XYZ_R 0"  />
+      <Constraint t="11.6" pos="0.2079" vel="0" acc="0" flag="1" trajectory="Partner_XYZ_R 0"  />
+      <Constraint t="12.8" pos="-0.28" vel="0" acc="0" flag="1" trajectory="Partner_XYZ_R 1"  />
+      <Constraint t="15.2" pos="0.415" vel="0" acc="0" flag="1" trajectory="Partner_XYZ_R 0"  />
+      <ConstraintSet type="PoseConstraint" t="17" pos="0.315 0.1188 0 -0 0 90" trajectory="Partner_XYZ_R Partner_ABC_R" />
+      <ConstraintSet type="PoseConstraint" t="17" pos="-0.2079 -0.18 0 -0 0 -0" trajectory="Partner_XYZ_L Partner_ABC_L" />
+    </ConstraintSet>
+    <ConstraintSet type="ActivationSet" >
+      <ConstraintSet type="PositionConstraint" t="23" pos="0 0 1.5708" trajectory="Phi_Box" />
+      <ConstraintSet type="PoseConstraint" t="23" pos="0.2079 -0.18 0 -0 20 -0" trajectory="XYZ_R ABC_R" />
+      <ConstraintSet type="PoseConstraint" t="23" pos="-0.315 0.1188 0 -20 -1.59028e-15 -90" trajectory="XYZ_L ABC_L" />
+    </ConstraintSet>
+    <ConstraintSet type="ActivationSet" >
+      <ConstraintSet type="PoseConstraint" t="23" pos="0.315 0.1188 0 -0 0 90" trajectory="Partner_XYZ_R Partner_ABC_R" />
+      <ConstraintSet type="PoseConstraint" t="23" pos="-0.2079 -0.18 0 -0 0 -0" trajectory="Partner_XYZ_L Partner_ABC_L" />
+    </ConstraintSet>
+    <ConstraintSet type="ActivationSet" >
+      <Constraint t="23.3" pos="0" vel="0" acc="0" flag="1" trajectory="XYZ_R 2"  />
+      <Constraint t="23.6" pos="0" vel="0" acc="0" flag="1" trajectory="XYZ_R 2"  />
+      <Constraint t="26" pos="0.15" vel="0" acc="0" flag="1" trajectory="XYZ_R 2"  />
+      <Constraint t="23.3" pos="-0.175" vel="0" acc="0" flag="1" trajectory="XYZ_R 1"  />
+      <Constraint t="23.3" pos="0.2079" vel="0" acc="0" flag="1" trajectory="XYZ_R 0"  />
+      <Constraint t="23.6" pos="0.2079" vel="0" acc="0" flag="1" trajectory="XYZ_R 0"  />
+      <Constraint t="24.8" pos="-0.28" vel="0" acc="0" flag="1" trajectory="XYZ_R 1"  />
+      <Constraint t="27.2" pos="-0.415" vel="0" acc="0" flag="1" trajectory="XYZ_R 0"  />
+      <ConstraintSet type="PositionConstraint" t="29" pos="0 0 1.5708" trajectory="Phi_Box" />
+      <ConstraintSet type="PoseConstraint" t="29" pos="-0.315 -0.1188 0 20 1.59028e-15 -90" trajectory="XYZ_R ABC_R" />
+      <ConstraintSet type="PoseConstraint" t="29" pos="-0.315 0.1188 0 -20 -1.59028e-15 -90" trajectory="XYZ_L ABC_L" />
+    </ConstraintSet>
+    <ConstraintSet type="ActivationSet" >
+      <ConstraintSet type="PoseConstraint" t="29" pos="0.315 0.1188 0 -0 0 90" trajectory="Partner_XYZ_R Partner_ABC_R" />
+      <ConstraintSet type="PoseConstraint" t="29" pos="-0.2079 -0.18 0 -0 0 -0" trajectory="Partner_XYZ_L Partner_ABC_L" />
+    </ConstraintSet>
+    <ConstraintSet type="ActivationSet" >
+      <Constraint t="29.3" pos="0" vel="0" acc="0" flag="1" trajectory="XYZ_L 2"  />
+      <Constraint t="29.6" pos="0" vel="0" acc="0" flag="1" trajectory="XYZ_L 2"  />
+      <Constraint t="32" pos="0.15" vel="0" acc="0" flag="1" trajectory="XYZ_L 2"  />
+      <Constraint t="29.3" pos="-0.31" vel="0" acc="0" flag="1" trajectory="XYZ_L 0"  />
+      <Constraint t="29.3" pos="0.1188" vel="0" acc="0" flag="1" trajectory="XYZ_L 1"  />
+      <Constraint t="29.6" pos="0.1188" vel="0" acc="0" flag="1" trajectory="XYZ_L 1"  />
+      <Constraint t="30.8" pos="-0.415" vel="0" acc="0" flag="1" trajectory="XYZ_L 0"  />
+      <Constraint t="33.2" pos="0.28" vel="0" acc="0" flag="1" trajectory="XYZ_L 1"  />
+      <ConstraintSet type="PositionConstraint" t="35" pos="0 0 1.5708" trajectory="Phi_Box" />
+      <ConstraintSet type="PoseConstraint" t="35" pos="-0.315 -0.1188 0 20 1.59028e-15 -90" trajectory="XYZ_R ABC_R" />
+      <ConstraintSet type="PoseConstraint" t="35" pos="0.2079 0.18 0 2.55387e-15 20 180" trajectory="XYZ_L ABC_L" />
+    </ConstraintSet>
+    <ConstraintSet type="ActivationSet" >
+      <ConstraintSet type="PoseConstraint" t="35" pos="0.315 0.1188 0 -0 0 90" trajectory="Partner_XYZ_R Partner_ABC_R" />
+      <ConstraintSet type="PoseConstraint" t="35" pos="-0.2079 -0.18 0 -0 0 -0" trajectory="Partner_XYZ_L Partner_ABC_L" />
+    </ConstraintSet>
+    <ConstraintSet type="ActivationSet" >
+      <ConstraintSet type="PositionConstraint" t="41" pos="0 0 1.5708" trajectory="Phi_Box" />
+      <ConstraintSet type="PoseConstraint" t="41" pos="-0.315 -0.1188 0 20 1.59028e-15 -90" trajectory="XYZ_R ABC_R" />
+      <ConstraintSet type="PoseConstraint" t="41" pos="0.2079 0.18 0 2.55387e-15 20 180" trajectory="XYZ_L ABC_L" />
+    </ConstraintSet>
+    <ConstraintSet type="ActivationSet" >
+      <Constraint t="35.3" pos="0" vel="0" acc="0" flag="1" trajectory="Partner_XYZ_L 2"  />
+      <Constraint t="35.6" pos="0" vel="0" acc="0" flag="1" trajectory="Partner_XYZ_L 2"  />
+      <Constraint t="38" pos="0.15" vel="0" acc="0" flag="1" trajectory="Partner_XYZ_L 2"  />
+      <Constraint t="35.3" pos="-0.175" vel="0" acc="0" flag="1" trajectory="Partner_XYZ_L 1"  />
+      <Constraint t="35.3" pos="-0.2079" vel="0" acc="0" flag="1" trajectory="Partner_XYZ_L 0"  />
+      <Constraint t="35.6" pos="-0.2079" vel="0" acc="0" flag="1" trajectory="Partner_XYZ_L 0"  />
+      <Constraint t="36.8" pos="-0.28" vel="0" acc="0" flag="1" trajectory="Partner_XYZ_L 1"  />
+      <Constraint t="39.2" pos="0.415" vel="0" acc="0" flag="1" trajectory="Partner_XYZ_L 0"  />
+      <ConstraintSet type="PoseConstraint" t="41" pos="0.315 0.1188 0 -0 0 90" trajectory="Partner_XYZ_R Partner_ABC_R" />
+      <ConstraintSet type="PoseConstraint" t="41" pos="0.315 -0.1188 0 -0 0 90" trajectory="Partner_XYZ_L Partner_ABC_L" />
+    </ConstraintSet>
+    <ConstraintSet type="ActivationSet" >
+      <ConstraintSet type="PositionConstraint" t="47" pos="0 0 1.5708" trajectory="Phi_Box" />
+      <ConstraintSet type="PoseConstraint" t="47" pos="-0.315 -0.1188 0 20 1.59028e-15 -90" trajectory="XYZ_R ABC_R" />
+      <ConstraintSet type="PoseConstraint" t="47" pos="0.2079 0.18 0 2.55387e-15 20 180" trajectory="XYZ_L ABC_L" />
+    </ConstraintSet>
+    <ConstraintSet type="ActivationSet" >
+      <Constraint t="41.3" pos="0" vel="0" acc="0" flag="1" trajectory="Partner_XYZ_R 2"  />
+      <Constraint t="41.6" pos="0" vel="0" acc="0" flag="1" trajectory="Partner_XYZ_R 2"  />
+      <Constraint t="44" pos="0.15" vel="0" acc="0" flag="1" trajectory="Partner_XYZ_R 2"  />
+      <Constraint t="41.3" pos="0.31" vel="0" acc="0" flag="1" trajectory="Partner_XYZ_R 0"  />
+      <Constraint t="41.3" pos="0.1188" vel="0" acc="0" flag="1" trajectory="Partner_XYZ_R 1"  />
+      <Constraint t="41.6" pos="0.1188" vel="0" acc="0" flag="1" trajectory="Partner_XYZ_R 1"  />
+      <Constraint t="42.8" pos="0.415" vel="0" acc="0" flag="1" trajectory="Partner_XYZ_R 0"  />
+      <Constraint t="45.2" pos="0.28" vel="0" acc="0" flag="1" trajectory="Partner_XYZ_R 1"  />
+      <ConstraintSet type="PoseConstraint" t="47" pos="-0.2079 0.18 0 -0 0 180" trajectory="Partner_XYZ_R Partner_ABC_R" />
+      <ConstraintSet type="PoseConstraint" t="47" pos="0.315 -0.1188 0 -0 0 90" trajectory="Partner_XYZ_L Partner_ABC_L" />
+    </ConstraintSet>
+    <ConstraintSet type="ActivationSet" >
+      <ConstraintSet type="PositionConstraint" t="53" pos="0 0 3.14159" trajectory="Phi_Box" />
+      <ConstraintSet type="PoseConstraint" t="53" pos="-0.315 -0.1188 0 20 1.59028e-15 -90" trajectory="XYZ_R ABC_R" />
+      <ConstraintSet type="PoseConstraint" t="53" pos="0.2079 0.18 0 2.55387e-15 20 180" trajectory="XYZ_L ABC_L" />
+    </ConstraintSet>
+    <ConstraintSet type="ActivationSet" >
+      <ConstraintSet type="PoseConstraint" t="53" pos="-0.2079 0.18 0 -0 0 180" trajectory="Partner_XYZ_R Partner_ABC_R" />
+      <ConstraintSet type="PoseConstraint" t="53" pos="0.315 -0.1188 0 -0 0 90" trajectory="Partner_XYZ_L Partner_ABC_L" />
+    </ConstraintSet>
+    <ConstraintSet type="ActivationSet" >
+      <Constraint t="53.3" pos="0" vel="0" acc="0" flag="1" trajectory="XYZ_R 2"  />
+      <Constraint t="53.6" pos="0" vel="0" acc="0" flag="1" trajectory="XYZ_R 2"  />
+      <Constraint t="56" pos="0.15" vel="0" acc="0" flag="1" trajectory="XYZ_R 2"  />
+      <Constraint t="53.3" pos="-0.31" vel="0" acc="0" flag="1" trajectory="XYZ_R 0"  />
+      <Constraint t="53.3" pos="-0.1188" vel="0" acc="0" flag="1" trajectory="XYZ_R 1"  />
+      <Constraint t="53.6" pos="-0.1188" vel="0" acc="0" flag="1" trajectory="XYZ_R 1"  />
+      <Constraint t="54.8" pos="-0.415" vel="0" acc="0" flag="1" trajectory="XYZ_R 0"  />
+      <Constraint t="57.2" pos="0.28" vel="0" acc="0" flag="1" trajectory="XYZ_R 1"  />
+      <ConstraintSet type="PositionConstraint" t="59" pos="0 0 3.14159" trajectory="Phi_Box" />
+      <ConstraintSet type="PoseConstraint" t="59" pos="-0.2079 0.18 0 -2.55387e-15 -20 180" trajectory="XYZ_R ABC_R" />
+      <ConstraintSet type="PoseConstraint" t="59" pos="0.2079 0.18 0 2.55387e-15 20 180" trajectory="XYZ_L ABC_L" />
+    </ConstraintSet>
+    <ConstraintSet type="ActivationSet" >
+      <ConstraintSet type="PoseConstraint" t="59" pos="-0.2079 0.18 0 -0 0 180" trajectory="Partner_XYZ_R Partner_ABC_R" />
+      <ConstraintSet type="PoseConstraint" t="59" pos="0.315 -0.1188 0 -0 0 90" trajectory="Partner_XYZ_L Partner_ABC_L" />
+    </ConstraintSet>
+    <ConstraintSet type="ActivationSet" >
+      <ConstraintSet type="PositionConstraint" t="65" pos="0 0 3.14159" trajectory="Phi_Box" />
+      <ConstraintSet type="PoseConstraint" t="65" pos="-0.2079 0.18 0 -2.55387e-15 -20 180" trajectory="XYZ_R ABC_R" />
+      <ConstraintSet type="PoseConstraint" t="65" pos="0.2079 0.18 0 2.55387e-15 20 180" trajectory="XYZ_L ABC_L" />
+    </ConstraintSet>
+    <ConstraintSet type="ActivationSet" >
+      <Constraint t="59.3" pos="0" vel="0" acc="0" flag="1" trajectory="Partner_XYZ_L 2"  />
+      <Constraint t="59.6" pos="0" vel="0" acc="0" flag="1" trajectory="Partner_XYZ_L 2"  />
+      <Constraint t="62" pos="0.15" vel="0" acc="0" flag="1" trajectory="Partner_XYZ_L 2"  />
+      <Constraint t="59.3" pos="0.31" vel="0" acc="0" flag="1" trajectory="Partner_XYZ_L 0"  />
+      <Constraint t="59.3" pos="-0.1188" vel="0" acc="0" flag="1" trajectory="Partner_XYZ_L 1"  />
+      <Constraint t="59.6" pos="-0.1188" vel="0" acc="0" flag="1" trajectory="Partner_XYZ_L 1"  />
+      <Constraint t="60.8" pos="0.415" vel="0" acc="0" flag="1" trajectory="Partner_XYZ_L 0"  />
+      <Constraint t="63.2" pos="0.28" vel="0" acc="0" flag="1" trajectory="Partner_XYZ_L 1"  />
+      <ConstraintSet type="PoseConstraint" t="65" pos="-0.2079 0.18 0 -0 0 180" trajectory="Partner_XYZ_R Partner_ABC_R" />
+      <ConstraintSet type="PoseConstraint" t="65" pos="0.2079 0.18 0 -0 0 180" trajectory="Partner_XYZ_L Partner_ABC_L" />
+    </ConstraintSet>
+  </ConstraintSet>
+</ConstraintSet>

@@ -1,0 +1,60 @@
+  <Controller graph="gSimpleWheel.xml" >
+
+  <Task name="Wheel" controlVariable="Joints" jnts="WheelX WheelY WheelZ WheelFlip WheelRoll" active="true" />
+  <Task name="RobotRight" controlVariable="Joints" jnts="ContactRobotRightThZ ContactRobotRightThX ContactRobotRightRadial" active="true" />
+  <Task name="RobotLeft" controlVariable="Joints" jnts="ContactRobotLeftThZ ContactRobotLeftThX ContactRobotLeftRadial" active="true" />
+
+
+  <Task name="Sideways" controlVariable="X" effector="ImetronPlatform" refBdy="Wheel" refFrame="Lab Frame" active="true" />
+  <xxxxxTask name="Forward" controlVariable="Y" effector="ImetronPlatform" refBdy="Wheel" refFrame="Lab Frame" active="untrue" />
+  <xxxxxTask name="RotateZ" controlVariable="Joint" jnt="DofBaseThZ" active="untrue" />
+  <Task name="RobotRightConstraint" controlVariable="XYZABC" effector="WheelGrasp_R" refBdy="ContactRobotRight" active="true" />
+  <Task name="RobotLeftConstraint" controlVariable="XYZABC" effector="WheelGrasp_L" refBdy="ContactRobotLeft" active="true" />
+
+  <Task name="Fingers_L" controlVariable="Joints"
+  	jnts="fing3-knuck3_L tip3-fing3_L knuck1-base_L fing1-knuck1_L tip1-fing1_L fing2-knuck2_L tip2-fing2_L" active="true" />
+
+  <Task name="Fingers_R" controlVariable="Joints"
+  	jnts="fing3-knuck3_R tip3-fing3_R knuck1-base_R fing1-knuck1_R tip1-fing1_R fing2-knuck2_R tip2-fing2_R " active="true" />
+
+
+
+  <CollisionModel  DistanceThreshold="0.14" >
+
+    <CollisionPair body1="ImetronPlatform" body2="WheelPole" DistanceThreshold="0.6" weight="1"/>
+    <CollisionPair body1="ImetronPlatform" body2="WheelStand" DistanceThreshold="0.6" weight="1"/>
+                   
+    <CollisionPair body1="Base"         body2="lbr_link_2_L" DistanceThreshold="0.08" />
+    <CollisionPair body1="Base"         body2="lbr_link_3_L" DistanceThreshold="0.08" />
+    <CollisionPair body1="Base"         body2="lbr_link_4_L" />
+    <CollisionPair body1="Base"         body2="lbr_link_5_L" />
+    <CollisionPair body1="Base"         body2="lbr_link_6_L" />
+    <CollisionPair body1="Base"         body2="lbr_link_7_L" />
+    <CollisionPair body1="Base"         body2="sdh-base_L"   />
+
+    <CollisionPair body1="Base"         body2="lbr_link_2_R" DistanceThreshold="0.08" />
+    <CollisionPair body1="Base"         body2="lbr_link_3_R" DistanceThreshold="0.08" />
+    <CollisionPair body1="Base"         body2="lbr_link_4_R" />
+    <CollisionPair body1="Base"         body2="lbr_link_5_R" />
+    <CollisionPair body1="Base"         body2="lbr_link_6_R" />
+    <CollisionPair body1="Base"         body2="lbr_link_7_R" />
+    <CollisionPair body1="Base"         body2="sdh-base_R"   />
+
+    <CollisionPair body1="lbr_link_2_L" body2="lbr_link_6_L" />
+    <CollisionPair body1="lbr_link_2_L" body2="lbr_link_7_L" />
+    <CollisionPair body1="lbr_link_2_L" body2="sdh-base_L"   />
+    <CollisionPair body1="lbr_link_3_L" body2="lbr_link_7_L" />
+    <CollisionPair body1="lbr_link_2_R" body2="lbr_link_6_R" />
+    <CollisionPair body1="lbr_link_2_R" body2="lbr_link_7_R" />
+    <CollisionPair body1="lbr_link_2_R" body2="sdh-base_R"   />
+    <CollisionPair body1="lbr_link_3_R" body2="lbr_link_7_R" />
+
+    <CollisionPair body1="lbr_link_3_L" body2="lbr_link_3_R" />
+    <CollisionPair body1="lbr_link_4_L" body2="lbr_link_4_R" />
+    <CollisionPair body1="lbr_link_5_L" body2="lbr_link_5_R" />
+    <CollisionPair body1="lbr_link_6_L" body2="lbr_link_6_R" />
+    <CollisionPair body1="lbr_link_7_L" body2="lbr_link_7_R" />
+    <CollisionPair body1="sdh-base_L"   body2="sdh-base_R"   DistanceThreshold="0.1" />
+  </CollisionModel>
+
+  </Controller>

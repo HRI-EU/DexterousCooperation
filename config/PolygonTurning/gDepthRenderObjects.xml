@@ -1,0 +1,47 @@
+<Graph xmlns:xi="http://www.w3.org/2003/XInclude" resourcePath="${SIT}/Data/RobotMeshes/1.0/data" >
+
+
+  
+  <!-- The one and only Miimo box
+  <Body name="MiimoBox" mass="10" physics="dynamic" transform="1.75 0.05 1.25 90 -90 0" color="PUREWHITE" >
+    <Shape type="BOX" extents="0.63 0.36 0.96 " depth="true" graphics="false" physics="false" distance="true" />
+  </Body>
+ -->
+  
+  <!-- A nice table with curved legs
+  <Body name="CurvedTable" mass="10" physics="dynamic" transform="1.6 0.05 0.4 0 0 0" color="PUREWHITE" > 
+    <Shape type="MESH" meshFile="furniture/table.stl" scale="0.0008" depth="true" graphics="false" physics="false" distance="true" />
+    <Shape type="MESH" meshFile="furniture/table.stl" scale="0.000008 0.0008 0.0008" depth="true" graphics="false" physics="false" distance="true" />
+  </Body>
+ -->
+   
+ <!-- The monks bench
+ <Body name="MonksBench" mass="10" physics="dynamic" transform="1.6 0 0.4 0 0 0" color="PUREWHITE" >
+    <Shape type="MESH" meshFile="furniture/19830_Monks_Bench_v1.stl" scale="0.1" depth="true" graphics="false" physics="false" distance="true"
+           transform="0.66 0 0 0 0 0" />
+    <Shape type="MESH" meshFile="furniture/19830_Monks_Bench_v1.stl" scale="0.0001 0.1 0.1" depth="true" graphics="false" physics="false" distance="true" />
+  </Body>
+ -->
+
+  <!-- A nice curved arm chair -->
+  <Body name="ArmChair" mass="10" physics="dynamic" color="PUREWHITE" transform="1.6 0 0.3 0 0 0" > 
+    <Shape type="MESH" meshFile="furniture/12285_Chair_v1_l2.stl" scale="0.008" depth="true" graphics="false" physics="false" distance="true"
+           transform="0.25 0 0 0 0 0" />
+    <Shape type="MESH" meshFile="furniture/12285_Chair_v1_l2.stl" scale="0.0001 0.008 0.008" depth="true" graphics="false" physics="false" distance="true" />
+  </Body>
+
+
+  <!-- A big cabinet
+  <Body name="Cabinet" mass="10" physics="dynamic" color="PUREWHITE" transform="2.5 0.05 0.4 0 0 0" > 
+    <Shape type="MESH" meshFile="furniture/20363_Hoosier_cabinet_v1 Textured.stl" scale="0.15" depth="true" graphics="false" physics="false" distance="true" />
+    <Shape type="MESH" meshFile="furniture/20363_Hoosier_cabinet_v1 Textured.stl" scale="0.001 0.15 0.15" depth="true" graphics="false" physics="false" distance="true"
+           transform="-0.6 0 0 0 0 0" />
+  </Body>
+ -->
+
+
+
+
+
+
+</Graph>

@@ -1,0 +1,167 @@
+<!-- 
+  Copyright (c) 2020, Honda Research Institute Europe GmbH.
+  All rights reserved.
+
+  Redistribution and use in source and binary forms, with or without
+  modification, are permitted provided that the following conditions are met:
+
+  1. Redistributions of source code must retain the above copyright notice,
+     this list of conditions and the following disclaimer.
+
+  2. Redistributions in binary form must reproduce the above copyright notice,
+     this list of conditions and the following disclaimer in the documentation
+     and/or other materials provided with the distribution.
+
+  3. Neither the name of the copyright holder nor the names of its
+     contributors may be used to endorse or promote products derived from
+     this software without specific prior written permission.
+
+  4. Neither the name of the copyright holder nor the names of its
+     contributors may be used to endorse or promote products derived from
+     this software without specific prior written permission.
+
+  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDER "AS IS" AND ANY EXPRESS OR
+  IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
+  OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
+  IN NO EVENT SHALL THE COPYRIGHT HOLDER BE LIABLE FOR ANY DIRECT, INDIRECT,
+  INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+  LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA,
+  OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+  LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+  NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+  EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+-->
+
+
+<Controller
+usage="
+&#xA;  Configuration file to illustrate the coupling between poses.
+&#xA; 
+&#xA;  Here is how to start an example:
+&#xA;  
+&#xA;  bin/Rcs -m 5 -alpha 1 -algo 1 -lambda 1.0e-8 -f config/xml/DexterousCooperation/PoseGraph/cLightTraverse.xml -setDefaultStateFromInit
+" >
+
+<Graph xmlns:xi="http://www.w3.org/2003/XInclude" name="DefaultPose" >
+
+  <Body name="Lab Frame" physics="kinematic" >
+    <Shape type="BOX" extents="6 6 0.04" distance="true" physics="true" graphics="true" transform="0 0 -0.02 0 0 0" color="PEWTER" />
+    <Shape type="FRAME" />
+  </Body>
+
+  <Group name="_1" transform="0 -2 0 0 0 0" prev="Lab Frame" >
+    <xi:include href="gHandTraverse.xml" />
+  </Group >
+
+  <Group name="_1" transform="1.5 -1.6 0.59285 0 0 0" prev="Lab Frame" >
+    <xi:include href="gRoboTraverse.xml" />
+  </Group >
+
+
+  
+  <Group name="_2" transform="0 -1 0 0 0 0" prev="Lab Frame" >
+    <xi:include href="gHandTraverse.xml" />
+  </Group >
+
+  <Group name="_2" transform="1.5 -0.6 0.59285 0 0 0" prev="Lab Frame" >
+    <xi:include href="gRoboTraverse.xml" />
+  </Group >
+
+
+  
+  <Group name="_3" transform="0 0 0 0 0 0" prev="Lab Frame" >
+    <xi:include href="gHandTraverse.xml" />
+  </Group >
+
+  <Group name="_3" transform="1.5 0.4 0.59285 0 0 0" prev="Lab Frame" >
+    <xi:include href="gRoboTraverse.xml" />
+  </Group >
+
+
+
+  <Group name="_4" transform="0 1 0 0 0 0" prev="Lab Frame" >
+     <xi:include href="gHandTraverse.xml" />
+   </Group >
+   
+  <Group name="_4" transform="1.5 1.4 0.59285 0 0 0" prev="Lab Frame" >
+    <xi:include href="gRoboTraverse.xml" />
+  </Group >
+
+
+
+  <Group name="_5" transform="0 2 0 0 0 0" prev="Lab Frame" >
+     <xi:include href="gHandTraverse.xml" />
+   </Group >
+   
+  <Group name="_5" transform="1.5 2.4 0.59285 0 0 0" prev="Lab Frame" >
+    <xi:include href="gRoboTraverse.xml" />
+  </Group >
+
+
+<model_state model="DefaultPose" time_stamp="">
+  <joint_state joint="m4-m5_1" position="28.685244" />
+  <joint_state joint="m6-m7_1" position="128.37606" />
+  <joint_state joint="m8-m9_1" position="-67.061303" />
+
+  <joint_state joint="m4-m5_2" position="28.685244" />
+  <joint_state joint="m6-m7_2" position="128.37606" />
+  <joint_state joint="m8-m9_2" position="-67.061303" />
+
+  <joint_state joint="m4-m5_3" position="28.685244" />
+  <joint_state joint="m6-m7_3" position="128.37606" />
+  <joint_state joint="m8-m9_3" position="-67.061303" />
+
+  <joint_state joint="m4-m5_4" position="28.685244" />
+  <joint_state joint="m6-m7_4" position="128.37606" />
+  <joint_state joint="m8-m9_4" position="-67.061303" />
+
+  <joint_state joint="m4-m5_5" position="28.685244" />
+  <joint_state joint="m6-m7_5" position="128.37606" />
+  <joint_state joint="m8-m9_5" position="-67.061303" />
+</model_state>
+
+
+  
+</Graph>
+
+
+
+<!-- Traverse fixed - hand fixed -->
+<Task name="Traverse_1" controlVariable= "Joints" jnts="DofTraverse_X_1 DofTraverse_Y_1 DofTraverse_ThZ_1" active="true" hide="ntrue" />
+<Task name="Hand_1 Pose" controlVariable= "XYZABC" effector="PowerGrasp_R_1" refBdy="Traverse_1" active="true" hide="true" />
+<Task name="RoboConstraint_1" controlVariable= "XYZABC" effector="m10_1" refBdy="PowerGrasp_R_1" active="true" hide="true" />
+
+
+<!-- Traverse fixed - hand slides -->
+<Task name="Traverse_2" controlVariable= "Joints" jnts="DofTraverse_X_2 DofTraverse_Y_2 DofTraverse_ThZ_2" refJnts="DofTraverse_X_1 DofTraverse_Y_1 DofTraverse_ThZ_1" refGains="-1" active="true" hide="true" />
+<Task name="Hand_2 Y" controlVariable= "Y" effector="PowerGrasp_R_2" refBdy="Traverse_2" active="true" hide="true" />
+<Task name="Hand_2 Z" controlVariable= "Z" effector="PowerGrasp_R_2" refBdy="Traverse_2" active="true" hide="true" />
+<Task name="Hand_2 Polar" controlVariable= "POLAR" effector="PowerGrasp_R_2" refBdy="Traverse_2" active="true"  hide="true" />
+<Task name="RoboConstraint_2" controlVariable= "XYZABC" effector="m10_2" refBdy="PowerGrasp_R_2" active="true" hide="true" />
+
+
+<!-- Hand fixed - traverse slides -->
+<Task name="Hand_3 XYZ" controlVariable= "Joints" xxeffector="PowerGrasp_R_3" xxrefBdy="PowerGrasp_R_2" jnts="plx_3 ply_3 plz_3 pla_3 plb_3 plc_3" refJnts="plx_2 ply_2 plz_2 pla_2 plb_2 plc_2" refGains="-1" active="true" hide="true"/>
+<Task name="Hand_3 Polar" controlVariable= "POLAR" effector="PowerGrasp_R_3" refBdy="Traverse_3" active="true" hide="true" />
+<Task name="RoboConstraint_3" controlVariable= "XYZABC" effector="m10_3" refBdy="PowerGrasp_R_3" active="true" hide="true" />
+
+
+<!-- Traverse fixed - hand slides -->
+<Task name="Traverse_4" controlVariable= "Joints" jnts="DofTraverse_X_4 DofTraverse_Y_4 DofTraverse_ThZ_4" refJnts="DofTraverse_X_3 DofTraverse_Y_3 DofTraverse_ThZ_3" refGains="-1" active="true" hide="true" />
+<Task name="Hand_4 Y" controlVariable= "Y" effector="PowerGrasp_R_4" refBdy="Traverse_4" active="true" hide="true" />
+<Task name="Hand_4 Z" controlVariable= "Z" effector="PowerGrasp_R_4" refBdy="Traverse_4" active="true" hide="true" />
+<Task name="Hand_4 Polar" controlVariable= "POLAR" effector="PowerGrasp_R_4" refBdy="Traverse_4" active="true"  hide="true"/>
+<Task name="RoboConstraint_4" controlVariable= "XYZABC" effector="m10_4" refBdy="PowerGrasp_R_4" active="true" hide="true" />
+
+
+<!-- Hand fixed - traverse slides -->
+<Task name="Traverse_5 X" controlVariable= "X" effector="Traverse_5" active="true" guiMin="-3" guiMax="3" />
+<xxTask name="Traverse_5 X" controlVariable= "X" effector="PowerGrasp_R_5" refBdy="Traverse_5" active="true" guiMin="-3" guiMax="3" />
+<Task name="Traverse_5 Y" controlVariable= "Y" effector="Traverse_5" active="true" />
+<Task name="Traverse_5 ThZ" controlVariable= "Joint" jnt="DofTraverse_ThZ_5" xxrefJnt="DofTraverse_ThZ_4" refGain="-1" active="true" guiMin="-400" guiMax="400" />
+<Task name="Hand_5 XYZ" controlVariable= "Joints" xxeffector="PowerGrasp_R_5" xxrefBdy="PowerGrasp_R_4"  jnts="plx_5 ply_5 plz_5 pla_5 plb_5 plc_5" refJnts="plx_4 ply_4 plz_4 pla_4 plb_4 plc_4" refGains="-1" active="true" hide="true"/>
+<Task name="Hand_5 Polar" controlVariable= "POLAR" effector="PowerGrasp_R_5" refBdy="Traverse_5" active="true" hide="true" />
+<Task name="RoboConstraint_5" controlVariable= "XYZABC" effector="m10_5" refBdy="PowerGrasp_R_5" active="true" hide="true" />
+
+
+</Controller>

@@ -1,0 +1,1924 @@
+<Controller
+    usage="
+&#xA;  Configuration file to illustrate the coupling between poses.
+&#xA; 
+&#xA;  Here is how to start an example:
+&#xA;  
+&#xA;  bin/Rcs -m 5 -alpha 1 -algo 1 -lambda 0 -f config/xml/DexterousCooperation/PoseGraph/cSequenceBox.xml -dt 0.025
+" >
+
+<Graph name="DefaultPose" resourcePath="${SIT}/Data/RobotMeshes/1.0/data" >
+
+  <Body name="Lab Frame" physics="kinematic" >
+    <Shape type="BOX" extents="6 6 0.04" distance="true" physics="true" graphics="true" transform="0 0 -0.02 0 0 0" color="PEWTER" />
+    <Shape type="FRAME" />
+  </Body>
+
+  <Body name="ImetronPlatform" prev="Lab Frame" mass="100" inertia="13.6042 0 0   0 6.60419 0   0 0 19.0417" >
+    <Joint name="DofBaseX" range="-4 0.019695 4" weightJL="0" weightMetric="0.5" type="TransX" />
+    <Joint name="DofBaseY" range="-1.5 -0.005744 1.5" weightMetric="0.01" type="TransY" />
+    <Joint name="DofBaseThZ" range="-60 0 60" weightMetric="0.001" type="RotZ" />
+    <Shape type="SSR" extents="0.85 1.25 0.28" distance="true" physics="false" graphics="false" transform="0 0 0.14 0 0 0" color="DARKGRAY" />
+    <Shape type="BOX" extents="0.85 1.25 0.2" distance="false" physics="true" graphics="true" transform="0 0 0.1 0 0 0" color="DARKGRAY" />
+  </Body>
+
+  <Body name="Base" prev="ImetronPlatform" transform="0 0 0.2 0 0 180" mass="80" inertia="25.4419 0 -0.247227   0 26.1432 0   -0.247227 0 2.90573" >
+    <Shape type="SSL" length="0.2" radius="0.08" distance="true" physics="false" graphics="false" transform="-0.02 0 0.1 0 0 0" color="BLUE" />
+    <Shape type="SSL" length="1.65" radius="0.2" distance="true" physics="false" graphics="false" transform="0.17 0 0 0 0 0" color="BLUE" />
+    <Shape type="SSL" length="0.72" radius="0.08" distance="true" physics="false" graphics="false" transform="0.36 0.18 0.17 0 -90 0" color="BLUE" />
+    <Shape type="SSL" length="0.72" radius="0.08" distance="true" physics="false" graphics="false" transform="0.36 -0.18 0.17 0 -90 0" color="BLUE" />
+    <Shape type="BOX" extents="0.07 0.16 1.6" distance="false" physics="false" graphics="true" transform="0.245 0 0.85 0 0 0" color="DARKGRAY" />
+    <Shape type="BOX" extents="0.16 0.32 1.7" distance="false" physics="true" graphics="true" transform="0.13 0 0.85 0 0 0" />
+    <Shape type="BOX" extents="0.04 1.25 0.08" distance="false" physics="true" graphics="true" transform="-0.405 0 0.04 0 0 0" />
+    <Shape type="BOX" extents="0.04 1.25 0.08" distance="false" physics="true" graphics="true" transform="0.405 0 0.04 0 0 0" />
+    <Shape type="BOX" extents="0.77 0.04 0.24" distance="false" physics="true" graphics="true" transform="0 0.18 0.12 0 0 0" />
+    <Shape type="BOX" extents="0.77 0.04 0.24" distance="false" physics="true" graphics="true" transform="0 -0.18 0.12 0 0 0" />
+    <Shape type="SSR" extents="0.55 0.33 0.1" distance="true" physics="false" graphics="false" transform="-0.09 0 1.275 0 85 0" color="BLACK_RUBBER" />
+    <Shape type="BOX" extents="0.07 0.36 0.55" distance="false" physics="false" graphics="true" transform="-0.09 0 1.275 0 -5 0" color="BLACK_RUBBER" />
+    <Shape type="BOX" extents="0.001 0.33 0.52" distance="false" physics="false" graphics="true" transform="-0.125 0 1.275 0 -5 0" color="PUREWHITE" />
+    <Shape type="BOX" extents="0.001 0.33 0.2" distance="false" physics="false" graphics="true" transform="-0.1254 0 1.275 0 -5 0" />
+  </Body>
+
+  <Body name="RailBot" prev="Base" transform="0.209 0 0 0 0 0" mass="20" inertia="0.97802 -0.0116595 -0.0403039   -0.0116595 0.366192 0.0428657   -0.0403039 0.0428657 0.736717" >
+    <Joint name="DofChestZ" range="0.5 0.803058 1" weightJL="0.75" weightMetric="0.2" type="TransZ" transform="0 0 0.375 0 0 0" />
+    <Shape type="MESH" distance="false" physics="false" graphics="true" scale="0.001" transform="0 0 0 180 0 -90" meshFile="DexBot/LinearSlide.stl" />
+    <Shape type="MESH" distance="false" physics="false" graphics="true" scale="0.001" transform="0.085 0 -0.2 0 0 0" meshFile="DexBot/Slide-Simple.stl" />
+    <Shape type="MESH" distance="false" physics="false" graphics="true" scale="0.001" transform="0.203 0.101 -0.05 -90 0 165" meshFile="DexBot/Wing-Simple.stl" />
+    <Shape type="MESH" distance="false" physics="false" graphics="true" scale="0.001" transform="0.135 -0.101 0.2 90 0 -165" meshFile="DexBot/Wing-Simple.stl" />
+    <Shape type="BOX" extents="0.04 0.75 0.2" distance="false" physics="true" graphics="false" transform="0.17 0 0.1 0 0 0" />
+    <Shape type="FRAME" scale="0.5" />
+  </Body>
+
+  <Body name="lbr_link_0_L" prev="RailBot" transform="0.125 -0.247635 0.0675 134.01 -68.91 -44.01" physics="kinematic" mass="5" inertia="0.05 0 0   0 0.06 0   0 0 0.03" >
+    <Shape type="SSL" length="0.08" radius="0.125" distance="true" physics="false" graphics="false" color="PEWTER" />
+    <Shape type="MESH" distance="false" physics="false" graphics="true" meshFile="iiwa_description/meshes/iiwa14/visual/link_0.stl" color="ORANGE" />
+    <Shape type="MESH" distance="false" physics="true" graphics="false" meshFile="iiwa_description/meshes/iiwa14/collision/link_0_hull.tri" color="ORANGE" />
+  </Body>
+
+  <Body name="lbr_link_1_L" prev="lbr_link_0_L" physics="dynamic" mass="4" inertia="0.1 0 0   0 0.09 0   0 0 0.02" >
+    <Joint name="lbr_joint_1_L" range="-165 15.013332 165" type="RotZ" transform="0 0 0.1575 0 0 0" speedLimit="85" ctrlType="Torque" />
+    <Shape type="SSL" length="0.2" radius="0.09" distance="true" physics="false" graphics="false" transform="0 0 0 10 0 0" color="GREEN" />
+    <Shape type="MESH" distance="false" physics="false" graphics="true" meshFile="iiwa_description/meshes/iiwa14/visual/link_1.stl" color="ORANGE" />
+    <Shape type="MESH" distance="false" physics="true" graphics="false" meshFile="iiwa_description/meshes/iiwa14/collision/link_1_hull.tri" color="ORANGE" />
+    <Sensor name="lbr_joint_1_torque_L" type="JOINTTORQUE" />
+  </Body>
+
+  <Body name="lbr_link_2_L" prev="lbr_link_1_L" physics="dynamic" mass="4" cogVector="0.0003 0.059 0.042" inertia="0.05 0 0   0 0.018 0   0 0 0.044" >
+    <Joint name="lbr_joint_2_L" range="-115 51.311032 115" weightMetric="0.5" type="RotZ" transform="0 0 0.2025 -90 0 180" speedLimit="85" ctrlType="Torque" />
+    <Shape type="SSL" length="0.2" radius="0.09" distance="true" physics="false" graphics="false" transform="0 0 0.05 -100 0 0" color="COPPER" />
+    <Shape type="MESH" distance="false" physics="false" graphics="true" meshFile="iiwa_description/meshes/iiwa14/visual/link_2.stl" color="ORANGE" />
+    <Shape type="MESH" distance="false" physics="true" graphics="false" meshFile="iiwa_description/meshes/iiwa14/collision/link_2_hull.tri" color="ORANGE" />
+    <Sensor name="lbr_joint_2_torque_L" type="JOINTTORQUE" />
+  </Body>
+
+  <Body name="lbr_link_3_L" prev="lbr_link_2_L" physics="dynamic" mass="3" inertia="0.08 0 0   0 0.075 0   0 0 0.01" >
+    <Joint name="lbr_joint_3_L" range="-165 35.130674 165" type="RotZ" transform="0 0.2045 0 -90 0 180" speedLimit="100" ctrlType="Torque" />
+    <Shape type="SSL" length="0.22" radius="0.08" distance="true" physics="false" graphics="false" transform="0 0 0 -10 0 0" color="RED" />
+    <Shape type="MESH" distance="false" physics="false" graphics="true" meshFile="iiwa_description/meshes/iiwa14/visual/link_3.stl" color="ORANGE" />
+    <Shape type="MESH" distance="false" physics="true" graphics="false" meshFile="iiwa_description/meshes/iiwa14/collision/link_3_hull.tri" color="ORANGE" />
+    <Sensor name="lbr_joint_3_torque_L" type="JOINTTORQUE" />
+  </Body>
+
+  <Body name="lbr_link_4_L" prev="lbr_link_3_L" physics="dynamic" mass="2.7" inertia="0.03 0 0   0 0.01 0   0 0 0.029" >
+    <Joint name="lbr_joint_4_L" range="-115 75.200525 115" weightJL="2" type="RotZ" transform="0 0 0.2155 90 0 0" speedLimit="75" ctrlType="Torque" />
+    <Shape type="SSL" length="0.15" radius="0.08" distance="true" physics="false" graphics="false" transform="0 0 0.04 -105 0 0" color="PEWTER" />
+    <Shape type="MESH" distance="false" physics="false" graphics="true" meshFile="iiwa_description/meshes/iiwa14/visual/link_4.stl" color="ORANGE" />
+    <Shape type="MESH" distance="false" physics="true" graphics="false" meshFile="iiwa_description/meshes/iiwa14/collision/link_4_hull.tri" color="ORANGE" />
+    <Sensor name="lbr_joint_4_torque_L" type="JOINTTORQUE" />
+  </Body>
+
+  <Body name="lbr_link_5_L" prev="lbr_link_4_L" physics="dynamic" mass="1.7" cogVector="0.0001 0.021 0.076" inertia="0.02 0 0   0 0.018 0   0 0 0.005" >
+    <Joint name="lbr_joint_5_L" range="-165 -57.743675 165" type="RotZ" transform="0 0.1845 0 -90 0 -180" speedLimit="130" ctrlType="Torque" />
+    <Shape type="SSL" length="0.21" radius="0.075" distance="true" physics="false" graphics="false" transform="0 0 0 -10 0 0" color="GREEN" />
+    <Shape type="MESH" distance="false" physics="false" graphics="true" meshFile="iiwa_description/meshes/iiwa14/visual/link_5.stl" color="ORANGE" />
+    <Shape type="MESH" distance="false" physics="true" graphics="false" meshFile="iiwa_description/meshes/iiwa14/collision/link_5_hull.tri" color="ORANGE" />
+    <Sensor name="lbr_joint_5_torque_L" type="JOINTTORQUE" />
+  </Body>
+
+  <Body name="lbr_link_6_L" prev="lbr_link_5_L" physics="dynamic" mass="1.8" inertia="0.005 0 0   0 0.0036 0   0 0 0.0047" >
+    <Joint name="lbr_joint_6_L" range="-115 -6.529904 115" weightMetric="0.5" type="RotZ" transform="0 0 0.2155 90 0 0" speedLimit="135" ctrlType="Torque" />
+    <Shape type="SSL" length="0.1" radius="0.065" distance="true" physics="false" graphics="false" transform="0 -0.03 0.01 -95 0 0" color="COPPER" />
+    <Shape type="MESH" distance="false" physics="false" graphics="true" meshFile="iiwa_description/meshes/iiwa14/visual/link_6.stl" color="ORANGE" />
+    <Shape type="MESH" distance="false" physics="true" graphics="false" meshFile="iiwa_description/meshes/iiwa14/collision/link_6_hull.tri" color="ORANGE" />
+    <Sensor name="lbr_joint_6_torque_L" type="JOINTTORQUE" />
+  </Body>
+
+  <Body name="lbr_link_7_L" prev="lbr_link_6_L" physics="dynamic" mass="0.3" inertia="0.001 0 0   0 0.001 0   0 0 0.001" >
+    <Joint name="lbr_joint_7_L" range="-170 -45.898067 170" type="RotZ" transform="0 0.081 0 -90 0 -180" speedLimit="135" ctrlType="Torque" />
+    <Shape type="MESH" distance="false" physics="false" graphics="true" meshFile="iiwa_description/meshes/iiwa14/visual/link_7.stl" color="ORANGE" />
+    <Shape type="MESH" distance="false" physics="true" graphics="false" meshFile="iiwa_description/meshes/iiwa14/collision/link_7_hull.tri" color="ORANGE" />
+    <Shape type="CYLINDER" length="0.0361" radius="0.029" distance="false" physics="true" graphics="true" transform="0 0 0.06305 0 0 0" color="GRAY" />
+    <Shape type="CYLINDER" length="0.0148" radius="0.045" distance="false" physics="true" graphics="true" transform="0 0 0.0885 0 0 0" color="GRAY" />
+    <Shape type="CYLINDER" length="0.0748" radius="0.045" distance="false" physics="true" graphics="true" transform="0 0 0.1333 0 0 0" color="GRAY" />
+    <Shape type="SSL" length="0.15" radius="0.045" distance="true" physics="false" graphics="false" color="RED" />
+    <Sensor name="lbr_joint_7_torque_L" type="JOINTTORQUE" />
+  </Body>
+
+  <Body name="sdh-base_L" prev="lbr_link_7_L" transform="0 0 0.171 0 0 75" physics="fixed" mass="1.054" inertia="0.001757 0 0   0 0.001757 0   0 0 0.001757" >
+    <Shape type="MESH" distance="false" physics="false" graphics="true" transform="0 0 0.049 0 0 0" meshFile="Schunk/SDH_Gehaeuse_x.tri" />
+    <Shape type="MESH" distance="false" physics="true" graphics="false" transform="0 0 0.049 0 0 0" meshFile="Schunk/SDH_Gehaeuse_x.tri" />
+    <Shape type="SSL" length="0.02" radius="0.065" distance="true" physics="false" graphics="false" transform="0 0 0.02 0 0 0" color="RED" />
+    <Shape type="MESH" distance="false" physics="false" graphics="true" transform="-0.038105 0 0.072 90 -90 0" meshFile="Schunk/SDH_Gelenk_Finger1_x.tri" />
+    <Sensor name="WristLoadCellLBR_L" type="LOADCELL" transform="0 0 0 0 0 -165" />
+  </Body>
+
+  <Body name="HandLink_L" prev="sdh-base_L" transform="0 0 0.1 180 0 90" >
+    <Shape type="FRAME" scale="0.2" />
+  </Body>
+
+  <Body name="lbr_link_0_R" prev="RailBot" transform="0.125 0.247835 0.059 -134.01 -68.91 -135.99" physics="kinematic" mass="5" inertia="0.05 0 0   0 0.06 0   0 0 0.03" >
+    <Shape type="SSL" length="0.08" radius="0.125" distance="true" physics="false" graphics="false" color="PEWTER" />
+    <Shape type="MESH" distance="false" physics="false" graphics="true" meshFile="iiwa_description/meshes/iiwa14/visual/link_0.stl" color="ORANGE" />
+    <Shape type="MESH" distance="false" physics="true" graphics="false" meshFile="iiwa_description/meshes/iiwa14/collision/link_0_hull.tri" color="ORANGE" />
+  </Body>
+
+  <Body name="lbr_link_1_R" prev="lbr_link_0_R" physics="dynamic" mass="4" inertia="0.1 0 0   0 0.09 0   0 0 0.02" >
+    <Joint name="lbr_joint_1_R" range="-165 -12.486547 165" type="RotZ" transform="0 0 0.1575 0 0 0" speedLimit="85" ctrlType="Torque" />
+    <Shape type="SSL" length="0.2" radius="0.09" distance="true" physics="false" graphics="false" transform="0 0 0 10 0 0" color="GREEN" />
+    <Shape type="MESH" distance="false" physics="false" graphics="true" meshFile="iiwa_description/meshes/iiwa14/visual/link_1.stl" color="ORANGE" />
+    <Shape type="MESH" distance="false" physics="true" graphics="false" meshFile="iiwa_description/meshes/iiwa14/collision/link_1_hull.tri" color="ORANGE" />
+    <Sensor name="lbr_joint_1_torque_R" type="JOINTTORQUE" />
+  </Body>
+
+  <Body name="lbr_link_2_R" prev="lbr_link_1_R" physics="dynamic" mass="4" cogVector="0.0003 0.059 0.042" inertia="0.05 0 0   0 0.018 0   0 0 0.044" >
+    <Joint name="lbr_joint_2_R" range="-115 -52.033523 115" weightMetric="0.5" type="RotZ" transform="0 0 0.2025 -90 0 180" speedLimit="85" ctrlType="Torque" />
+    <Shape type="SSL" length="0.2" radius="0.09" distance="true" physics="false" graphics="false" transform="0 0 0.05 -100 0 0" color="COPPER" />
+    <Shape type="MESH" distance="false" physics="false" graphics="true" meshFile="iiwa_description/meshes/iiwa14/visual/link_2.stl" color="ORANGE" />
+    <Shape type="MESH" distance="false" physics="true" graphics="false" meshFile="iiwa_description/meshes/iiwa14/collision/link_2_hull.tri" color="ORANGE" />
+    <Sensor name="lbr_joint_2_torque_R" type="JOINTTORQUE" />
+  </Body>
+
+  <Body name="lbr_link_3_R" prev="lbr_link_2_R" physics="dynamic" mass="3" inertia="0.08 0 0   0 0.075 0   0 0 0.01" >
+    <Joint name="lbr_joint_3_R" range="-165 -34.787304 165" type="RotZ" transform="0 0.2045 0 -90 0 180" speedLimit="100" ctrlType="Torque" />
+    <Shape type="SSL" length="0.22" radius="0.08" distance="true" physics="false" graphics="false" transform="0 0 0 -10 0 0" color="RED" />
+    <Shape type="MESH" distance="false" physics="false" graphics="true" meshFile="iiwa_description/meshes/iiwa14/visual/link_3.stl" color="ORANGE" />
+    <Shape type="MESH" distance="false" physics="true" graphics="false" meshFile="iiwa_description/meshes/iiwa14/collision/link_3_hull.tri" color="ORANGE" />
+    <Sensor name="lbr_joint_3_torque_R" type="JOINTTORQUE" />
+  </Body>
+
+  <Body name="lbr_link_4_R" prev="lbr_link_3_R" physics="dynamic" mass="2.7" inertia="0.03 0 0   0 0.01 0   0 0 0.029" >
+    <Joint name="lbr_joint_4_R" range="-115 -76.348822 115" weightJL="2" type="RotZ" transform="0 0 0.2155 90 0 0" speedLimit="75" ctrlType="Torque" />
+    <Shape type="SSL" length="0.15" radius="0.08" distance="true" physics="false" graphics="false" transform="0 0 0.04 -105 0 0" color="PEWTER" />
+    <Shape type="MESH" distance="false" physics="false" graphics="true" meshFile="iiwa_description/meshes/iiwa14/visual/link_4.stl" color="ORANGE" />
+    <Shape type="MESH" distance="false" physics="true" graphics="false" meshFile="iiwa_description/meshes/iiwa14/collision/link_4_hull.tri" color="ORANGE" />
+    <Sensor name="lbr_joint_4_torque_R" type="JOINTTORQUE" />
+  </Body>
+
+  <Body name="lbr_link_5_R" prev="lbr_link_4_R" physics="dynamic" mass="1.7" cogVector="0.0001 0.021 0.076" inertia="0.02 0 0   0 0.018 0   0 0 0.005" >
+    <Joint name="lbr_joint_5_R" range="-165 63.740089 165" type="RotZ" transform="0 0.1845 0 -90 0 -180" speedLimit="130" ctrlType="Torque" />
+    <Shape type="SSL" length="0.21" radius="0.075" distance="true" physics="false" graphics="false" transform="0 0 0 -10 0 0" color="GREEN" />
+    <Shape type="MESH" distance="false" physics="false" graphics="true" meshFile="iiwa_description/meshes/iiwa14/visual/link_5.stl" color="ORANGE" />
+    <Shape type="MESH" distance="false" physics="true" graphics="false" meshFile="iiwa_description/meshes/iiwa14/collision/link_5_hull.tri" color="ORANGE" />
+    <Sensor name="lbr_joint_5_torque_R" type="JOINTTORQUE" />
+  </Body>
+
+  <Body name="lbr_link_6_R" prev="lbr_link_5_R" physics="dynamic" mass="1.8" inertia="0.005 0 0   0 0.0036 0   0 0 0.0047" >
+    <Joint name="lbr_joint_6_R" range="-115 4.519144 115" weightMetric="0.5" type="RotZ" transform="0 0 0.2155 90 0 0" speedLimit="135" ctrlType="Torque" />
+    <Shape type="SSL" length="0.1" radius="0.065" distance="true" physics="false" graphics="false" transform="0 -0.03 0.01 -95 0 0" color="COPPER" />
+    <Shape type="MESH" distance="false" physics="false" graphics="true" meshFile="iiwa_description/meshes/iiwa14/visual/link_6.stl" color="ORANGE" />
+    <Shape type="MESH" distance="false" physics="true" graphics="false" meshFile="iiwa_description/meshes/iiwa14/collision/link_6_hull.tri" color="ORANGE" />
+    <Sensor name="lbr_joint_6_torque_R" type="JOINTTORQUE" />
+  </Body>
+
+  <Body name="lbr_link_7_R" prev="lbr_link_6_R" physics="dynamic" mass="0.3" inertia="0.001 0 0   0 0.001 0   0 0 0.001" >
+    <Joint name="lbr_joint_7_R" range="-170 67.417901 170" type="RotZ" transform="0 0.081 0 -90 0 -180" speedLimit="135" ctrlType="Torque" />
+    <Shape type="MESH" distance="false" physics="false" graphics="true" meshFile="iiwa_description/meshes/iiwa14/visual/link_7.stl" color="ORANGE" />
+    <Shape type="MESH" distance="false" physics="true" graphics="false" meshFile="iiwa_description/meshes/iiwa14/collision/link_7_hull.tri" color="ORANGE" />
+    <Shape type="CYLINDER" length="0.0361" radius="0.029" distance="false" physics="true" graphics="true" transform="0 0 0.06305 0 0 0" color="GRAY" />
+    <Shape type="CYLINDER" length="0.0148" radius="0.045" distance="false" physics="true" graphics="true" transform="0 0 0.0885 0 0 0" color="GRAY" />
+    <Shape type="CYLINDER" length="0.0748" radius="0.045" distance="false" physics="true" graphics="true" transform="0 0 0.1333 0 0 0" color="GRAY" />
+    <Shape type="SSL" length="0.15" radius="0.045" distance="true" physics="false" graphics="false" color="RED" />
+    <Sensor name="lbr_joint_7_torque_R" type="JOINTTORQUE" />
+  </Body>
+
+  <Body name="sdh-base_R" prev="lbr_link_7_R" transform="0 0 0.171 0 0 75" physics="fixed" mass="1.054" inertia="0.001757 0 0   0 0.001757 0   0 0 0.001757" >
+    <Shape type="MESH" distance="false" physics="false" graphics="true" transform="0 0 0.049 0 0 0" meshFile="Schunk/SDH_Gehaeuse_x.tri" />
+    <Shape type="MESH" distance="false" physics="true" graphics="false" transform="0 0 0.049 0 0 0" meshFile="Schunk/SDH_Gehaeuse_x.tri" />
+    <Shape type="SSL" length="0.02" radius="0.065" distance="true" physics="false" graphics="false" transform="0 0 0.02 0 0 0" color="RED" />
+    <Shape type="MESH" distance="false" physics="false" graphics="true" transform="-0.038105 0 0.072 90 -90 0" meshFile="Schunk/SDH_Gelenk_Finger1_x.tri" />
+    <Sensor name="WristLoadCellLBR_R" type="LOADCELL" transform="0 0 0 0 0 -165" />
+  </Body>
+
+  <Body name="HandLink_R" prev="sdh-base_R" transform="0 0 0.1 180 0 90" >
+    <Shape type="FRAME" scale="0.2" />
+  </Body>
+
+  <Body name="Box Base" prev="Lab Frame" transform="0 0 0 90 -90 0" >
+    <Shape type="FRAME" scale="0.2" />
+  </Body>
+
+  <Body name="Box_v" prev="Box Base" >
+    <Joint name="DofX_v" range="-10 0 10" weightJL="0" type="TransX" />
+    <Joint name="DofY_v" range="-10 1.13 10" weightMetric="0.1" type="TransY" />
+    <Joint name="DofZ_v" range="-10 -0.86 10" weightJL="10" weightMetric="0.1" type="TransZ" />
+    <Joint name="DofThX_v" range="-1000 0 1000" weightJL="0" type="RotX" />
+    <Joint name="DofThY_v" range="-1000 0 1000" weightJL="0" type="RotY" />
+    <Joint name="DofThZ_v" range="-1000 0 1000" weightJL="0" type="RotZ" />
+    <Shape type="FRAME" scale="0.2" />
+    <Shape type="SPHERE" radius="0.05" distance="true" physics="false" graphics="false" />
+  </Body>
+
+  <Body name="Box_real" prev="Box_v" physics="dynamic" mass="10" inertia="0.876 0 0   0 1.09875 0   0 0 0.43875" >
+    <Shape type="BOX" extents="0.63 0.36 0.96" distance="true" physics="true" graphics="true" transform="0 0 -0.5 0 0 0" color="DARKRED_TRANS" />
+  </Body>
+
+  <Body name="PowerAnchor_L" prev="Box_v" physics="kinematic" mass="1" inertia="1.66667e-05 0 0   0 1.66667e-05 0   0 0 1.66667e-05" >
+    <Joint name="rlx" range="-3 -0.2079 3" type="TransX" />
+    <Joint name="rly" range="-2 -0.18 2" type="TransY" />
+    <Joint name="rlz" range="-2 0 2" type="TransZ" />
+    <Joint name="rla" range="-400 90 400" type="RotX" />
+    <Joint name="rlb" range="-400 90 400" type="RotY" />
+    <Joint name="rlc" range="-400 0 400" type="RotZ" />
+    <Joint name="rla2" range="-400 -20 400" type="RotX" />
+    <Joint name="rlb2" range="-400 0 400" type="RotY" />
+    <Joint name="rlc2" range="-400 0 400" type="RotZ" />
+    <Shape type="BOX" extents="0.01 0.01 0.01" distance="true" physics="true" graphics="false" transform="0 0 0.2 0 0 0" />
+    <Shape type="FRAME" scale="0.25" />
+  </Body>
+
+  <Body name="PowerGrasp_L" prev="PowerAnchor_L" transform="0 0 0 -90 0 -90" physics="fixed" mass="1" inertia="0.00941667 0 0   0 0.00554167 -0.003025   0 -0.003025 0.00554167" >
+    <Shape type="BOX" extents="0.1 0.2 0.02" distance="true" physics="true" graphics="true" transform="0 0.1 0.01 0 0 0" />
+    <Shape type="BOX" extents="0.1 0.02 0.2" distance="true" physics="true" graphics="true" transform="0 -0.01 -0.1 0 0 0" />
+    <Shape type="FRAME" scale="0.525" />
+  </Body>
+
+  <Body name="PowerAnchor_R" prev="Box_v" physics="kinematic" mass="1" inertia="1.66667e-05 0 0   0 1.66667e-05 0   0 0 1.66667e-05" >
+    <Joint name="rrx" range="-3 0.2079 3" type="TransX" />
+    <Joint name="rry" range="-2 -0.18 2" type="TransY" />
+    <Joint name="rrz" range="-2 0 2" type="TransZ" />
+    <Joint name="rra" range="-400 90 400" type="RotX" />
+    <Joint name="rrb" range="-400 90 400" type="RotY" />
+    <Joint name="rrc" range="-400 0 400" type="RotZ" />
+    <Joint name="rra2" range="-400 20 400" type="RotX" />
+    <Joint name="rrb2" range="-400 0 400" type="RotY" />
+    <Joint name="rrc2" range="-400 0 400" type="RotZ" />
+    <Shape type="BOX" extents="0.01 0.01 0.01" distance="true" physics="true" graphics="false" transform="0 0 0.2 0 0 0" />
+    <Shape type="FRAME" scale="0.25" />
+  </Body>
+
+  <Body name="PowerGrasp_R" prev="PowerAnchor_R" transform="0 0 0 -90 0 -90" physics="fixed" mass="1" inertia="0.00941667 0 0   0 0.00554167 -0.003025   0 -0.003025 0.00554167" >
+    <Shape type="BOX" extents="0.1 0.2 0.02" distance="true" physics="true" graphics="true" transform="0 0.1 0.01 0 0 0" />
+    <Shape type="BOX" extents="0.1 0.02 0.2" distance="true" physics="true" graphics="true" transform="0 -0.01 -0.1 0 0 0" />
+    <Shape type="FRAME" scale="0.525" />
+  </Body>
+
+  <Body name="Lab Frame_1" transform="-2.5 0 0 0 0 0" physics="kinematic" >
+    <Shape type="BOX" extents="6 6 0.04" distance="true" physics="true" graphics="true" transform="0 0 -0.02 0 0 0" color="PEWTER" />
+    <Shape type="FRAME" />
+  </Body>
+
+  <Body name="ImetronPlatform_1" prev="Lab Frame_1" mass="100" inertia="13.6042 0 0   0 6.60419 0   0 0 19.0417" >
+    <Joint name="DofBaseX_1" range="-4 0.019695 4" weightJL="0" weightMetric="0.5" type="TransX" />
+    <Joint name="DofBaseY_1" range="-1.5 -0.005744 1.5" weightMetric="0.01" type="TransY" />
+    <Joint name="DofBaseThZ_1" range="-60 0 60" weightMetric="0.001" type="RotZ" />
+    <Shape type="SSR" extents="0.85 1.25 0.28" distance="true" physics="false" graphics="false" transform="0 0 0.14 0 0 0" color="DARKGRAY" />
+    <Shape type="BOX" extents="0.85 1.25 0.2" distance="false" physics="true" graphics="true" transform="0 0 0.1 0 0 0" color="DARKGRAY" />
+  </Body>
+
+  <Body name="Base_1" prev="ImetronPlatform_1" transform="0 0 0.2 0 0 180" mass="80" inertia="25.4419 0 -0.247227   0 26.1432 0   -0.247227 0 2.90573" >
+    <Shape type="SSL" length="0.2" radius="0.08" distance="true" physics="false" graphics="false" transform="-0.02 0 0.1 0 0 0" color="BLUE" />
+    <Shape type="SSL" length="1.65" radius="0.2" distance="true" physics="false" graphics="false" transform="0.17 0 0 0 0 0" color="BLUE" />
+    <Shape type="SSL" length="0.72" radius="0.08" distance="true" physics="false" graphics="false" transform="0.36 0.18 0.17 0 -90 0" color="BLUE" />
+    <Shape type="SSL" length="0.72" radius="0.08" distance="true" physics="false" graphics="false" transform="0.36 -0.18 0.17 0 -90 0" color="BLUE" />
+    <Shape type="BOX" extents="0.07 0.16 1.6" distance="false" physics="false" graphics="true" transform="0.245 0 0.85 0 0 0" color="DARKGRAY" />
+    <Shape type="BOX" extents="0.16 0.32 1.7" distance="false" physics="true" graphics="true" transform="0.13 0 0.85 0 0 0" />
+    <Shape type="BOX" extents="0.04 1.25 0.08" distance="false" physics="true" graphics="true" transform="-0.405 0 0.04 0 0 0" />
+    <Shape type="BOX" extents="0.04 1.25 0.08" distance="false" physics="true" graphics="true" transform="0.405 0 0.04 0 0 0" />
+    <Shape type="BOX" extents="0.77 0.04 0.24" distance="false" physics="true" graphics="true" transform="0 0.18 0.12 0 0 0" />
+    <Shape type="BOX" extents="0.77 0.04 0.24" distance="false" physics="true" graphics="true" transform="0 -0.18 0.12 0 0 0" />
+    <Shape type="SSR" extents="0.55 0.33 0.1" distance="true" physics="false" graphics="false" transform="-0.09 0 1.275 0 85 0" color="BLACK_RUBBER" />
+    <Shape type="BOX" extents="0.07 0.36 0.55" distance="false" physics="false" graphics="true" transform="-0.09 0 1.275 0 -5 0" color="BLACK_RUBBER" />
+    <Shape type="BOX" extents="0.001 0.33 0.52" distance="false" physics="false" graphics="true" transform="-0.125 0 1.275 0 -5 0" color="PUREWHITE" />
+    <Shape type="BOX" extents="0.001 0.33 0.2" distance="false" physics="false" graphics="true" transform="-0.1254 0 1.275 0 -5 0" />
+  </Body>
+
+  <Body name="RailBot_1" prev="Base_1" transform="0.209 0 0 0 0 0" mass="20" inertia="0.97802 -0.0116595 -0.0403039   -0.0116595 0.366192 0.0428657   -0.0403039 0.0428657 0.736717" >
+    <Joint name="DofChestZ_1" range="0.5 0.803058 1" weightJL="0.75" weightMetric="0.2" type="TransZ" transform="0 0 0.375 0 0 0" />
+    <Shape type="MESH" distance="false" physics="false" graphics="true" scale="0.001" transform="0 0 0 180 0 -90" meshFile="DexBot/LinearSlide.stl" />
+    <Shape type="MESH" distance="false" physics="false" graphics="true" scale="0.001" transform="0.085 0 -0.2 0 0 0" meshFile="DexBot/Slide-Simple.stl" />
+    <Shape type="MESH" distance="false" physics="false" graphics="true" scale="0.001" transform="0.203 0.101 -0.05 -90 0 165" meshFile="DexBot/Wing-Simple.stl" />
+    <Shape type="MESH" distance="false" physics="false" graphics="true" scale="0.001" transform="0.135 -0.101 0.2 90 0 -165" meshFile="DexBot/Wing-Simple.stl" />
+    <Shape type="BOX" extents="0.04 0.75 0.2" distance="false" physics="true" graphics="false" transform="0.17 0 0.1 0 0 0" />
+    <Shape type="FRAME" scale="0.5" />
+  </Body>
+
+  <Body name="lbr_link_0_L_1" prev="RailBot_1" transform="0.125 -0.247635 0.0675 134.01 -68.91 -44.01" physics="kinematic" mass="5" inertia="0.05 0 0   0 0.06 0   0 0 0.03" >
+    <Shape type="SSL" length="0.08" radius="0.125" distance="true" physics="false" graphics="false" color="PEWTER" />
+    <Shape type="MESH" distance="false" physics="false" graphics="true" meshFile="iiwa_description/meshes/iiwa14/visual/link_0.stl" color="ORANGE" />
+    <Shape type="MESH" distance="false" physics="true" graphics="false" meshFile="iiwa_description/meshes/iiwa14/collision/link_0_hull.tri" color="ORANGE" />
+  </Body>
+
+  <Body name="lbr_link_1_L_1" prev="lbr_link_0_L_1" physics="dynamic" mass="4" inertia="0.1 0 0   0 0.09 0   0 0 0.02" >
+    <Joint name="lbr_joint_1_L_1" range="-165 15.013332 165" type="RotZ" transform="0 0 0.1575 0 0 0" speedLimit="85" ctrlType="Torque" />
+    <Shape type="SSL" length="0.2" radius="0.09" distance="true" physics="false" graphics="false" transform="0 0 0 10 0 0" color="GREEN" />
+    <Shape type="MESH" distance="false" physics="false" graphics="true" meshFile="iiwa_description/meshes/iiwa14/visual/link_1.stl" color="ORANGE" />
+    <Shape type="MESH" distance="false" physics="true" graphics="false" meshFile="iiwa_description/meshes/iiwa14/collision/link_1_hull.tri" color="ORANGE" />
+    <Sensor name="lbr_joint_1_torque_L_1" type="JOINTTORQUE" />
+  </Body>
+
+  <Body name="lbr_link_2_L_1" prev="lbr_link_1_L_1" physics="dynamic" mass="4" cogVector="0.0003 0.059 0.042" inertia="0.05 0 0   0 0.018 0   0 0 0.044" >
+    <Joint name="lbr_joint_2_L_1" range="-115 51.311032 115" weightMetric="0.5" type="RotZ" transform="0 0 0.2025 -90 0 180" speedLimit="85" ctrlType="Torque" />
+    <Shape type="SSL" length="0.2" radius="0.09" distance="true" physics="false" graphics="false" transform="0 0 0.05 -100 0 0" color="COPPER" />
+    <Shape type="MESH" distance="false" physics="false" graphics="true" meshFile="iiwa_description/meshes/iiwa14/visual/link_2.stl" color="ORANGE" />
+    <Shape type="MESH" distance="false" physics="true" graphics="false" meshFile="iiwa_description/meshes/iiwa14/collision/link_2_hull.tri" color="ORANGE" />
+  </Body>
+
+  <Body name="lbr_link_3_L_1" prev="lbr_link_2_L_1" physics="dynamic" mass="3" inertia="0.08 0 0   0 0.075 0   0 0 0.01" >
+    <Joint name="lbr_joint_3_L_1" range="-165 35.130674 165" type="RotZ" transform="0 0.2045 0 -90 0 180" speedLimit="100" ctrlType="Torque" />
+    <Shape type="SSL" length="0.22" radius="0.08" distance="true" physics="false" graphics="false" transform="0 0 0 -10 0 0" color="RED" />
+    <Shape type="MESH" distance="false" physics="false" graphics="true" meshFile="iiwa_description/meshes/iiwa14/visual/link_3.stl" color="ORANGE" />
+    <Shape type="MESH" distance="false" physics="true" graphics="false" meshFile="iiwa_description/meshes/iiwa14/collision/link_3_hull.tri" color="ORANGE" />
+  </Body>
+
+  <Body name="lbr_link_4_L_1" prev="lbr_link_3_L_1" physics="dynamic" mass="2.7" inertia="0.03 0 0   0 0.01 0   0 0 0.029" >
+    <Joint name="lbr_joint_4_L_1" range="-115 75.200525 115" weightJL="2" type="RotZ" transform="0 0 0.2155 90 0 0" speedLimit="75" ctrlType="Torque" />
+    <Shape type="SSL" length="0.15" radius="0.08" distance="true" physics="false" graphics="false" transform="0 0 0.04 -105 0 0" color="PEWTER" />
+    <Shape type="MESH" distance="false" physics="false" graphics="true" meshFile="iiwa_description/meshes/iiwa14/visual/link_4.stl" color="ORANGE" />
+    <Shape type="MESH" distance="false" physics="true" graphics="false" meshFile="iiwa_description/meshes/iiwa14/collision/link_4_hull.tri" color="ORANGE" />
+  </Body>
+
+  <Body name="lbr_link_5_L_1" prev="lbr_link_4_L_1" physics="dynamic" mass="1.7" cogVector="0.0001 0.021 0.076" inertia="0.02 0 0   0 0.018 0   0 0 0.005" >
+    <Joint name="lbr_joint_5_L_1" range="-165 -57.743675 165" type="RotZ" transform="0 0.1845 0 -90 0 -180" speedLimit="130" ctrlType="Torque" />
+    <Shape type="SSL" length="0.21" radius="0.075" distance="true" physics="false" graphics="false" transform="0 0 0 -10 0 0" color="GREEN" />
+    <Shape type="MESH" distance="false" physics="false" graphics="true" meshFile="iiwa_description/meshes/iiwa14/visual/link_5.stl" color="ORANGE" />
+    <Shape type="MESH" distance="false" physics="true" graphics="false" meshFile="iiwa_description/meshes/iiwa14/collision/link_5_hull.tri" color="ORANGE" />
+  </Body>
+
+  <Body name="lbr_link_6_L_1" prev="lbr_link_5_L_1" physics="dynamic" mass="1.8" inertia="0.005 0 0   0 0.0036 0   0 0 0.0047" >
+    <Joint name="lbr_joint_6_L_1" range="-115 -6.529904 115" weightMetric="0.5" type="RotZ" transform="0 0 0.2155 90 0 0" speedLimit="135" ctrlType="Torque" />
+    <Shape type="SSL" length="0.1" radius="0.065" distance="true" physics="false" graphics="false" transform="0 -0.03 0.01 -95 0 0" color="COPPER" />
+    <Shape type="MESH" distance="false" physics="false" graphics="true" meshFile="iiwa_description/meshes/iiwa14/visual/link_6.stl" color="ORANGE" />
+    <Shape type="MESH" distance="false" physics="true" graphics="false" meshFile="iiwa_description/meshes/iiwa14/collision/link_6_hull.tri" color="ORANGE" />
+  </Body>
+
+  <Body name="lbr_link_7_L_1" prev="lbr_link_6_L_1" physics="dynamic" mass="0.3" inertia="0.001 0 0   0 0.001 0   0 0 0.001" >
+    <Joint name="lbr_joint_7_L_1" range="-170 -45.898067 170" type="RotZ" transform="0 0.081 0 -90 0 -180" speedLimit="135" ctrlType="Torque" />
+    <Shape type="MESH" distance="false" physics="false" graphics="true" meshFile="iiwa_description/meshes/iiwa14/visual/link_7.stl" color="ORANGE" />
+    <Shape type="MESH" distance="false" physics="true" graphics="false" meshFile="iiwa_description/meshes/iiwa14/collision/link_7_hull.tri" color="ORANGE" />
+    <Shape type="CYLINDER" length="0.0361" radius="0.029" distance="false" physics="true" graphics="true" transform="0 0 0.06305 0 0 0" color="GRAY" />
+    <Shape type="CYLINDER" length="0.0148" radius="0.045" distance="false" physics="true" graphics="true" transform="0 0 0.0885 0 0 0" color="GRAY" />
+    <Shape type="CYLINDER" length="0.0748" radius="0.045" distance="false" physics="true" graphics="true" transform="0 0 0.1333 0 0 0" color="GRAY" />
+    <Shape type="SSL" length="0.15" radius="0.045" distance="true" physics="false" graphics="false" color="RED" />
+  </Body>
+
+  <Body name="sdh-base_L_1" prev="lbr_link_7_L_1" transform="0 0 0.171 0 0 75" physics="fixed" mass="1.054" inertia="0.001757 0 0   0 0.001757 0   0 0 0.001757" >
+    <Shape type="MESH" distance="false" physics="false" graphics="true" transform="0 0 0.049 0 0 0" meshFile="Schunk/SDH_Gehaeuse_x.tri" />
+    <Shape type="MESH" distance="false" physics="true" graphics="false" transform="0 0 0.049 0 0 0" meshFile="Schunk/SDH_Gehaeuse_x.tri" />
+    <Shape type="SSL" length="0.02" radius="0.065" distance="true" physics="false" graphics="false" transform="0 0 0.02 0 0 0" color="RED" />
+    <Shape type="MESH" distance="false" physics="false" graphics="true" transform="-0.038105 0 0.072 90 -90 0" meshFile="Schunk/SDH_Gelenk_Finger1_x.tri" />
+  </Body>
+
+  <Body name="HandLink_L_1" prev="sdh-base_L_1" transform="0 0 0.1 180 0 90" >
+    <Shape type="FRAME" scale="0.2" />
+  </Body>
+
+  <Body name="lbr_link_0_R_1" prev="RailBot_1" transform="0.125 0.247835 0.059 -134.01 -68.91 -135.99" physics="kinematic" mass="5" inertia="0.05 0 0   0 0.06 0   0 0 0.03" >
+    <Shape type="SSL" length="0.08" radius="0.125" distance="true" physics="false" graphics="false" color="PEWTER" />
+    <Shape type="MESH" distance="false" physics="false" graphics="true" meshFile="iiwa_description/meshes/iiwa14/visual/link_0.stl" color="ORANGE" />
+    <Shape type="MESH" distance="false" physics="true" graphics="false" meshFile="iiwa_description/meshes/iiwa14/collision/link_0_hull.tri" color="ORANGE" />
+  </Body>
+
+  <Body name="lbr_link_1_R_1" prev="lbr_link_0_R_1" physics="dynamic" mass="4" inertia="0.1 0 0   0 0.09 0   0 0 0.02" >
+    <Joint name="lbr_joint_1_R_1" range="-165 -12.486547 165" type="RotZ" transform="0 0 0.1575 0 0 0" speedLimit="85" ctrlType="Torque" />
+    <Shape type="SSL" length="0.2" radius="0.09" distance="true" physics="false" graphics="false" transform="0 0 0 10 0 0" color="GREEN" />
+    <Shape type="MESH" distance="false" physics="false" graphics="true" meshFile="iiwa_description/meshes/iiwa14/visual/link_1.stl" color="ORANGE" />
+    <Shape type="MESH" distance="false" physics="true" graphics="false" meshFile="iiwa_description/meshes/iiwa14/collision/link_1_hull.tri" color="ORANGE" />
+  </Body>
+
+  <Body name="lbr_link_2_R_1" prev="lbr_link_1_R_1" physics="dynamic" mass="4" cogVector="0.0003 0.059 0.042" inertia="0.05 0 0   0 0.018 0   0 0 0.044" >
+    <Joint name="lbr_joint_2_R_1" range="-115 -52.033523 115" weightMetric="0.5" type="RotZ" transform="0 0 0.2025 -90 0 180" speedLimit="85" ctrlType="Torque" />
+    <Shape type="SSL" length="0.2" radius="0.09" distance="true" physics="false" graphics="false" transform="0 0 0.05 -100 0 0" color="COPPER" />
+    <Shape type="MESH" distance="false" physics="false" graphics="true" meshFile="iiwa_description/meshes/iiwa14/visual/link_2.stl" color="ORANGE" />
+    <Shape type="MESH" distance="false" physics="true" graphics="false" meshFile="iiwa_description/meshes/iiwa14/collision/link_2_hull.tri" color="ORANGE" />
+  </Body>
+
+  <Body name="lbr_link_3_R_1" prev="lbr_link_2_R_1" physics="dynamic" mass="3" inertia="0.08 0 0   0 0.075 0   0 0 0.01" >
+    <Joint name="lbr_joint_3_R_1" range="-165 -34.787304 165" type="RotZ" transform="0 0.2045 0 -90 0 180" speedLimit="100" ctrlType="Torque" />
+    <Shape type="SSL" length="0.22" radius="0.08" distance="true" physics="false" graphics="false" transform="0 0 0 -10 0 0" color="RED" />
+    <Shape type="MESH" distance="false" physics="false" graphics="true" meshFile="iiwa_description/meshes/iiwa14/visual/link_3.stl" color="ORANGE" />
+    <Shape type="MESH" distance="false" physics="true" graphics="false" meshFile="iiwa_description/meshes/iiwa14/collision/link_3_hull.tri" color="ORANGE" />
+  </Body>
+
+  <Body name="lbr_link_4_R_1" prev="lbr_link_3_R_1" physics="dynamic" mass="2.7" inertia="0.03 0 0   0 0.01 0   0 0 0.029" >
+    <Joint name="lbr_joint_4_R_1" range="-115 -76.348822 115" weightJL="2" type="RotZ" transform="0 0 0.2155 90 0 0" speedLimit="75" ctrlType="Torque" />
+    <Shape type="SSL" length="0.15" radius="0.08" distance="true" physics="false" graphics="false" transform="0 0 0.04 -105 0 0" color="PEWTER" />
+    <Shape type="MESH" distance="false" physics="false" graphics="true" meshFile="iiwa_description/meshes/iiwa14/visual/link_4.stl" color="ORANGE" />
+    <Shape type="MESH" distance="false" physics="true" graphics="false" meshFile="iiwa_description/meshes/iiwa14/collision/link_4_hull.tri" color="ORANGE" />
+  </Body>
+
+  <Body name="lbr_link_5_R_1" prev="lbr_link_4_R_1" physics="dynamic" mass="1.7" cogVector="0.0001 0.021 0.076" inertia="0.02 0 0   0 0.018 0   0 0 0.005" >
+    <Joint name="lbr_joint_5_R_1" range="-165 63.740089 165" type="RotZ" transform="0 0.1845 0 -90 0 -180" speedLimit="130" ctrlType="Torque" />
+    <Shape type="SSL" length="0.21" radius="0.075" distance="true" physics="false" graphics="false" transform="0 0 0 -10 0 0" color="GREEN" />
+    <Shape type="MESH" distance="false" physics="false" graphics="true" meshFile="iiwa_description/meshes/iiwa14/visual/link_5.stl" color="ORANGE" />
+    <Shape type="MESH" distance="false" physics="true" graphics="false" meshFile="iiwa_description/meshes/iiwa14/collision/link_5_hull.tri" color="ORANGE" />
+  </Body>
+
+  <Body name="lbr_link_6_R_1" prev="lbr_link_5_R_1" physics="dynamic" mass="1.8" inertia="0.005 0 0   0 0.0036 0   0 0 0.0047" >
+    <Joint name="lbr_joint_6_R_1" range="-115 4.519144 115" weightMetric="0.5" type="RotZ" transform="0 0 0.2155 90 0 0" speedLimit="135" ctrlType="Torque" />
+    <Shape type="SSL" length="0.1" radius="0.065" distance="true" physics="false" graphics="false" transform="0 -0.03 0.01 -95 0 0" color="COPPER" />
+    <Shape type="MESH" distance="false" physics="false" graphics="true" meshFile="iiwa_description/meshes/iiwa14/visual/link_6.stl" color="ORANGE" />
+    <Shape type="MESH" distance="false" physics="true" graphics="false" meshFile="iiwa_description/meshes/iiwa14/collision/link_6_hull.tri" color="ORANGE" />
+  </Body>
+
+  <Body name="lbr_link_7_R_1" prev="lbr_link_6_R_1" physics="dynamic" mass="0.3" inertia="0.001 0 0   0 0.001 0   0 0 0.001" >
+    <Joint name="lbr_joint_7_R_1" range="-170 67.417901 170" type="RotZ" transform="0 0.081 0 -90 0 -180" speedLimit="135" ctrlType="Torque" />
+    <Shape type="MESH" distance="false" physics="false" graphics="true" meshFile="iiwa_description/meshes/iiwa14/visual/link_7.stl" color="ORANGE" />
+    <Shape type="MESH" distance="false" physics="true" graphics="false" meshFile="iiwa_description/meshes/iiwa14/collision/link_7_hull.tri" color="ORANGE" />
+    <Shape type="CYLINDER" length="0.0361" radius="0.029" distance="false" physics="true" graphics="true" transform="0 0 0.06305 0 0 0" color="GRAY" />
+    <Shape type="CYLINDER" length="0.0148" radius="0.045" distance="false" physics="true" graphics="true" transform="0 0 0.0885 0 0 0" color="GRAY" />
+    <Shape type="CYLINDER" length="0.0748" radius="0.045" distance="false" physics="true" graphics="true" transform="0 0 0.1333 0 0 0" color="GRAY" />
+    <Shape type="SSL" length="0.15" radius="0.045" distance="true" physics="false" graphics="false" color="RED" />
+  </Body>
+
+  <Body name="sdh-base_R_1" prev="lbr_link_7_R_1" transform="0 0 0.171 0 0 75" physics="fixed" mass="1.054" inertia="0.001757 0 0   0 0.001757 0   0 0 0.001757" >
+    <Shape type="MESH" distance="false" physics="false" graphics="true" transform="0 0 0.049 0 0 0" meshFile="Schunk/SDH_Gehaeuse_x.tri" />
+    <Shape type="MESH" distance="false" physics="true" graphics="false" transform="0 0 0.049 0 0 0" meshFile="Schunk/SDH_Gehaeuse_x.tri" />
+    <Shape type="SSL" length="0.02" radius="0.065" distance="true" physics="false" graphics="false" transform="0 0 0.02 0 0 0" color="RED" />
+    <Shape type="MESH" distance="false" physics="false" graphics="true" transform="-0.038105 0 0.072 90 -90 0" meshFile="Schunk/SDH_Gelenk_Finger1_x.tri" />
+  </Body>
+
+  <Body name="HandLink_R_1" prev="sdh-base_R_1" transform="0 0 0.1 180 0 90" >
+    <Shape type="FRAME" scale="0.2" />
+  </Body>
+
+  <Body name="Box Base_1" prev="Lab Frame_1" transform="0 0 0 90 -90 0" >
+    <Shape type="FRAME" scale="0.2" />
+  </Body>
+
+  <Body name="Box_v_1" prev="Box Base_1" >
+    <Joint name="DofX_v_1" range="-10 0 10" weightJL="0" type="TransX" coupledTo="DofX_v" couplingFactor="1 "/>
+    <Joint name="DofY_v_1" range="-10 1.13 10" weightMetric="0.1" type="TransY" coupledTo="DofY_v" couplingFactor="1 "/>
+    <Joint name="DofZ_v_1" range="-10 -0.86 10" weightJL="10" weightMetric="0.1" type="TransZ" coupledTo="DofZ_v" couplingFactor="1 "/>
+    <Joint name="DofThX_v_1" range="-1000 0 1000" weightJL="0" type="RotX" coupledTo="DofThX_v" couplingFactor="1 "/>
+    <Joint name="DofThY_v_1" range="-1000 0 1000" weightJL="0" type="RotY" coupledTo="DofThY_v" couplingFactor="1 "/>
+    <Joint name="DofThZ_v_1" range="-1000 0 1000" weightJL="0" type="RotZ" coupledTo="DofThZ_v" couplingFactor="1 "/>
+    <Shape type="FRAME" scale="0.2" />
+    <Shape type="SPHERE" radius="0.05" distance="true" physics="false" graphics="false" />
+  </Body>
+
+  <Body name="Box_real_1" prev="Box_v_1" physics="dynamic" mass="10" inertia="0.876 0 0   0 1.09875 0   0 0 0.43875" >
+    <Shape type="BOX" extents="0.63 0.36 0.96" distance="true" physics="true" graphics="true" transform="0 0 -0.5 0 0 0" color="DARKRED_TRANS" />
+  </Body>
+
+  <Body name="PowerAnchor_L_1" prev="Box_v_1" physics="kinematic" mass="1" inertia="1.66667e-05 0 0   0 1.66667e-05 0   0 0 1.66667e-05" >
+    <Joint name="rlx_1" range="-3 -0.2079 3" type="TransX" />
+    <Joint name="rly_1" range="-2 -0.18 2" type="TransY" />
+    <Joint name="rlz_1" range="-2 0 2" type="TransZ" />
+    <Joint name="rla_1" range="-400 90 400" type="RotX" />
+    <Joint name="rlb_1" range="-400 90 400" type="RotY" />
+    <Joint name="rlc_1" range="-400 0 400" type="RotZ" />
+    <Joint name="rla2_1" range="-400 -20 400" type="RotX" />
+    <Joint name="rlb2_1" range="-400 0 400" type="RotY" />
+    <Joint name="rlc2_1" range="-400 0 400" type="RotZ" />
+    <Shape type="BOX" extents="0.01 0.01 0.01" distance="true" physics="true" graphics="false" transform="0 0 0.2 0 0 0" />
+    <Shape type="FRAME" scale="0.25" />
+  </Body>
+
+  <Body name="PowerGrasp_L_1" prev="PowerAnchor_L_1" transform="0 0 0 -90 0 -90" physics="fixed" mass="1" inertia="0.00941667 0 0   0 0.00554167 -0.003025   0 -0.003025 0.00554167" >
+    <Shape type="BOX" extents="0.1 0.2 0.02" distance="true" physics="true" graphics="true" transform="0 0.1 0.01 0 0 0" />
+    <Shape type="BOX" extents="0.1 0.02 0.2" distance="true" physics="true" graphics="true" transform="0 -0.01 -0.1 0 0 0" />
+    <Shape type="FRAME" scale="0.525" />
+  </Body>
+
+  <Body name="PowerAnchor_R_1" prev="Box_v_1" physics="kinematic" mass="1" inertia="1.66667e-05 0 0   0 1.66667e-05 0   0 0 1.66667e-05" >
+    <Joint name="rrx_1" range="-3 0.2079 3" type="TransX" coupledTo="rrx" couplingFactor="1 "/>
+    <Joint name="rry_1" range="-2 -0.18 2" type="TransY" coupledTo="rry" couplingFactor="1 "/>
+    <Joint name="rrz_1" range="-2 0 2" type="TransZ" coupledTo="rrz" couplingFactor="1 "/>
+    <Joint name="rra_1" range="-400 90 400" type="RotX" coupledTo="rra" couplingFactor="1 "/>
+    <Joint name="rrb_1" range="-400 90 400" type="RotY" coupledTo="rrb" couplingFactor="1 "/>
+    <Joint name="rrc_1" range="-400 0 400" type="RotZ" coupledTo="rrc" couplingFactor="1 "/>
+    <Joint name="rra2_1" range="-400 20 400" type="RotX" coupledTo="rra2" couplingFactor="1 "/>
+    <Joint name="rrb2_1" range="-400 0 400" type="RotY" coupledTo="rrb2" couplingFactor="1 "/>
+    <Joint name="rrc2_1" range="-400 0 400" type="RotZ" coupledTo="rrc2" couplingFactor="1 "/>
+    <Shape type="BOX" extents="0.01 0.01 0.01" distance="true" physics="true" graphics="false" transform="0 0 0.2 0 0 0" />
+    <Shape type="FRAME" scale="0.25" />
+  </Body>
+
+  <Body name="PowerGrasp_R_1" prev="PowerAnchor_R_1" transform="0 0 0 -90 0 -90" physics="fixed" mass="1" inertia="0.00941667 0 0   0 0.00554167 -0.003025   0 -0.003025 0.00554167" >
+    <Shape type="BOX" extents="0.1 0.2 0.02" distance="true" physics="true" graphics="true" transform="0 0.1 0.01 0 0 0" />
+    <Shape type="BOX" extents="0.1 0.02 0.2" distance="true" physics="true" graphics="true" transform="0 -0.01 -0.1 0 0 0" />
+    <Shape type="FRAME" scale="0.525" />
+  </Body>
+
+  <Body name="Lab Frame_2" transform="-5 0 0 0 0 0" physics="kinematic" >
+    <Shape type="BOX" extents="6 6 0.04" distance="true" physics="true" graphics="true" transform="0 0 -0.02 0 0 0" color="PEWTER" />
+    <Shape type="FRAME" />
+  </Body>
+
+  <Body name="ImetronPlatform_2" prev="Lab Frame_2" mass="100" inertia="13.6042 0 0   0 6.60419 0   0 0 19.0417" >
+    <Joint name="DofBaseX_2" range="-4 0.019695 4" weightJL="0" weightMetric="0.5" type="TransX" />
+    <Joint name="DofBaseY_2" range="-1.5 -0.005744 1.5" weightMetric="0.01" type="TransY" />
+    <Joint name="DofBaseThZ_2" range="-60 0 60" weightMetric="0.001" type="RotZ" />
+    <Shape type="SSR" extents="0.85 1.25 0.28" distance="true" physics="false" graphics="false" transform="0 0 0.14 0 0 0" color="DARKGRAY" />
+    <Shape type="BOX" extents="0.85 1.25 0.2" distance="false" physics="true" graphics="true" transform="0 0 0.1 0 0 0" color="DARKGRAY" />
+  </Body>
+
+  <Body name="Base_2" prev="ImetronPlatform_2" transform="0 0 0.2 0 0 180" mass="80" inertia="25.4419 0 -0.247227   0 26.1432 0   -0.247227 0 2.90573" >
+    <Shape type="SSL" length="0.2" radius="0.08" distance="true" physics="false" graphics="false" transform="-0.02 0 0.1 0 0 0" color="BLUE" />
+    <Shape type="SSL" length="1.65" radius="0.2" distance="true" physics="false" graphics="false" transform="0.17 0 0 0 0 0" color="BLUE" />
+    <Shape type="SSL" length="0.72" radius="0.08" distance="true" physics="false" graphics="false" transform="0.36 0.18 0.17 0 -90 0" color="BLUE" />
+    <Shape type="SSL" length="0.72" radius="0.08" distance="true" physics="false" graphics="false" transform="0.36 -0.18 0.17 0 -90 0" color="BLUE" />
+    <Shape type="BOX" extents="0.07 0.16 1.6" distance="false" physics="false" graphics="true" transform="0.245 0 0.85 0 0 0" color="DARKGRAY" />
+    <Shape type="BOX" extents="0.16 0.32 1.7" distance="false" physics="true" graphics="true" transform="0.13 0 0.85 0 0 0" />
+    <Shape type="BOX" extents="0.04 1.25 0.08" distance="false" physics="true" graphics="true" transform="-0.405 0 0.04 0 0 0" />
+    <Shape type="BOX" extents="0.04 1.25 0.08" distance="false" physics="true" graphics="true" transform="0.405 0 0.04 0 0 0" />
+    <Shape type="BOX" extents="0.77 0.04 0.24" distance="false" physics="true" graphics="true" transform="0 0.18 0.12 0 0 0" />
+    <Shape type="BOX" extents="0.77 0.04 0.24" distance="false" physics="true" graphics="true" transform="0 -0.18 0.12 0 0 0" />
+    <Shape type="SSR" extents="0.55 0.33 0.1" distance="true" physics="false" graphics="false" transform="-0.09 0 1.275 0 85 0" color="BLACK_RUBBER" />
+    <Shape type="BOX" extents="0.07 0.36 0.55" distance="false" physics="false" graphics="true" transform="-0.09 0 1.275 0 -5 0" color="BLACK_RUBBER" />
+    <Shape type="BOX" extents="0.001 0.33 0.52" distance="false" physics="false" graphics="true" transform="-0.125 0 1.275 0 -5 0" color="PUREWHITE" />
+    <Shape type="BOX" extents="0.001 0.33 0.2" distance="false" physics="false" graphics="true" transform="-0.1254 0 1.275 0 -5 0" />
+  </Body>
+
+  <Body name="RailBot_2" prev="Base_2" transform="0.209 0 0 0 0 0" mass="20" inertia="0.97802 -0.0116595 -0.0403039   -0.0116595 0.366192 0.0428657   -0.0403039 0.0428657 0.736717" >
+    <Joint name="DofChestZ_2" range="0.5 0.803058 1" weightJL="0.75" weightMetric="0.2" type="TransZ" transform="0 0 0.375 0 0 0" />
+    <Shape type="MESH" distance="false" physics="false" graphics="true" scale="0.001" transform="0 0 0 180 0 -90" meshFile="DexBot/LinearSlide.stl" />
+    <Shape type="MESH" distance="false" physics="false" graphics="true" scale="0.001" transform="0.085 0 -0.2 0 0 0" meshFile="DexBot/Slide-Simple.stl" />
+    <Shape type="MESH" distance="false" physics="false" graphics="true" scale="0.001" transform="0.203 0.101 -0.05 -90 0 165" meshFile="DexBot/Wing-Simple.stl" />
+    <Shape type="MESH" distance="false" physics="false" graphics="true" scale="0.001" transform="0.135 -0.101 0.2 90 0 -165" meshFile="DexBot/Wing-Simple.stl" />
+    <Shape type="BOX" extents="0.04 0.75 0.2" distance="false" physics="true" graphics="false" transform="0.17 0 0.1 0 0 0" />
+    <Shape type="FRAME" scale="0.5" />
+  </Body>
+
+  <Body name="lbr_link_0_L_2" prev="RailBot_2" transform="0.125 -0.247635 0.0675 134.01 -68.91 -44.01" physics="kinematic" mass="5" inertia="0.05 0 0   0 0.06 0   0 0 0.03" >
+    <Shape type="SSL" length="0.08" radius="0.125" distance="true" physics="false" graphics="false" color="PEWTER" />
+    <Shape type="MESH" distance="false" physics="false" graphics="true" meshFile="iiwa_description/meshes/iiwa14/visual/link_0.stl" color="ORANGE" />
+    <Shape type="MESH" distance="false" physics="true" graphics="false" meshFile="iiwa_description/meshes/iiwa14/collision/link_0_hull.tri" color="ORANGE" />
+  </Body>
+
+  <Body name="lbr_link_1_L_2" prev="lbr_link_0_L_2" physics="dynamic" mass="4" inertia="0.1 0 0   0 0.09 0   0 0 0.02" >
+    <Joint name="lbr_joint_1_L_2" range="-165 15.013332 165" type="RotZ" transform="0 0 0.1575 0 0 0" speedLimit="85" ctrlType="Torque" />
+    <Shape type="SSL" length="0.2" radius="0.09" distance="true" physics="false" graphics="false" transform="0 0 0 10 0 0" color="GREEN" />
+    <Shape type="MESH" distance="false" physics="false" graphics="true" meshFile="iiwa_description/meshes/iiwa14/visual/link_1.stl" color="ORANGE" />
+    <Shape type="MESH" distance="false" physics="true" graphics="false" meshFile="iiwa_description/meshes/iiwa14/collision/link_1_hull.tri" color="ORANGE" />
+    <Sensor name="lbr_joint_1_torque_L_2" type="JOINTTORQUE" />
+  </Body>
+
+  <Body name="lbr_link_2_L_2" prev="lbr_link_1_L_2" physics="dynamic" mass="4" cogVector="0.0003 0.059 0.042" inertia="0.05 0 0   0 0.018 0   0 0 0.044" >
+    <Joint name="lbr_joint_2_L_2" range="-115 51.311032 115" weightMetric="0.5" type="RotZ" transform="0 0 0.2025 -90 0 180" speedLimit="85" ctrlType="Torque" />
+    <Shape type="SSL" length="0.2" radius="0.09" distance="true" physics="false" graphics="false" transform="0 0 0.05 -100 0 0" color="COPPER" />
+    <Shape type="MESH" distance="false" physics="false" graphics="true" meshFile="iiwa_description/meshes/iiwa14/visual/link_2.stl" color="ORANGE" />
+    <Shape type="MESH" distance="false" physics="true" graphics="false" meshFile="iiwa_description/meshes/iiwa14/collision/link_2_hull.tri" color="ORANGE" />
+  </Body>
+
+  <Body name="lbr_link_3_L_2" prev="lbr_link_2_L_2" physics="dynamic" mass="3" inertia="0.08 0 0   0 0.075 0   0 0 0.01" >
+    <Joint name="lbr_joint_3_L_2" range="-165 35.130674 165" type="RotZ" transform="0 0.2045 0 -90 0 180" speedLimit="100" ctrlType="Torque" />
+    <Shape type="SSL" length="0.22" radius="0.08" distance="true" physics="false" graphics="false" transform="0 0 0 -10 0 0" color="RED" />
+    <Shape type="MESH" distance="false" physics="false" graphics="true" meshFile="iiwa_description/meshes/iiwa14/visual/link_3.stl" color="ORANGE" />
+    <Shape type="MESH" distance="false" physics="true" graphics="false" meshFile="iiwa_description/meshes/iiwa14/collision/link_3_hull.tri" color="ORANGE" />
+  </Body>
+
+  <Body name="lbr_link_4_L_2" prev="lbr_link_3_L_2" physics="dynamic" mass="2.7" inertia="0.03 0 0   0 0.01 0   0 0 0.029" >
+    <Joint name="lbr_joint_4_L_2" range="-115 75.200525 115" weightJL="2" type="RotZ" transform="0 0 0.2155 90 0 0" speedLimit="75" ctrlType="Torque" />
+    <Shape type="SSL" length="0.15" radius="0.08" distance="true" physics="false" graphics="false" transform="0 0 0.04 -105 0 0" color="PEWTER" />
+    <Shape type="MESH" distance="false" physics="false" graphics="true" meshFile="iiwa_description/meshes/iiwa14/visual/link_4.stl" color="ORANGE" />
+    <Shape type="MESH" distance="false" physics="true" graphics="false" meshFile="iiwa_description/meshes/iiwa14/collision/link_4_hull.tri" color="ORANGE" />
+  </Body>
+
+  <Body name="lbr_link_5_L_2" prev="lbr_link_4_L_2" physics="dynamic" mass="1.7" cogVector="0.0001 0.021 0.076" inertia="0.02 0 0   0 0.018 0   0 0 0.005" >
+    <Joint name="lbr_joint_5_L_2" range="-165 -57.743675 165" type="RotZ" transform="0 0.1845 0 -90 0 -180" speedLimit="130" ctrlType="Torque" />
+    <Shape type="SSL" length="0.21" radius="0.075" distance="true" physics="false" graphics="false" transform="0 0 0 -10 0 0" color="GREEN" />
+    <Shape type="MESH" distance="false" physics="false" graphics="true" meshFile="iiwa_description/meshes/iiwa14/visual/link_5.stl" color="ORANGE" />
+    <Shape type="MESH" distance="false" physics="true" graphics="false" meshFile="iiwa_description/meshes/iiwa14/collision/link_5_hull.tri" color="ORANGE" />
+  </Body>
+
+  <Body name="lbr_link_6_L_2" prev="lbr_link_5_L_2" physics="dynamic" mass="1.8" inertia="0.005 0 0   0 0.0036 0   0 0 0.0047" >
+    <Joint name="lbr_joint_6_L_2" range="-115 -6.529904 115" weightMetric="0.5" type="RotZ" transform="0 0 0.2155 90 0 0" speedLimit="135" ctrlType="Torque" />
+    <Shape type="SSL" length="0.1" radius="0.065" distance="true" physics="false" graphics="false" transform="0 -0.03 0.01 -95 0 0" color="COPPER" />
+    <Shape type="MESH" distance="false" physics="false" graphics="true" meshFile="iiwa_description/meshes/iiwa14/visual/link_6.stl" color="ORANGE" />
+    <Shape type="MESH" distance="false" physics="true" graphics="false" meshFile="iiwa_description/meshes/iiwa14/collision/link_6_hull.tri" color="ORANGE" />
+  </Body>
+
+  <Body name="lbr_link_7_L_2" prev="lbr_link_6_L_2" physics="dynamic" mass="0.3" inertia="0.001 0 0   0 0.001 0   0 0 0.001" >
+    <Joint name="lbr_joint_7_L_2" range="-170 -45.898067 170" type="RotZ" transform="0 0.081 0 -90 0 -180" speedLimit="135" ctrlType="Torque" />
+    <Shape type="MESH" distance="false" physics="false" graphics="true" meshFile="iiwa_description/meshes/iiwa14/visual/link_7.stl" color="ORANGE" />
+    <Shape type="MESH" distance="false" physics="true" graphics="false" meshFile="iiwa_description/meshes/iiwa14/collision/link_7_hull.tri" color="ORANGE" />
+    <Shape type="CYLINDER" length="0.0361" radius="0.029" distance="false" physics="true" graphics="true" transform="0 0 0.06305 0 0 0" color="GRAY" />
+    <Shape type="CYLINDER" length="0.0148" radius="0.045" distance="false" physics="true" graphics="true" transform="0 0 0.0885 0 0 0" color="GRAY" />
+    <Shape type="CYLINDER" length="0.0748" radius="0.045" distance="false" physics="true" graphics="true" transform="0 0 0.1333 0 0 0" color="GRAY" />
+    <Shape type="SSL" length="0.15" radius="0.045" distance="true" physics="false" graphics="false" color="RED" />
+  </Body>
+
+  <Body name="sdh-base_L_2" prev="lbr_link_7_L_2" transform="0 0 0.171 0 0 75" physics="fixed" mass="1.054" inertia="0.001757 0 0   0 0.001757 0   0 0 0.001757" >
+    <Shape type="MESH" distance="false" physics="false" graphics="true" transform="0 0 0.049 0 0 0" meshFile="Schunk/SDH_Gehaeuse_x.tri" />
+    <Shape type="MESH" distance="false" physics="true" graphics="false" transform="0 0 0.049 0 0 0" meshFile="Schunk/SDH_Gehaeuse_x.tri" />
+    <Shape type="SSL" length="0.02" radius="0.065" distance="true" physics="false" graphics="false" transform="0 0 0.02 0 0 0" color="RED" />
+    <Shape type="MESH" distance="false" physics="false" graphics="true" transform="-0.038105 0 0.072 90 -90 0" meshFile="Schunk/SDH_Gelenk_Finger1_x.tri" />
+  </Body>
+
+  <Body name="HandLink_L_2" prev="sdh-base_L_2" transform="0 0 0.1 180 0 90" >
+    <Shape type="FRAME" scale="0.2" />
+  </Body>
+
+  <Body name="lbr_link_0_R_2" prev="RailBot_2" transform="0.125 0.247835 0.059 -134.01 -68.91 -135.99" physics="kinematic" mass="5" inertia="0.05 0 0   0 0.06 0   0 0 0.03" >
+    <Shape type="SSL" length="0.08" radius="0.125" distance="true" physics="false" graphics="false" color="PEWTER" />
+    <Shape type="MESH" distance="false" physics="false" graphics="true" meshFile="iiwa_description/meshes/iiwa14/visual/link_0.stl" color="ORANGE" />
+    <Shape type="MESH" distance="false" physics="true" graphics="false" meshFile="iiwa_description/meshes/iiwa14/collision/link_0_hull.tri" color="ORANGE" />
+  </Body>
+
+  <Body name="lbr_link_1_R_2" prev="lbr_link_0_R_2" physics="dynamic" mass="4" inertia="0.1 0 0   0 0.09 0   0 0 0.02" >
+    <Joint name="lbr_joint_1_R_2" range="-165 -12.486547 165" type="RotZ" transform="0 0 0.1575 0 0 0" speedLimit="85" ctrlType="Torque" />
+    <Shape type="SSL" length="0.2" radius="0.09" distance="true" physics="false" graphics="false" transform="0 0 0 10 0 0" color="GREEN" />
+    <Shape type="MESH" distance="false" physics="false" graphics="true" meshFile="iiwa_description/meshes/iiwa14/visual/link_1.stl" color="ORANGE" />
+    <Shape type="MESH" distance="false" physics="true" graphics="false" meshFile="iiwa_description/meshes/iiwa14/collision/link_1_hull.tri" color="ORANGE" />
+  </Body>
+
+  <Body name="lbr_link_2_R_2" prev="lbr_link_1_R_2" physics="dynamic" mass="4" cogVector="0.0003 0.059 0.042" inertia="0.05 0 0   0 0.018 0   0 0 0.044" >
+    <Joint name="lbr_joint_2_R_2" range="-115 -52.033523 115" weightMetric="0.5" type="RotZ" transform="0 0 0.2025 -90 0 180" speedLimit="85" ctrlType="Torque" />
+    <Shape type="SSL" length="0.2" radius="0.09" distance="true" physics="false" graphics="false" transform="0 0 0.05 -100 0 0" color="COPPER" />
+    <Shape type="MESH" distance="false" physics="false" graphics="true" meshFile="iiwa_description/meshes/iiwa14/visual/link_2.stl" color="ORANGE" />
+    <Shape type="MESH" distance="false" physics="true" graphics="false" meshFile="iiwa_description/meshes/iiwa14/collision/link_2_hull.tri" color="ORANGE" />
+  </Body>
+
+  <Body name="lbr_link_3_R_2" prev="lbr_link_2_R_2" physics="dynamic" mass="3" inertia="0.08 0 0   0 0.075 0   0 0 0.01" >
+    <Joint name="lbr_joint_3_R_2" range="-165 -34.787304 165" type="RotZ" transform="0 0.2045 0 -90 0 180" speedLimit="100" ctrlType="Torque" />
+    <Shape type="SSL" length="0.22" radius="0.08" distance="true" physics="false" graphics="false" transform="0 0 0 -10 0 0" color="RED" />
+    <Shape type="MESH" distance="false" physics="false" graphics="true" meshFile="iiwa_description/meshes/iiwa14/visual/link_3.stl" color="ORANGE" />
+    <Shape type="MESH" distance="false" physics="true" graphics="false" meshFile="iiwa_description/meshes/iiwa14/collision/link_3_hull.tri" color="ORANGE" />
+  </Body>
+
+  <Body name="lbr_link_4_R_2" prev="lbr_link_3_R_2" physics="dynamic" mass="2.7" inertia="0.03 0 0   0 0.01 0   0 0 0.029" >
+    <Joint name="lbr_joint_4_R_2" range="-115 -76.348822 115" weightJL="2" type="RotZ" transform="0 0 0.2155 90 0 0" speedLimit="75" ctrlType="Torque" />
+    <Shape type="SSL" length="0.15" radius="0.08" distance="true" physics="false" graphics="false" transform="0 0 0.04 -105 0 0" color="PEWTER" />
+    <Shape type="MESH" distance="false" physics="false" graphics="true" meshFile="iiwa_description/meshes/iiwa14/visual/link_4.stl" color="ORANGE" />
+    <Shape type="MESH" distance="false" physics="true" graphics="false" meshFile="iiwa_description/meshes/iiwa14/collision/link_4_hull.tri" color="ORANGE" />
+  </Body>
+
+  <Body name="lbr_link_5_R_2" prev="lbr_link_4_R_2" physics="dynamic" mass="1.7" cogVector="0.0001 0.021 0.076" inertia="0.02 0 0   0 0.018 0   0 0 0.005" >
+    <Joint name="lbr_joint_5_R_2" range="-165 63.740089 165" type="RotZ" transform="0 0.1845 0 -90 0 -180" speedLimit="130" ctrlType="Torque" />
+    <Shape type="SSL" length="0.21" radius="0.075" distance="true" physics="false" graphics="false" transform="0 0 0 -10 0 0" color="GREEN" />
+    <Shape type="MESH" distance="false" physics="false" graphics="true" meshFile="iiwa_description/meshes/iiwa14/visual/link_5.stl" color="ORANGE" />
+    <Shape type="MESH" distance="false" physics="true" graphics="false" meshFile="iiwa_description/meshes/iiwa14/collision/link_5_hull.tri" color="ORANGE" />
+  </Body>
+
+  <Body name="lbr_link_6_R_2" prev="lbr_link_5_R_2" physics="dynamic" mass="1.8" inertia="0.005 0 0   0 0.0036 0   0 0 0.0047" >
+    <Joint name="lbr_joint_6_R_2" range="-115 4.519144 115" weightMetric="0.5" type="RotZ" transform="0 0 0.2155 90 0 0" speedLimit="135" ctrlType="Torque" />
+    <Shape type="SSL" length="0.1" radius="0.065" distance="true" physics="false" graphics="false" transform="0 -0.03 0.01 -95 0 0" color="COPPER" />
+    <Shape type="MESH" distance="false" physics="false" graphics="true" meshFile="iiwa_description/meshes/iiwa14/visual/link_6.stl" color="ORANGE" />
+    <Shape type="MESH" distance="false" physics="true" graphics="false" meshFile="iiwa_description/meshes/iiwa14/collision/link_6_hull.tri" color="ORANGE" />
+  </Body>
+
+  <Body name="lbr_link_7_R_2" prev="lbr_link_6_R_2" physics="dynamic" mass="0.3" inertia="0.001 0 0   0 0.001 0   0 0 0.001" >
+    <Joint name="lbr_joint_7_R_2" range="-170 67.417901 170" type="RotZ" transform="0 0.081 0 -90 0 -180" speedLimit="135" ctrlType="Torque" />
+    <Shape type="MESH" distance="false" physics="false" graphics="true" meshFile="iiwa_description/meshes/iiwa14/visual/link_7.stl" color="ORANGE" />
+    <Shape type="MESH" distance="false" physics="true" graphics="false" meshFile="iiwa_description/meshes/iiwa14/collision/link_7_hull.tri" color="ORANGE" />
+    <Shape type="CYLINDER" length="0.0361" radius="0.029" distance="false" physics="true" graphics="true" transform="0 0 0.06305 0 0 0" color="GRAY" />
+    <Shape type="CYLINDER" length="0.0148" radius="0.045" distance="false" physics="true" graphics="true" transform="0 0 0.0885 0 0 0" color="GRAY" />
+    <Shape type="CYLINDER" length="0.0748" radius="0.045" distance="false" physics="true" graphics="true" transform="0 0 0.1333 0 0 0" color="GRAY" />
+    <Shape type="SSL" length="0.15" radius="0.045" distance="true" physics="false" graphics="false" color="RED" />
+  </Body>
+
+  <Body name="sdh-base_R_2" prev="lbr_link_7_R_2" transform="0 0 0.171 0 0 75" physics="fixed" mass="1.054" inertia="0.001757 0 0   0 0.001757 0   0 0 0.001757" >
+    <Shape type="MESH" distance="false" physics="false" graphics="true" transform="0 0 0.049 0 0 0" meshFile="Schunk/SDH_Gehaeuse_x.tri" />
+    <Shape type="MESH" distance="false" physics="true" graphics="false" transform="0 0 0.049 0 0 0" meshFile="Schunk/SDH_Gehaeuse_x.tri" />
+    <Shape type="SSL" length="0.02" radius="0.065" distance="true" physics="false" graphics="false" transform="0 0 0.02 0 0 0" color="RED" />
+    <Shape type="MESH" distance="false" physics="false" graphics="true" transform="-0.038105 0 0.072 90 -90 0" meshFile="Schunk/SDH_Gelenk_Finger1_x.tri" />
+  </Body>
+
+  <Body name="HandLink_R_2" prev="sdh-base_R_2" transform="0 0 0.1 180 0 90" >
+    <Shape type="FRAME" scale="0.2" />
+  </Body>
+
+  <Body name="Box Base_2" prev="Lab Frame_2" transform="0 0 0 90 -90 0" >
+    <Shape type="FRAME" scale="0.2" />
+  </Body>
+
+  <Body name="Box_v_2" prev="Box Base_2" >
+    <Joint name="DofX_v_2" range="-10 0 10" weightJL="0" type="TransX" coupledTo="DofX_v" couplingFactor="1 "/>
+    <Joint name="DofY_v_2" range="-10 1.13 10" weightMetric="0.1" type="TransY" coupledTo="DofY_v" couplingFactor="1 "/>
+    <Joint name="DofZ_v_2" range="-10 -0.86 10" weightJL="10" weightMetric="0.1" type="TransZ" coupledTo="DofZ_v" couplingFactor="1 "/>
+    <Joint name="DofThX_v_2" range="-1000 0 1000" weightJL="0" type="RotX" coupledTo="DofThX_v" couplingFactor="1 "/>
+    <Joint name="DofThY_v_2" range="-1000 0 1000" weightJL="0" type="RotY" coupledTo="DofThY_v" couplingFactor="1 "/>
+    <Joint name="DofThZ_v_2" range="-1000 0 1000" weightJL="0" type="RotZ" />
+    <Shape type="FRAME" scale="0.2" />
+    <Shape type="SPHERE" radius="0.05" distance="true" physics="false" graphics="false" />
+  </Body>
+
+  <Body name="Box_real_2" prev="Box_v_2" physics="dynamic" mass="10" inertia="0.876 0 0   0 1.09875 0   0 0 0.43875" >
+    <Shape type="BOX" extents="0.63 0.36 0.96" distance="true" physics="true" graphics="true" transform="0 0 -0.5 0 0 0" color="DARKRED_TRANS" />
+  </Body>
+
+  <Body name="PowerAnchor_L_2" prev="Box_v_2" physics="kinematic" mass="1" inertia="1.66667e-05 0 0   0 1.66667e-05 0   0 0 1.66667e-05" >
+    <Joint name="rlx_2" range="-3 -0.2079 3" type="TransX" coupledTo="rlx_1" couplingFactor="1 "/>
+    <Joint name="rly_2" range="-2 -0.18 2" type="TransY" coupledTo="rly_1" couplingFactor="1 "/>
+    <Joint name="rlz_2" range="-2 0 2" type="TransZ" coupledTo="rlz_1" couplingFactor="1 "/>
+    <Joint name="rla_2" range="-400 90 400" type="RotX" coupledTo="rla_1" couplingFactor="1 "/>
+    <Joint name="rlb_2" range="-400 90 400" type="RotY" coupledTo="rlb_1" couplingFactor="1 "/>
+    <Joint name="rlc_2" range="-400 0 400" type="RotZ" coupledTo="rlc_1" couplingFactor="1 "/>
+    <Joint name="rla2_2" range="-400 -20 400" type="RotX" coupledTo="rla2_1" couplingFactor="1 "/>
+    <Joint name="rlb2_2" range="-400 0 400" type="RotY" coupledTo="rlb2_1" couplingFactor="1 "/>
+    <Joint name="rlc2_2" range="-400 0 400" type="RotZ" coupledTo="rlc2_1" couplingFactor="1 "/>
+    <Shape type="BOX" extents="0.01 0.01 0.01" distance="true" physics="true" graphics="false" transform="0 0 0.2 0 0 0" />
+    <Shape type="FRAME" scale="0.25" />
+  </Body>
+
+  <Body name="PowerGrasp_L_2" prev="PowerAnchor_L_2" transform="0 0 0 -90 0 -90" physics="fixed" mass="1" inertia="0.00941667 0 0   0 0.00554167 -0.003025   0 -0.003025 0.00554167" >
+    <Shape type="BOX" extents="0.1 0.2 0.02" distance="true" physics="true" graphics="true" transform="0 0.1 0.01 0 0 0" />
+    <Shape type="BOX" extents="0.1 0.02 0.2" distance="true" physics="true" graphics="true" transform="0 -0.01 -0.1 0 0 0" />
+    <Shape type="FRAME" scale="0.525" />
+  </Body>
+
+  <Body name="PowerAnchor_R_2" prev="Box_v_2" physics="kinematic" mass="1" inertia="1.66667e-05 0 0   0 1.66667e-05 0   0 0 1.66667e-05" >
+    <Joint name="rrx_2" range="-3 0.2079 3" type="TransX" coupledTo="rrx" couplingFactor="1 "/>
+    <Joint name="rry_2" range="-2 -0.18 2" type="TransY" coupledTo="rry" couplingFactor="1 "/>
+    <Joint name="rrz_2" range="-2 0 2" type="TransZ" coupledTo="rrz" couplingFactor="1 "/>
+    <Joint name="rra_2" range="-400 90 400" type="RotX" coupledTo="rra" couplingFactor="1 "/>
+    <Joint name="rrb_2" range="-400 90 400" type="RotY" coupledTo="rrb" couplingFactor="1 "/>
+    <Joint name="rrc_2" range="-400 0 400" type="RotZ" coupledTo="rrc" couplingFactor="1 "/>
+    <Joint name="rra2_2" range="-400 20 400" type="RotX" coupledTo="rra2" couplingFactor="1 "/>
+    <Joint name="rrb2_2" range="-400 0 400" type="RotY" coupledTo="rrb2" couplingFactor="1 "/>
+    <Joint name="rrc2_2" range="-400 0 400" type="RotZ" coupledTo="rrc2" couplingFactor="1 "/>
+    <Shape type="BOX" extents="0.01 0.01 0.01" distance="true" physics="true" graphics="false" transform="0 0 0.2 0 0 0" />
+    <Shape type="FRAME" scale="0.25" />
+  </Body>
+
+  <Body name="PowerGrasp_R_2" prev="PowerAnchor_R_2" transform="0 0 0 -90 0 -90" physics="fixed" mass="1" inertia="0.00941667 0 0   0 0.00554167 -0.003025   0 -0.003025 0.00554167" >
+    <Shape type="BOX" extents="0.1 0.2 0.02" distance="true" physics="true" graphics="true" transform="0 0.1 0.01 0 0 0" />
+    <Shape type="BOX" extents="0.1 0.02 0.2" distance="true" physics="true" graphics="true" transform="0 -0.01 -0.1 0 0 0" />
+    <Shape type="FRAME" scale="0.525" />
+  </Body>
+
+  <Body name="Lab Frame_3" transform="-7.5 0 0 0 0 0" physics="kinematic" >
+    <Shape type="BOX" extents="6 6 0.04" distance="true" physics="true" graphics="true" transform="0 0 -0.02 0 0 0" color="PEWTER" />
+    <Shape type="FRAME" />
+  </Body>
+
+  <Body name="ImetronPlatform_3" prev="Lab Frame_3" mass="100" inertia="13.6042 0 0   0 6.60419 0   0 0 19.0417" >
+    <Joint name="DofBaseX_3" range="-4 0.019695 4" weightJL="0" weightMetric="0.5" type="TransX" />
+    <Joint name="DofBaseY_3" range="-1.5 -0.005744 1.5" weightMetric="0.01" type="TransY" />
+    <Joint name="DofBaseThZ_3" range="-60 0 60" weightMetric="0.001" type="RotZ" />
+    <Shape type="SSR" extents="0.85 1.25 0.28" distance="true" physics="false" graphics="false" transform="0 0 0.14 0 0 0" color="DARKGRAY" />
+    <Shape type="BOX" extents="0.85 1.25 0.2" distance="false" physics="true" graphics="true" transform="0 0 0.1 0 0 0" color="DARKGRAY" />
+  </Body>
+
+  <Body name="Base_3" prev="ImetronPlatform_3" transform="0 0 0.2 0 0 180" mass="80" inertia="25.4419 0 -0.247227   0 26.1432 0   -0.247227 0 2.90573" >
+    <Shape type="SSL" length="0.2" radius="0.08" distance="true" physics="false" graphics="false" transform="-0.02 0 0.1 0 0 0" color="BLUE" />
+    <Shape type="SSL" length="1.65" radius="0.2" distance="true" physics="false" graphics="false" transform="0.17 0 0 0 0 0" color="BLUE" />
+    <Shape type="SSL" length="0.72" radius="0.08" distance="true" physics="false" graphics="false" transform="0.36 0.18 0.17 0 -90 0" color="BLUE" />
+    <Shape type="SSL" length="0.72" radius="0.08" distance="true" physics="false" graphics="false" transform="0.36 -0.18 0.17 0 -90 0" color="BLUE" />
+    <Shape type="BOX" extents="0.07 0.16 1.6" distance="false" physics="false" graphics="true" transform="0.245 0 0.85 0 0 0" color="DARKGRAY" />
+    <Shape type="BOX" extents="0.16 0.32 1.7" distance="false" physics="true" graphics="true" transform="0.13 0 0.85 0 0 0" />
+    <Shape type="BOX" extents="0.04 1.25 0.08" distance="false" physics="true" graphics="true" transform="-0.405 0 0.04 0 0 0" />
+    <Shape type="BOX" extents="0.04 1.25 0.08" distance="false" physics="true" graphics="true" transform="0.405 0 0.04 0 0 0" />
+    <Shape type="BOX" extents="0.77 0.04 0.24" distance="false" physics="true" graphics="true" transform="0 0.18 0.12 0 0 0" />
+    <Shape type="BOX" extents="0.77 0.04 0.24" distance="false" physics="true" graphics="true" transform="0 -0.18 0.12 0 0 0" />
+    <Shape type="SSR" extents="0.55 0.33 0.1" distance="true" physics="false" graphics="false" transform="-0.09 0 1.275 0 85 0" color="BLACK_RUBBER" />
+    <Shape type="BOX" extents="0.07 0.36 0.55" distance="false" physics="false" graphics="true" transform="-0.09 0 1.275 0 -5 0" color="BLACK_RUBBER" />
+    <Shape type="BOX" extents="0.001 0.33 0.52" distance="false" physics="false" graphics="true" transform="-0.125 0 1.275 0 -5 0" color="PUREWHITE" />
+    <Shape type="BOX" extents="0.001 0.33 0.2" distance="false" physics="false" graphics="true" transform="-0.1254 0 1.275 0 -5 0" />
+  </Body>
+
+  <Body name="RailBot_3" prev="Base_3" transform="0.209 0 0 0 0 0" mass="20" inertia="0.97802 -0.0116595 -0.0403039   -0.0116595 0.366192 0.0428657   -0.0403039 0.0428657 0.736717" >
+    <Joint name="DofChestZ_3" range="0.5 0.803058 1" weightJL="0.75" weightMetric="0.2" type="TransZ" transform="0 0 0.375 0 0 0" />
+    <Shape type="MESH" distance="false" physics="false" graphics="true" scale="0.001" transform="0 0 0 180 0 -90" meshFile="DexBot/LinearSlide.stl" />
+    <Shape type="MESH" distance="false" physics="false" graphics="true" scale="0.001" transform="0.085 0 -0.2 0 0 0" meshFile="DexBot/Slide-Simple.stl" />
+    <Shape type="MESH" distance="false" physics="false" graphics="true" scale="0.001" transform="0.203 0.101 -0.05 -90 0 165" meshFile="DexBot/Wing-Simple.stl" />
+    <Shape type="MESH" distance="false" physics="false" graphics="true" scale="0.001" transform="0.135 -0.101 0.2 90 0 -165" meshFile="DexBot/Wing-Simple.stl" />
+    <Shape type="BOX" extents="0.04 0.75 0.2" distance="false" physics="true" graphics="false" transform="0.17 0 0.1 0 0 0" />
+    <Shape type="FRAME" scale="0.5" />
+  </Body>
+
+  <Body name="lbr_link_0_L_3" prev="RailBot_3" transform="0.125 -0.247635 0.0675 134.01 -68.91 -44.01" physics="kinematic" mass="5" inertia="0.05 0 0   0 0.06 0   0 0 0.03" >
+    <Shape type="SSL" length="0.08" radius="0.125" distance="true" physics="false" graphics="false" color="PEWTER" />
+    <Shape type="MESH" distance="false" physics="false" graphics="true" meshFile="iiwa_description/meshes/iiwa14/visual/link_0.stl" color="ORANGE" />
+    <Shape type="MESH" distance="false" physics="true" graphics="false" meshFile="iiwa_description/meshes/iiwa14/collision/link_0_hull.tri" color="ORANGE" />
+  </Body>
+
+  <Body name="lbr_link_1_L_3" prev="lbr_link_0_L_3" physics="dynamic" mass="4" inertia="0.1 0 0   0 0.09 0   0 0 0.02" >
+    <Joint name="lbr_joint_1_L_3" range="-165 15.013332 165" type="RotZ" transform="0 0 0.1575 0 0 0" speedLimit="85" ctrlType="Torque" />
+    <Shape type="SSL" length="0.2" radius="0.09" distance="true" physics="false" graphics="false" transform="0 0 0 10 0 0" color="GREEN" />
+    <Shape type="MESH" distance="false" physics="false" graphics="true" meshFile="iiwa_description/meshes/iiwa14/visual/link_1.stl" color="ORANGE" />
+    <Shape type="MESH" distance="false" physics="true" graphics="false" meshFile="iiwa_description/meshes/iiwa14/collision/link_1_hull.tri" color="ORANGE" />
+    <Sensor name="lbr_joint_1_torque_L_3" type="JOINTTORQUE" />
+  </Body>
+
+  <Body name="lbr_link_2_L_3" prev="lbr_link_1_L_3" physics="dynamic" mass="4" cogVector="0.0003 0.059 0.042" inertia="0.05 0 0   0 0.018 0   0 0 0.044" >
+    <Joint name="lbr_joint_2_L_3" range="-115 51.311032 115" weightMetric="0.5" type="RotZ" transform="0 0 0.2025 -90 0 180" speedLimit="85" ctrlType="Torque" />
+    <Shape type="SSL" length="0.2" radius="0.09" distance="true" physics="false" graphics="false" transform="0 0 0.05 -100 0 0" color="COPPER" />
+    <Shape type="MESH" distance="false" physics="false" graphics="true" meshFile="iiwa_description/meshes/iiwa14/visual/link_2.stl" color="ORANGE" />
+    <Shape type="MESH" distance="false" physics="true" graphics="false" meshFile="iiwa_description/meshes/iiwa14/collision/link_2_hull.tri" color="ORANGE" />
+  </Body>
+
+  <Body name="lbr_link_3_L_3" prev="lbr_link_2_L_3" physics="dynamic" mass="3" inertia="0.08 0 0   0 0.075 0   0 0 0.01" >
+    <Joint name="lbr_joint_3_L_3" range="-165 35.130674 165" type="RotZ" transform="0 0.2045 0 -90 0 180" speedLimit="100" ctrlType="Torque" />
+    <Shape type="SSL" length="0.22" radius="0.08" distance="true" physics="false" graphics="false" transform="0 0 0 -10 0 0" color="RED" />
+    <Shape type="MESH" distance="false" physics="false" graphics="true" meshFile="iiwa_description/meshes/iiwa14/visual/link_3.stl" color="ORANGE" />
+    <Shape type="MESH" distance="false" physics="true" graphics="false" meshFile="iiwa_description/meshes/iiwa14/collision/link_3_hull.tri" color="ORANGE" />
+  </Body>
+
+  <Body name="lbr_link_4_L_3" prev="lbr_link_3_L_3" physics="dynamic" mass="2.7" inertia="0.03 0 0   0 0.01 0   0 0 0.029" >
+    <Joint name="lbr_joint_4_L_3" range="-115 75.200525 115" weightJL="2" type="RotZ" transform="0 0 0.2155 90 0 0" speedLimit="75" ctrlType="Torque" />
+    <Shape type="SSL" length="0.15" radius="0.08" distance="true" physics="false" graphics="false" transform="0 0 0.04 -105 0 0" color="PEWTER" />
+    <Shape type="MESH" distance="false" physics="false" graphics="true" meshFile="iiwa_description/meshes/iiwa14/visual/link_4.stl" color="ORANGE" />
+    <Shape type="MESH" distance="false" physics="true" graphics="false" meshFile="iiwa_description/meshes/iiwa14/collision/link_4_hull.tri" color="ORANGE" />
+  </Body>
+
+  <Body name="lbr_link_5_L_3" prev="lbr_link_4_L_3" physics="dynamic" mass="1.7" cogVector="0.0001 0.021 0.076" inertia="0.02 0 0   0 0.018 0   0 0 0.005" >
+    <Joint name="lbr_joint_5_L_3" range="-165 -57.743675 165" type="RotZ" transform="0 0.1845 0 -90 0 -180" speedLimit="130" ctrlType="Torque" />
+    <Shape type="SSL" length="0.21" radius="0.075" distance="true" physics="false" graphics="false" transform="0 0 0 -10 0 0" color="GREEN" />
+    <Shape type="MESH" distance="false" physics="false" graphics="true" meshFile="iiwa_description/meshes/iiwa14/visual/link_5.stl" color="ORANGE" />
+    <Shape type="MESH" distance="false" physics="true" graphics="false" meshFile="iiwa_description/meshes/iiwa14/collision/link_5_hull.tri" color="ORANGE" />
+  </Body>
+
+  <Body name="lbr_link_6_L_3" prev="lbr_link_5_L_3" physics="dynamic" mass="1.8" inertia="0.005 0 0   0 0.0036 0   0 0 0.0047" >
+    <Joint name="lbr_joint_6_L_3" range="-115 -6.529904 115" weightMetric="0.5" type="RotZ" transform="0 0 0.2155 90 0 0" speedLimit="135" ctrlType="Torque" />
+    <Shape type="SSL" length="0.1" radius="0.065" distance="true" physics="false" graphics="false" transform="0 -0.03 0.01 -95 0 0" color="COPPER" />
+    <Shape type="MESH" distance="false" physics="false" graphics="true" meshFile="iiwa_description/meshes/iiwa14/visual/link_6.stl" color="ORANGE" />
+    <Shape type="MESH" distance="false" physics="true" graphics="false" meshFile="iiwa_description/meshes/iiwa14/collision/link_6_hull.tri" color="ORANGE" />
+  </Body>
+
+  <Body name="lbr_link_7_L_3" prev="lbr_link_6_L_3" physics="dynamic" mass="0.3" inertia="0.001 0 0   0 0.001 0   0 0 0.001" >
+    <Joint name="lbr_joint_7_L_3" range="-170 -45.898067 170" type="RotZ" transform="0 0.081 0 -90 0 -180" speedLimit="135" ctrlType="Torque" />
+    <Shape type="MESH" distance="false" physics="false" graphics="true" meshFile="iiwa_description/meshes/iiwa14/visual/link_7.stl" color="ORANGE" />
+    <Shape type="MESH" distance="false" physics="true" graphics="false" meshFile="iiwa_description/meshes/iiwa14/collision/link_7_hull.tri" color="ORANGE" />
+    <Shape type="CYLINDER" length="0.0361" radius="0.029" distance="false" physics="true" graphics="true" transform="0 0 0.06305 0 0 0" color="GRAY" />
+    <Shape type="CYLINDER" length="0.0148" radius="0.045" distance="false" physics="true" graphics="true" transform="0 0 0.0885 0 0 0" color="GRAY" />
+    <Shape type="CYLINDER" length="0.0748" radius="0.045" distance="false" physics="true" graphics="true" transform="0 0 0.1333 0 0 0" color="GRAY" />
+    <Shape type="SSL" length="0.15" radius="0.045" distance="true" physics="false" graphics="false" color="RED" />
+  </Body>
+
+  <Body name="sdh-base_L_3" prev="lbr_link_7_L_3" transform="0 0 0.171 0 0 75" physics="fixed" mass="1.054" inertia="0.001757 0 0   0 0.001757 0   0 0 0.001757" >
+    <Shape type="MESH" distance="false" physics="false" graphics="true" transform="0 0 0.049 0 0 0" meshFile="Schunk/SDH_Gehaeuse_x.tri" />
+    <Shape type="MESH" distance="false" physics="true" graphics="false" transform="0 0 0.049 0 0 0" meshFile="Schunk/SDH_Gehaeuse_x.tri" />
+    <Shape type="SSL" length="0.02" radius="0.065" distance="true" physics="false" graphics="false" transform="0 0 0.02 0 0 0" color="RED" />
+    <Shape type="MESH" distance="false" physics="false" graphics="true" transform="-0.038105 0 0.072 90 -90 0" meshFile="Schunk/SDH_Gelenk_Finger1_x.tri" />
+  </Body>
+
+  <Body name="HandLink_L_3" prev="sdh-base_L_3" transform="0 0 0.1 180 0 90" >
+    <Shape type="FRAME" scale="0.2" />
+  </Body>
+
+  <Body name="lbr_link_0_R_3" prev="RailBot_3" transform="0.125 0.247835 0.059 -134.01 -68.91 -135.99" physics="kinematic" mass="5" inertia="0.05 0 0   0 0.06 0   0 0 0.03" >
+    <Shape type="SSL" length="0.08" radius="0.125" distance="true" physics="false" graphics="false" color="PEWTER" />
+    <Shape type="MESH" distance="false" physics="false" graphics="true" meshFile="iiwa_description/meshes/iiwa14/visual/link_0.stl" color="ORANGE" />
+    <Shape type="MESH" distance="false" physics="true" graphics="false" meshFile="iiwa_description/meshes/iiwa14/collision/link_0_hull.tri" color="ORANGE" />
+  </Body>
+
+  <Body name="lbr_link_1_R_3" prev="lbr_link_0_R_3" physics="dynamic" mass="4" inertia="0.1 0 0   0 0.09 0   0 0 0.02" >
+    <Joint name="lbr_joint_1_R_3" range="-165 -12.486547 165" type="RotZ" transform="0 0 0.1575 0 0 0" speedLimit="85" ctrlType="Torque" />
+    <Shape type="SSL" length="0.2" radius="0.09" distance="true" physics="false" graphics="false" transform="0 0 0 10 0 0" color="GREEN" />
+    <Shape type="MESH" distance="false" physics="false" graphics="true" meshFile="iiwa_description/meshes/iiwa14/visual/link_1.stl" color="ORANGE" />
+    <Shape type="MESH" distance="false" physics="true" graphics="false" meshFile="iiwa_description/meshes/iiwa14/collision/link_1_hull.tri" color="ORANGE" />
+  </Body>
+
+  <Body name="lbr_link_2_R_3" prev="lbr_link_1_R_3" physics="dynamic" mass="4" cogVector="0.0003 0.059 0.042" inertia="0.05 0 0   0 0.018 0   0 0 0.044" >
+    <Joint name="lbr_joint_2_R_3" range="-115 -52.033523 115" weightMetric="0.5" type="RotZ" transform="0 0 0.2025 -90 0 180" speedLimit="85" ctrlType="Torque" />
+    <Shape type="SSL" length="0.2" radius="0.09" distance="true" physics="false" graphics="false" transform="0 0 0.05 -100 0 0" color="COPPER" />
+    <Shape type="MESH" distance="false" physics="false" graphics="true" meshFile="iiwa_description/meshes/iiwa14/visual/link_2.stl" color="ORANGE" />
+    <Shape type="MESH" distance="false" physics="true" graphics="false" meshFile="iiwa_description/meshes/iiwa14/collision/link_2_hull.tri" color="ORANGE" />
+  </Body>
+
+  <Body name="lbr_link_3_R_3" prev="lbr_link_2_R_3" physics="dynamic" mass="3" inertia="0.08 0 0   0 0.075 0   0 0 0.01" >
+    <Joint name="lbr_joint_3_R_3" range="-165 -34.787304 165" type="RotZ" transform="0 0.2045 0 -90 0 180" speedLimit="100" ctrlType="Torque" />
+    <Shape type="SSL" length="0.22" radius="0.08" distance="true" physics="false" graphics="false" transform="0 0 0 -10 0 0" color="RED" />
+    <Shape type="MESH" distance="false" physics="false" graphics="true" meshFile="iiwa_description/meshes/iiwa14/visual/link_3.stl" color="ORANGE" />
+    <Shape type="MESH" distance="false" physics="true" graphics="false" meshFile="iiwa_description/meshes/iiwa14/collision/link_3_hull.tri" color="ORANGE" />
+  </Body>
+
+  <Body name="lbr_link_4_R_3" prev="lbr_link_3_R_3" physics="dynamic" mass="2.7" inertia="0.03 0 0   0 0.01 0   0 0 0.029" >
+    <Joint name="lbr_joint_4_R_3" range="-115 -76.348822 115" weightJL="2" type="RotZ" transform="0 0 0.2155 90 0 0" speedLimit="75" ctrlType="Torque" />
+    <Shape type="SSL" length="0.15" radius="0.08" distance="true" physics="false" graphics="false" transform="0 0 0.04 -105 0 0" color="PEWTER" />
+    <Shape type="MESH" distance="false" physics="false" graphics="true" meshFile="iiwa_description/meshes/iiwa14/visual/link_4.stl" color="ORANGE" />
+    <Shape type="MESH" distance="false" physics="true" graphics="false" meshFile="iiwa_description/meshes/iiwa14/collision/link_4_hull.tri" color="ORANGE" />
+  </Body>
+
+  <Body name="lbr_link_5_R_3" prev="lbr_link_4_R_3" physics="dynamic" mass="1.7" cogVector="0.0001 0.021 0.076" inertia="0.02 0 0   0 0.018 0   0 0 0.005" >
+    <Joint name="lbr_joint_5_R_3" range="-165 63.740089 165" type="RotZ" transform="0 0.1845 0 -90 0 -180" speedLimit="130" ctrlType="Torque" />
+    <Shape type="SSL" length="0.21" radius="0.075" distance="true" physics="false" graphics="false" transform="0 0 0 -10 0 0" color="GREEN" />
+    <Shape type="MESH" distance="false" physics="false" graphics="true" meshFile="iiwa_description/meshes/iiwa14/visual/link_5.stl" color="ORANGE" />
+    <Shape type="MESH" distance="false" physics="true" graphics="false" meshFile="iiwa_description/meshes/iiwa14/collision/link_5_hull.tri" color="ORANGE" />
+  </Body>
+
+  <Body name="lbr_link_6_R_3" prev="lbr_link_5_R_3" physics="dynamic" mass="1.8" inertia="0.005 0 0   0 0.0036 0   0 0 0.0047" >
+    <Joint name="lbr_joint_6_R_3" range="-115 4.519144 115" weightMetric="0.5" type="RotZ" transform="0 0 0.2155 90 0 0" speedLimit="135" ctrlType="Torque" />
+    <Shape type="SSL" length="0.1" radius="0.065" distance="true" physics="false" graphics="false" transform="0 -0.03 0.01 -95 0 0" color="COPPER" />
+    <Shape type="MESH" distance="false" physics="false" graphics="true" meshFile="iiwa_description/meshes/iiwa14/visual/link_6.stl" color="ORANGE" />
+    <Shape type="MESH" distance="false" physics="true" graphics="false" meshFile="iiwa_description/meshes/iiwa14/collision/link_6_hull.tri" color="ORANGE" />
+  </Body>
+
+  <Body name="lbr_link_7_R_3" prev="lbr_link_6_R_3" physics="dynamic" mass="0.3" inertia="0.001 0 0   0 0.001 0   0 0 0.001" >
+    <Joint name="lbr_joint_7_R_3" range="-170 67.417901 170" type="RotZ" transform="0 0.081 0 -90 0 -180" speedLimit="135" ctrlType="Torque" />
+    <Shape type="MESH" distance="false" physics="false" graphics="true" meshFile="iiwa_description/meshes/iiwa14/visual/link_7.stl" color="ORANGE" />
+    <Shape type="MESH" distance="false" physics="true" graphics="false" meshFile="iiwa_description/meshes/iiwa14/collision/link_7_hull.tri" color="ORANGE" />
+    <Shape type="CYLINDER" length="0.0361" radius="0.029" distance="false" physics="true" graphics="true" transform="0 0 0.06305 0 0 0" color="GRAY" />
+    <Shape type="CYLINDER" length="0.0148" radius="0.045" distance="false" physics="true" graphics="true" transform="0 0 0.0885 0 0 0" color="GRAY" />
+    <Shape type="CYLINDER" length="0.0748" radius="0.045" distance="false" physics="true" graphics="true" transform="0 0 0.1333 0 0 0" color="GRAY" />
+    <Shape type="SSL" length="0.15" radius="0.045" distance="true" physics="false" graphics="false" color="RED" />
+  </Body>
+
+  <Body name="sdh-base_R_3" prev="lbr_link_7_R_3" transform="0 0 0.171 0 0 75" physics="fixed" mass="1.054" inertia="0.001757 0 0   0 0.001757 0   0 0 0.001757" >
+    <Shape type="MESH" distance="false" physics="false" graphics="true" transform="0 0 0.049 0 0 0" meshFile="Schunk/SDH_Gehaeuse_x.tri" />
+    <Shape type="MESH" distance="false" physics="true" graphics="false" transform="0 0 0.049 0 0 0" meshFile="Schunk/SDH_Gehaeuse_x.tri" />
+    <Shape type="SSL" length="0.02" radius="0.065" distance="true" physics="false" graphics="false" transform="0 0 0.02 0 0 0" color="RED" />
+    <Shape type="MESH" distance="false" physics="false" graphics="true" transform="-0.038105 0 0.072 90 -90 0" meshFile="Schunk/SDH_Gelenk_Finger1_x.tri" />
+  </Body>
+
+  <Body name="HandLink_R_3" prev="sdh-base_R_3" transform="0 0 0.1 180 0 90" >
+    <Shape type="FRAME" scale="0.2" />
+  </Body>
+
+  <Body name="Box Base_3" prev="Lab Frame_3" transform="0 0 0 90 -90 0" >
+    <Shape type="FRAME" scale="0.2" />
+  </Body>
+
+  <Body name="Box_v_3" prev="Box Base_3" >
+    <Joint name="DofX_v_3" range="-10 0 10" weightJL="0" type="TransX" coupledTo="DofX_v" couplingFactor="1 "/>
+    <Joint name="DofY_v_3" range="-10 1.13 10" weightMetric="0.1" type="TransY" coupledTo="DofY_v" couplingFactor="1 "/>
+    <Joint name="DofZ_v_3" range="-10 -0.86 10" weightJL="10" weightMetric="0.1" type="TransZ" coupledTo="DofZ_v" couplingFactor="1 "/>
+    <Joint name="DofThX_v_3" range="-1000 0 1000" weightJL="0" type="RotX" coupledTo="DofThX_v" couplingFactor="1 "/>
+    <Joint name="DofThY_v_3" range="-1000 0 1000" weightJL="0" type="RotY" coupledTo="DofThY_v" couplingFactor="1 "/>
+    <Joint name="DofThZ_v_3" range="-1000 0 1000" weightJL="0" type="RotZ" coupledTo="DofThZ_v_2" couplingFactor="1 "/>
+    <Shape type="FRAME" scale="0.2" />
+    <Shape type="SPHERE" radius="0.05" distance="true" physics="false" graphics="false" />
+  </Body>
+
+  <Body name="Box_real_3" prev="Box_v_3" physics="dynamic" mass="10" inertia="0.876 0 0   0 1.09875 0   0 0 0.43875" >
+    <Shape type="BOX" extents="0.63 0.36 0.96" distance="true" physics="true" graphics="true" transform="0 0 -0.5 0 0 0" color="DARKRED_TRANS" />
+  </Body>
+
+  <Body name="PowerAnchor_L_3" prev="Box_v_3" physics="kinematic" mass="1" inertia="1.66667e-05 0 0   0 1.66667e-05 0   0 0 1.66667e-05" >
+    <Joint name="rlx_3" range="-3 -0.2079 3" type="TransX" coupledTo="rlx_1" couplingFactor="1 "/>
+    <Joint name="rly_3" range="-2 -0.18 2" type="TransY" coupledTo="rly_1" couplingFactor="1 "/>
+    <Joint name="rlz_3" range="-2 0 2" type="TransZ" coupledTo="rlz_1" couplingFactor="1 "/>
+    <Joint name="rla_3" range="-400 90 400" type="RotX" coupledTo="rla_1" couplingFactor="1 "/>
+    <Joint name="rlb_3" range="-400 90 400" type="RotY" coupledTo="rlb_1" couplingFactor="1 "/>
+    <Joint name="rlc_3" range="-400 0 400" type="RotZ" coupledTo="rlc_1" couplingFactor="1 "/>
+    <Joint name="rla2_3" range="-400 -20 400" type="RotX" coupledTo="rla2_1" couplingFactor="1 "/>
+    <Joint name="rlb2_3" range="-400 0 400" type="RotY" coupledTo="rlb2_1" couplingFactor="1 "/>
+    <Joint name="rlc2_3" range="-400 0 400" type="RotZ" coupledTo="rlc2_1" couplingFactor="1 "/>
+    <Shape type="BOX" extents="0.01 0.01 0.01" distance="true" physics="true" graphics="false" transform="0 0 0.2 0 0 0" />
+    <Shape type="FRAME" scale="0.25" />
+  </Body>
+
+  <Body name="PowerGrasp_L_3" prev="PowerAnchor_L_3" transform="0 0 0 -90 0 -90" physics="fixed" mass="1" inertia="0.00941667 0 0   0 0.00554167 -0.003025   0 -0.003025 0.00554167" >
+    <Shape type="BOX" extents="0.1 0.2 0.02" distance="true" physics="true" graphics="true" transform="0 0.1 0.01 0 0 0" />
+    <Shape type="BOX" extents="0.1 0.02 0.2" distance="true" physics="true" graphics="true" transform="0 -0.01 -0.1 0 0 0" />
+    <Shape type="FRAME" scale="0.525" />
+  </Body>
+
+  <Body name="PowerAnchor_R_3" prev="Box_v_3" physics="kinematic" mass="1" inertia="1.66667e-05 0 0   0 1.66667e-05 0   0 0 1.66667e-05" >
+    <Joint name="rrx_3" range="-3 0.2079 3" type="TransX" />
+    <Joint name="rry_3" range="-2 -0.18 2" type="TransY" />
+    <Joint name="rrz_3" range="-2 0 2" type="TransZ" />
+    <Joint name="rra_3" range="-400 90 400" type="RotX" />
+    <Joint name="rrb_3" range="-400 90 400" type="RotY" />
+    <Joint name="rrc_3" range="-400 0 400" type="RotZ" />
+    <Joint name="rra2_3" range="-400 20 400" type="RotX" />
+    <Joint name="rrb2_3" range="-400 0 400" type="RotY" />
+    <Joint name="rrc2_3" range="-400 0 400" type="RotZ" />
+    <Shape type="BOX" extents="0.01 0.01 0.01" distance="true" physics="true" graphics="false" transform="0 0 0.2 0 0 0" />
+    <Shape type="FRAME" scale="0.25" />
+  </Body>
+
+  <Body name="PowerGrasp_R_3" prev="PowerAnchor_R_3" transform="0 0 0 -90 0 -90" physics="fixed" mass="1" inertia="0.00941667 0 0   0 0.00554167 -0.003025   0 -0.003025 0.00554167" >
+    <Shape type="BOX" extents="0.1 0.2 0.02" distance="true" physics="true" graphics="true" transform="0 0.1 0.01 0 0 0" />
+    <Shape type="BOX" extents="0.1 0.02 0.2" distance="true" physics="true" graphics="true" transform="0 -0.01 -0.1 0 0 0" />
+    <Shape type="FRAME" scale="0.525" />
+  </Body>
+
+  <Body name="Lab Frame_4" transform="-10 0 0 0 0 0" physics="kinematic" >
+    <Shape type="BOX" extents="6 6 0.04" distance="true" physics="true" graphics="true" transform="0 0 -0.02 0 0 0" color="PEWTER" />
+    <Shape type="FRAME" />
+  </Body>
+
+  <Body name="ImetronPlatform_4" prev="Lab Frame_4" mass="100" inertia="13.6042 0 0   0 6.60419 0   0 0 19.0417" >
+    <Joint name="DofBaseX_4" range="-4 0.019695 4" weightJL="0" weightMetric="0.5" type="TransX" />
+    <Joint name="DofBaseY_4" range="-1.5 -0.005744 1.5" weightMetric="0.01" type="TransY" />
+    <Joint name="DofBaseThZ_4" range="-60 0 60" weightMetric="0.001" type="RotZ" />
+    <Shape type="SSR" extents="0.85 1.25 0.28" distance="true" physics="false" graphics="false" transform="0 0 0.14 0 0 0" color="DARKGRAY" />
+    <Shape type="BOX" extents="0.85 1.25 0.2" distance="false" physics="true" graphics="true" transform="0 0 0.1 0 0 0" color="DARKGRAY" />
+  </Body>
+
+  <Body name="Base_4" prev="ImetronPlatform_4" transform="0 0 0.2 0 0 180" mass="80" inertia="25.4419 0 -0.247227   0 26.1432 0   -0.247227 0 2.90573" >
+    <Shape type="SSL" length="0.2" radius="0.08" distance="true" physics="false" graphics="false" transform="-0.02 0 0.1 0 0 0" color="BLUE" />
+    <Shape type="SSL" length="1.65" radius="0.2" distance="true" physics="false" graphics="false" transform="0.17 0 0 0 0 0" color="BLUE" />
+    <Shape type="SSL" length="0.72" radius="0.08" distance="true" physics="false" graphics="false" transform="0.36 0.18 0.17 0 -90 0" color="BLUE" />
+    <Shape type="SSL" length="0.72" radius="0.08" distance="true" physics="false" graphics="false" transform="0.36 -0.18 0.17 0 -90 0" color="BLUE" />
+    <Shape type="BOX" extents="0.07 0.16 1.6" distance="false" physics="false" graphics="true" transform="0.245 0 0.85 0 0 0" color="DARKGRAY" />
+    <Shape type="BOX" extents="0.16 0.32 1.7" distance="false" physics="true" graphics="true" transform="0.13 0 0.85 0 0 0" />
+    <Shape type="BOX" extents="0.04 1.25 0.08" distance="false" physics="true" graphics="true" transform="-0.405 0 0.04 0 0 0" />
+    <Shape type="BOX" extents="0.04 1.25 0.08" distance="false" physics="true" graphics="true" transform="0.405 0 0.04 0 0 0" />
+    <Shape type="BOX" extents="0.77 0.04 0.24" distance="false" physics="true" graphics="true" transform="0 0.18 0.12 0 0 0" />
+    <Shape type="BOX" extents="0.77 0.04 0.24" distance="false" physics="true" graphics="true" transform="0 -0.18 0.12 0 0 0" />
+    <Shape type="SSR" extents="0.55 0.33 0.1" distance="true" physics="false" graphics="false" transform="-0.09 0 1.275 0 85 0" color="BLACK_RUBBER" />
+    <Shape type="BOX" extents="0.07 0.36 0.55" distance="false" physics="false" graphics="true" transform="-0.09 0 1.275 0 -5 0" color="BLACK_RUBBER" />
+    <Shape type="BOX" extents="0.001 0.33 0.52" distance="false" physics="false" graphics="true" transform="-0.125 0 1.275 0 -5 0" color="PUREWHITE" />
+    <Shape type="BOX" extents="0.001 0.33 0.2" distance="false" physics="false" graphics="true" transform="-0.1254 0 1.275 0 -5 0" />
+  </Body>
+
+  <Body name="RailBot_4" prev="Base_4" transform="0.209 0 0 0 0 0" mass="20" inertia="0.97802 -0.0116595 -0.0403039   -0.0116595 0.366192 0.0428657   -0.0403039 0.0428657 0.736717" >
+    <Joint name="DofChestZ_4" range="0.5 0.803058 1" weightJL="0.75" weightMetric="0.2" type="TransZ" transform="0 0 0.375 0 0 0" />
+    <Shape type="MESH" distance="false" physics="false" graphics="true" scale="0.001" transform="0 0 0 180 0 -90" meshFile="DexBot/LinearSlide.stl" />
+    <Shape type="MESH" distance="false" physics="false" graphics="true" scale="0.001" transform="0.085 0 -0.2 0 0 0" meshFile="DexBot/Slide-Simple.stl" />
+    <Shape type="MESH" distance="false" physics="false" graphics="true" scale="0.001" transform="0.203 0.101 -0.05 -90 0 165" meshFile="DexBot/Wing-Simple.stl" />
+    <Shape type="MESH" distance="false" physics="false" graphics="true" scale="0.001" transform="0.135 -0.101 0.2 90 0 -165" meshFile="DexBot/Wing-Simple.stl" />
+    <Shape type="BOX" extents="0.04 0.75 0.2" distance="false" physics="true" graphics="false" transform="0.17 0 0.1 0 0 0" />
+    <Shape type="FRAME" scale="0.5" />
+  </Body>
+
+  <Body name="lbr_link_0_L_4" prev="RailBot_4" transform="0.125 -0.247635 0.0675 134.01 -68.91 -44.01" physics="kinematic" mass="5" inertia="0.05 0 0   0 0.06 0   0 0 0.03" >
+    <Shape type="SSL" length="0.08" radius="0.125" distance="true" physics="false" graphics="false" color="PEWTER" />
+    <Shape type="MESH" distance="false" physics="false" graphics="true" meshFile="iiwa_description/meshes/iiwa14/visual/link_0.stl" color="ORANGE" />
+    <Shape type="MESH" distance="false" physics="true" graphics="false" meshFile="iiwa_description/meshes/iiwa14/collision/link_0_hull.tri" color="ORANGE" />
+  </Body>
+
+  <Body name="lbr_link_1_L_4" prev="lbr_link_0_L_4" physics="dynamic" mass="4" inertia="0.1 0 0   0 0.09 0   0 0 0.02" >
+    <Joint name="lbr_joint_1_L_4" range="-165 15.013332 165" type="RotZ" transform="0 0 0.1575 0 0 0" speedLimit="85" ctrlType="Torque" />
+    <Shape type="SSL" length="0.2" radius="0.09" distance="true" physics="false" graphics="false" transform="0 0 0 10 0 0" color="GREEN" />
+    <Shape type="MESH" distance="false" physics="false" graphics="true" meshFile="iiwa_description/meshes/iiwa14/visual/link_1.stl" color="ORANGE" />
+    <Shape type="MESH" distance="false" physics="true" graphics="false" meshFile="iiwa_description/meshes/iiwa14/collision/link_1_hull.tri" color="ORANGE" />
+    <Sensor name="lbr_joint_1_torque_L_4" type="JOINTTORQUE" />
+  </Body>
+
+  <Body name="lbr_link_2_L_4" prev="lbr_link_1_L_4" physics="dynamic" mass="4" cogVector="0.0003 0.059 0.042" inertia="0.05 0 0   0 0.018 0   0 0 0.044" >
+    <Joint name="lbr_joint_2_L_4" range="-115 51.311032 115" weightMetric="0.5" type="RotZ" transform="0 0 0.2025 -90 0 180" speedLimit="85" ctrlType="Torque" />
+    <Shape type="SSL" length="0.2" radius="0.09" distance="true" physics="false" graphics="false" transform="0 0 0.05 -100 0 0" color="COPPER" />
+    <Shape type="MESH" distance="false" physics="false" graphics="true" meshFile="iiwa_description/meshes/iiwa14/visual/link_2.stl" color="ORANGE" />
+    <Shape type="MESH" distance="false" physics="true" graphics="false" meshFile="iiwa_description/meshes/iiwa14/collision/link_2_hull.tri" color="ORANGE" />
+  </Body>
+
+  <Body name="lbr_link_3_L_4" prev="lbr_link_2_L_4" physics="dynamic" mass="3" inertia="0.08 0 0   0 0.075 0   0 0 0.01" >
+    <Joint name="lbr_joint_3_L_4" range="-165 35.130674 165" type="RotZ" transform="0 0.2045 0 -90 0 180" speedLimit="100" ctrlType="Torque" />
+    <Shape type="SSL" length="0.22" radius="0.08" distance="true" physics="false" graphics="false" transform="0 0 0 -10 0 0" color="RED" />
+    <Shape type="MESH" distance="false" physics="false" graphics="true" meshFile="iiwa_description/meshes/iiwa14/visual/link_3.stl" color="ORANGE" />
+    <Shape type="MESH" distance="false" physics="true" graphics="false" meshFile="iiwa_description/meshes/iiwa14/collision/link_3_hull.tri" color="ORANGE" />
+  </Body>
+
+  <Body name="lbr_link_4_L_4" prev="lbr_link_3_L_4" physics="dynamic" mass="2.7" inertia="0.03 0 0   0 0.01 0   0 0 0.029" >
+    <Joint name="lbr_joint_4_L_4" range="-115 75.200525 115" weightJL="2" type="RotZ" transform="0 0 0.2155 90 0 0" speedLimit="75" ctrlType="Torque" />
+    <Shape type="SSL" length="0.15" radius="0.08" distance="true" physics="false" graphics="false" transform="0 0 0.04 -105 0 0" color="PEWTER" />
+    <Shape type="MESH" distance="false" physics="false" graphics="true" meshFile="iiwa_description/meshes/iiwa14/visual/link_4.stl" color="ORANGE" />
+    <Shape type="MESH" distance="false" physics="true" graphics="false" meshFile="iiwa_description/meshes/iiwa14/collision/link_4_hull.tri" color="ORANGE" />
+  </Body>
+
+  <Body name="lbr_link_5_L_4" prev="lbr_link_4_L_4" physics="dynamic" mass="1.7" cogVector="0.0001 0.021 0.076" inertia="0.02 0 0   0 0.018 0   0 0 0.005" >
+    <Joint name="lbr_joint_5_L_4" range="-165 -57.743675 165" type="RotZ" transform="0 0.1845 0 -90 0 -180" speedLimit="130" ctrlType="Torque" />
+    <Shape type="SSL" length="0.21" radius="0.075" distance="true" physics="false" graphics="false" transform="0 0 0 -10 0 0" color="GREEN" />
+    <Shape type="MESH" distance="false" physics="false" graphics="true" meshFile="iiwa_description/meshes/iiwa14/visual/link_5.stl" color="ORANGE" />
+    <Shape type="MESH" distance="false" physics="true" graphics="false" meshFile="iiwa_description/meshes/iiwa14/collision/link_5_hull.tri" color="ORANGE" />
+  </Body>
+
+  <Body name="lbr_link_6_L_4" prev="lbr_link_5_L_4" physics="dynamic" mass="1.8" inertia="0.005 0 0   0 0.0036 0   0 0 0.0047" >
+    <Joint name="lbr_joint_6_L_4" range="-115 -6.529904 115" weightMetric="0.5" type="RotZ" transform="0 0 0.2155 90 0 0" speedLimit="135" ctrlType="Torque" />
+    <Shape type="SSL" length="0.1" radius="0.065" distance="true" physics="false" graphics="false" transform="0 -0.03 0.01 -95 0 0" color="COPPER" />
+    <Shape type="MESH" distance="false" physics="false" graphics="true" meshFile="iiwa_description/meshes/iiwa14/visual/link_6.stl" color="ORANGE" />
+    <Shape type="MESH" distance="false" physics="true" graphics="false" meshFile="iiwa_description/meshes/iiwa14/collision/link_6_hull.tri" color="ORANGE" />
+  </Body>
+
+  <Body name="lbr_link_7_L_4" prev="lbr_link_6_L_4" physics="dynamic" mass="0.3" inertia="0.001 0 0   0 0.001 0   0 0 0.001" >
+    <Joint name="lbr_joint_7_L_4" range="-170 -45.898067 170" type="RotZ" transform="0 0.081 0 -90 0 -180" speedLimit="135" ctrlType="Torque" />
+    <Shape type="MESH" distance="false" physics="false" graphics="true" meshFile="iiwa_description/meshes/iiwa14/visual/link_7.stl" color="ORANGE" />
+    <Shape type="MESH" distance="false" physics="true" graphics="false" meshFile="iiwa_description/meshes/iiwa14/collision/link_7_hull.tri" color="ORANGE" />
+    <Shape type="CYLINDER" length="0.0361" radius="0.029" distance="false" physics="true" graphics="true" transform="0 0 0.06305 0 0 0" color="GRAY" />
+    <Shape type="CYLINDER" length="0.0148" radius="0.045" distance="false" physics="true" graphics="true" transform="0 0 0.0885 0 0 0" color="GRAY" />
+    <Shape type="CYLINDER" length="0.0748" radius="0.045" distance="false" physics="true" graphics="true" transform="0 0 0.1333 0 0 0" color="GRAY" />
+    <Shape type="SSL" length="0.15" radius="0.045" distance="true" physics="false" graphics="false" color="RED" />
+  </Body>
+
+  <Body name="sdh-base_L_4" prev="lbr_link_7_L_4" transform="0 0 0.171 0 0 75" physics="fixed" mass="1.054" inertia="0.001757 0 0   0 0.001757 0   0 0 0.001757" >
+    <Shape type="MESH" distance="false" physics="false" graphics="true" transform="0 0 0.049 0 0 0" meshFile="Schunk/SDH_Gehaeuse_x.tri" />
+    <Shape type="MESH" distance="false" physics="true" graphics="false" transform="0 0 0.049 0 0 0" meshFile="Schunk/SDH_Gehaeuse_x.tri" />
+    <Shape type="SSL" length="0.02" radius="0.065" distance="true" physics="false" graphics="false" transform="0 0 0.02 0 0 0" color="RED" />
+    <Shape type="MESH" distance="false" physics="false" graphics="true" transform="-0.038105 0 0.072 90 -90 0" meshFile="Schunk/SDH_Gelenk_Finger1_x.tri" />
+  </Body>
+
+  <Body name="HandLink_L_4" prev="sdh-base_L_4" transform="0 0 0.1 180 0 90" >
+    <Shape type="FRAME" scale="0.2" />
+  </Body>
+
+  <Body name="lbr_link_0_R_4" prev="RailBot_4" transform="0.125 0.247835 0.059 -134.01 -68.91 -135.99" physics="kinematic" mass="5" inertia="0.05 0 0   0 0.06 0   0 0 0.03" >
+    <Shape type="SSL" length="0.08" radius="0.125" distance="true" physics="false" graphics="false" color="PEWTER" />
+    <Shape type="MESH" distance="false" physics="false" graphics="true" meshFile="iiwa_description/meshes/iiwa14/visual/link_0.stl" color="ORANGE" />
+    <Shape type="MESH" distance="false" physics="true" graphics="false" meshFile="iiwa_description/meshes/iiwa14/collision/link_0_hull.tri" color="ORANGE" />
+  </Body>
+
+  <Body name="lbr_link_1_R_4" prev="lbr_link_0_R_4" physics="dynamic" mass="4" inertia="0.1 0 0   0 0.09 0   0 0 0.02" >
+    <Joint name="lbr_joint_1_R_4" range="-165 -12.486547 165" type="RotZ" transform="0 0 0.1575 0 0 0" speedLimit="85" ctrlType="Torque" />
+    <Shape type="SSL" length="0.2" radius="0.09" distance="true" physics="false" graphics="false" transform="0 0 0 10 0 0" color="GREEN" />
+    <Shape type="MESH" distance="false" physics="false" graphics="true" meshFile="iiwa_description/meshes/iiwa14/visual/link_1.stl" color="ORANGE" />
+    <Shape type="MESH" distance="false" physics="true" graphics="false" meshFile="iiwa_description/meshes/iiwa14/collision/link_1_hull.tri" color="ORANGE" />
+  </Body>
+
+  <Body name="lbr_link_2_R_4" prev="lbr_link_1_R_4" physics="dynamic" mass="4" cogVector="0.0003 0.059 0.042" inertia="0.05 0 0   0 0.018 0   0 0 0.044" >
+    <Joint name="lbr_joint_2_R_4" range="-115 -52.033523 115" weightMetric="0.5" type="RotZ" transform="0 0 0.2025 -90 0 180" speedLimit="85" ctrlType="Torque" />
+    <Shape type="SSL" length="0.2" radius="0.09" distance="true" physics="false" graphics="false" transform="0 0 0.05 -100 0 0" color="COPPER" />
+    <Shape type="MESH" distance="false" physics="false" graphics="true" meshFile="iiwa_description/meshes/iiwa14/visual/link_2.stl" color="ORANGE" />
+    <Shape type="MESH" distance="false" physics="true" graphics="false" meshFile="iiwa_description/meshes/iiwa14/collision/link_2_hull.tri" color="ORANGE" />
+  </Body>
+
+  <Body name="lbr_link_3_R_4" prev="lbr_link_2_R_4" physics="dynamic" mass="3" inertia="0.08 0 0   0 0.075 0   0 0 0.01" >
+    <Joint name="lbr_joint_3_R_4" range="-165 -34.787304 165" type="RotZ" transform="0 0.2045 0 -90 0 180" speedLimit="100" ctrlType="Torque" />
+    <Shape type="SSL" length="0.22" radius="0.08" distance="true" physics="false" graphics="false" transform="0 0 0 -10 0 0" color="RED" />
+    <Shape type="MESH" distance="false" physics="false" graphics="true" meshFile="iiwa_description/meshes/iiwa14/visual/link_3.stl" color="ORANGE" />
+    <Shape type="MESH" distance="false" physics="true" graphics="false" meshFile="iiwa_description/meshes/iiwa14/collision/link_3_hull.tri" color="ORANGE" />
+  </Body>
+
+  <Body name="lbr_link_4_R_4" prev="lbr_link_3_R_4" physics="dynamic" mass="2.7" inertia="0.03 0 0   0 0.01 0   0 0 0.029" >
+    <Joint name="lbr_joint_4_R_4" range="-115 -76.348822 115" weightJL="2" type="RotZ" transform="0 0 0.2155 90 0 0" speedLimit="75" ctrlType="Torque" />
+    <Shape type="SSL" length="0.15" radius="0.08" distance="true" physics="false" graphics="false" transform="0 0 0.04 -105 0 0" color="PEWTER" />
+    <Shape type="MESH" distance="false" physics="false" graphics="true" meshFile="iiwa_description/meshes/iiwa14/visual/link_4.stl" color="ORANGE" />
+    <Shape type="MESH" distance="false" physics="true" graphics="false" meshFile="iiwa_description/meshes/iiwa14/collision/link_4_hull.tri" color="ORANGE" />
+  </Body>
+
+  <Body name="lbr_link_5_R_4" prev="lbr_link_4_R_4" physics="dynamic" mass="1.7" cogVector="0.0001 0.021 0.076" inertia="0.02 0 0   0 0.018 0   0 0 0.005" >
+    <Joint name="lbr_joint_5_R_4" range="-165 63.740089 165" type="RotZ" transform="0 0.1845 0 -90 0 -180" speedLimit="130" ctrlType="Torque" />
+    <Shape type="SSL" length="0.21" radius="0.075" distance="true" physics="false" graphics="false" transform="0 0 0 -10 0 0" color="GREEN" />
+    <Shape type="MESH" distance="false" physics="false" graphics="true" meshFile="iiwa_description/meshes/iiwa14/visual/link_5.stl" color="ORANGE" />
+    <Shape type="MESH" distance="false" physics="true" graphics="false" meshFile="iiwa_description/meshes/iiwa14/collision/link_5_hull.tri" color="ORANGE" />
+  </Body>
+
+  <Body name="lbr_link_6_R_4" prev="lbr_link_5_R_4" physics="dynamic" mass="1.8" inertia="0.005 0 0   0 0.0036 0   0 0 0.0047" >
+    <Joint name="lbr_joint_6_R_4" range="-115 4.519144 115" weightMetric="0.5" type="RotZ" transform="0 0 0.2155 90 0 0" speedLimit="135" ctrlType="Torque" />
+    <Shape type="SSL" length="0.1" radius="0.065" distance="true" physics="false" graphics="false" transform="0 -0.03 0.01 -95 0 0" color="COPPER" />
+    <Shape type="MESH" distance="false" physics="false" graphics="true" meshFile="iiwa_description/meshes/iiwa14/visual/link_6.stl" color="ORANGE" />
+    <Shape type="MESH" distance="false" physics="true" graphics="false" meshFile="iiwa_description/meshes/iiwa14/collision/link_6_hull.tri" color="ORANGE" />
+  </Body>
+
+  <Body name="lbr_link_7_R_4" prev="lbr_link_6_R_4" physics="dynamic" mass="0.3" inertia="0.001 0 0   0 0.001 0   0 0 0.001" >
+    <Joint name="lbr_joint_7_R_4" range="-170 67.417901 170" type="RotZ" transform="0 0.081 0 -90 0 -180" speedLimit="135" ctrlType="Torque" />
+    <Shape type="MESH" distance="false" physics="false" graphics="true" meshFile="iiwa_description/meshes/iiwa14/visual/link_7.stl" color="ORANGE" />
+    <Shape type="MESH" distance="false" physics="true" graphics="false" meshFile="iiwa_description/meshes/iiwa14/collision/link_7_hull.tri" color="ORANGE" />
+    <Shape type="CYLINDER" length="0.0361" radius="0.029" distance="false" physics="true" graphics="true" transform="0 0 0.06305 0 0 0" color="GRAY" />
+    <Shape type="CYLINDER" length="0.0148" radius="0.045" distance="false" physics="true" graphics="true" transform="0 0 0.0885 0 0 0" color="GRAY" />
+    <Shape type="CYLINDER" length="0.0748" radius="0.045" distance="false" physics="true" graphics="true" transform="0 0 0.1333 0 0 0" color="GRAY" />
+    <Shape type="SSL" length="0.15" radius="0.045" distance="true" physics="false" graphics="false" color="RED" />
+  </Body>
+
+  <Body name="sdh-base_R_4" prev="lbr_link_7_R_4" transform="0 0 0.171 0 0 75" physics="fixed" mass="1.054" inertia="0.001757 0 0   0 0.001757 0   0 0 0.001757" >
+    <Shape type="MESH" distance="false" physics="false" graphics="true" transform="0 0 0.049 0 0 0" meshFile="Schunk/SDH_Gehaeuse_x.tri" />
+    <Shape type="MESH" distance="false" physics="true" graphics="false" transform="0 0 0.049 0 0 0" meshFile="Schunk/SDH_Gehaeuse_x.tri" />
+    <Shape type="SSL" length="0.02" radius="0.065" distance="true" physics="false" graphics="false" transform="0 0 0.02 0 0 0" color="RED" />
+    <Shape type="MESH" distance="false" physics="false" graphics="true" transform="-0.038105 0 0.072 90 -90 0" meshFile="Schunk/SDH_Gelenk_Finger1_x.tri" />
+  </Body>
+
+  <Body name="HandLink_R_4" prev="sdh-base_R_4" transform="0 0 0.1 180 0 90" >
+    <Shape type="FRAME" scale="0.2" />
+  </Body>
+
+  <Body name="Box Base_4" prev="Lab Frame_4" transform="0 0 0 90 -90 0" >
+    <Shape type="FRAME" scale="0.2" />
+  </Body>
+
+  <Body name="Box_v_4" prev="Box Base_4" >
+    <Joint name="DofX_v_4" range="-10 0 10" weightJL="0" type="TransX" coupledTo="DofX_v" couplingFactor="1 "/>
+    <Joint name="DofY_v_4" range="-10 1.13 10" weightMetric="0.1" type="TransY" coupledTo="DofY_v" couplingFactor="1 "/>
+    <Joint name="DofZ_v_4" range="-10 -0.86 10" weightJL="10" weightMetric="0.1" type="TransZ" coupledTo="DofZ_v" couplingFactor="1 "/>
+    <Joint name="DofThX_v_4" range="-1000 0 1000" weightJL="0" type="RotX" coupledTo="DofThX_v" couplingFactor="1 "/>
+    <Joint name="DofThY_v_4" range="-1000 0 1000" weightJL="0" type="RotY" coupledTo="DofThY_v" couplingFactor="1 "/>
+    <Joint name="DofThZ_v_4" range="-1000 0 1000" weightJL="0" type="RotZ" coupledTo="DofThZ_v_2" couplingFactor="1 "/>
+    <Shape type="FRAME" scale="0.2" />
+    <Shape type="SPHERE" radius="0.05" distance="true" physics="false" graphics="false" />
+  </Body>
+
+  <Body name="Box_real_4" prev="Box_v_4" physics="dynamic" mass="10" inertia="0.876 0 0   0 1.09875 0   0 0 0.43875" >
+    <Shape type="BOX" extents="0.63 0.36 0.96" distance="true" physics="true" graphics="true" transform="0 0 -0.5 0 0 0" color="DARKRED_TRANS" />
+  </Body>
+
+  <Body name="PowerAnchor_L_4" prev="Box_v_4" physics="kinematic" mass="1" inertia="1.66667e-05 0 0   0 1.66667e-05 0   0 0 1.66667e-05" >
+    <Joint name="rlx_4" range="-3 -0.2079 3" type="TransX" />
+    <Joint name="rly_4" range="-2 -0.18 2" type="TransY" />
+    <Joint name="rlz_4" range="-2 0 2" type="TransZ" />
+    <Joint name="rla_4" range="-400 90 400" type="RotX" />
+    <Joint name="rlb_4" range="-400 90 400" type="RotY" />
+    <Joint name="rlc_4" range="-400 0 400" type="RotZ" />
+    <Joint name="rla2_4" range="-400 -20 400" type="RotX" />
+    <Joint name="rlb2_4" range="-400 0 400" type="RotY" />
+    <Joint name="rlc2_4" range="-400 0 400" type="RotZ" />
+    <Shape type="BOX" extents="0.01 0.01 0.01" distance="true" physics="true" graphics="false" transform="0 0 0.2 0 0 0" />
+    <Shape type="FRAME" scale="0.25" />
+  </Body>
+
+  <Body name="PowerGrasp_L_4" prev="PowerAnchor_L_4" transform="0 0 0 -90 0 -90" physics="fixed" mass="1" inertia="0.00941667 0 0   0 0.00554167 -0.003025   0 -0.003025 0.00554167" >
+    <Shape type="BOX" extents="0.1 0.2 0.02" distance="true" physics="true" graphics="true" transform="0 0.1 0.01 0 0 0" />
+    <Shape type="BOX" extents="0.1 0.02 0.2" distance="true" physics="true" graphics="true" transform="0 -0.01 -0.1 0 0 0" />
+    <Shape type="FRAME" scale="0.525" />
+  </Body>
+
+  <Body name="PowerAnchor_R_4" prev="Box_v_4" physics="kinematic" mass="1" inertia="1.66667e-05 0 0   0 1.66667e-05 0   0 0 1.66667e-05" >
+    <Joint name="rrx_4" range="-3 0.2079 3" type="TransX" coupledTo="rrx_3" couplingFactor="1 "/>
+    <Joint name="rry_4" range="-2 -0.18 2" type="TransY" coupledTo="rry_3" couplingFactor="1 "/>
+    <Joint name="rrz_4" range="-2 0 2" type="TransZ" coupledTo="rrz_3" couplingFactor="1 "/>
+    <Joint name="rra_4" range="-400 90 400" type="RotX" coupledTo="rra_3" couplingFactor="1 "/>
+    <Joint name="rrb_4" range="-400 90 400" type="RotY" coupledTo="rrb_3" couplingFactor="1 "/>
+    <Joint name="rrc_4" range="-400 0 400" type="RotZ" coupledTo="rrc_3" couplingFactor="1 "/>
+    <Joint name="rra2_4" range="-400 20 400" type="RotX" coupledTo="rra2_3" couplingFactor="1 "/>
+    <Joint name="rrb2_4" range="-400 0 400" type="RotY" coupledTo="rrb2_3" couplingFactor="1 "/>
+    <Joint name="rrc2_4" range="-400 0 400" type="RotZ" coupledTo="rrc2_3" couplingFactor="1 "/>
+    <Shape type="BOX" extents="0.01 0.01 0.01" distance="true" physics="true" graphics="false" transform="0 0 0.2 0 0 0" />
+    <Shape type="FRAME" scale="0.25" />
+  </Body>
+
+  <Body name="PowerGrasp_R_4" prev="PowerAnchor_R_4" transform="0 0 0 -90 0 -90" physics="fixed" mass="1" inertia="0.00941667 0 0   0 0.00554167 -0.003025   0 -0.003025 0.00554167" >
+    <Shape type="BOX" extents="0.1 0.2 0.02" distance="true" physics="true" graphics="true" transform="0 0.1 0.01 0 0 0" />
+    <Shape type="BOX" extents="0.1 0.02 0.2" distance="true" physics="true" graphics="true" transform="0 -0.01 -0.1 0 0 0" />
+    <Shape type="FRAME" scale="0.525" />
+  </Body>
+
+  <Body name="Lab Frame_5" transform="-12.5 0 0 0 0 0" physics="kinematic" >
+    <Shape type="BOX" extents="6 6 0.04" distance="true" physics="true" graphics="true" transform="0 0 -0.02 0 0 0" color="PEWTER" />
+    <Shape type="FRAME" />
+  </Body>
+
+  <Body name="ImetronPlatform_5" prev="Lab Frame_5" mass="100" inertia="13.6042 0 0   0 6.60419 0   0 0 19.0417" >
+    <Joint name="DofBaseX_5" range="-4 0.019695 4" weightJL="0" weightMetric="0.5" type="TransX" />
+    <Joint name="DofBaseY_5" range="-1.5 -0.005744 1.5" weightMetric="0.01" type="TransY" />
+    <Joint name="DofBaseThZ_5" range="-60 0 60" weightMetric="0.001" type="RotZ" />
+    <Shape type="SSR" extents="0.85 1.25 0.28" distance="true" physics="false" graphics="false" transform="0 0 0.14 0 0 0" color="DARKGRAY" />
+    <Shape type="BOX" extents="0.85 1.25 0.2" distance="false" physics="true" graphics="true" transform="0 0 0.1 0 0 0" color="DARKGRAY" />
+  </Body>
+
+  <Body name="Base_5" prev="ImetronPlatform_5" transform="0 0 0.2 0 0 180" mass="80" inertia="25.4419 0 -0.247227   0 26.1432 0   -0.247227 0 2.90573" >
+    <Shape type="SSL" length="0.2" radius="0.08" distance="true" physics="false" graphics="false" transform="-0.02 0 0.1 0 0 0" color="BLUE" />
+    <Shape type="SSL" length="1.65" radius="0.2" distance="true" physics="false" graphics="false" transform="0.17 0 0 0 0 0" color="BLUE" />
+    <Shape type="SSL" length="0.72" radius="0.08" distance="true" physics="false" graphics="false" transform="0.36 0.18 0.17 0 -90 0" color="BLUE" />
+    <Shape type="SSL" length="0.72" radius="0.08" distance="true" physics="false" graphics="false" transform="0.36 -0.18 0.17 0 -90 0" color="BLUE" />
+    <Shape type="BOX" extents="0.07 0.16 1.6" distance="false" physics="false" graphics="true" transform="0.245 0 0.85 0 0 0" color="DARKGRAY" />
+    <Shape type="BOX" extents="0.16 0.32 1.7" distance="false" physics="true" graphics="true" transform="0.13 0 0.85 0 0 0" />
+    <Shape type="BOX" extents="0.04 1.25 0.08" distance="false" physics="true" graphics="true" transform="-0.405 0 0.04 0 0 0" />
+    <Shape type="BOX" extents="0.04 1.25 0.08" distance="false" physics="true" graphics="true" transform="0.405 0 0.04 0 0 0" />
+    <Shape type="BOX" extents="0.77 0.04 0.24" distance="false" physics="true" graphics="true" transform="0 0.18 0.12 0 0 0" />
+    <Shape type="BOX" extents="0.77 0.04 0.24" distance="false" physics="true" graphics="true" transform="0 -0.18 0.12 0 0 0" />
+    <Shape type="SSR" extents="0.55 0.33 0.1" distance="true" physics="false" graphics="false" transform="-0.09 0 1.275 0 85 0" color="BLACK_RUBBER" />
+    <Shape type="BOX" extents="0.07 0.36 0.55" distance="false" physics="false" graphics="true" transform="-0.09 0 1.275 0 -5 0" color="BLACK_RUBBER" />
+    <Shape type="BOX" extents="0.001 0.33 0.52" distance="false" physics="false" graphics="true" transform="-0.125 0 1.275 0 -5 0" color="PUREWHITE" />
+    <Shape type="BOX" extents="0.001 0.33 0.2" distance="false" physics="false" graphics="true" transform="-0.1254 0 1.275 0 -5 0" />
+  </Body>
+
+  <Body name="RailBot_5" prev="Base_5" transform="0.209 0 0 0 0 0" mass="20" inertia="0.97802 -0.0116595 -0.0403039   -0.0116595 0.366192 0.0428657   -0.0403039 0.0428657 0.736717" >
+    <Joint name="DofChestZ_5" range="0.5 0.803058 1" weightJL="0.75" weightMetric="0.2" type="TransZ" transform="0 0 0.375 0 0 0" />
+    <Shape type="MESH" distance="false" physics="false" graphics="true" scale="0.001" transform="0 0 0 180 0 -90" meshFile="DexBot/LinearSlide.stl" />
+    <Shape type="MESH" distance="false" physics="false" graphics="true" scale="0.001" transform="0.085 0 -0.2 0 0 0" meshFile="DexBot/Slide-Simple.stl" />
+    <Shape type="MESH" distance="false" physics="false" graphics="true" scale="0.001" transform="0.203 0.101 -0.05 -90 0 165" meshFile="DexBot/Wing-Simple.stl" />
+    <Shape type="MESH" distance="false" physics="false" graphics="true" scale="0.001" transform="0.135 -0.101 0.2 90 0 -165" meshFile="DexBot/Wing-Simple.stl" />
+    <Shape type="BOX" extents="0.04 0.75 0.2" distance="false" physics="true" graphics="false" transform="0.17 0 0.1 0 0 0" />
+    <Shape type="FRAME" scale="0.5" />
+  </Body>
+
+  <Body name="lbr_link_0_L_5" prev="RailBot_5" transform="0.125 -0.247635 0.0675 134.01 -68.91 -44.01" physics="kinematic" mass="5" inertia="0.05 0 0   0 0.06 0   0 0 0.03" >
+    <Shape type="SSL" length="0.08" radius="0.125" distance="true" physics="false" graphics="false" color="PEWTER" />
+    <Shape type="MESH" distance="false" physics="false" graphics="true" meshFile="iiwa_description/meshes/iiwa14/visual/link_0.stl" color="ORANGE" />
+    <Shape type="MESH" distance="false" physics="true" graphics="false" meshFile="iiwa_description/meshes/iiwa14/collision/link_0_hull.tri" color="ORANGE" />
+  </Body>
+
+  <Body name="lbr_link_1_L_5" prev="lbr_link_0_L_5" physics="dynamic" mass="4" inertia="0.1 0 0   0 0.09 0   0 0 0.02" >
+    <Joint name="lbr_joint_1_L_5" range="-165 15.013332 165" type="RotZ" transform="0 0 0.1575 0 0 0" speedLimit="85" ctrlType="Torque" />
+    <Shape type="SSL" length="0.2" radius="0.09" distance="true" physics="false" graphics="false" transform="0 0 0 10 0 0" color="GREEN" />
+    <Shape type="MESH" distance="false" physics="false" graphics="true" meshFile="iiwa_description/meshes/iiwa14/visual/link_1.stl" color="ORANGE" />
+    <Shape type="MESH" distance="false" physics="true" graphics="false" meshFile="iiwa_description/meshes/iiwa14/collision/link_1_hull.tri" color="ORANGE" />
+    <Sensor name="lbr_joint_1_torque_L_5" type="JOINTTORQUE" />
+  </Body>
+
+  <Body name="lbr_link_2_L_5" prev="lbr_link_1_L_5" physics="dynamic" mass="4" cogVector="0.0003 0.059 0.042" inertia="0.05 0 0   0 0.018 0   0 0 0.044" >
+    <Joint name="lbr_joint_2_L_5" range="-115 51.311032 115" weightMetric="0.5" type="RotZ" transform="0 0 0.2025 -90 0 180" speedLimit="85" ctrlType="Torque" />
+    <Shape type="SSL" length="0.2" radius="0.09" distance="true" physics="false" graphics="false" transform="0 0 0.05 -100 0 0" color="COPPER" />
+    <Shape type="MESH" distance="false" physics="false" graphics="true" meshFile="iiwa_description/meshes/iiwa14/visual/link_2.stl" color="ORANGE" />
+    <Shape type="MESH" distance="false" physics="true" graphics="false" meshFile="iiwa_description/meshes/iiwa14/collision/link_2_hull.tri" color="ORANGE" />
+  </Body>
+
+  <Body name="lbr_link_3_L_5" prev="lbr_link_2_L_5" physics="dynamic" mass="3" inertia="0.08 0 0   0 0.075 0   0 0 0.01" >
+    <Joint name="lbr_joint_3_L_5" range="-165 35.130674 165" type="RotZ" transform="0 0.2045 0 -90 0 180" speedLimit="100" ctrlType="Torque" />
+    <Shape type="SSL" length="0.22" radius="0.08" distance="true" physics="false" graphics="false" transform="0 0 0 -10 0 0" color="RED" />
+    <Shape type="MESH" distance="false" physics="false" graphics="true" meshFile="iiwa_description/meshes/iiwa14/visual/link_3.stl" color="ORANGE" />
+    <Shape type="MESH" distance="false" physics="true" graphics="false" meshFile="iiwa_description/meshes/iiwa14/collision/link_3_hull.tri" color="ORANGE" />
+  </Body>
+
+  <Body name="lbr_link_4_L_5" prev="lbr_link_3_L_5" physics="dynamic" mass="2.7" inertia="0.03 0 0   0 0.01 0   0 0 0.029" >
+    <Joint name="lbr_joint_4_L_5" range="-115 75.200525 115" weightJL="2" type="RotZ" transform="0 0 0.2155 90 0 0" speedLimit="75" ctrlType="Torque" />
+    <Shape type="SSL" length="0.15" radius="0.08" distance="true" physics="false" graphics="false" transform="0 0 0.04 -105 0 0" color="PEWTER" />
+    <Shape type="MESH" distance="false" physics="false" graphics="true" meshFile="iiwa_description/meshes/iiwa14/visual/link_4.stl" color="ORANGE" />
+    <Shape type="MESH" distance="false" physics="true" graphics="false" meshFile="iiwa_description/meshes/iiwa14/collision/link_4_hull.tri" color="ORANGE" />
+  </Body>
+
+  <Body name="lbr_link_5_L_5" prev="lbr_link_4_L_5" physics="dynamic" mass="1.7" cogVector="0.0001 0.021 0.076" inertia="0.02 0 0   0 0.018 0   0 0 0.005" >
+    <Joint name="lbr_joint_5_L_5" range="-165 -57.743675 165" type="RotZ" transform="0 0.1845 0 -90 0 -180" speedLimit="130" ctrlType="Torque" />
+    <Shape type="SSL" length="0.21" radius="0.075" distance="true" physics="false" graphics="false" transform="0 0 0 -10 0 0" color="GREEN" />
+    <Shape type="MESH" distance="false" physics="false" graphics="true" meshFile="iiwa_description/meshes/iiwa14/visual/link_5.stl" color="ORANGE" />
+    <Shape type="MESH" distance="false" physics="true" graphics="false" meshFile="iiwa_description/meshes/iiwa14/collision/link_5_hull.tri" color="ORANGE" />
+  </Body>
+
+  <Body name="lbr_link_6_L_5" prev="lbr_link_5_L_5" physics="dynamic" mass="1.8" inertia="0.005 0 0   0 0.0036 0   0 0 0.0047" >
+    <Joint name="lbr_joint_6_L_5" range="-115 -6.529904 115" weightMetric="0.5" type="RotZ" transform="0 0 0.2155 90 0 0" speedLimit="135" ctrlType="Torque" />
+    <Shape type="SSL" length="0.1" radius="0.065" distance="true" physics="false" graphics="false" transform="0 -0.03 0.01 -95 0 0" color="COPPER" />
+    <Shape type="MESH" distance="false" physics="false" graphics="true" meshFile="iiwa_description/meshes/iiwa14/visual/link_6.stl" color="ORANGE" />
+    <Shape type="MESH" distance="false" physics="true" graphics="false" meshFile="iiwa_description/meshes/iiwa14/collision/link_6_hull.tri" color="ORANGE" />
+  </Body>
+
+  <Body name="lbr_link_7_L_5" prev="lbr_link_6_L_5" physics="dynamic" mass="0.3" inertia="0.001 0 0   0 0.001 0   0 0 0.001" >
+    <Joint name="lbr_joint_7_L_5" range="-170 -45.898067 170" type="RotZ" transform="0 0.081 0 -90 0 -180" speedLimit="135" ctrlType="Torque" />
+    <Shape type="MESH" distance="false" physics="false" graphics="true" meshFile="iiwa_description/meshes/iiwa14/visual/link_7.stl" color="ORANGE" />
+    <Shape type="MESH" distance="false" physics="true" graphics="false" meshFile="iiwa_description/meshes/iiwa14/collision/link_7_hull.tri" color="ORANGE" />
+    <Shape type="CYLINDER" length="0.0361" radius="0.029" distance="false" physics="true" graphics="true" transform="0 0 0.06305 0 0 0" color="GRAY" />
+    <Shape type="CYLINDER" length="0.0148" radius="0.045" distance="false" physics="true" graphics="true" transform="0 0 0.0885 0 0 0" color="GRAY" />
+    <Shape type="CYLINDER" length="0.0748" radius="0.045" distance="false" physics="true" graphics="true" transform="0 0 0.1333 0 0 0" color="GRAY" />
+    <Shape type="SSL" length="0.15" radius="0.045" distance="true" physics="false" graphics="false" color="RED" />
+  </Body>
+
+  <Body name="sdh-base_L_5" prev="lbr_link_7_L_5" transform="0 0 0.171 0 0 75" physics="fixed" mass="1.054" inertia="0.001757 0 0   0 0.001757 0   0 0 0.001757" >
+    <Shape type="MESH" distance="false" physics="false" graphics="true" transform="0 0 0.049 0 0 0" meshFile="Schunk/SDH_Gehaeuse_x.tri" />
+    <Shape type="MESH" distance="false" physics="true" graphics="false" transform="0 0 0.049 0 0 0" meshFile="Schunk/SDH_Gehaeuse_x.tri" />
+    <Shape type="SSL" length="0.02" radius="0.065" distance="true" physics="false" graphics="false" transform="0 0 0.02 0 0 0" color="RED" />
+    <Shape type="MESH" distance="false" physics="false" graphics="true" transform="-0.038105 0 0.072 90 -90 0" meshFile="Schunk/SDH_Gelenk_Finger1_x.tri" />
+  </Body>
+
+  <Body name="HandLink_L_5" prev="sdh-base_L_5" transform="0 0 0.1 180 0 90" >
+    <Shape type="FRAME" scale="0.2" />
+  </Body>
+
+  <Body name="lbr_link_0_R_5" prev="RailBot_5" transform="0.125 0.247835 0.059 -134.01 -68.91 -135.99" physics="kinematic" mass="5" inertia="0.05 0 0   0 0.06 0   0 0 0.03" >
+    <Shape type="SSL" length="0.08" radius="0.125" distance="true" physics="false" graphics="false" color="PEWTER" />
+    <Shape type="MESH" distance="false" physics="false" graphics="true" meshFile="iiwa_description/meshes/iiwa14/visual/link_0.stl" color="ORANGE" />
+    <Shape type="MESH" distance="false" physics="true" graphics="false" meshFile="iiwa_description/meshes/iiwa14/collision/link_0_hull.tri" color="ORANGE" />
+  </Body>
+
+  <Body name="lbr_link_1_R_5" prev="lbr_link_0_R_5" physics="dynamic" mass="4" inertia="0.1 0 0   0 0.09 0   0 0 0.02" >
+    <Joint name="lbr_joint_1_R_5" range="-165 -12.486547 165" type="RotZ" transform="0 0 0.1575 0 0 0" speedLimit="85" ctrlType="Torque" />
+    <Shape type="SSL" length="0.2" radius="0.09" distance="true" physics="false" graphics="false" transform="0 0 0 10 0 0" color="GREEN" />
+    <Shape type="MESH" distance="false" physics="false" graphics="true" meshFile="iiwa_description/meshes/iiwa14/visual/link_1.stl" color="ORANGE" />
+    <Shape type="MESH" distance="false" physics="true" graphics="false" meshFile="iiwa_description/meshes/iiwa14/collision/link_1_hull.tri" color="ORANGE" />
+  </Body>
+
+  <Body name="lbr_link_2_R_5" prev="lbr_link_1_R_5" physics="dynamic" mass="4" cogVector="0.0003 0.059 0.042" inertia="0.05 0 0   0 0.018 0   0 0 0.044" >
+    <Joint name="lbr_joint_2_R_5" range="-115 -52.033523 115" weightMetric="0.5" type="RotZ" transform="0 0 0.2025 -90 0 180" speedLimit="85" ctrlType="Torque" />
+    <Shape type="SSL" length="0.2" radius="0.09" distance="true" physics="false" graphics="false" transform="0 0 0.05 -100 0 0" color="COPPER" />
+    <Shape type="MESH" distance="false" physics="false" graphics="true" meshFile="iiwa_description/meshes/iiwa14/visual/link_2.stl" color="ORANGE" />
+    <Shape type="MESH" distance="false" physics="true" graphics="false" meshFile="iiwa_description/meshes/iiwa14/collision/link_2_hull.tri" color="ORANGE" />
+  </Body>
+
+  <Body name="lbr_link_3_R_5" prev="lbr_link_2_R_5" physics="dynamic" mass="3" inertia="0.08 0 0   0 0.075 0   0 0 0.01" >
+    <Joint name="lbr_joint_3_R_5" range="-165 -34.787304 165" type="RotZ" transform="0 0.2045 0 -90 0 180" speedLimit="100" ctrlType="Torque" />
+    <Shape type="SSL" length="0.22" radius="0.08" distance="true" physics="false" graphics="false" transform="0 0 0 -10 0 0" color="RED" />
+    <Shape type="MESH" distance="false" physics="false" graphics="true" meshFile="iiwa_description/meshes/iiwa14/visual/link_3.stl" color="ORANGE" />
+    <Shape type="MESH" distance="false" physics="true" graphics="false" meshFile="iiwa_description/meshes/iiwa14/collision/link_3_hull.tri" color="ORANGE" />
+  </Body>
+
+  <Body name="lbr_link_4_R_5" prev="lbr_link_3_R_5" physics="dynamic" mass="2.7" inertia="0.03 0 0   0 0.01 0   0 0 0.029" >
+    <Joint name="lbr_joint_4_R_5" range="-115 -76.348822 115" weightJL="2" type="RotZ" transform="0 0 0.2155 90 0 0" speedLimit="75" ctrlType="Torque" />
+    <Shape type="SSL" length="0.15" radius="0.08" distance="true" physics="false" graphics="false" transform="0 0 0.04 -105 0 0" color="PEWTER" />
+    <Shape type="MESH" distance="false" physics="false" graphics="true" meshFile="iiwa_description/meshes/iiwa14/visual/link_4.stl" color="ORANGE" />
+    <Shape type="MESH" distance="false" physics="true" graphics="false" meshFile="iiwa_description/meshes/iiwa14/collision/link_4_hull.tri" color="ORANGE" />
+  </Body>
+
+  <Body name="lbr_link_5_R_5" prev="lbr_link_4_R_5" physics="dynamic" mass="1.7" cogVector="0.0001 0.021 0.076" inertia="0.02 0 0   0 0.018 0   0 0 0.005" >
+    <Joint name="lbr_joint_5_R_5" range="-165 63.740089 165" type="RotZ" transform="0 0.1845 0 -90 0 -180" speedLimit="130" ctrlType="Torque" />
+    <Shape type="SSL" length="0.21" radius="0.075" distance="true" physics="false" graphics="false" transform="0 0 0 -10 0 0" color="GREEN" />
+    <Shape type="MESH" distance="false" physics="false" graphics="true" meshFile="iiwa_description/meshes/iiwa14/visual/link_5.stl" color="ORANGE" />
+    <Shape type="MESH" distance="false" physics="true" graphics="false" meshFile="iiwa_description/meshes/iiwa14/collision/link_5_hull.tri" color="ORANGE" />
+  </Body>
+
+  <Body name="lbr_link_6_R_5" prev="lbr_link_5_R_5" physics="dynamic" mass="1.8" inertia="0.005 0 0   0 0.0036 0   0 0 0.0047" >
+    <Joint name="lbr_joint_6_R_5" range="-115 4.519144 115" weightMetric="0.5" type="RotZ" transform="0 0 0.2155 90 0 0" speedLimit="135" ctrlType="Torque" />
+    <Shape type="SSL" length="0.1" radius="0.065" distance="true" physics="false" graphics="false" transform="0 -0.03 0.01 -95 0 0" color="COPPER" />
+    <Shape type="MESH" distance="false" physics="false" graphics="true" meshFile="iiwa_description/meshes/iiwa14/visual/link_6.stl" color="ORANGE" />
+    <Shape type="MESH" distance="false" physics="true" graphics="false" meshFile="iiwa_description/meshes/iiwa14/collision/link_6_hull.tri" color="ORANGE" />
+  </Body>
+
+  <Body name="lbr_link_7_R_5" prev="lbr_link_6_R_5" physics="dynamic" mass="0.3" inertia="0.001 0 0   0 0.001 0   0 0 0.001" >
+    <Joint name="lbr_joint_7_R_5" range="-170 67.417901 170" type="RotZ" transform="0 0.081 0 -90 0 -180" speedLimit="135" ctrlType="Torque" />
+    <Shape type="MESH" distance="false" physics="false" graphics="true" meshFile="iiwa_description/meshes/iiwa14/visual/link_7.stl" color="ORANGE" />
+    <Shape type="MESH" distance="false" physics="true" graphics="false" meshFile="iiwa_description/meshes/iiwa14/collision/link_7_hull.tri" color="ORANGE" />
+    <Shape type="CYLINDER" length="0.0361" radius="0.029" distance="false" physics="true" graphics="true" transform="0 0 0.06305 0 0 0" color="GRAY" />
+    <Shape type="CYLINDER" length="0.0148" radius="0.045" distance="false" physics="true" graphics="true" transform="0 0 0.0885 0 0 0" color="GRAY" />
+    <Shape type="CYLINDER" length="0.0748" radius="0.045" distance="false" physics="true" graphics="true" transform="0 0 0.1333 0 0 0" color="GRAY" />
+    <Shape type="SSL" length="0.15" radius="0.045" distance="true" physics="false" graphics="false" color="RED" />
+  </Body>
+
+  <Body name="sdh-base_R_5" prev="lbr_link_7_R_5" transform="0 0 0.171 0 0 75" physics="fixed" mass="1.054" inertia="0.001757 0 0   0 0.001757 0   0 0 0.001757" >
+    <Shape type="MESH" distance="false" physics="false" graphics="true" transform="0 0 0.049 0 0 0" meshFile="Schunk/SDH_Gehaeuse_x.tri" />
+    <Shape type="MESH" distance="false" physics="true" graphics="false" transform="0 0 0.049 0 0 0" meshFile="Schunk/SDH_Gehaeuse_x.tri" />
+    <Shape type="SSL" length="0.02" radius="0.065" distance="true" physics="false" graphics="false" transform="0 0 0.02 0 0 0" color="RED" />
+    <Shape type="MESH" distance="false" physics="false" graphics="true" transform="-0.038105 0 0.072 90 -90 0" meshFile="Schunk/SDH_Gelenk_Finger1_x.tri" />
+  </Body>
+
+  <Body name="HandLink_R_5" prev="sdh-base_R_5" transform="0 0 0.1 180 0 90" >
+    <Shape type="FRAME" scale="0.2" />
+  </Body>
+
+  <Body name="Box Base_5" prev="Lab Frame_5" transform="0 0 0 90 -90 0" >
+    <Shape type="FRAME" scale="0.2" />
+  </Body>
+
+  <Body name="Box_v_5" prev="Box Base_5" >
+    <Joint name="DofX_v_5" range="-10 0 10" weightJL="0" type="TransX" coupledTo="DofX_v" couplingFactor="1 "/>
+    <Joint name="DofY_v_5" range="-10 1.13 10" weightMetric="0.1" type="TransY" coupledTo="DofY_v" couplingFactor="1 "/>
+    <Joint name="DofZ_v_5" range="-10 -0.86 10" weightJL="10" weightMetric="0.1" type="TransZ" coupledTo="DofZ_v" couplingFactor="1 "/>
+    <Joint name="DofThX_v_5" range="-1000 0 1000" weightJL="0" type="RotX" coupledTo="DofThX_v" couplingFactor="1 "/>
+    <Joint name="DofThY_v_5" range="-1000 0 1000" weightJL="0" type="RotY" coupledTo="DofThY_v" couplingFactor="1 "/>
+    <Joint name="DofThZ_v_5" range="-1000 0 1000" weightJL="0" type="RotZ" />
+    <Shape type="FRAME" scale="0.2" />
+    <Shape type="SPHERE" radius="0.05" distance="true" physics="false" graphics="false" />
+  </Body>
+
+  <Body name="Box_real_5" prev="Box_v_5" physics="dynamic" mass="10" inertia="0.876 0 0   0 1.09875 0   0 0 0.43875" >
+    <Shape type="BOX" extents="0.63 0.36 0.96" distance="true" physics="true" graphics="true" transform="0 0 -0.5 0 0 0" color="DARKRED_TRANS" />
+  </Body>
+
+  <Body name="PowerAnchor_L_5" prev="Box_v_5" physics="kinematic" mass="1" inertia="1.66667e-05 0 0   0 1.66667e-05 0   0 0 1.66667e-05" >
+    <Joint name="rlx_5" range="-3 -0.2079 3" type="TransX" coupledTo="rlx_4" couplingFactor="1 "/>
+    <Joint name="rly_5" range="-2 -0.18 2" type="TransY" coupledTo="rly_4" couplingFactor="1 "/>
+    <Joint name="rlz_5" range="-2 0 2" type="TransZ" coupledTo="rlz_4" couplingFactor="1 "/>
+    <Joint name="rla_5" range="-400 90 400" type="RotX" coupledTo="rla_4" couplingFactor="1 "/>
+    <Joint name="rlb_5" range="-400 90 400" type="RotY" coupledTo="rlb_4" couplingFactor="1 "/>
+    <Joint name="rlc_5" range="-400 0 400" type="RotZ" coupledTo="rlc_4" couplingFactor="1 "/>
+    <Joint name="rla2_5" range="-400 -20 400" type="RotX" coupledTo="rla2_4" couplingFactor="1 "/>
+    <Joint name="rlb2_5" range="-400 0 400" type="RotY" coupledTo="rlb2_4" couplingFactor="1 "/>
+    <Joint name="rlc2_5" range="-400 0 400" type="RotZ" coupledTo="rlc2_4" couplingFactor="1 "/>
+    <Shape type="BOX" extents="0.01 0.01 0.01" distance="true" physics="true" graphics="false" transform="0 0 0.2 0 0 0" />
+    <Shape type="FRAME" scale="0.25" />
+  </Body>
+
+  <Body name="PowerGrasp_L_5" prev="PowerAnchor_L_5" transform="0 0 0 -90 0 -90" physics="fixed" mass="1" inertia="0.00941667 0 0   0 0.00554167 -0.003025   0 -0.003025 0.00554167" >
+    <Shape type="BOX" extents="0.1 0.2 0.02" distance="true" physics="true" graphics="true" transform="0 0.1 0.01 0 0 0" />
+    <Shape type="BOX" extents="0.1 0.02 0.2" distance="true" physics="true" graphics="true" transform="0 -0.01 -0.1 0 0 0" />
+    <Shape type="FRAME" scale="0.525" />
+  </Body>
+
+  <Body name="PowerAnchor_R_5" prev="Box_v_5" physics="kinematic" mass="1" inertia="1.66667e-05 0 0   0 1.66667e-05 0   0 0 1.66667e-05" >
+    <Joint name="rrx_5" range="-3 0.2079 3" type="TransX" coupledTo="rrx_3" couplingFactor="1 "/>
+    <Joint name="rry_5" range="-2 -0.18 2" type="TransY" coupledTo="rry_3" couplingFactor="1 "/>
+    <Joint name="rrz_5" range="-2 0 2" type="TransZ" coupledTo="rrz_3" couplingFactor="1 "/>
+    <Joint name="rra_5" range="-400 90 400" type="RotX" coupledTo="rra_3" couplingFactor="1 "/>
+    <Joint name="rrb_5" range="-400 90 400" type="RotY" coupledTo="rrb_3" couplingFactor="1 "/>
+    <Joint name="rrc_5" range="-400 0 400" type="RotZ" coupledTo="rrc_3" couplingFactor="1 "/>
+    <Joint name="rra2_5" range="-400 20 400" type="RotX" coupledTo="rra2_3" couplingFactor="1 "/>
+    <Joint name="rrb2_5" range="-400 0 400" type="RotY" coupledTo="rrb2_3" couplingFactor="1 "/>
+    <Joint name="rrc2_5" range="-400 0 400" type="RotZ" coupledTo="rrc2_3" couplingFactor="1 "/>
+    <Shape type="BOX" extents="0.01 0.01 0.01" distance="true" physics="true" graphics="false" transform="0 0 0.2 0 0 0" />
+    <Shape type="FRAME" scale="0.25" />
+  </Body>
+
+  <Body name="PowerGrasp_R_5" prev="PowerAnchor_R_5" transform="0 0 0 -90 0 -90" physics="fixed" mass="1" inertia="0.00941667 0 0   0 0.00554167 -0.003025   0 -0.003025 0.00554167" >
+    <Shape type="BOX" extents="0.1 0.2 0.02" distance="true" physics="true" graphics="true" transform="0 0.1 0.01 0 0 0" />
+    <Shape type="BOX" extents="0.1 0.02 0.2" distance="true" physics="true" graphics="true" transform="0 -0.01 -0.1 0 0 0" />
+    <Shape type="FRAME" scale="0.525" />
+  </Body>
+
+  <Body name="Lab Frame_6" transform="-15 0 0 0 0 0" physics="kinematic" >
+    <Shape type="BOX" extents="6 6 0.04" distance="true" physics="true" graphics="true" transform="0 0 -0.02 0 0 0" color="PEWTER" />
+    <Shape type="FRAME" />
+  </Body>
+
+  <Body name="ImetronPlatform_6" prev="Lab Frame_6" mass="100" inertia="13.6042 0 0   0 6.60419 0   0 0 19.0417" >
+    <Joint name="DofBaseX_6" range="-4 0.019695 4" weightJL="0" weightMetric="0.5" type="TransX" />
+    <Joint name="DofBaseY_6" range="-1.5 -0.005744 1.5" weightMetric="0.01" type="TransY" />
+    <Joint name="DofBaseThZ_6" range="-60 0 60" weightMetric="0.001" type="RotZ" />
+    <Shape type="SSR" extents="0.85 1.25 0.28" distance="true" physics="false" graphics="false" transform="0 0 0.14 0 0 0" color="DARKGRAY" />
+    <Shape type="BOX" extents="0.85 1.25 0.2" distance="false" physics="true" graphics="true" transform="0 0 0.1 0 0 0" color="DARKGRAY" />
+  </Body>
+
+  <Body name="Base_6" prev="ImetronPlatform_6" transform="0 0 0.2 0 0 180" mass="80" inertia="25.4419 0 -0.247227   0 26.1432 0   -0.247227 0 2.90573" >
+    <Shape type="SSL" length="0.2" radius="0.08" distance="true" physics="false" graphics="false" transform="-0.02 0 0.1 0 0 0" color="BLUE" />
+    <Shape type="SSL" length="1.65" radius="0.2" distance="true" physics="false" graphics="false" transform="0.17 0 0 0 0 0" color="BLUE" />
+    <Shape type="SSL" length="0.72" radius="0.08" distance="true" physics="false" graphics="false" transform="0.36 0.18 0.17 0 -90 0" color="BLUE" />
+    <Shape type="SSL" length="0.72" radius="0.08" distance="true" physics="false" graphics="false" transform="0.36 -0.18 0.17 0 -90 0" color="BLUE" />
+    <Shape type="BOX" extents="0.07 0.16 1.6" distance="false" physics="false" graphics="true" transform="0.245 0 0.85 0 0 0" color="DARKGRAY" />
+    <Shape type="BOX" extents="0.16 0.32 1.7" distance="false" physics="true" graphics="true" transform="0.13 0 0.85 0 0 0" />
+    <Shape type="BOX" extents="0.04 1.25 0.08" distance="false" physics="true" graphics="true" transform="-0.405 0 0.04 0 0 0" />
+    <Shape type="BOX" extents="0.04 1.25 0.08" distance="false" physics="true" graphics="true" transform="0.405 0 0.04 0 0 0" />
+    <Shape type="BOX" extents="0.77 0.04 0.24" distance="false" physics="true" graphics="true" transform="0 0.18 0.12 0 0 0" />
+    <Shape type="BOX" extents="0.77 0.04 0.24" distance="false" physics="true" graphics="true" transform="0 -0.18 0.12 0 0 0" />
+    <Shape type="SSR" extents="0.55 0.33 0.1" distance="true" physics="false" graphics="false" transform="-0.09 0 1.275 0 85 0" color="BLACK_RUBBER" />
+    <Shape type="BOX" extents="0.07 0.36 0.55" distance="false" physics="false" graphics="true" transform="-0.09 0 1.275 0 -5 0" color="BLACK_RUBBER" />
+    <Shape type="BOX" extents="0.001 0.33 0.52" distance="false" physics="false" graphics="true" transform="-0.125 0 1.275 0 -5 0" color="PUREWHITE" />
+    <Shape type="BOX" extents="0.001 0.33 0.2" distance="false" physics="false" graphics="true" transform="-0.1254 0 1.275 0 -5 0" />
+  </Body>
+
+  <Body name="RailBot_6" prev="Base_6" transform="0.209 0 0 0 0 0" mass="20" inertia="0.97802 -0.0116595 -0.0403039   -0.0116595 0.366192 0.0428657   -0.0403039 0.0428657 0.736717" >
+    <Joint name="DofChestZ_6" range="0.5 0.803058 1" weightJL="0.75" weightMetric="0.2" type="TransZ" transform="0 0 0.375 0 0 0" />
+    <Shape type="MESH" distance="false" physics="false" graphics="true" scale="0.001" transform="0 0 0 180 0 -90" meshFile="DexBot/LinearSlide.stl" />
+    <Shape type="MESH" distance="false" physics="false" graphics="true" scale="0.001" transform="0.085 0 -0.2 0 0 0" meshFile="DexBot/Slide-Simple.stl" />
+    <Shape type="MESH" distance="false" physics="false" graphics="true" scale="0.001" transform="0.203 0.101 -0.05 -90 0 165" meshFile="DexBot/Wing-Simple.stl" />
+    <Shape type="MESH" distance="false" physics="false" graphics="true" scale="0.001" transform="0.135 -0.101 0.2 90 0 -165" meshFile="DexBot/Wing-Simple.stl" />
+    <Shape type="BOX" extents="0.04 0.75 0.2" distance="false" physics="true" graphics="false" transform="0.17 0 0.1 0 0 0" />
+    <Shape type="FRAME" scale="0.5" />
+  </Body>
+
+  <Body name="lbr_link_0_L_6" prev="RailBot_6" transform="0.125 -0.247635 0.0675 134.01 -68.91 -44.01" physics="kinematic" mass="5" inertia="0.05 0 0   0 0.06 0   0 0 0.03" >
+    <Shape type="SSL" length="0.08" radius="0.125" distance="true" physics="false" graphics="false" color="PEWTER" />
+    <Shape type="MESH" distance="false" physics="false" graphics="true" meshFile="iiwa_description/meshes/iiwa14/visual/link_0.stl" color="ORANGE" />
+    <Shape type="MESH" distance="false" physics="true" graphics="false" meshFile="iiwa_description/meshes/iiwa14/collision/link_0_hull.tri" color="ORANGE" />
+  </Body>
+
+  <Body name="lbr_link_1_L_6" prev="lbr_link_0_L_6" physics="dynamic" mass="4" inertia="0.1 0 0   0 0.09 0   0 0 0.02" >
+    <Joint name="lbr_joint_1_L_6" range="-165 15.013332 165" type="RotZ" transform="0 0 0.1575 0 0 0" speedLimit="85" ctrlType="Torque" />
+    <Shape type="SSL" length="0.2" radius="0.09" distance="true" physics="false" graphics="false" transform="0 0 0 10 0 0" color="GREEN" />
+    <Shape type="MESH" distance="false" physics="false" graphics="true" meshFile="iiwa_description/meshes/iiwa14/visual/link_1.stl" color="ORANGE" />
+    <Shape type="MESH" distance="false" physics="true" graphics="false" meshFile="iiwa_description/meshes/iiwa14/collision/link_1_hull.tri" color="ORANGE" />
+    <Sensor name="lbr_joint_1_torque_L_6" type="JOINTTORQUE" />
+  </Body>
+
+  <Body name="lbr_link_2_L_6" prev="lbr_link_1_L_6" physics="dynamic" mass="4" cogVector="0.0003 0.059 0.042" inertia="0.05 0 0   0 0.018 0   0 0 0.044" >
+    <Joint name="lbr_joint_2_L_6" range="-115 51.311032 115" weightMetric="0.5" type="RotZ" transform="0 0 0.2025 -90 0 180" speedLimit="85" ctrlType="Torque" />
+    <Shape type="SSL" length="0.2" radius="0.09" distance="true" physics="false" graphics="false" transform="0 0 0.05 -100 0 0" color="COPPER" />
+    <Shape type="MESH" distance="false" physics="false" graphics="true" meshFile="iiwa_description/meshes/iiwa14/visual/link_2.stl" color="ORANGE" />
+    <Shape type="MESH" distance="false" physics="true" graphics="false" meshFile="iiwa_description/meshes/iiwa14/collision/link_2_hull.tri" color="ORANGE" />
+  </Body>
+
+  <Body name="lbr_link_3_L_6" prev="lbr_link_2_L_6" physics="dynamic" mass="3" inertia="0.08 0 0   0 0.075 0   0 0 0.01" >
+    <Joint name="lbr_joint_3_L_6" range="-165 35.130674 165" type="RotZ" transform="0 0.2045 0 -90 0 180" speedLimit="100" ctrlType="Torque" />
+    <Shape type="SSL" length="0.22" radius="0.08" distance="true" physics="false" graphics="false" transform="0 0 0 -10 0 0" color="RED" />
+    <Shape type="MESH" distance="false" physics="false" graphics="true" meshFile="iiwa_description/meshes/iiwa14/visual/link_3.stl" color="ORANGE" />
+    <Shape type="MESH" distance="false" physics="true" graphics="false" meshFile="iiwa_description/meshes/iiwa14/collision/link_3_hull.tri" color="ORANGE" />
+  </Body>
+
+  <Body name="lbr_link_4_L_6" prev="lbr_link_3_L_6" physics="dynamic" mass="2.7" inertia="0.03 0 0   0 0.01 0   0 0 0.029" >
+    <Joint name="lbr_joint_4_L_6" range="-115 75.200525 115" weightJL="2" type="RotZ" transform="0 0 0.2155 90 0 0" speedLimit="75" ctrlType="Torque" />
+    <Shape type="SSL" length="0.15" radius="0.08" distance="true" physics="false" graphics="false" transform="0 0 0.04 -105 0 0" color="PEWTER" />
+    <Shape type="MESH" distance="false" physics="false" graphics="true" meshFile="iiwa_description/meshes/iiwa14/visual/link_4.stl" color="ORANGE" />
+    <Shape type="MESH" distance="false" physics="true" graphics="false" meshFile="iiwa_description/meshes/iiwa14/collision/link_4_hull.tri" color="ORANGE" />
+  </Body>
+
+  <Body name="lbr_link_5_L_6" prev="lbr_link_4_L_6" physics="dynamic" mass="1.7" cogVector="0.0001 0.021 0.076" inertia="0.02 0 0   0 0.018 0   0 0 0.005" >
+    <Joint name="lbr_joint_5_L_6" range="-165 -57.743675 165" type="RotZ" transform="0 0.1845 0 -90 0 -180" speedLimit="130" ctrlType="Torque" />
+    <Shape type="SSL" length="0.21" radius="0.075" distance="true" physics="false" graphics="false" transform="0 0 0 -10 0 0" color="GREEN" />
+    <Shape type="MESH" distance="false" physics="false" graphics="true" meshFile="iiwa_description/meshes/iiwa14/visual/link_5.stl" color="ORANGE" />
+    <Shape type="MESH" distance="false" physics="true" graphics="false" meshFile="iiwa_description/meshes/iiwa14/collision/link_5_hull.tri" color="ORANGE" />
+  </Body>
+
+  <Body name="lbr_link_6_L_6" prev="lbr_link_5_L_6" physics="dynamic" mass="1.8" inertia="0.005 0 0   0 0.0036 0   0 0 0.0047" >
+    <Joint name="lbr_joint_6_L_6" range="-115 -6.529904 115" weightMetric="0.5" type="RotZ" transform="0 0 0.2155 90 0 0" speedLimit="135" ctrlType="Torque" />
+    <Shape type="SSL" length="0.1" radius="0.065" distance="true" physics="false" graphics="false" transform="0 -0.03 0.01 -95 0 0" color="COPPER" />
+    <Shape type="MESH" distance="false" physics="false" graphics="true" meshFile="iiwa_description/meshes/iiwa14/visual/link_6.stl" color="ORANGE" />
+    <Shape type="MESH" distance="false" physics="true" graphics="false" meshFile="iiwa_description/meshes/iiwa14/collision/link_6_hull.tri" color="ORANGE" />
+  </Body>
+
+  <Body name="lbr_link_7_L_6" prev="lbr_link_6_L_6" physics="dynamic" mass="0.3" inertia="0.001 0 0   0 0.001 0   0 0 0.001" >
+    <Joint name="lbr_joint_7_L_6" range="-170 -45.898067 170" type="RotZ" transform="0 0.081 0 -90 0 -180" speedLimit="135" ctrlType="Torque" />
+    <Shape type="MESH" distance="false" physics="false" graphics="true" meshFile="iiwa_description/meshes/iiwa14/visual/link_7.stl" color="ORANGE" />
+    <Shape type="MESH" distance="false" physics="true" graphics="false" meshFile="iiwa_description/meshes/iiwa14/collision/link_7_hull.tri" color="ORANGE" />
+    <Shape type="CYLINDER" length="0.0361" radius="0.029" distance="false" physics="true" graphics="true" transform="0 0 0.06305 0 0 0" color="GRAY" />
+    <Shape type="CYLINDER" length="0.0148" radius="0.045" distance="false" physics="true" graphics="true" transform="0 0 0.0885 0 0 0" color="GRAY" />
+    <Shape type="CYLINDER" length="0.0748" radius="0.045" distance="false" physics="true" graphics="true" transform="0 0 0.1333 0 0 0" color="GRAY" />
+    <Shape type="SSL" length="0.15" radius="0.045" distance="true" physics="false" graphics="false" color="RED" />
+  </Body>
+
+  <Body name="sdh-base_L_6" prev="lbr_link_7_L_6" transform="0 0 0.171 0 0 75" physics="fixed" mass="1.054" inertia="0.001757 0 0   0 0.001757 0   0 0 0.001757" >
+    <Shape type="MESH" distance="false" physics="false" graphics="true" transform="0 0 0.049 0 0 0" meshFile="Schunk/SDH_Gehaeuse_x.tri" />
+    <Shape type="MESH" distance="false" physics="true" graphics="false" transform="0 0 0.049 0 0 0" meshFile="Schunk/SDH_Gehaeuse_x.tri" />
+    <Shape type="SSL" length="0.02" radius="0.065" distance="true" physics="false" graphics="false" transform="0 0 0.02 0 0 0" color="RED" />
+    <Shape type="MESH" distance="false" physics="false" graphics="true" transform="-0.038105 0 0.072 90 -90 0" meshFile="Schunk/SDH_Gelenk_Finger1_x.tri" />
+  </Body>
+
+  <Body name="HandLink_L_6" prev="sdh-base_L_6" transform="0 0 0.1 180 0 90" >
+    <Shape type="FRAME" scale="0.2" />
+  </Body>
+
+  <Body name="lbr_link_0_R_6" prev="RailBot_6" transform="0.125 0.247835 0.059 -134.01 -68.91 -135.99" physics="kinematic" mass="5" inertia="0.05 0 0   0 0.06 0   0 0 0.03" >
+    <Shape type="SSL" length="0.08" radius="0.125" distance="true" physics="false" graphics="false" color="PEWTER" />
+    <Shape type="MESH" distance="false" physics="false" graphics="true" meshFile="iiwa_description/meshes/iiwa14/visual/link_0.stl" color="ORANGE" />
+    <Shape type="MESH" distance="false" physics="true" graphics="false" meshFile="iiwa_description/meshes/iiwa14/collision/link_0_hull.tri" color="ORANGE" />
+  </Body>
+
+  <Body name="lbr_link_1_R_6" prev="lbr_link_0_R_6" physics="dynamic" mass="4" inertia="0.1 0 0   0 0.09 0   0 0 0.02" >
+    <Joint name="lbr_joint_1_R_6" range="-165 -12.486547 165" type="RotZ" transform="0 0 0.1575 0 0 0" speedLimit="85" ctrlType="Torque" />
+    <Shape type="SSL" length="0.2" radius="0.09" distance="true" physics="false" graphics="false" transform="0 0 0 10 0 0" color="GREEN" />
+    <Shape type="MESH" distance="false" physics="false" graphics="true" meshFile="iiwa_description/meshes/iiwa14/visual/link_1.stl" color="ORANGE" />
+    <Shape type="MESH" distance="false" physics="true" graphics="false" meshFile="iiwa_description/meshes/iiwa14/collision/link_1_hull.tri" color="ORANGE" />
+  </Body>
+
+  <Body name="lbr_link_2_R_6" prev="lbr_link_1_R_6" physics="dynamic" mass="4" cogVector="0.0003 0.059 0.042" inertia="0.05 0 0   0 0.018 0   0 0 0.044" >
+    <Joint name="lbr_joint_2_R_6" range="-115 -52.033523 115" weightMetric="0.5" type="RotZ" transform="0 0 0.2025 -90 0 180" speedLimit="85" ctrlType="Torque" />
+    <Shape type="SSL" length="0.2" radius="0.09" distance="true" physics="false" graphics="false" transform="0 0 0.05 -100 0 0" color="COPPER" />
+    <Shape type="MESH" distance="false" physics="false" graphics="true" meshFile="iiwa_description/meshes/iiwa14/visual/link_2.stl" color="ORANGE" />
+    <Shape type="MESH" distance="false" physics="true" graphics="false" meshFile="iiwa_description/meshes/iiwa14/collision/link_2_hull.tri" color="ORANGE" />
+  </Body>
+
+  <Body name="lbr_link_3_R_6" prev="lbr_link_2_R_6" physics="dynamic" mass="3" inertia="0.08 0 0   0 0.075 0   0 0 0.01" >
+    <Joint name="lbr_joint_3_R_6" range="-165 -34.787304 165" type="RotZ" transform="0 0.2045 0 -90 0 180" speedLimit="100" ctrlType="Torque" />
+    <Shape type="SSL" length="0.22" radius="0.08" distance="true" physics="false" graphics="false" transform="0 0 0 -10 0 0" color="RED" />
+    <Shape type="MESH" distance="false" physics="false" graphics="true" meshFile="iiwa_description/meshes/iiwa14/visual/link_3.stl" color="ORANGE" />
+    <Shape type="MESH" distance="false" physics="true" graphics="false" meshFile="iiwa_description/meshes/iiwa14/collision/link_3_hull.tri" color="ORANGE" />
+  </Body>
+
+  <Body name="lbr_link_4_R_6" prev="lbr_link_3_R_6" physics="dynamic" mass="2.7" inertia="0.03 0 0   0 0.01 0   0 0 0.029" >
+    <Joint name="lbr_joint_4_R_6" range="-115 -76.348822 115" weightJL="2" type="RotZ" transform="0 0 0.2155 90 0 0" speedLimit="75" ctrlType="Torque" />
+    <Shape type="SSL" length="0.15" radius="0.08" distance="true" physics="false" graphics="false" transform="0 0 0.04 -105 0 0" color="PEWTER" />
+    <Shape type="MESH" distance="false" physics="false" graphics="true" meshFile="iiwa_description/meshes/iiwa14/visual/link_4.stl" color="ORANGE" />
+    <Shape type="MESH" distance="false" physics="true" graphics="false" meshFile="iiwa_description/meshes/iiwa14/collision/link_4_hull.tri" color="ORANGE" />
+  </Body>
+
+  <Body name="lbr_link_5_R_6" prev="lbr_link_4_R_6" physics="dynamic" mass="1.7" cogVector="0.0001 0.021 0.076" inertia="0.02 0 0   0 0.018 0   0 0 0.005" >
+    <Joint name="lbr_joint_5_R_6" range="-165 63.740089 165" type="RotZ" transform="0 0.1845 0 -90 0 -180" speedLimit="130" ctrlType="Torque" />
+    <Shape type="SSL" length="0.21" radius="0.075" distance="true" physics="false" graphics="false" transform="0 0 0 -10 0 0" color="GREEN" />
+    <Shape type="MESH" distance="false" physics="false" graphics="true" meshFile="iiwa_description/meshes/iiwa14/visual/link_5.stl" color="ORANGE" />
+    <Shape type="MESH" distance="false" physics="true" graphics="false" meshFile="iiwa_description/meshes/iiwa14/collision/link_5_hull.tri" color="ORANGE" />
+  </Body>
+
+  <Body name="lbr_link_6_R_6" prev="lbr_link_5_R_6" physics="dynamic" mass="1.8" inertia="0.005 0 0   0 0.0036 0   0 0 0.0047" >
+    <Joint name="lbr_joint_6_R_6" range="-115 4.519144 115" weightMetric="0.5" type="RotZ" transform="0 0 0.2155 90 0 0" speedLimit="135" ctrlType="Torque" />
+    <Shape type="SSL" length="0.1" radius="0.065" distance="true" physics="false" graphics="false" transform="0 -0.03 0.01 -95 0 0" color="COPPER" />
+    <Shape type="MESH" distance="false" physics="false" graphics="true" meshFile="iiwa_description/meshes/iiwa14/visual/link_6.stl" color="ORANGE" />
+    <Shape type="MESH" distance="false" physics="true" graphics="false" meshFile="iiwa_description/meshes/iiwa14/collision/link_6_hull.tri" color="ORANGE" />
+  </Body>
+
+  <Body name="lbr_link_7_R_6" prev="lbr_link_6_R_6" physics="dynamic" mass="0.3" inertia="0.001 0 0   0 0.001 0   0 0 0.001" >
+    <Joint name="lbr_joint_7_R_6" range="-170 67.417901 170" type="RotZ" transform="0 0.081 0 -90 0 -180" speedLimit="135" ctrlType="Torque" />
+    <Shape type="MESH" distance="false" physics="false" graphics="true" meshFile="iiwa_description/meshes/iiwa14/visual/link_7.stl" color="ORANGE" />
+    <Shape type="MESH" distance="false" physics="true" graphics="false" meshFile="iiwa_description/meshes/iiwa14/collision/link_7_hull.tri" color="ORANGE" />
+    <Shape type="CYLINDER" length="0.0361" radius="0.029" distance="false" physics="true" graphics="true" transform="0 0 0.06305 0 0 0" color="GRAY" />
+    <Shape type="CYLINDER" length="0.0148" radius="0.045" distance="false" physics="true" graphics="true" transform="0 0 0.0885 0 0 0" color="GRAY" />
+    <Shape type="CYLINDER" length="0.0748" radius="0.045" distance="false" physics="true" graphics="true" transform="0 0 0.1333 0 0 0" color="GRAY" />
+    <Shape type="SSL" length="0.15" radius="0.045" distance="true" physics="false" graphics="false" color="RED" />
+  </Body>
+
+  <Body name="sdh-base_R_6" prev="lbr_link_7_R_6" transform="0 0 0.171 0 0 75" physics="fixed" mass="1.054" inertia="0.001757 0 0   0 0.001757 0   0 0 0.001757" >
+    <Shape type="MESH" distance="false" physics="false" graphics="true" transform="0 0 0.049 0 0 0" meshFile="Schunk/SDH_Gehaeuse_x.tri" />
+    <Shape type="MESH" distance="false" physics="true" graphics="false" transform="0 0 0.049 0 0 0" meshFile="Schunk/SDH_Gehaeuse_x.tri" />
+    <Shape type="SSL" length="0.02" radius="0.065" distance="true" physics="false" graphics="false" transform="0 0 0.02 0 0 0" color="RED" />
+    <Shape type="MESH" distance="false" physics="false" graphics="true" transform="-0.038105 0 0.072 90 -90 0" meshFile="Schunk/SDH_Gelenk_Finger1_x.tri" />
+  </Body>
+
+  <Body name="HandLink_R_6" prev="sdh-base_R_6" transform="0 0 0.1 180 0 90" >
+    <Shape type="FRAME" scale="0.2" />
+  </Body>
+
+  <Body name="Box Base_6" prev="Lab Frame_6" transform="0 0 0 90 -90 0" >
+    <Shape type="FRAME" scale="0.2" />
+  </Body>
+
+  <Body name="Box_v_6" prev="Box Base_6" >
+    <Joint name="DofX_v_6" range="-10 0 10" weightJL="0" type="TransX" coupledTo="DofX_v" couplingFactor="1 "/>
+    <Joint name="DofY_v_6" range="-10 1.13 10" weightMetric="0.1" type="TransY" coupledTo="DofY_v" couplingFactor="1 "/>
+    <Joint name="DofZ_v_6" range="-10 -0.86 10" weightJL="10" weightMetric="0.1" type="TransZ" coupledTo="DofZ_v" couplingFactor="1 "/>
+    <Joint name="DofThX_v_6" range="-1000 0 1000" weightJL="0" type="RotX" coupledTo="DofThX_v" couplingFactor="1 "/>
+    <Joint name="DofThY_v_6" range="-1000 0 1000" weightJL="0" type="RotY" coupledTo="DofThY_v" couplingFactor="1 "/>
+    <Joint name="DofThZ_v_6" range="-1000 0 1000" weightJL="0" type="RotZ" coupledTo="DofThZ_v_5" couplingFactor="1 "/>
+    <Shape type="FRAME" scale="0.2" />
+    <Shape type="SPHERE" radius="0.05" distance="true" physics="false" graphics="false" />
+  </Body>
+
+  <Body name="Box_real_6" prev="Box_v_6" physics="dynamic" mass="10" inertia="0.876 0 0   0 1.09875 0   0 0 0.43875" >
+    <Shape type="BOX" extents="0.63 0.36 0.96" distance="true" physics="true" graphics="true" transform="0 0 -0.5 0 0 0" color="DARKRED_TRANS" />
+  </Body>
+
+  <Body name="PowerAnchor_L_6" prev="Box_v_6" physics="kinematic" mass="1" inertia="1.66667e-05 0 0   0 1.66667e-05 0   0 0 1.66667e-05" >
+    <Joint name="rlx_6" range="-3 -0.2079 3" type="TransX" coupledTo="rlx_4" couplingFactor="1 "/>
+    <Joint name="rly_6" range="-2 -0.18 2" type="TransY" coupledTo="rly_4" couplingFactor="1 "/>
+    <Joint name="rlz_6" range="-2 0 2" type="TransZ" coupledTo="rlz_4" couplingFactor="1 "/>
+    <Joint name="rla_6" range="-400 90 400" type="RotX" coupledTo="rla_4" couplingFactor="1 "/>
+    <Joint name="rlb_6" range="-400 90 400" type="RotY" coupledTo="rlb_4" couplingFactor="1 "/>
+    <Joint name="rlc_6" range="-400 0 400" type="RotZ" coupledTo="rlc_4" couplingFactor="1 "/>
+    <Joint name="rla2_6" range="-400 -20 400" type="RotX" coupledTo="rla2_4" couplingFactor="1 "/>
+    <Joint name="rlb2_6" range="-400 0 400" type="RotY" coupledTo="rlb2_4" couplingFactor="1 "/>
+    <Joint name="rlc2_6" range="-400 0 400" type="RotZ" coupledTo="rlc2_4" couplingFactor="1 "/>
+    <Shape type="BOX" extents="0.01 0.01 0.01" distance="true" physics="true" graphics="false" transform="0 0 0.2 0 0 0" />
+    <Shape type="FRAME" scale="0.25" />
+  </Body>
+
+  <Body name="PowerGrasp_L_6" prev="PowerAnchor_L_6" transform="0 0 0 -90 0 -90" physics="fixed" mass="1" inertia="0.00941667 0 0   0 0.00554167 -0.003025   0 -0.003025 0.00554167" >
+    <Shape type="BOX" extents="0.1 0.2 0.02" distance="true" physics="true" graphics="true" transform="0 0.1 0.01 0 0 0" />
+    <Shape type="BOX" extents="0.1 0.02 0.2" distance="true" physics="true" graphics="true" transform="0 -0.01 -0.1 0 0 0" />
+    <Shape type="FRAME" scale="0.525" />
+  </Body>
+
+  <Body name="PowerAnchor_R_6" prev="Box_v_6" physics="kinematic" mass="1" inertia="1.66667e-05 0 0   0 1.66667e-05 0   0 0 1.66667e-05" >
+    <Joint name="rrx_6" range="-3 0.2079 3" type="TransX" />
+    <Joint name="rry_6" range="-2 -0.18 2" type="TransY" />
+    <Joint name="rrz_6" range="-2 0 2" type="TransZ" />
+    <Joint name="rra_6" range="-400 90 400" type="RotX" />
+    <Joint name="rrb_6" range="-400 90 400" type="RotY" />
+    <Joint name="rrc_6" range="-400 0 400" type="RotZ" />
+    <Joint name="rra2_6" range="-400 20 400" type="RotX" />
+    <Joint name="rrb2_6" range="-400 0 400" type="RotY" />
+    <Joint name="rrc2_6" range="-400 0 400" type="RotZ" />
+    <Shape type="BOX" extents="0.01 0.01 0.01" distance="true" physics="true" graphics="false" transform="0 0 0.2 0 0 0" />
+    <Shape type="FRAME" scale="0.25" />
+  </Body>
+
+  <Body name="PowerGrasp_R_6" prev="PowerAnchor_R_6" transform="0 0 0 -90 0 -90" physics="fixed" mass="1" inertia="0.00941667 0 0   0 0.00554167 -0.003025   0 -0.003025 0.00554167" >
+    <Shape type="BOX" extents="0.1 0.2 0.02" distance="true" physics="true" graphics="true" transform="0 0.1 0.01 0 0 0" />
+    <Shape type="BOX" extents="0.1 0.02 0.2" distance="true" physics="true" graphics="true" transform="0 -0.01 -0.1 0 0 0" />
+    <Shape type="FRAME" scale="0.525" />
+  </Body>
+
+<model_state model="DefaultPose" time_stamp="">
+  <joint_state joint="DofBaseX_1" position="0.016774" />
+  <joint_state joint="DofBaseY_1" position="-0.059713" />
+  <joint_state joint="DofBaseThZ_1" position="0.136471" />
+  <joint_state joint="DofChestZ_1" position="0.879148" />
+  <joint_state joint="lbr_joint_1_L_1" position="52.430272" />
+  <joint_state joint="lbr_joint_2_L_1" position="36.273853" />
+  <joint_state joint="lbr_joint_3_L_1" position="0.831214" />
+  <joint_state joint="lbr_joint_4_L_1" position="102.287006" />
+  <joint_state joint="lbr_joint_5_L_1" position="-15.100681" />
+  <joint_state joint="lbr_joint_6_L_1" position="57.572606" />
+  <joint_state joint="lbr_joint_7_L_1" position="-30.813919" />
+  <joint_state joint="lbr_joint_1_R_1" position="-7.694167" />
+  <joint_state joint="lbr_joint_2_R_1" position="-48.066477" />
+  <joint_state joint="lbr_joint_3_R_1" position="-49.100497" />
+  <joint_state joint="lbr_joint_4_R_1" position="-62.9962" />
+  <joint_state joint="lbr_joint_5_R_1" position="58.740544" />
+  <joint_state joint="lbr_joint_6_R_1" position="17.687118" />
+  <joint_state joint="lbr_joint_7_R_1" position="76.389067" />
+  <joint_state joint="rlx_1" position="-0.317772" />
+  <joint_state joint="rly_1" position="0.114062" />
+  <joint_state joint="rlz_1" position="0.002495" />
+  <joint_state joint="rla_1" position="87.60186" />
+  <joint_state joint="rlb_1" position="44.548467" />
+  <joint_state joint="rlc_1" position="-1.256148" />
+  <joint_state joint="rla2_1" position="-22.732315" />
+  <joint_state joint="rlb2_1" position="-41.851295" />
+  <joint_state joint="rlc2_1" position="-14.642177" />
+  <joint_state joint="DofBaseX_2" position="0.030301" />
+  <joint_state joint="DofBaseY_2" position="-0.007032" />
+  <joint_state joint="DofBaseThZ_2" position="-0.005803" />
+  <joint_state joint="DofChestZ_2" position="0.803544" />
+  <joint_state joint="lbr_joint_1_L_2" position="2.406234" />
+  <joint_state joint="lbr_joint_2_L_2" position="47.796172" />
+  <joint_state joint="lbr_joint_3_L_2" position="57.142772" />
+  <joint_state joint="lbr_joint_4_L_2" position="51.72589" />
+  <joint_state joint="lbr_joint_5_L_2" position="-50.293124" />
+  <joint_state joint="lbr_joint_6_L_2" position="-26.076319" />
+  <joint_state joint="lbr_joint_7_L_2" position="-55.424198" />
+  <joint_state joint="lbr_joint_1_R_2" position="-11.890131" />
+  <joint_state joint="lbr_joint_2_R_2" position="-6.484967" />
+  <joint_state joint="lbr_joint_3_R_2" position="-34.027159" />
+  <joint_state joint="lbr_joint_4_R_2" position="-98.693571" />
+  <joint_state joint="lbr_joint_5_R_2" position="10.635217" />
+  <joint_state joint="lbr_joint_6_R_2" position="-85.959977" />
+  <joint_state joint="lbr_joint_7_R_2" position="60.493823" />
+  <joint_state joint="DofThZ_v_2" position="89.251709" />
+  <joint_state joint="rlx_2" position="-0.315" />
+  <joint_state joint="rly_2" position="0.1188" />
+  <joint_state joint="rla_2" position="87.189578" />
+  <joint_state joint="rlb_2" position="43.956366" />
+  <joint_state joint="rlc_2" position="-1.591666" />
+  <joint_state joint="rla2_2" position="-21.938903" />
+  <joint_state joint="rlb2_2" position="-42.148844" />
+  <joint_state joint="rlc2_2" position="-13.932856" />
+  <joint_state joint="DofBaseX_3" position="0.029779" />
+  <joint_state joint="DofBaseY_3" position="-0.024043" />
+  <joint_state joint="DofBaseThZ_3" position="-0.063859" />
+  <joint_state joint="DofChestZ_3" position="0.704853" />
+  <joint_state joint="lbr_joint_1_L_3" position="4.747252" />
+  <joint_state joint="lbr_joint_2_L_3" position="53.502404" />
+  <joint_state joint="lbr_joint_3_L_3" position="42.002441" />
+  <joint_state joint="lbr_joint_4_L_3" position="70.44231" />
+  <joint_state joint="lbr_joint_5_L_3" position="-54.063089" />
+  <joint_state joint="lbr_joint_6_L_3" position="-9.700959" />
+  <joint_state joint="lbr_joint_7_L_3" position="-42.352597" />
+  <joint_state joint="lbr_joint_1_R_3" position="5.536258" />
+  <joint_state joint="lbr_joint_2_R_3" position="-57.793233" />
+  <joint_state joint="lbr_joint_3_R_3" position="-40.36099" />
+  <joint_state joint="lbr_joint_4_R_3" position="-70.197918" />
+  <joint_state joint="lbr_joint_5_R_3" position="32.145038" />
+  <joint_state joint="lbr_joint_6_R_3" position="5.201726" />
+  <joint_state joint="lbr_joint_7_R_3" position="82.532817" />
+  <joint_state joint="DofThZ_v_3" position="90.00021" />
+  <joint_state joint="rlx_3" position="-0.315" />
+  <joint_state joint="rly_3" position="0.1188" />
+  <joint_state joint="rla_3" position="87.073385" />
+  <joint_state joint="rlb_3" position="43.911696" />
+  <joint_state joint="rlc_3" position="-1.695058" />
+  <joint_state joint="rla2_3" position="-21.686019" />
+  <joint_state joint="rlb2_3" position="-42.173534" />
+  <joint_state joint="rlc2_3" position="-13.678804" />
+  <joint_state joint="rrx_3" position="-0.317772" />
+  <joint_state joint="rry_3" position="-0.120715" />
+  <joint_state joint="rrz_3" position="0.002495" />
+  <joint_state joint="rra_3" position="92.39814" />
+  <joint_state joint="rrb_3" position="44.548467" />
+  <joint_state joint="rrc_3" position="1.256148" />
+  <joint_state joint="rra2_3" position="22.732315" />
+  <joint_state joint="rrb2_3" position="-41.851295" />
+  <joint_state joint="rrc2_3" position="14.642177" />
+  <joint_state joint="DofBaseX_4" position="0.13673" />
+  <joint_state joint="DofBaseY_4" position="-0.063081" />
+  <joint_state joint="DofBaseThZ_4" position="0.11247" />
+  <joint_state joint="DofChestZ_4" position="0.900415" />
+  <joint_state joint="lbr_joint_1_L_4" position="1.829388" />
+  <joint_state joint="lbr_joint_2_L_4" position="36.534227" />
+  <joint_state joint="lbr_joint_3_L_4" position="32.938914" />
+  <joint_state joint="lbr_joint_4_L_4" position="121.698505" />
+  <joint_state joint="lbr_joint_5_L_4" position="3.073633" />
+  <joint_state joint="lbr_joint_6_L_4" position="86.788687" />
+  <joint_state joint="lbr_joint_7_L_4" position="-13.862266" />
+  <joint_state joint="lbr_joint_1_R_4" position="5.781668" />
+  <joint_state joint="lbr_joint_2_R_4" position="-59.122174" />
+  <joint_state joint="lbr_joint_3_R_4" position="-60.877054" />
+  <joint_state joint="lbr_joint_4_R_4" position="-44.6584" />
+  <joint_state joint="lbr_joint_5_R_4" position="40.40317" />
+  <joint_state joint="lbr_joint_6_R_4" position="36.994007" />
+  <joint_state joint="lbr_joint_7_R_4" position="85.34907" />
+  <joint_state joint="DofThZ_v_4" position="90.00021" />
+  <joint_state joint="rlx_4" position="0.200499" />
+  <joint_state joint="rly_4" position="0.182772" />
+  <joint_state joint="rlz_4" position="0.002495" />
+  <joint_state joint="rla_4" position="79.033762" />
+  <joint_state joint="rlb_4" position="-3.731254" />
+  <joint_state joint="rlc_4" position="-17.114993" />
+  <joint_state joint="rla2_4" position="-17.96628" />
+  <joint_state joint="rlb2_4" position="-81.724019" />
+  <joint_state joint="rlc2_4" position="-26.979732" />
+  <joint_state joint="rrx_4" position="-0.315" />
+  <joint_state joint="rry_4" position="-0.1188" />
+  <joint_state joint="rra_4" position="92.653481" />
+  <joint_state joint="rrb_4" position="44.041519" />
+  <joint_state joint="rrc_4" position="1.458901" />
+  <joint_state joint="rra2_4" position="22.282228" />
+  <joint_state joint="rrb2_4" position="-42.139485" />
+  <joint_state joint="rrc2_4" position="14.279705" />
+  <joint_state joint="DofBaseX_5" position="-0.027068" />
+  <joint_state joint="DofBaseY_5" position="0.013005" />
+  <joint_state joint="DofBaseThZ_5" position="0.256707" />
+  <joint_state joint="DofChestZ_5" position="0.775185" />
+  <joint_state joint="lbr_joint_1_L_5" position="10.987793" />
+  <joint_state joint="lbr_joint_2_L_5" position="44.816293" />
+  <joint_state joint="lbr_joint_3_L_5" position="36.956965" />
+  <joint_state joint="lbr_joint_4_L_5" position="70.419613" />
+  <joint_state joint="lbr_joint_5_L_5" position="-74.912361" />
+  <joint_state joint="lbr_joint_6_L_5" position="-4.113991" />
+  <joint_state joint="lbr_joint_7_L_5" position="-29.035178" />
+  <joint_state joint="lbr_joint_1_R_5" position="-31.022817" />
+  <joint_state joint="lbr_joint_2_R_5" position="-20.896125" />
+  <joint_state joint="lbr_joint_3_R_5" position="-3.649572" />
+  <joint_state joint="lbr_joint_4_R_5" position="-94.877503" />
+  <joint_state joint="lbr_joint_5_R_5" position="14.785768" />
+  <joint_state joint="lbr_joint_6_R_5" position="-70.267553" />
+  <joint_state joint="lbr_joint_7_R_5" position="44.955453" />
+  <joint_state joint="DofThZ_v_5" position="179.251351" />
+  <joint_state joint="rlx_5" position="0.2079" />
+  <joint_state joint="rly_5" position="0.18" />
+  <joint_state joint="rla_5" position="76.883682" />
+  <joint_state joint="rlb_5" position="-1.576174" />
+  <joint_state joint="rlc_5" position="-18.612512" />
+  <joint_state joint="rla2_5" position="-9.092146" />
+  <joint_state joint="rlb2_5" position="-83.987348" />
+  <joint_state joint="rlc2_5" position="-20.962527" />
+  <joint_state joint="rrx_5" position="-0.315" />
+  <joint_state joint="rry_5" position="-0.1188" />
+  <joint_state joint="rra_5" position="93.012938" />
+  <joint_state joint="rrb_5" position="43.890339" />
+  <joint_state joint="rrc_5" position="1.774904" />
+  <joint_state joint="rra2_5" position="21.499008" />
+  <joint_state joint="rrb2_5" position="-42.203345" />
+  <joint_state joint="rrc2_5" position="13.491949" />
+  <joint_state joint="DofBaseX_6" position="-0.029782" />
+  <joint_state joint="DofBaseY_6" position="-0.005633" />
+  <joint_state joint="DofBaseThZ_6" position="0.21413" />
+  <joint_state joint="DofChestZ_6" position="0.748443" />
+  <joint_state joint="lbr_joint_1_L_6" position="9.733821" />
+  <joint_state joint="lbr_joint_2_L_6" position="46.146547" />
+  <joint_state joint="lbr_joint_3_L_6" position="31.912728" />
+  <joint_state joint="lbr_joint_4_L_6" position="72.933149" />
+  <joint_state joint="lbr_joint_5_L_6" position="-61.696532" />
+  <joint_state joint="lbr_joint_6_L_6" position="1.180725" />
+  <joint_state joint="lbr_joint_7_L_6" position="-39.660329" />
+  <joint_state joint="lbr_joint_1_R_6" position="2.152646" />
+  <joint_state joint="lbr_joint_2_R_6" position="-51.580733" />
+  <joint_state joint="lbr_joint_3_R_6" position="-25.714786" />
+  <joint_state joint="lbr_joint_4_R_6" position="-74.774437" />
+  <joint_state joint="lbr_joint_5_R_6" position="70.634674" />
+  <joint_state joint="lbr_joint_6_R_6" position="-11.410461" />
+  <joint_state joint="lbr_joint_7_R_6" position="45.999205" />
+  <joint_state joint="DofThZ_v_6" position="179.999848" />
+  <joint_state joint="rlx_6" position="0.2079" />
+  <joint_state joint="rly_6" position="0.18" />
+  <joint_state joint="rla_6" position="76.584879" />
+  <joint_state joint="rlb_6" position="-0.8587" />
+  <joint_state joint="rlc_6" position="-18.80177" />
+  <joint_state joint="rla2_6" position="-7.617612" />
+  <joint_state joint="rlb2_6" position="-84.591504" />
+  <joint_state joint="rlc2_6" position="-19.996287" />
+  <joint_state joint="rrx_6" position="-0.210361" />
+  <joint_state joint="rry_6" position="0.182772" />
+  <joint_state joint="rrz_6" position="0.002495" />
+  <joint_state joint="rra_6" position="101.002417" />
+  <joint_state joint="rrb_6" position="-3.657665" />
+  <joint_state joint="rrc_6" position="17.161137" />
+  <joint_state joint="rra2_6" position="17.74853" />
+  <joint_state joint="rrb2_6" position="-81.79426" />
+  <joint_state joint="rrc2_6" position="26.816482" />
+</model_state>
+</Graph>
+
+<Task name="Phi_Box" controlVariable= "Joints" jnts="DofThX_v DofThY_v DofThZ_v" active="true" />
+<Task name="XYZ_Box" controlVariable= "XYZ" effector="Box_v" active="true" />
+<Task name="XYZ_L" controlVariable= "XYZ" effector="PowerGrasp_L" refBdy="Box_v" active="true" />
+<Task name="XYZ_R" controlVariable= "XYZ" effector="PowerGrasp_R" refBdy="Box_v" active="true" />
+<Task name="ABC_L" controlVariable= "ABC" effector="PowerGrasp_L" refBdy="Box_v" active="true" />
+<Task name="ABC_R" controlVariable= "ABC" effector="PowerGrasp_R" refBdy="Box_v" active="true" />
+<Task name="RoboHand_L" controlVariable= "XYZABC" effector="HandLink_L" refBdy="PowerGrasp_L" active="true" />
+<Task name="RoboHand_R" controlVariable= "XYZABC" effector="HandLink_R" refBdy="PowerGrasp_R" active="true" />
+<Task name="XYZ_L_1" controlVariable= "XYZ" effector="PowerGrasp_L_1" refBdy="Box_v_1" active="true" />
+<Task name="POLAR_L_1" controlVariable= "POLAR" effector="PowerGrasp_L_1" refBdy="Box_v_1" axisDirection="Y" active="true" />
+<Task name="RoboHand_L_1" controlVariable= "XYZABC" effector="HandLink_L_1" refBdy="PowerGrasp_L_1" active="true" />
+<Task name="RoboHand_R_1" controlVariable= "XYZABC" effector="HandLink_R_1" refBdy="PowerGrasp_R_1" active="true" />
+<Task name="RoboHand_L_2" controlVariable= "XYZABC" effector="HandLink_L_2" refBdy="PowerGrasp_L_2" active="true" />
+<Task name="RoboHand_R_2" controlVariable= "XYZABC" effector="HandLink_R_2" refBdy="PowerGrasp_R_2" active="true" />
+<Task name="XYZ_R_3" controlVariable= "XYZ" effector="PowerGrasp_R_3" refBdy="Box_v_3" active="true" />
+<Task name="POLAR_R_3" controlVariable= "POLAR" effector="PowerGrasp_R_3" refBdy="Box_v_3" axisDirection="Y" active="true" />
+<Task name="RoboHand_L_3" controlVariable= "XYZABC" effector="HandLink_L_3" refBdy="PowerGrasp_L_3" active="true" />
+<Task name="RoboHand_R_3" controlVariable= "XYZABC" effector="HandLink_R_3" refBdy="PowerGrasp_R_3" active="true" />
+<Task name="XYZ_L_4" controlVariable= "XYZ" effector="PowerGrasp_L_4" refBdy="Box_v_4" active="true" />
+<Task name="POLAR_L_4" controlVariable= "POLAR" effector="PowerGrasp_L_4" refBdy="Box_v_4" axisDirection="Y" active="true" />
+<Task name="RoboHand_L_4" controlVariable= "XYZABC" effector="HandLink_L_4" refBdy="PowerGrasp_L_4" active="true" />
+<Task name="RoboHand_R_4" controlVariable= "XYZABC" effector="HandLink_R_4" refBdy="PowerGrasp_R_4" active="true" />
+<Task name="RoboHand_L_5" controlVariable= "XYZABC" effector="HandLink_L_5" refBdy="PowerGrasp_L_5" active="true" />
+<Task name="RoboHand_R_5" controlVariable= "XYZABC" effector="HandLink_R_5" refBdy="PowerGrasp_R_5" active="true" />
+<Task name="Phi_Box_6" controlVariable= "Joints" jnts="DofThZ_v_6" active="true" />
+<Task name="XYZ_R_6" controlVariable= "XYZ" effector="PowerGrasp_R_6" refBdy="Box_v_6" active="true" />
+<Task name="ABC_R_6" controlVariable= "ABC" effector="PowerGrasp_R_6" refBdy="Box_v_6" active="true" />
+<Task name="RoboHand_L_6" controlVariable= "XYZABC" effector="HandLink_L_6" refBdy="PowerGrasp_L_6" active="true" />
+<Task name="RoboHand_R_6" controlVariable= "XYZABC" effector="HandLink_R_6" refBdy="PowerGrasp_R_6" active="true" />
+
+</Controller>

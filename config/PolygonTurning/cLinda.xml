@@ -1,0 +1,27 @@
+<Controller graph="gLindaMocap.xml" >
+
+  <!-- Hands -->
+  <Task name="Partner_HAND_L" controlVariable="XYZABC" effector="PartnerGrasp_L" active="true" />
+  <Task name="Partner_HAND_R" controlVariable="XYZABC" effector="PartnerGrasp_R" active="true" />
+
+  <!-- Mass center -->
+  <Task name="Partner_COM_Z" controlVariable="COGZ" effector="BVHROOT" refBdy="BVHROOT" active="true" />
+  <Task name="Partner_COM_X" controlVariable="COGX" effector="BVHROOT" refBdy="BVHROOT" active="true" />
+  
+  <!-- Feet with differential constraint (allowing to do the split)
+  <Task name="Partner_Foot_X_L" controlVariable="X" effector="LeftToe" refBdy="BVHROOT" active="untrue" />
+  <Task name="Partner_Foot_Y_L" controlVariable="Y" effector="LeftToe" refBdy="BVHROOT" active="true" />
+  <Task name="Partner_Foot_Z_L" controlVariable="Z" effector="LeftToe" refBdy="BVHROOT" active="true" />
+  <Task name="Partner_Foot_ABC_L" controlVariable="POLAR" effector="LeftToe" refBdy="BVHROOT" axisDirection="Y" active="true" />
+  <Task name="Partner_Foot_X_R" controlVariable="X" effector="RightToe" refBdy="BVHROOT" active="untrue" />
+  <Task name="Partner_Foot_Y_R" controlVariable="Y" effector="RightToe" refBdy="BVHROOT" active="true" />
+  <Task name="Partner_Foot_Z_R" controlVariable="Z" effector="RightToe" refBdy="BVHROOT" active="true" />
+  <Task name="Partner_Foot_ABC_R" controlVariable="POLAR" effector="RightToe" refBdy="BVHROOT" axisDirection="Y" active="true" />
+  <Task name="Partner_Foot_X_Diff" controlVariable="DiffConstraintX" effector="LeftToe" refBdy="RightToe" refFrame="BVHROOT" active="true" /> -->
+  
+  <!-- Feet fixed (allowing to crouch) -->
+  <Task name="Partner_Foot_L" controlVariable="XYZABC" effector="LeftToe"  refBdy="BVHROOT" active="true" />
+  <Task name="Partner_Foot_R" controlVariable="XYZABC" effector="RightToe" refBdy="BVHROOT" active="true" />
+  
+
+</Controller>

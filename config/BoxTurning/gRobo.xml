@@ -1,0 +1,69 @@
+<Graph xmlns:xi="http://www.w3.org/2003/XInclude" resourcePath="${SIT}/Data/RobotMeshes/1.0/data" name="DexterousManipulation" >
+
+  <Body name="ImetronPlatform" mass="100" cogVector="0 0 0.1" >
+    <Shape type="SSR" extents="0.85 1.25 0.28" graphics="false" physics="false" distance="true"  transform="0 0 0.14 0 0 0" color="DARKGRAY" />
+    <Shape type="BOX" extents="0.85 1.25 0.2"  graphics="true"   physics="true"  distance="false" transform="0 0 0.1 0 0 0"  color="DARKGRAY" />
+    <Joint name="DofBaseX"   type="TransX" range="-4 0 4"     weightJL="0.0" weightMetric="0.5"   constraint="false" />
+    <Joint name="DofBaseY"   type="TransY" range="-1.5 0 1.5" weightJL="1"   weightMetric="0.01"  constraint="false" />
+    <Joint name="DofBaseThZ" type="RotZ"   range="-60 0 60"   weightJL="1"   weightMetric="0.001" constraint="true" />
+  </Body>
+  
+  <Body name="Base" prev="ImetronPlatform" mass="80" cogVector="0.13 0 0.9" transform="0 0 0.2 0 0 180" >
+    <Shape type="SSL" radius="0.08" length="0.2"     transform="-0.02 0 0.1 0 0 0"       physics="false" graphics="false" distance="true"  color="BLUE" />
+    <Shape type="SSL" radius="0.2"  length="1.65"    transform="0.17 0 0 0 0 0"          physics="false" graphics="false" distance="true"  color="BLUE" />
+    <Shape type="SSL" radius="0.08" length="0.72"    transform="0.36 0.18 0.17 0 -90 0"  physics="false" graphics="false" distance="true"  color="BLUE" />
+    <Shape type="SSL" radius="0.08" length="0.72"    transform="0.36 -0.18 0.17 0 -90 0" physics="false" graphics="false" distance="true"  color="BLUE" />
+
+    <Shape type="BOX" extents="0.07 0.16 1.6"        transform="0.245 0 0.85 0 0 0"      physics="false" graphics="true"  distance="false" color="DARKGRAY" />
+    <Shape type="BOX" extents="0.16 0.32 1.7"        transform="0.13 0 0.85 0 0 0"       physics="true"  graphics="true"  distance="false" textureFile="textures/aluminium-profile.jpg" />
+    <Shape type="BOX" extents="0.04 1.25 0.08"       transform="-0.405 0 0.04 0 0 0"     physics="true"  graphics="true"  distance="false" textureFile="textures/aluminium-profile.jpg" />
+    <Shape type="BOX" extents="0.04 1.25 0.08"       transform="0.405 0 0.04 0 0 0"      physics="true"  graphics="true"  distance="false" textureFile="textures/aluminium-profile.jpg" />
+    <Shape type="BOX" extents="0.77 0.04 0.24"       transform="0 0.18 0.12 0 0 0"       physics="true"  graphics="true"  distance="false" textureFile="textures/aluminium-profile.jpg" />
+    <Shape type="BOX" extents="0.77 0.04 0.24"       transform="0 -0.18 0.12 0 0 0"      physics="true"  graphics="true"  distance="false" textureFile="textures/aluminium-profile.jpg" />
+
+    <Shape type="SSR" extents="0.55 0.33 0.1"   graphics="false" distance="true" color="BLACK_RUBBER" transform="-0.09 0 1.275 0 85 0" />
+    <Shape type="BOX" extents="0.07 0.36 0.55"  graphics="true" distance="false" color="BLACK_RUBBER" transform="-0.09 0 1.275 0 -5 0" />
+    <Shape type="BOX" extents="0.001 0.33 0.52" graphics="true" distance="false" color="PUREWHITE" transform="-0.125 0 1.275 0 -5 0" />
+    <Shape type="BOX" extents="0.001 0.33 0.2"  graphics="true" distance="false" transform="-0.1254 0 1.275 0 -5 0" textureFile="textures/hri-eu-logoB.png" />
+  </Body>
+
+  <Body name="RailBot" prev="Base" mass="20" transform="0.209 0 0 0 0 0" cogVector="-0.35 0 0" >
+    <Joint name="DofChestZ" type="TransZ" range="0.5 0.8 1"  weightJL="0.75" weightMetric="0.2" transform="0 0 0.375  0 0 0" constraint="false"/>
+    <Shape type="MESH" meshFile="DexBot/LinearSlide.stl"  scale="0.001" physics="false" graphics="true" distance="false" transform="0 0 0 180 0 -90"/>
+    <Shape type="MESH" meshFile="DexBot/Slide-Simple.stl" scale="0.001" physics="false" graphics="true" distance="false" transform="0.085  0 -0.2 0 0 0" />
+    <Shape type="MESH" meshFile="DexBot/Wing-Simple.stl"  scale="0.001" physics="false" graphics="true" distance="false" transform="0.203  0.101 -0.05 90 180 -15" /> 
+    <Shape type="MESH" meshFile="DexBot/Wing-Simple.stl"  scale="0.001" physics="false" graphics="true" distance="false" transform="0.135 -0.101 0.2 -90 180 15" /> 
+    <Shape type="BOX" extents="0.04 0.75 0.2"   transform="0.17 0 0.1 0 0 0"  physics="true"  graphics="false" distance="false" textureFile="textures/aluminium-profile.jpg" />
+    <Shape type="FRAME" scale="0.5" />
+  </Body>
+
+
+  <Group name="_L" transform="0.125 -0.247635 0.0675 134.01 -68.91 -44.01" prev="RailBot" >
+    <xi:include href="LBR.xml" />
+  </Group >
+
+  <Group name="_L" prev="lbr_link_7_L" transform="0 0 0.1707 0 0 75" >
+    <xi:include href="sdh.xml" prev="Base" />
+  </Group>
+
+
+
+  <Group name="_R" transform="0.125 0.247835 0.059 -134.01 -68.91 -135.99" prev="RailBot" >
+    <xi:include href="LBR.xml" />
+  </Group >
+
+  <Group name="_R" prev="lbr_link_7_R" transform="0 0 0.1707 0 0 75" >
+    <xi:include href="sdh.xml" />
+  </Group>
+
+
+  <Body name="PowerGrasp_L" prev="sdh-base_L" transform="0 0 0.1 180 0 90" wastransform="0 0 0.1 90 0 90" >
+    <Shape type="FRAME" scale="0.2" />
+  </Body>
+
+  <Body name="PowerGrasp_R" prev="sdh-base_R" transform="0 0 0.1 180 0 90" wastransform="0 0 0.1 -90 0 -90" >
+    <Shape type="FRAME" scale="0.2" />
+  </Body>
+
+
+</Graph>

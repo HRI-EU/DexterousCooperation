@@ -1,0 +1,121 @@
+<Graph xmlns:xi="http://www.w3.org/2003/XInclude" name="InitialPose" >
+
+  <Body name="WheelStand" prev="Lab Frame" physics="kinematic" color="PEWTER" transform="0.285 0.3 0 0 0 180" >
+    <Shape type="BOX" extents="0.08 0.65 0.04" transform="0 -0.3 0.16 0 0 90" graphics="true" distance="true" textureFile="textures/aluminium-profile.jpg" />
+    <Shape type="BOX" extents="0.08 0.65 0.04" transform="0 0.3 0.16 0 0 90" graphics="true" distance="true" textureFile="textures/aluminium-profile.jpg" />
+    <Shape type="BOX" extents="0.08 0.52 0.04" transform="-0.285 0 0.16 0 0 0" graphics="true" distance="true" textureFile="textures/aluminium-profile.jpg" />
+    <Shape type="BOX" extents="0.08 0.52 0.04" transform="0.285 0 0.16 0 0 0" graphics="true" distance="true" textureFile="textures/aluminium-profile.jpg" />
+    <Shape type="BOX" extents="0.08 0.08 0.004" transform="0.285 0 0.16 0 0 0" graphics="true" distance="false"  />
+    <Shape type="BOX" extents="0.04 0.04 1.75" transform="0.285 0.14 1.055 0 0 0" graphics="true" distance="false" textureFile="textures/aluminium-profile.jpg" />
+    <Shape type="BOX" extents="0.04 0.04 1.75" transform="0.285 -0.14 1.055 0 0 0" graphics="true" distance="false" textureFile="textures/aluminium-profile.jpg" />
+    <Shape type="BOX" extents="0.04 0.24 0.04" transform="0.285 0 1.69 0 0 0" graphics="true" distance="false" textureFile="textures/aluminium-profile.jpg" />
+    <Shape type="CYLINDER" color="GOLD" length="0.3" radius="0.02" transform="0.455 0.0 1.69 90 90 0" graphics="true" physics="true" distance="false" />
+    <Shape type="CYLINDER" color="BLACK_RUBBER" length="0.04" radius="0.06" transform="0.287 0.3 0.06 90 0 0" graphics="true" physics="false" distance="false" />
+    <Shape type="CYLINDER" color="BLACK_RUBBER" length="0.04" radius="0.06" transform="0.287 -0.3 0.06 90 0 0" graphics="true" physics="false" distance="false" />
+    <Shape type="CYLINDER" color="BLACK_RUBBER" length="0.04" radius="0.06" transform="-0.287 0.3 0.06 90 0 0" graphics="true" physics="false" distance="false" />
+    <Shape type="CYLINDER" color="BLACK_RUBBER" length="0.04" radius="0.06" transform="-0.287 -0.3 0.06 90 0 0" graphics="true" physics="false" distance="false" />
+    <Shape type="FRAME" scale="0.7" />
+  </Body>
+
+
+
+  <Body name="WheelPole" prev="Lab Frame" transform="-1.2 0.3 1.0 0 0 90" physics="kinematic" color="PEWTER" >
+    <Shape type="FRAME" scale="0.5" />
+    <Shape type="BOX"      extents="0.08 0.75 0.04"     transform="0 0 -0.925 0 0 -45" graphics="true" distance="false" textureFile="textures/aluminium-profile.jpg"/>
+    <Shape type="BOX"      extents="0.08 0.75 0.04"     transform="0 0 -0.925 0 0 45" graphics="true" distance="false" textureFile="textures/aluminium-profile.jpg"/>
+    <Shape type="BOX"      extents="0.04 0.08 0.92"     transform="0 0 -0.47 0 0 45" graphics="true" distance="false" textureFile="textures/aluminium-profile.jpg"/>
+    <Shape type="CYLINDER" color="BLACK_RUBBER" length="0.03" radius="0.1" transform="0 0 -0.015 0 0 0"  graphics="true" distance="false" />
+    <Shape type="CYLINDER" length="0.02"   radius="0.02" transform="0 0 0.0 0 0 0"  graphics="true" distance="false" />
+    <Shape type="SSL"      length="6"   radius="0.14" transform="0 3  -0.86 90 0 0"  graphics="false" physics="false" distance="true" />
+  </Body>
+
+
+
+
+
+
+
+
+  <Body name="Wheel" prev="WheelPole" physics="kinematic" >
+    <Joint name="WheelX" range="-3 0 3" type="TransX" speedLimit="1" weightJL="0" />
+    <Joint name="WheelY" range="-3 0 3" type="TransY" speedLimit="1" weightJL="0" />
+    <Joint name="WheelZ"  range="-1 0 2" type="TransZ" speedLimit="1" weightJL="0" />
+    <Joint name="WheelFlip"  range="-720 0 720" type="RotX" speedLimit="360" weightJL="0" />
+    <Joint name="WheelRoll"  range="-720 0 720" type="RotZ" speedLimit="360" weightJL="0" />
+    <Shape type="FRAME" scale="0.6" />
+  </Body>
+
+  <Body name="WheelGeom" prev="Wheel" physics="dynamic" mass="5" xxxxtransform="0 0 0 0 0 45" rigid_body_joints="0 0 0 0 0 45">
+    <Shape type="TORUS" color="BLACK_RUBBER" length="0.12" radius="0.3" graphics="true" />
+    <Shape type="TORUS" color="WHITE" length="0.06" radius="0.25" graphics="true"   />
+    <Shape type="TORUS" color="DARKGRAY" length="0.05" radius="0.05" graphics="true"   />
+    <Shape type="CYLINDER" color="POLISHED_GOLD" length="0.01" radius="0.15" graphics="true"  transform="0 0 0.1 0 0 0" />
+    <Shape type="CYLINDER" color="RED" length="0.28" radius="0.025" transform="0 0.2 0 90 0 0" graphics="true" />
+    <Shape type="CYLINDER" color="RED" length="0.28" radius="0.025" transform="0 -0.2 0 90 0 0" graphics="true" />
+    <Shape type="CYLINDER" color="RED" length="0.28" radius="0.025" transform="0.2 0 0 0 90 0" graphics="true" />
+    <Shape type="CYLINDER" color="RED" length="0.28" radius="0.025" transform="-0.2 0 0 0 90 0" graphics="true" />
+  </Body>
+
+
+
+
+  <Body name="ContactRobotRight" prev="Wheel" >
+    <Joint name="ContactRobotRightThZ" range="-720 0 720" type="RotZ" speedLimit="360" weightJL="0" />
+    <Joint name="ContactRobotRightThX" range="-720 0 720" type="RotX" speedLimit="360" weightJL="0" />
+    <Joint name="ContactRobotRightRadial" range="0 0.355 1" type="TransX" speedLimit="1" weightJL="0" />
+    <Shape type="CYLINDER" color="RED" length="0.01" radius="0.04" transform="0.11 0 -0.05 0 90 0" graphics="false" />
+    <Shape type="FRAME" scale="0.25" />
+  </Body>
+  
+
+  <Body name="ContactRobotLeft" prev="Wheel" >
+    <Joint name="ContactRobotLeftThZ" range="-720 0 720" type="RotZ" speedLimit="360" weightJL="0" />
+    <Joint name="ContactRobotLeftThX" range="-720 0 720" type="RotX" speedLimit="360" weightJL="0" />
+    <Joint name="ContactRobotLeftRadial" range="0 0.355 1" type="TransX" speedLimit="1" weightJL="0" />
+    <Shape type="CYLINDER" color="GREEN" length="0.01" radius="0.04" transform="0.11 0 0.05 0 90 0" graphics="false" />
+    <Shape type="FRAME" scale="0.25" />
+  </Body>
+
+
+
+
+  <Body name="ContactHumanRight" prev="Wheel" >
+    <Joint name="ContactHumanRightThZ" range="-720 0 720" type="RotZ" speedLimit="360" weightJL="0" />
+    <Joint name="ContactHumanRightThX" range="-720 0 720" type="RotX" speedLimit="360" weightJL="0" transform="0.355 0 0 0 0 0" />
+    <Shape type="FRAME" scale="0.25" />
+  </Body>
+
+  <Body name="ContactHumanLeft" prev="Wheel" >
+    <Joint name="ContactHumanLeftThZ" range="-720 0 720" type="RotZ" speedLimit="360" weightJL="0" />
+    <Joint name="ContactHumanLeftThX" range="-720 0 720" type="RotX" speedLimit="360" weightJL="0" transform="0.355 0 0 0 0 0" />
+    <Shape type="FRAME" scale="0.25" />
+  </Body>
+
+
+
+
+
+
+  <model_state model="InitialPose" time_stamp="">
+
+    <joint_state joint="WheelY" position="-0.9" />
+    <joint_state joint="WheelZ" position="0.49" />
+    <joint_state joint="WheelX" position="-0.02" />
+    <joint_state joint="WheelFlip" position="-90" />
+    <joint_state joint="WheelRoll" position="0" />
+
+    <joint_state joint="ContactRobotRightThZ" position="202.5" />
+    <joint_state joint="ContactRobotRightThX" position="0" />
+    <joint_state joint="ContactRobotRightRadial" position="0.355" />
+    <joint_state joint="ContactRobotLeftThZ" position="135" />
+    <joint_state joint="ContactRobotLeftThX" position="0" />
+    <joint_state joint="ContactRobotLeftRadial" position="0.355" />
+
+    <joint_state joint="ContactHumanRightThZ" position="-45" />
+    <joint_state joint="ContactHumanRightThX" position="0" />
+    <joint_state joint="ContactHumanLeftThZ" position="45" />
+    <joint_state joint="ContactHumanLeftThX" position="0" />
+
+  </model_state>
+
+</Graph>

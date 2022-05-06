@@ -1,0 +1,98 @@
+<Controller xmlns:xi="http://www.w3.org/2003/XInclude"
+	    usage="
+		   &#xA;  Configuration file to illustrate the coupling between poses.
+		   &#xA; 
+		   &#xA;  Here is how to start an example:
+		   &#xA;  
+		   &#xA;  bin/Rcs -m 5 -f config/xml/DexterousCooperation/PoseGraph/ex4/cExample4.xml -algo 1 -lambda 0 -setDefaultStateFromInit
+		   " >
+
+  <Graph name="DefaultPose" resourcePath="${SIT}/Data/RobotMeshes/1.0/data" >
+
+    <Body name="Lab Frame" physics="kinematic" transform="0 0 0 0 0 0" >
+      <Shape type="BOX" extents="6 6 0.04" distance="true" physics="true" graphics="true" transform="0 0 -0.02 0 0 0" color="PEWTER" />
+      <Shape type="FRAME" />
+    </Body>
+
+
+    <Group prev="Lab Frame" transform="0 0 1 0 0 0" >
+      <xi:include href="gBoxSurface.xml" />
+    </Group >
+
+    <Group prev="Lab Frame" transform="0 0 0 0 0 0" >
+      <xi:include href="gHumanModel.xml" />
+    </Group >
+
+<model_state model="DefaultPose" time_stamp="">
+  <joint_state joint="bx" position="0.054648" />
+  <joint_state joint="bz" position="-0.681301" />
+  <joint_state joint="bthy" position="-68.357285" />
+  <joint_state joint="llx" position="0.25" />
+  <joint_state joint="llz" position="0.000013" />
+  <joint_state joint="Base_jnt_Xposition" position="0.010088" />
+  <joint_state joint="Base_jnt_Yposition" position="0.010065" />
+  <joint_state joint="Hips_jnt_Yposition" position="0.901064" />
+  <joint_state joint="Hips_jnt_Xrotation" position="0.219969" />
+  <joint_state joint="Hips_jnt_Zrotation" position="-0.123727" />
+  <joint_state joint="Chest_jnt_Yrotation" position="0.009304" />
+  <joint_state joint="Chest_jnt_Xrotation" position="-0.000174" />
+  <joint_state joint="Chest_jnt_Zrotation" position="-0.000198" />
+  <joint_state joint="Chest2_jnt_Yrotation" position="0.009267" />
+  <joint_state joint="Chest2_jnt_Xrotation" position="-0.000181" />
+  <joint_state joint="Chest2_jnt_Zrotation" position="0.002007" />
+  <joint_state joint="Chest3_jnt_Yrotation" position="0.009267" />
+  <joint_state joint="Chest3_jnt_Xrotation" position="-0.000191" />
+  <joint_state joint="Chest3_jnt_Zrotation" position="0.003998" />
+  <joint_state joint="Chest4_jnt_Yrotation" position="0.009267" />
+  <joint_state joint="Chest4_jnt_Xrotation" position="-0.000204" />
+  <joint_state joint="Chest4_jnt_Zrotation" position="0.00599" />
+  <joint_state joint="LeftCollar_jnt_Yrotation" position="0.370636" />
+  <joint_state joint="LeftCollar_jnt_Zrotation" position="0.304213" />
+  <joint_state joint="LeftShoulder_jnt_Yrotation" position="-0.037219" />
+  <joint_state joint="LeftShoulder_jnt_Zrotation" position="13.897965" />
+  <joint_state joint="LeftShoulder_jnt_Xrotation" position="-7.310789" />
+  <joint_state joint="LeftElbow_jnt_Yrotation" position="-88.176394" />
+  <joint_state joint="LeftWrist_jnt_Xrotation" position="-0.02399" />
+  <joint_state joint="LeftWrist_jnt_Zrotation" position="2.23912" />
+  <joint_state joint="LeftWrist_jnt_Yrotation" position="0.06217" />
+  <joint_state joint="RightHip_jnt_Zrotation" position="-0.591326" />
+  <joint_state joint="RightHip_jnt_Xrotation" position="-19.720264" />
+  <joint_state joint="RightHip_jnt_Yrotation" position="-0.131223" />
+  <joint_state joint="RightKnee_jnt_Xrotation" position="40.328225" />
+  <joint_state joint="RightAnkle_jnt_Yrotation" position="0.117382" />
+  <joint_state joint="RightAnkle_jnt_Xrotation" position="-20.167643" />
+  <joint_state joint="RightAnkle_jnt_Zrotation" position="0.492364" />
+  <joint_state joint="RightToe_jnt_Yrotation" position="0.016907" />
+  <joint_state joint="RightToe_jnt_Xrotation" position="-0.660057" />
+  <joint_state joint="RightToe_jnt_Zrotation" position="0.136981" />
+  <joint_state joint="LeftHip_jnt_Zrotation" position="-0.591751" />
+  <joint_state joint="LeftHip_jnt_Xrotation" position="-19.725919" />
+  <joint_state joint="LeftHip_jnt_Yrotation" position="-0.132015" />
+  <joint_state joint="LeftKnee_jnt_Xrotation" position="40.364835" />
+  <joint_state joint="LeftAnkle_jnt_Yrotation" position="0.117459" />
+  <joint_state joint="LeftAnkle_jnt_Xrotation" position="-20.320491" />
+  <joint_state joint="LeftAnkle_jnt_Zrotation" position="0.492484" />
+  <joint_state joint="LeftToe_jnt_Yrotation" position="0.016556" />
+  <joint_state joint="LeftToe_jnt_Xrotation" position="-0.53816" />
+  <joint_state joint="LeftToe_jnt_Zrotation" position="0.136952" />
+</model_state>
+
+    
+  </Graph>
+
+
+  <Task name="Box" controlVariable= "XYZ" effector="Box" active="true" guiMin="-10 -10 -10" guiMax="10 10 10" />
+  <Task name="BoxYZ" controlVariable= "YZ" effector="Box" active="false" />
+  <Task name="Hand-Box pose" controlVariable= "XYZ" effector="LeftHand" refBdy="Box" active="true" />
+  <Task name="Hand-Box distance" controlVariable="Distance" effector="LeftHand" refBdy="Box" active="false" />
+
+  <Task name="Hand constraint" controlVariable= "XYZ" effector="PartnerGrasp_L" refBdy="LeftHand" active="true" />
+  <Task name="Right foot constraint" controlVariable= "XYZABC" effector="RightToe" active="true" />
+  <Task name="Left foot constraint" controlVariable= "XYZABC" effector="LeftToe" active="true" />
+
+  <Task name="Box-Pole distance" effector="Box" refBdy="Pole" controlVariable="Distance" active="true" />
+  <Task name="Box sideways" effector="Box" controlVariable="Y" active="true" />
+  <Task name="Box incline" effector="Box" controlVariable="POLAR" axisDirection="Y" active="false" />
+
+
+</Controller>

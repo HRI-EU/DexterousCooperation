@@ -1,0 +1,192 @@
+<Graph xmlns:xi="http://www.w3.org/2003/XInclude" name="InitialPose" >
+
+  <Body name="Lab Frame" physics="kinematic" >
+    <Shape type="BOX" extents="6.0 6.0 0.04" transform="0 0 -0.02 0 0 0"
+           color="PEWTER" graphics="true" physics="true" distance="true"/>
+    <Shape type="FRAME" scale="1.0" />
+  </Body>
+
+  <!-- -->
+  <Group prev="Lab Frame" > 
+   <xi:include href="gRobo.xml" /> 
+ </Group > 
+
+
+  <Body name="Box Base" prev="Lab Frame" transform="0 0 0 90 -90 0" >
+    <Shape type="FRAME" scale="0.2" />
+  </Body>
+
+  <Body name="Box_v" prev="Box Base" >
+    <Joint name="DofX_v"   type="TransX" range="-10 0 10"       weightJL="0"  />
+    <Joint name="DofY_v"   type="TransY" range="-10 1.13 10"    weightJL="1"  weightMetric="0.1" />
+    <Joint name="DofZ_v"   type="TransZ" range="-10 -0.86 10"   weightJL="10" weightMetric="0.1" />
+    <Joint name="DofThX_v" type="RotX"   range="-1000 0 1000" weightJL="0" />
+    <Joint name="DofThY_v" type="RotY"   range="-1000 0 1000" weightJL="0" />
+    <Joint name="DofThZ_v" type="RotZ"   range="-1000 0 1000" weightJL="0" />
+    <Shape type="FRAME" scale="0.2" />
+    <Shape type="SPHERE" radius="0.05" graphics="false" distance="true" />
+  </Body>
+
+  <Body name="Box_real" prev="Box_v" mass="10" physics="dynamic" >
+    <Shape type="BOX" extents="0.63 0.36 0.96 " graphics="true" physics="true" distance="true"
+           transform="0 0 -0.5 0 0 0" notextureFile="textures/fMRT_bavaria.jpg" color="DARKRED_TRANS" />
+   <xShape type="FRAME" scale="0.5" />
+  </Body>
+
+
+
+
+
+
+
+
+
+
+  
+  <Body name="PowerAnchor_L" prev="Box_v" physics="kinematic" mass="1" >
+    <Joint name="rlx" type="TransX" range="-3 -0.25 3"  />
+    <Joint name="rly" type="TransY" range="-2 -0.2 2"    />
+    <Joint name="rlz" type="TransZ" range="-2 0 2"  />
+    <Joint name="rla" type="RotX"   range="-400 90 400" />
+    <Joint name="rlb" type="RotY"   range="-400 90 400" />
+    <Joint name="rlc" type="RotZ"   range="-400 0 400"  />
+    <Joint name="rla2" type="RotX"   range="-400 0  400" />
+    <Joint name="rlb2" type="RotY"   range="-400 0  400" />
+    <Joint name="rlc2" type="RotZ"   range="-400 0  400"  />
+    <Shape type="BOX" extents="0.01 0.01 0.01" graphics="false" physics="true"
+           transform="0 0 0.2 0 0 0" />
+    <Shape type="FRAME" scale="0.25" />
+  </Body>
+
+  <Body name="PowerGrasp_L" prev="PowerAnchor_L" physics="fixed" mass="1" transform="0 0 0 -90 0 -90" >
+    <Shape type="BOX" extents="0.1 0.2 0.02" graphics="true" physics="true"
+           transform="0 0.1 0.01 0 0 0" />
+    <Shape type="BOX" extents="0.1 0.02 0.2" graphics="true" physics="true"
+           transform="0 -0.01 -0.1 0 0 0" />
+    <Shape type="FRAME" scale="0.525" />
+  </Body>
+  
+  <Body name="PowerAnchor_R" prev="Box_v" physics="kinematic" mass="1" >
+    <Joint name="rrx" type="TransX" range="-3 0.25 3"  />
+    <Joint name="rry" type="TransY" range="-2 -0.2 2"   />
+    <Joint name="rrz" type="TransZ" range="-2 0 2"  />
+    <Joint name="rra" type="RotX"   range="-400 90 400" />
+    <Joint name="rrb" type="RotY"   range="-400 90 400" />
+    <Joint name="rrc" type="RotZ"   range="-400 0 400"  />
+    <Joint name="rra2" type="RotX"   range="-400 0 400" />
+    <Joint name="rrb2" type="RotY"   range="-400 0 400" />
+    <Joint name="rrc2" type="RotZ"   range="-400 0 400"  />
+    <Shape type="BOX" extents="0.01 0.01 0.01" graphics="false" physics="true"
+           transform="0 0 0.2 0 0 0" />
+    <Shape type="FRAME" scale="0.25" />
+  </Body>
+  
+  <Body name="PowerGrasp_R" prev="PowerAnchor_R" physics="fixed" mass="1" transform="0 0 0 -90 0 -90" >
+    <Shape type="BOX" extents="0.1 0.2 0.02" graphics="true" physics="true"
+           transform="0 0.1 0.01 0 0 0" />
+    <Shape type="BOX" extents="0.1 0.02 0.2" graphics="true" physics="true"
+           transform="0 -0.01 -0.1 0 0 0" />
+    <Shape type="FRAME" scale="0.525" />
+  </Body>
+
+
+
+
+
+
+
+
+
+
+  
+  <!-- <Body name="Partner_Box_v" prev="Box_v" transform="0 0 -1 0 180 0" > -->
+  <!--   <Shape type="FRAME" scale="0.15" /> -->
+  <!-- </Body> -->
+
+  <!-- <Body name="PartnerAnchor_L" prev="Lab Frame" physics="kinematic" mass="1" > -->
+  <!--   <Joint name="plx" type="TransX" range="-3 1.84 3"  /> -->
+  <!--   <Joint name="ply" type="TransY" range="-2 -0.2 2"    /> -->
+  <!--   <Joint name="plz" type="TransZ" range="-2 0.945 2"  /> -->
+  <!--   <Joint name="pla" type="RotX"   range="-400 90 400" /> -->
+  <!--   <Joint name="plb" type="RotY"   range="-400 90 400" /> -->
+  <!--   <Joint name="plc" type="RotZ"   range="-400 0 400"  /> -->
+  <!--   <Joint name="pla2" type="RotX"   range="-400 0  400" /> -->
+  <!--   <Joint name="plb2" type="RotY"   range="-400 0  400" /> -->
+  <!--   <Joint name="plc2" type="RotZ"   range="-400 0  400"  /> -->
+  <!--   <Shape type="BOX" extents="0.01 0.01 0.01" graphics="false" physics="true" -->
+  <!--          transform="0 0 0.2 0 0 0" /> -->
+  <!--   <Shape type="FRAME" scale="0.25" /> -->
+  <!-- </Body> -->
+
+  <!-- <Body name="PartnerGrasp_L" prev="PartnerAnchor_L" physics="fixed" mass="1" > -->
+  <!--   <Shape type="BOX" extents="0.1 0.2 0.02" graphics="false" physics="true" -->
+  <!--          transform="0 0.1 0.01 0 0 0" /> -->
+  <!--   <Shape type="BOX" extents="0.1 0.02 0.2" graphics="false" physics="true" -->
+  <!--          transform="0 -0.01 -0.1 0 0 0" /> -->
+  <!--   <Shape type="FRAME" scale="0.25" /> -->
+  <!-- </Body> -->
+  
+  <!-- <Body name="PartnerAnchor_R" prev="Lab Frame" physics="kinematic" mass="1" > -->
+  <!--   <Joint name="prx" type="TransX" range="-3 1.84 3"  /> -->
+  <!--   <Joint name="pry" type="TransY" range="-2 0.2 2"   /> -->
+  <!--   <Joint name="prz" type="TransZ" range="-2 0.945 2"  /> -->
+  <!--   <Joint name="pra" type="RotX"   range="-400 90 400" /> -->
+  <!--   <Joint name="prb" type="RotY"   range="-400 90 400" /> -->
+  <!--   <Joint name="prc" type="RotZ"   range="-400 0 400"  /> -->
+  <!--   <Joint name="pra2" type="RotX"   range="-400 0 400" /> -->
+  <!--   <Joint name="prb2" type="RotY"   range="-400 0 400" /> -->
+  <!--   <Joint name="prc2" type="RotZ"   range="-400 0 400"  /> -->
+  <!--   <Shape type="BOX" extents="0.01 0.01 0.01" graphics="false" physics="true" -->
+  <!--          transform="0 0 0.2 0 0 0" /> -->
+  <!--   <Shape type="FRAME" scale="0.25" /> -->
+  <!-- </Body> -->
+  
+  <!-- <Body name="PartnerGrasp_R" prev="PartnerAnchor_R" physics="fixed" mass="1" > -->
+  <!--   <Shape type="BOX" extents="0.1 0.2 0.02" graphics="false" physics="true" -->
+  <!--          transform="0 0.1 0.01 0 0 0" /> -->
+  <!--   <Shape type="BOX" extents="0.1 0.02 0.2" graphics="false" physics="true" -->
+  <!--          transform="0 -0.01 -0.1 0 0 0" /> -->
+  <!--   <Shape type="FRAME" scale="0.25" /> -->
+  <!-- </Body> -->
+   
+   
+   
+  <model_state model="InitialPose" time_stamp="">
+    <joint_state joint="DofBaseX" position="0.019695" />
+    <joint_state joint="DofBaseY" position="-0.005744" />
+    <joint_state joint="DofChestZ" position="0.803058" />
+    <joint_state joint="lbr_joint_1_L" position="15.013332" />
+    <joint_state joint="lbr_joint_2_L" position="51.311032" />
+    <joint_state joint="lbr_joint_3_L" position="35.130674" />
+    <joint_state joint="lbr_joint_4_L" position="75.200525" />
+    <joint_state joint="lbr_joint_5_L" position="-57.743675" />
+    <joint_state joint="lbr_joint_6_L" position="-6.529904" />
+    <joint_state joint="lbr_joint_7_L" position="-45.898067" />
+    <joint_state joint="knuck1-base_L" position="1" />
+    <joint_state joint="fing2-knuck2_L" position="-85" />
+    <joint_state joint="lbr_joint_1_R" position="-12.486547" />
+    <joint_state joint="lbr_joint_2_R" position="-52.033523" />
+    <joint_state joint="lbr_joint_3_R" position="-34.787304" />
+    <joint_state joint="lbr_joint_4_R" position="-76.348822" />
+    <joint_state joint="lbr_joint_5_R" position="63.740089" />
+    <joint_state joint="lbr_joint_6_R" position="4.519144" />
+    <joint_state joint="lbr_joint_7_R" position="67.417901" />
+    <joint_state joint="knuck1-base_R" position="1" />
+    <joint_state joint="fing2-knuck2_R" position="-85" />
+    <joint_state joint="rlx" position="-0.2079" />
+    <joint_state joint="rly" position="-0.18" />
+    <joint_state joint="rla2" position="-20" />
+    <joint_state joint="rrx" position="0.2079" />
+    <joint_state joint="rry" position="-0.18" />
+    <joint_state joint="rra2" position="20" />
+    <joint_state joint="plx" position="1.86" />
+    <joint_state joint="ply" position="-0.2079" />
+    <joint_state joint="plz" position="0.95" />
+    <joint_state joint="prx" position="1.86" />
+    <joint_state joint="pry" position="0.2079" />
+    <joint_state joint="prz" position="0.95" />
+  </model_state>
+
+
+
+</Graph>

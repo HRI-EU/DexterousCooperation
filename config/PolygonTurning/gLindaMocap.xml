@@ -1,0 +1,136 @@
+<Graph xmlns:xi="http://www.w3.org/2003/XInclude" name="Pose_1" >
+
+  <Body mass="1" name="BVHROOT" transform="0 0 0 90 90 0" >
+    <Joint name="BVHROOT_jnt_Xposition" range="-10 0 10"   type="TransX" weightJL="0" torqueLimit="0" speedLimit="1000" />
+    <Joint name="BVHROOT_jnt_Yposition" range="-10 0 10"   type="TransY" weightJL="0" torqueLimit="0" speedLimit="1000" />
+    <Joint name="BVHROOT_jnt_Zrotation" range="-360 0 360" type="RotZ"   weightJL="0" torqueLimit="0" speedLimit="1000" constraint="true" />
+    <Shape type="FRAME" scale="0.5" />
+  </Body>
+
+  <Group prev="BVHROOT" >
+    <xi:include href="linda_59dof.xml" />
+  </Group>
+
+
+  <Body name="PartnerGrasp_L" prev="LeftWrist" transform="0.1 0 0 0 -90 180" physics="fixed" color="BLUE" mass="2.5" >
+    <Shape type="BOX" extents="0.1 0.16 0.02" graphics="true" physics="true"
+           transform="0 0.08 0.01 0 0 0" />
+    <Shape type="BOX" extents="0.1 0.02 0.16" graphics="true" physics="true"
+           transform="0 -0.01 -0.08 0 0 0" />
+    <Shape type="FRAME" scale="0.25" />
+  </Body>
+
+  <Body name="PartnerGrasp_R" prev="RightWrist" transform="-0.1 0 0 0 90 180" physics="fixed" color="BLUE" mass="2.5" >
+    <Shape type="BOX" extents="0.1 0.16 0.02" graphics="true" physics="true"
+           transform="0 0.08 0.01 0 0 0" />
+    <Shape type="BOX" extents="0.1 0.02 0.16" graphics="true" physics="true"
+           transform="0 -0.01 -0.08 0 0 0" />
+    <Shape type="FRAME" scale="0.25" />
+  </Body>
+
+  
+  
+  
+  
+  <Body name="Vicon head" prev="Head" transform="0 0.15 0 -90 0 -90" >
+    <Shape type="FRAME" scale="0.25" />
+    <Shape type="BOX" extents="0.08 0.015 0.08" graphics="true" distance="false" physics="true" color="YELLOW" />
+  </Body>
+
+  <Body name="Vicon hand right" prev="RightWrist" transform="0 0 0 90 180 0" >
+    <Shape type="FRAME" scale="0.1" />
+    <Shape type="BOX" extents="0.08 0.015 0.08" graphics="true" distance="false" physics="true" color="YELLOW" />
+  </Body>
+
+  <Body name="Vicon upperarm right" prev="RightShoulder" transform="0 0 0 0 0 0" >
+    <Shape type="FRAME" scale="0.1" />
+    <Shape type="BOX" extents="0.08 0.015 0.08" graphics="true" distance="false" physics="true" color="YELLOW" />
+  </Body>
+
+  <Body name="Vicon hand left" prev="LeftWrist" transform="0 0 0 90 180 180" >
+    <Shape type="FRAME" scale="0.1" />
+    <Shape type="BOX" extents="0.08 0.015 0.08" graphics="true" distance="false" physics="true" color="YELLOW" />
+  </Body>
+
+  <Body name="Vicon upperarm left" prev="LeftShoulder" transform="0 0 0 0 0 0" >
+    <Shape type="FRAME" scale="0.1" />
+    <Shape type="BOX" extents="0.08 0.015 0.08" graphics="true" distance="false" physics="true" color="YELLOW" />
+  </Body>
+
+  <Body name="Vicon hip" prev="Hips" transform="0 0 0.15 0 0 0" >
+    <Shape type="FRAME" scale="0.1" />
+    <Shape type="BOX" extents="0.08 0.08 0.015" graphics="true" distance="false" physics="true" color="YELLOW" />
+  </Body>
+
+  
+  
+  
+  
+  <model_state model="Pose_1" >
+  <joint_state joint="BVHROOT_jnt_Xposition" position="2.5" />
+  <joint_state joint="BVHROOT_jnt_Yposition" position="-0.000" />
+  <joint_state joint="BVHROOT_jnt_Zrotation" position="180" />
+  <joint_state joint="Hips_jnt_Yposition" position="0.954" />
+  <joint_state joint="Hips_jnt_Xrotation" position="0.000" />
+  <joint_state joint="Hips_jnt_Zrotation" position="0.000" />
+  <joint_state joint="Chest_jnt_Yrotation" position="-0.000" />
+  <joint_state joint="Chest_jnt_Xrotation" position="-2.238" />
+  <joint_state joint="Chest_jnt_Zrotation" position="-0.000" />
+  <joint_state joint="Chest2_jnt_Yrotation" position="-0.000" />
+  <joint_state joint="Chest2_jnt_Xrotation" position="-2.315" />
+  <joint_state joint="Chest2_jnt_Zrotation" position="-0.000" />
+  <joint_state joint="Chest3_jnt_Yrotation" position="-0.000" />
+  <joint_state joint="Chest3_jnt_Xrotation" position="-2.382" />
+  <joint_state joint="Chest3_jnt_Zrotation" position="-0.000" />
+  <joint_state joint="Chest4_jnt_Yrotation" position="-0.000" />
+  <joint_state joint="Chest4_jnt_Xrotation" position="-2.445" />
+  <joint_state joint="Chest4_jnt_Zrotation" position="-0.000" />
+  <joint_state joint="Neck_jnt_Yrotation" position="-0.000" />
+  <joint_state joint="Neck_jnt_Xrotation" position="0.183" />
+  <joint_state joint="Neck_jnt_Zrotation" position="0.000" />
+  <joint_state joint="Head_jnt_Yrotation" position="-0.000" />
+  <joint_state joint="Head_jnt_Xrotation" position="0.092" />
+  <joint_state joint="Head_jnt_Zrotation" position="0.000" />
+  <joint_state joint="RightCollar_jnt_Yrotation" position="-1.972" />
+  <joint_state joint="RightCollar_jnt_Zrotation" position="12.665" />
+  <joint_state joint="RightShoulder_jnt_Yrotation" position="3.049" />
+  <joint_state joint="RightShoulder_jnt_Zrotation" position="-23.291" />
+  <joint_state joint="RightShoulder_jnt_Xrotation" position="-5.388" />
+  <joint_state joint="RightElbow_jnt_Yrotation" position="68.683" />
+  <joint_state joint="RightWrist_jnt_Xrotation" position="-51.854" />
+  <joint_state joint="RightWrist_jnt_Zrotation" position="11.057" />
+  <joint_state joint="RightWrist_jnt_Yrotation" position="-4.138" />
+  <joint_state joint="LeftCollar_jnt_Yrotation" position="1.972" />
+  <joint_state joint="LeftCollar_jnt_Zrotation" position="-12.665" />
+  <joint_state joint="LeftShoulder_jnt_Yrotation" position="-3.049" />
+<joint_state joint="LeftShoulder_jnt_Zrotation" position="23.291" />
+  <joint_state joint="LeftShoulder_jnt_Xrotation" position="-5.388" />
+<joint_state joint="LeftElbow_jnt_Yrotation" position="-68.683" />
+<joint_state joint="LeftWrist_jnt_Xrotation" position="-51.854" />
+<joint_state joint="LeftWrist_jnt_Zrotation" position="-11.057" />
+<joint_state joint="LeftWrist_jnt_Yrotation" position="4.138" />
+<joint_state joint="RightHip_jnt_Yrotation" position="0.000" />
+<joint_state joint="RightHip_jnt_Xrotation" position="-7.987" />
+<joint_state joint="RightHip_jnt_Zrotation" position="0.000" />
+<joint_state joint="RightKnee_jnt_Xrotation" position="18.564" />
+<joint_state joint="RightAnkle_jnt_Yrotation" position="0.000" />
+<joint_state joint="RightAnkle_jnt_Xrotation" position="-3.891" />
+<joint_state joint="RightAnkle_jnt_Zrotation" position="-0.000" />
+<joint_state joint="RightToe_jnt_Yrotation" position="0.000" />
+<joint_state joint="RightToe_jnt_Xrotation" position="-4.962" />
+<joint_state joint="RightToe_jnt_Zrotation" position="-0.000" />
+<joint_state joint="LeftHip_jnt_Yrotation" position="0.000" />
+<joint_state joint="LeftHip_jnt_Xrotation" position="-7.987" />
+<joint_state joint="LeftHip_jnt_Zrotation" position="0.000" />
+<joint_state joint="LeftKnee_jnt_Xrotation" position="18.564" />
+<joint_state joint="LeftAnkle_jnt_Yrotation" position="0.000" />
+<joint_state joint="LeftAnkle_jnt_Xrotation" position="-3.891" />
+<joint_state joint="LeftAnkle_jnt_Zrotation" position="-0.000" />
+<joint_state joint="LeftToe_jnt_Yrotation" position="0.000" />
+<joint_state joint="LeftToe_jnt_Xrotation" position="-4.962" />
+<joint_state joint="LeftToe_jnt_Zrotation" position="-0.000" />
+</model_state>
+
+
+
+</Graph>

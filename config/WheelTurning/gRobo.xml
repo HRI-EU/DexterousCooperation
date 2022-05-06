@@ -1,0 +1,112 @@
+<Graph xmlns:xi="http://www.w3.org/2003/XInclude" name="InitialPose" resourcePath="${SIT}/Data/RobotMeshes/1.0/data" >
+
+  <Body name="ImetronPlatform" mass="100" cogVector="0 0 0.1" >
+    <Shape type="SSL" radius="0.425" length="0.28" graphics="false" physics="false" distance="true"  transform="0 0 0.14 0 0 0" color="DARKGRAY" />
+    <Shape type="BOX"      extents="0.85 1.25 0.2"      graphics="true"  physics="true"  distance="false" transform="0 0 0.1 0 0 0"  color="DARKGRAY" />
+    <Joint name="DofBaseX"   type="TransX" range="-4 0 4"   weightJL="0" weightMetric="0.1"  speedLimit="1" />
+    <Joint name="DofBaseY"   type="TransY" range="-4 0 4"   weightJL="1" weightMetric="0.1"  speedLimit="1" />
+    <Joint name="DofBaseThZ" type="RotZ"   range="-90 90 270" weightJL="1" weightMetric="0.1" speedLimit="90" />
+    <xxShape type="FRAME" scale="1.25" />
+  </Body>
+
+  <Body name="Base" prev="ImetronPlatform" mass="80" cogVector="0.13 0 0.9" transform="0 0 0.2 0 0 180" >
+    <Shape type="SSL" radius="0.08" length="0.2"     transform="-0.02 0 0.1 0 0 0"       physics="false" graphics="false" distance="true"  color="BLUE" />
+    <Shape type="SSL" radius="0.2"  length="1.65"    transform="0.17 0 0 0 0 0"          physics="false" graphics="false" distance="true"  color="BLUE" />
+    <Shape type="SSL" radius="0.08" length="0.72"    transform="0.36 0.18 0.17 0 -90 0"  physics="false" graphics="false" distance="true"  color="BLUE" />
+    <Shape type="SSL" radius="0.08" length="0.72"    transform="0.36 -0.18 0.17 0 -90 0" physics="false" graphics="false" distance="true"  color="BLUE" />
+
+    <Shape type="BOX" extents="0.07 0.16 1.6"        transform="0.245 0 0.85 0 0 0"      physics="false" graphics="true"  distance="false" color="DARKGRAY" />
+    <Shape type="BOX" extents="0.16 0.32 1.7"        transform="0.13 0 0.85 0 0 0"       physics="true"  graphics="true"  distance="false" textureFile="textures/aluminium-profile.jpg" />
+    <Shape type="BOX" extents="0.04 1.25 0.08"       transform="-0.405 0 0.04 0 0 0"     physics="true"  graphics="true"  distance="false" textureFile="textures/aluminium-profile.jpg" />
+    <Shape type="BOX" extents="0.04 1.25 0.08"       transform="0.405 0 0.04 0 0 0"      physics="true"  graphics="true"  distance="false" textureFile="textures/aluminium-profile.jpg" />
+    <Shape type="BOX" extents="0.77 0.04 0.24"       transform="0 0.18 0.12 0 0 0"       physics="true"  graphics="true"  distance="false" textureFile="textures/aluminium-profile.jpg" />
+    <Shape type="BOX" extents="0.77 0.04 0.24"       transform="0 -0.18 0.12 0 0 0"      physics="true"  graphics="true"  distance="false" textureFile="textures/aluminium-profile.jpg" />
+
+    <Shape type="BOX" extents="0.07 0.36 0.55" graphics="true" distance="true" color="BLACK_RUBBER" transform="-0.09 0 1.275 0 -5 0" />
+    <Shape type="BOX" extents="0.001 0.3 0.5"  graphics="true" distance="false" transform="-0.1254 0 1.275 0 -5 0" XXXtextureFile="textures/avatar.png" />
+
+    <Shape type="BOX" extents="0.2 0.1 0.3"  graphics="true" distance="false" transform="-0.0 0 1.275 0 -5 0" />
+  </Body>
+
+  <Body name="RailBot" prev="Base" mass="20" transform="0.209 0 0 0 0 0" cogVector="-0.35 0 0" >
+    <Joint name="DofChestZ" type="TransZ" range="0.35 0.8 1.05" weightJL="2" weightMetric="0.1" transform="0 0 0.375  0 0 0" speedLimit="0.28" />
+    <Shape type="MESH" meshFile="DexBot/LinearSlide.stl"  scale="0.001" physics="false" graphics="true" distance="false" transform="0 0 0 180 0 -90"/>
+    <Shape type="MESH" meshFile="DexBot/Slide-Simple.stl" scale="0.001" physics="false" graphics="true" distance="false" transform="0.085  0 -0.2 0 0 0" />
+    <Shape type="MESH" meshFile="DexBot/Wing-Simple.stl"  scale="0.001" physics="false" graphics="true" distance="false" transform="0.203  0.101 -0.05 90 180 -15" /> 
+    <Shape type="MESH" meshFile="DexBot/Wing-Simple.stl"  scale="0.001" physics="false" graphics="true" distance="false" transform="0.135 -0.101 0.2 -90 180 15" /> 
+    <Shape type="BOX" extents="0.04 0.75 0.2"   transform="0.17 0 0.1 0 0 0"  physics="true"  graphics="false" distance="false" textureFile="textures/aluminium-profile.jpg" />
+  </Body>
+
+
+  <Group name="_L" transform="0.125 -0.247635 0.0675 134.01 -68.91 -44.01" prev="RailBot" >
+    <xi:include href="LBR.xml" />
+  </Group >
+
+  <Group name="_L" prev="lbr_link_7_L" transform="0 0 0.1707 0 0 75" >
+    <xi:include href="sdh.xml" prev="Base" />
+  </Group>
+
+
+
+  <Group name="_R" transform="0.125 0.247835 0.059 -134.01 -68.91 -135.99" prev="RailBot" >
+    <xi:include href="LBR.xml" />
+  </Group >
+
+  <Group name="_R" prev="lbr_link_7_R" transform="0 0 0.1707 0 0 75" >
+    <xi:include href="sdh.xml" />
+  </Group>
+
+   <Body name="PowerGrasp_L" prev="sdh-base_L" transform="0 0 0.1 180 0 90" wastransform="0 0 0.1 90 0 90" >
+     <xxShape type="FRAME" scale="0.2" />
+   </Body>
+
+   <Body name="PowerGrasp_R" prev="sdh-base_R" transform="0 0 0.1 180 0 90" wastransform="0 0 0.1 -90 0 -90" >
+     <xxShape type="FRAME" scale="0.2" />
+   </Body>
+
+  <Body name="WheelGrasp_L" prev="sdh-base_L" transform="-0.05 0 0.09 180 70 180" >
+    <xxShape type="FRAME" scale="0.2" />
+  </Body>
+
+  <Body name="WheelGrasp_R" prev="sdh-base_R" transform="-0.05 0 0.09  0 -70 180" >
+    <xxShape type="FRAME" scale="0.2" />
+  </Body>
+
+
+
+   
+  <model_state model="InitialPose" time_stamp="">
+    <joint_state joint="DofChestZ" position="0.95" />
+    <joint_state joint="lbr_joint_1_L" position="3.758" />
+    <joint_state joint="lbr_joint_2_L" position="52.148" />
+    <joint_state joint="lbr_joint_3_L" position="34.392" />
+    <joint_state joint="lbr_joint_4_L" position="69.865" />
+    <joint_state joint="lbr_joint_5_L" position="-54.241" />
+    <joint_state joint="lbr_joint_6_L" position="-5.551" />
+    <joint_state joint="lbr_joint_7_L" position="-40.118" />
+    <joint_state joint="fing3-knuck3_L" position="0.000" />
+    <joint_state joint="tip3-fing3_L" position="0.000" />
+    <joint_state joint="knuck1-base_L" position="1.000" />
+    <joint_state joint="fing1-knuck1_L" position="0.000" />
+    <joint_state joint="tip1-fing1_L" position="0.000" />
+    <joint_state joint="fing2-knuck2_L" position="-89.000" />
+    <joint_state joint="tip2-fing2_L" position="0.000" />
+    <joint_state joint="lbr_joint_1_R" position="-1.412" />
+    <joint_state joint="lbr_joint_2_R" position="-52.954" />
+    <joint_state joint="lbr_joint_3_R" position="-33.894" />
+    <joint_state joint="lbr_joint_4_R" position="-70.971" />
+    <joint_state joint="lbr_joint_5_R" position="59.230" />
+    <joint_state joint="lbr_joint_6_R" position="3.777" />
+    <joint_state joint="lbr_joint_7_R" position="62.582" />
+    <joint_state joint="fing3-knuck3_R" position="0.000" />
+    <joint_state joint="tip3-fing3_R" position="0.000" />
+    <joint_state joint="knuck1-base_R" position="1.000" />
+    <joint_state joint="fing1-knuck1_R" position="0.000" />
+    <joint_state joint="tip1-fing1_R" position="0.000" />
+    <joint_state joint="fing2-knuck2_R" position="-89.000" />
+    <joint_state joint="tip2-fing2_R" position="0.000" />
+  </model_state>
+
+
+
+</Graph>

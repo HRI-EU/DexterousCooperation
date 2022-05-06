@@ -1,0 +1,71 @@
+<Controller graph="gSimpleBox.xml" >
+
+  <!-- Fingers -->
+  <!-- Open: 0 0 -90 0 0 0 0 -->
+  <!-- Close: -90 90 -90 0 90 0 -->
+  <Task name="Fingers_L" controlVariable="Joints"
+	jnts="fing1-knuck1_L tip1-fing1_L fing2-knuck2_L tip2-fing2_L fing3-knuck3_L tip3-fing3_L knuck1-base_L" active="true" />
+
+  <Task name="Fingers_R" controlVariable="Joints"
+	jnts="fing1-knuck1_R tip1-fing1_R fing2-knuck2_R tip2-fing2_R fing3-knuck3_R tip3-fing3_R knuck1-base_R" active="true" />
+
+  <!-- Box / Object pose -->
+  <xxxTask name="DistanceZ" controlVariable="DistanceZ" effector="Box_v" refBdy="Ground Plane" active="true"/>
+  <Task name="Phi_Box" controlVariable="Joints" jnts="DofThX_v DofThY_v DofThZ_v" active="true" />
+  <!--<Task name="XYZ_Box" controlVariable="Joints" jnts="DofX_v DofY_v DofZ_v" active="untrue" />-->
+  <xxTask name="XYZ_Box" controlVariable="Joints" jnts="DofX_v DofZ_v" active="untrue" />
+  <Task name="XYZ_Box" controlVariable="XYZ" effector="Box_v" active="true" />
+
+  <!-- Robot hands on box -->
+  <Task name="XYZ_L" controlVariable="XYZ" effector="PowerGrasp_L" refBdy="Box_v" active="true" />
+  <Task name="XYZ_R" controlVariable="XYZ" effector="PowerGrasp_R" refBdy="Box_v" active="true" />
+  <Task name="ABC_L" controlVariable="ABC" effector="PowerGrasp_L" refBdy="Box_v" active="true" />
+  <Task name="ABC_R" controlVariable="ABC" effector="PowerGrasp_R" refBdy="Box_v" active="true" />
+
+  <!-- Partner hands on box-->
+  <Task name="Partner_XYZ_L" controlVariable="XYZ" effector="PartnerGrasp_L" refBdy="Partner_Box_v" active="true" />
+  <Task name="Partner_XYZ_R" controlVariable="XYZ" effector="PartnerGrasp_R" refBdy="Partner_Box_v" active="true" />
+  <Task name="Partner_ABC_L" controlVariable="ABC" effector="PartnerGrasp_L" refBdy="Partner_Box_v" active="true" />
+  <Task name="Partner_ABC_R" controlVariable="ABC" effector="PartnerGrasp_R" refBdy="Partner_Box_v" active="true" />
+  
+    <xxTask name="Base X" controlVariable="Joint" jnt="DofBaseX" active="untrue" />
+    <xxTask name="Base Y" controlVariable="Joint" jnt="DofBaseY" active="untrue" />
+    <xxTask name="Base ThZ" controlVariable="Joint" jnt="DofBaseThZ" active="untrue" />
+
+
+  <CollisionModel  DistanceThreshold="0.2" >
+    <CollisionPair body1="Base"         body2="lbr_link_2_L" DistanceThreshold="0.08" />
+    <CollisionPair body1="Base"         body2="lbr_link_3_L" DistanceThreshold="0.08" />
+    <CollisionPair body1="Base"         body2="lbr_link_4_L" />
+    <CollisionPair body1="Base"         body2="lbr_link_5_L" />
+    <CollisionPair body1="Base"         body2="lbr_link_6_L" />
+    <CollisionPair body1="Base"         body2="lbr_link_7_L" />
+    <CollisionPair body1="Base"         body2="sdh-base_L"   />
+
+    <CollisionPair body1="Base"         body2="lbr_link_2_R" DistanceThreshold="0.08" />
+    <CollisionPair body1="Base"         body2="lbr_link_3_R" DistanceThreshold="0.08" />
+    <CollisionPair body1="Base"         body2="lbr_link_4_R" />
+    <CollisionPair body1="Base"         body2="lbr_link_5_R" />
+    <CollisionPair body1="Base"         body2="lbr_link_6_R" />
+    <CollisionPair body1="Base"         body2="lbr_link_7_R" />
+    <CollisionPair body1="Base"         body2="sdh-base_R"   />
+
+    <CollisionPair body1="lbr_link_2_L" body2="lbr_link_6_L" />
+    <CollisionPair body1="lbr_link_2_L" body2="lbr_link_7_L" />
+    <CollisionPair body1="lbr_link_2_L" body2="sdh-base_L"   />
+    <CollisionPair body1="lbr_link_3_L" body2="lbr_link_7_L" />
+    <CollisionPair body1="lbr_link_2_R" body2="lbr_link_6_R" />
+    <CollisionPair body1="lbr_link_2_R" body2="lbr_link_7_R" />
+    <CollisionPair body1="lbr_link_2_R" body2="sdh-base_R"   />
+    <CollisionPair body1="lbr_link_3_R" body2="lbr_link_7_R" />
+
+    <CollisionPair body1="lbr_link_3_L" body2="lbr_link_3_R" />
+    <CollisionPair body1="lbr_link_4_L" body2="lbr_link_4_R" />
+    <CollisionPair body1="lbr_link_5_L" body2="lbr_link_5_R" />
+    <CollisionPair body1="lbr_link_6_L" body2="lbr_link_6_R" />
+    <CollisionPair body1="lbr_link_7_L" body2="lbr_link_7_R" />
+    <CollisionPair body1="sdh-base_L"   body2="sdh-base_R"   DistanceThreshold="0.1" />
+  </CollisionModel>
+
+
+</Controller>

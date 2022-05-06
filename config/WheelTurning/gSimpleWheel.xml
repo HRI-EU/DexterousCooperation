@@ -1,0 +1,140 @@
+<Graph xmlns:xi="http://www.w3.org/2003/XInclude" name="InitialPose" >
+
+  <Body name="Lab Frame" physics="kinematic" >
+    <Shape type="BOX" extents="6.0 6.0 0.04" transform="0 0 -0.02 0 0 0"
+           color="PEWTER" graphics="true" physics="true" distance="true"/>
+    <Shape type="FRAME" scale="1.0" />
+  </Body>
+
+  <Group prev="Lab Frame" >
+    <xi:include href="gWheelPlannerModel.xml" />
+  </Group >
+
+  <Group prev="Lab Frame" >
+    <xi:include href="gRobo.xml" />
+  </Group >
+
+
+
+  <model_state model="InitialPose" time_stamp="">
+
+    <joint_state joint="WheelY" position="-0.9" />
+    <joint_state joint="WheelZ" position="0.49" />
+    <joint_state joint="WheelX" position="-0.02" />
+    <joint_state joint="WheelFlip" position="-90" />
+    <joint_state joint="WheelRoll" position="0" />
+
+    <joint_state joint="ContactRobotRightThZ" position="202.5" />
+    <joint_state joint="ContactRobotRightThX" position="0" />
+    <joint_state joint="ContactRobotRightRadial" position="0.355" />
+    <joint_state joint="ContactRobotLeftThZ" position="135" />
+    <joint_state joint="ContactRobotLeftThX" position="0" />
+    <joint_state joint="ContactRobotLeftRadial" position="0.355" />
+
+    <joint_state joint="ContactHumanRightThZ" position="-45" />
+    <joint_state joint="ContactHumanRightThX" position="0" />
+    <joint_state joint="ContactHumanLeftThZ" position="45" />
+    <joint_state joint="ContactHumanLeftThX" position="0" />
+
+    <joint_state joint="DofBaseX"      position="-1" />
+    <joint_state joint="DofBaseY"      position="-1.5" />
+    <joint_state joint="DofBaseThZ"    position="90" />
+    <joint_state joint="DofChestZ"     position="0.8" />
+
+    <joint_state joint="lbr_joint_1_L" position="0"   />
+    <joint_state joint="lbr_joint_2_L" position="50"  />
+    <joint_state joint="lbr_joint_3_L" position="30" />
+    <joint_state joint="lbr_joint_4_L" position="70"  />
+    <joint_state joint="lbr_joint_5_L" position="-55" />
+    <joint_state joint="lbr_joint_6_L" position="-5"  />
+    <joint_state joint="lbr_joint_7_L" position="-10" />
+
+    <joint_state joint="lbr_joint_1_R" position="0"   />
+    <joint_state joint="lbr_joint_2_R" position="-50" />
+    <joint_state joint="lbr_joint_3_R" position="-30" />
+    <joint_state joint="lbr_joint_4_R" position="-70" />
+    <joint_state joint="lbr_joint_5_R" position="55"  />
+    <joint_state joint="lbr_joint_6_R" position="5"   />
+    <joint_state joint="lbr_joint_7_R" position="40"  />
+
+    <joint_state joint="fing3-knuck3_L" position="-60" />
+    <joint_state joint="tip3-fing3_L"   position="40"  />
+    <joint_state joint="knuck1-base_L"  position="3"   />
+    <joint_state joint="fing1-knuck1_L" position="-60" />
+    <joint_state joint="tip1-fing1_L"   position="40"  />
+    <joint_state joint="fing2-knuck2_L" position="-89" />
+    <joint_state joint="tip2-fing2_L"   position="30"  />
+
+    <joint_state joint="fing3-knuck3_R" position="-60" />
+    <joint_state joint="tip3-fing3_R"   position="40"  />
+    <joint_state joint="knuck1-base_R"  position="3"   />
+    <joint_state joint="fing1-knuck1_R" position="-60" />
+    <joint_state joint="tip1-fing1_R"   position="40"  />
+    <joint_state joint="fing2-knuck2_R" position="-89" />
+    <joint_state joint="tip2-fing2_R"   position="30"  />
+  </model_state>
+
+
+<model_state model="ReadyToGo" time_stamp="">
+  <joint_state joint="WheelX" position="-0.020" />
+  <joint_state joint="WheelY" position="-0.900" />
+  <joint_state joint="WheelZ" position="0.490" />
+  <joint_state joint="WheelFlip" position="-90.000" />
+  <joint_state joint="WheelRoll" position="0.000" />
+  <joint_state joint="WheelGeom_rigidBodyJnt0" position="0.000" />
+  <joint_state joint="WheelGeom_rigidBodyJnt1" position="0.000" />
+  <joint_state joint="WheelGeom_rigidBodyJnt2" position="0.000" />
+  <joint_state joint="WheelGeom_rigidBodyJnt3" position="0.000" />
+  <joint_state joint="WheelGeom_rigidBodyJnt4" position="0.000" />
+  <joint_state joint="WheelGeom_rigidBodyJnt5" position="45.000" />
+  <joint_state joint="ContactRobotRightThZ" position="202.500" />
+  <joint_state joint="ContactRobotRightThX" position="-0.000" />
+  <joint_state joint="ContactRobotRightRadial" position="0.355" />
+  <joint_state joint="ContactRobotLeftThZ" position="135.000" />
+  <joint_state joint="ContactRobotLeftThX" position="0.000" />
+  <joint_state joint="ContactRobotLeftRadial" position="0.355" />
+  <joint_state joint="ContactHumanRightThZ" position="-45.000" />
+  <joint_state joint="ContactHumanRightThX" position="0.000" />
+  <joint_state joint="ContactHumanLeftThZ" position="45.000" />
+  <joint_state joint="ContactHumanLeftThX" position="0.000" />
+  <joint_state joint="DofBaseX" position="-0.300" />
+  <joint_state joint="DofBaseY" position="-0.827" />
+  <joint_state joint="DofBaseThZ" position="76.744" />
+  <joint_state joint="DofChestZ" position="0.860" />
+  <joint_state joint="lbr_joint_1_L" position="-1.527" />
+  <joint_state joint="lbr_joint_2_L" position="45.605" />
+  <joint_state joint="lbr_joint_3_L" position="34.267" />
+  <joint_state joint="lbr_joint_4_L" position="62.142" />
+  <joint_state joint="lbr_joint_5_L" position="-19.315" />
+  <joint_state joint="lbr_joint_6_L" position="-45.159" />
+  <joint_state joint="lbr_joint_7_L" position="35.152" />
+  <joint_state joint="knuck3-base_L" position="1.000" />
+  <joint_state joint="fing3-knuck3_L" position="-5.000" />
+  <joint_state joint="tip3-fing3_L" position="25.000" />
+  <joint_state joint="knuck1-base_L" position="1.000" />
+  <joint_state joint="fing1-knuck1_L" position="-5.000" />
+  <joint_state joint="tip1-fing1_L" position="25.000" />
+  <joint_state joint="fing2-knuck2_L" position="-55.000" />
+  <joint_state joint="tip2-fing2_L" position="85.000" />cd
+  <joint_state joint="lbr_joint_1_R" position="109.886" />
+  <joint_state joint="lbr_joint_2_R" position="-38.734" />
+  <joint_state joint="lbr_joint_3_R" position="-124.658" />
+  <joint_state joint="lbr_joint_4_R" position="-66.017" />
+  <joint_state joint="lbr_joint_5_R" position="16.684" />
+  <joint_state joint="lbr_joint_6_R" position="-82.996" />
+  <joint_state joint="lbr_joint_7_R" position="29.191" />
+  <joint_state joint="knuck3-base_R" position="1.000" />
+  <joint_state joint="fing3-knuck3_R" position="-5.000" />
+  <joint_state joint="tip3-fing3_R" position="25.000" />
+  <joint_state joint="knuck1-base_R" position="1.000" />
+  <joint_state joint="fing1-knuck1_R" position="-5.000" />
+  <joint_state joint="tip1-fing1_R" position="25.000" />
+  <joint_state joint="fing2-knuck2_R" position="-55.000" />
+  <joint_state joint="tip2-fing2_R" position="85.000" />
+</model_state>
+
+
+
+  
+
+</Graph>
