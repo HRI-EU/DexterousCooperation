@@ -910,7 +910,7 @@ int main(int argc, char** argv)
   // Ctrl-C callback handler
   signal(SIGINT, sigQuit);
 
-  Rcs_addResourcePath("config");
+  Rcs_addResourcePath(RCS_CONFIG_DIR);
   Rcs_addResourcePath(directory);
 
   switch (mode)

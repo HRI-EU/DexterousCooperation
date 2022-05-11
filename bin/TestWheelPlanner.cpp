@@ -1369,7 +1369,7 @@ int main(int argc, char** argv)
                    "(default is %s)", directory);
   argP.getArgument("-m", &mode, "Test mode (default is %d)", mode);
 
-  Rcs_addResourcePath("config");
+  Rcs_addResourcePath(RCS_CONFIG_DIR);
   Rcs_addResourcePath(directory);
 
   switch (mode)

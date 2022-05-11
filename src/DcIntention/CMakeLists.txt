@@ -30,12 +30,37 @@ SET(DCINTENTION_SRC
 )
 
 ADD_LIBRARY(DcIntention ${DCINTENTION_SRC})
-TARGET_INCLUDE_DIRECTORIES(DcIntention PUBLIC ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_SOURCE_DIR}/../../external/websocketpp/include ${CMAKE_CURRENT_SOURCE_DIR}/../../external/rapidjson/include) 
-TARGET_LINK_LIBRARIES(DcIntention DcPlanning)
+
+#TARGET_INCLUDE_DIRECTORIES(DcIntention PUBLIC ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_SOURCE_DIR}/../../external/websocketpp/include ${CMAKE_CURRENT_SOURCE_DIR}/../../external/rapidjson/include) 
+
+TARGET_INCLUDE_DIRECTORIES(DcIntention PUBLIC
+    # Header source location
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../../external/websocketpp/include>
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../../external/rapidjson/include>
+    
+    # Header install location
+    $<INSTALL_INTERFACE:include>
+    
+    # Regular dependencies
+    )
+
+  TARGET_LINK_LIBRARIES(DcIntention DcPlanning)
 SET_TARGET_PROPERTIES(DcIntention PROPERTIES AUTOMOC TRUE)
 IF (WIN32)
   TARGET_INCLUDE_DIRECTORIES(DcIntention PUBLIC ${HGR}/External/asio-1.12.1/include ${HGR}/External/boost/boost_1_59_0)
   TARGET_LINK_LIBRARIES(DcIntention wsock32 ws2_32 Iphlpapi)
 ENDIF(WIN32)
 COPY_DLL(DcIntention)
+
+###############################################################################
+# Install the libraries
+###############################################################################
+INSTALL(
+  DIRECTORY . 
+  DESTINATION include
+  FILES_MATCHING PATTERN "*.h"
+)
+DEXTEROUSCOOPERATION_ADD_EXPORT_LIBRARY(DcIntention)
+INSTALL(TARGETS DcIntention EXPORT DexterousCooperationExport DESTINATION lib/$ENV{MAKEFILE_PLATFORM})
 

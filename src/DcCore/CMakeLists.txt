@@ -15,6 +15,28 @@ SET(DCCORE_SRC
 
 ADD_LIBRARY(DcCore ${DCCORE_SRC})
 TARGET_LINK_LIBRARIES(DcCore RcsGraphics RcsPhysics RcsGui)
-TARGET_INCLUDE_DIRECTORIES(DcCore PUBLIC ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_SOURCE_DIR}/../../../ESLib/include)
+
+#TARGET_INCLUDE_DIRECTORIES(DcCore PUBLIC ${CMAKE_CURRENT_SOURCE_DIR} ${ESLIB_INCLUDE_DIR})
+
+TARGET_INCLUDE_DIRECTORIES(DcCore PUBLIC
+    # Header source location
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
+    $<BUILD_INTERFACE:${ESLIB_INCLUDE_DIR}>
+    
+    # Header install location
+    $<INSTALL_INTERFACE:include>
+    
+    # Regular dependencies
+    )
 COPY_DLL(DcCore)
 
+###############################################################################
+# Install the libraries
+###############################################################################
+INSTALL(
+  DIRECTORY . 
+  DESTINATION include
+  FILES_MATCHING PATTERN "*.h"
+)
+DEXTEROUSCOOPERATION_ADD_EXPORT_LIBRARY(DcCore)
+INSTALL(TARGETS DcCore EXPORT DexterousCooperationExport DESTINATION lib/$ENV{MAKEFILE_PLATFORM})

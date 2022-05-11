@@ -45,7 +45,7 @@
 void parseQuaternion(const std::string& quaternion, double quat[4])
 {
   // parse quaternion: [x y z w] input from Unity3d
-  std::vector<std::string> split = String_split(quaternion, SEP_Vector);
+  std::vector<std::string> split = Rcs::String_split(quaternion, SEP_Vector);
   RCHECK(split.size()==4);
 
   RLOG(5, "[%s] [%s] [%s] [%s]", split[0].c_str(), split[1].c_str(), split[2].c_str(), quaternion.c_str());
@@ -71,7 +71,7 @@ void parseQuaternion(const std::string& quaternion, double quat[4])
 
 void parseVector(const std::string& message, double* vec, unsigned int n)
 {
-  std::vector<std::string> split = String_split(message, SEP_Vector);
+  std::vector<std::string> split = Rcs::String_split(message, SEP_Vector);
 
   if (split.size() != n)
   {

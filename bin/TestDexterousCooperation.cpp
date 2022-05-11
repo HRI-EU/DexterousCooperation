@@ -1022,7 +1022,7 @@ int main(int argc, char** argv)
                    RcsLogLevel);
   argP.getArgument("-m", &mode, "Test mode (default is %d)", mode);
 
-  Rcs_addResourcePath("config");
+  Rcs_addResourcePath(RCS_CONFIG_DIR);
 
   switch (mode)
   {

@@ -16,7 +16,18 @@ IF (USE_DC_ROS)
 ENDIF(USE_DC_ROS)
 
 ADD_LIBRARY(DcVision ${POLY_SRC})
-TARGET_INCLUDE_DIRECTORIES(DcVision PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
+
+#TARGET_INCLUDE_DIRECTORIES(DcVision PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
+
+TARGET_INCLUDE_DIRECTORIES(DcVision PUBLIC
+    # Header source location
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
+    
+    # Header install location
+    $<INSTALL_INTERFACE:include>
+    
+    # Regular dependencies
+    )
 TARGET_LINK_LIBRARIES(DcVision DcPlanning)
 
 IF (USE_DC_ROS)
@@ -34,3 +45,18 @@ IF (USE_DC_ROS)
 ENDIF()
 
 COPY_DLL(DcVision)
+
+###############################################################################
+# Install headers
+###############################################################################
+INSTALL(
+  DIRECTORY . 
+  DESTINATION include
+  FILES_MATCHING PATTERN "*.h"
+)
+
+###############################################################################
+# Install the libraries
+###############################################################################
+DEXTEROUSCOOPERATION_ADD_EXPORT_LIBRARY(DcVision)
+INSTALL(TARGETS DcVision EXPORT DexterousCooperationExport DESTINATION lib/$ENV{MAKEFILE_PLATFORM})

@@ -15,3 +15,8 @@ ENDIF(USE_DC_ROS)
 
 TARGET_COMPILE_DEFINITIONS(ExampleDcComponents PRIVATE -DRCS_CONFIG_DIR="${RCS_CONFIG_DIR}")
 #TARGET_VALIDATE_EVENTS(TestDexterousCooperation)
+
+###############################################################################
+# Install the binaries
+###############################################################################
+INSTALL(TARGETS ExampleDcComponents RUNTIME DESTINATION bin LIBRARY DESTINATION lib)

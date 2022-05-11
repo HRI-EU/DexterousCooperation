@@ -95,3 +95,8 @@ IF (USE_DC_ROS)
   TARGET_LINK_LIBRARIES(TestPolygonPlanner_event DcROS ${image_transport_LIBRARIES} ${cv_bridge_LIBRARIES})
 ENDIF()
 TARGET_VALIDATE_EVENTS(TestPolygonPlanner_event)
+
+###############################################################################
+# Install the binaries
+###############################################################################
+INSTALL(TARGETS TestDexterousCooperation TestBoxPlanner TestWheelPlanner TestPolygonPlanner RUNTIME DESTINATION bin LIBRARY DESTINATION lib)
