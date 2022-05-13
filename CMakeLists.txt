@@ -20,6 +20,7 @@ ENDMACRO()
 SET(STANDALONE_PROJECT OFF)
 IF(CMAKE_CURRENT_SOURCE_DIR STREQUAL CMAKE_SOURCE_DIR)
   PROJECT(DexterousCooperation)
+  LIST(APPEND CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
   SET(RCS_CONFIG_DIR "$ENV{SIT}/Libraries/Rcs/1.0/config")
   LIST(APPEND CMAKE_PREFIX_PATH $ENV{SIT}/Libraries/Rcs/1.0/share/cmake/Rcs)
   LIST(APPEND CMAKE_PREFIX_PATH $ENV{SIT}/Libraries/Tropic/1.0/share/cmake/Tropic)
@@ -39,11 +40,11 @@ IF(CMAKE_CURRENT_SOURCE_DIR STREQUAL CMAKE_SOURCE_DIR)
 ELSE()
   SET(RCS_CONFIG_DIR "config")
   SET(ESLIB_INCLUDE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/../ESLib/include")
+  LIST(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
   MESSAGE(STATUS "Compiling ${PROJECT_NAME} as in-tree project")
 ENDIF()
 
 SET(BUILD_SHARED_LIBS ON)
-LIST(APPEND CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
 
 ################################################################################
 # Otherwise no import library is built 
