@@ -99,4 +99,4 @@ TARGET_VALIDATE_EVENTS(TestPolygonPlanner_event)
 ###############################################################################
 # Install the binaries
 ###############################################################################
-INSTALL(TARGETS TestDexterousCooperation TestBoxPlanner TestWheelPlanner TestPolygonPlanner RUNTIME DESTINATION bin LIBRARY DESTINATION lib)
+INSTALL(TARGETS TestDexterousCooperation TestBoxPlanner TestWheelPlanner TestPolygonPlanner TestPoseGraph RUNTIME DESTINATION bin LIBRARY DESTINATION lib)

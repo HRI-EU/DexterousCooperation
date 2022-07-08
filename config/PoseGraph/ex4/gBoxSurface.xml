@@ -12,7 +12,7 @@
       <Shape type="BOX" extents="0.5 0.5 1.8" graphics="true" transform="1 0 0.9 0 0 0" />
     </Body>
 
-  <Body name="RightHand" prev="Box" color="RED" >
+  <xBody name="RightHand" prev="Box" color="RED" >
     <Joint name="rlx" range="-3  0    3" type="TransX" transform="-0.25 0 0 0 0 0" />
     <Joint name="rly" range="-2 -0.3 2" type="TransY" />
     <Joint name="rlz" range="-2 0 2" type="TransZ" />
@@ -20,7 +20,7 @@
     <!-- <Joint name="rlb" range="-400 0 400" type="RotY" /> -->
     <!-- <Joint name="rlc" range="-400 0 400" type="RotZ" /> -->
     <Shape type="SPHERE" radius="0.04" distance="true" graphics="true" />
-  </Body>
+  </xBody>
 
   <Body name="LeftHand" prev="Box" color="GREEN" >
     <Joint name="llx" range="-3  0    3" type="TransX" transform="-0.25 0 0 0 0 0" />

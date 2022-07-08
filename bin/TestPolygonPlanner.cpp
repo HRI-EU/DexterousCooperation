@@ -45,7 +45,9 @@
 #include "PolyGraspDetector.h"
 #include "PolyROSComponent.h"
 #include "RebaComponent.h"
+#include "BoxStrategy5D.h"
 
+#include <AStar.h>
 #include <ExtrudedPolygonNode.h>
 #include <ControllerBase.h>
 #include <Rcs_resourcePath.h>
@@ -893,6 +895,227 @@ void testPolyFromClass(int argc, char** argv)
 /*******************************************************************************
  *
  ******************************************************************************/
+static Rcs::BoxStrategy5D createExplorer(bool roboSide)
+{
+  // Create exploration strategy
+  double dPhi = RCS_DEG2RAD(30.0);   // does not need to multiply exactly into 360 degrees
+  const int nStepsAround = (int) lround(2.0*M_PI/dPhi);
+  const double deltaPhi = 2.0*M_PI / (double)nStepsAround;
+  const double minHandDist = 0.2;
+  const double maxHandAngle = 0.95*M_PI;
+
+  Rcs::PolygonObjectModel poly;
+  poly.setBoxPolygon(0.36, 0.63);
+
+  Rcs::BoxStrategy5D explorer = Rcs::BoxStrategy5D(Rcs::BoxStrategy5D::None, nStepsAround);
+  explorer.setMinimumHandDistance(minHandDist);
+  explorer.setGoalCondition(Rcs::BoxStrategy5D::RotationOnly);
+  explorer.setMaxAngleBetweenHands(maxHandAngle);
+  explorer.roboContacts.clear();
+  explorer.partnerContacts.clear();
+
+  std::vector<Rcs::PolygonContactPoint2D> c2d = poly.getContacts2d();
+
+  for (size_t i=0; i<c2d.size(); ++i)
+  {
+    auto cpi = Rcs::BoxStrategy5D::ContactPoint2D(c2d[i].getX(),
+                                                  c2d[i].getY(),
+                                                  c2d[i].getNormalAngle(),
+                                                  c2d[i].getFrictionAngle(),
+                                                  c2d[i].getMaxLever());
+    explorer.roboContacts.push_back(cpi);
+  }
+
+  explorer.partnerContacts = explorer.roboContacts;
+
+  if (roboSide)
+  {
+    Rcs::BoxStrategy5D::mirrorContacts(explorer.partnerContacts);
+  }
+  else
+  {
+    Rcs::BoxStrategy5D::mirrorContacts(explorer.roboContacts);
+  }
+
+  return explorer;
+}
+
+static void testPolyPlanner(int argc, char** argv)
+{
+  Rcs::BoxStrategy5D roboExplorer = createExplorer(true);
+  Rcs::BoxStrategy5D humanExplorer = createExplorer(true);
+
+  // Collaborative planning. State: phi[0], right robo[1], left robo[2], right human[3], left human[4]
+  {
+    std::vector<std::vector<int>> collaborativeSln, singleSln;
+    bool init = false;
+
+    std::vector<int> roboFrom = { 0, 14, 10, 10, 14 };
+    std::vector<int> roboTo = roboFrom;
+    roboTo[0] = roboExplorer.getPhiFromAngle(2.0*M_PI);
+    roboExplorer.setGoal(roboTo);
+
+    std::vector<int> humanFrom = roboFrom;
+    std::vector<int> humanTo = humanFrom;
+    humanTo[0] = roboExplorer.getPhiFromAngle(-2.0*M_PI);
+    humanExplorer.setGoal(humanTo);
+
+
+    while (true)
+    {
+
+      ////////////////////////////////////////////
+      // Robo side
+      ////////////////////////////////////////////
+      {
+        RLOG(1, "Start planning for robo");
+        double t = Timer_getSystemTime();
+        roboExplorer.setStartCondition(Rcs::BoxStrategy5D::RobotHandsAndBox);
+        std::vector<std::vector<int>> solutionPath = Gras::Astar::search(roboExplorer, roboFrom);
+        t = Timer_getSystemTime() - t;
+        if (!init)
+        {
+          init = true;
+          singleSln = solutionPath;
+          collaborativeSln.push_back(solutionPath[0]);
+        }
+        REXEC(1)
+        {
+          RLOG(1, "%s finishing planning after %.3f msec",
+               solutionPath.empty() ? "FAILURE" : "SUCCESS", 1.0e3*t);
+          Gras::Astar::printSolution(roboExplorer, solutionPath);
+        }
+
+        if (solutionPath.size()<2)
+        {
+          break;
+        }
+
+        humanFrom[0] = solutionPath[1][0];
+        humanFrom[1] = solutionPath[1][1];
+        humanFrom[2] = solutionPath[1][2];
+        humanFrom[3] = solutionPath[1][3];
+        humanFrom[4] = solutionPath[1][4];
+
+        RLOG(1, "Setting human state to [%d %d %d %d %d]",
+             humanFrom[0], humanFrom[1], humanFrom[2], humanFrom[3], humanFrom[4]);
+        collaborativeSln.push_back(humanFrom);
+
+        // Add all consecutive steps that are also robot actions
+        for (size_t i=1; i<solutionPath.size()-1; ++i)
+        {
+
+          if ((solutionPath[i+1][3]!=solutionPath[i][3]) ||
+              (solutionPath[i+1][4]!=solutionPath[i][4]))
+          {
+            break;
+          }
+
+          humanFrom = solutionPath[i+1];
+
+          // if ((solutionPath[i+1][0]!=solutionPath[i][0]) ||
+          //     (solutionPath[i+1][1]!=solutionPath[i][1]) ||
+          //     (solutionPath[i+1][2]!=solutionPath[i][2]))
+          // {
+          // humanFrom[0] = solutionPath[i+1][0];
+          // humanFrom[1] = solutionPath[i+1][1];
+          // humanFrom[2] = solutionPath[i+1][2];
+          // humanFrom[3] = solutionPath[i+1][3];
+          // humanFrom[4] = solutionPath[i+1][4];
+
+          RLOG(1, "[%zu]: Setting human state to [%d %d %d %d %d]",
+               i, humanFrom[0], humanFrom[1], humanFrom[2], humanFrom[3], humanFrom[4]);
+          collaborativeSln.push_back(humanFrom);
+          // }
+        }   // for (size_t i=1; i<solutionPath.size()-1; ++i)
+
+      }
+
+
+      ////////////////////////////////////////////
+      // Human side
+      ////////////////////////////////////////////
+      {
+        RLOG(1, "Start planning for human");
+        double t = Timer_getSystemTime();
+        humanExplorer.setStartCondition(Rcs::BoxStrategy5D::HumanHands);
+        std::vector<std::vector<int>> solutionPath = Gras::Astar::search(humanExplorer, humanFrom);
+        t = Timer_getSystemTime() - t;
+        REXEC(1)
+        {
+          RLOG(1, "%s finishing planning after %.3f msec",
+               solutionPath.empty() ? "FAILURE" : "SUCCESS", 1.0e3*t);
+          Gras::Astar::printSolution(humanExplorer, solutionPath);
+        }
+
+        if (solutionPath.size()<2)
+        {
+          break;
+        }
+
+        roboFrom[0] = solutionPath[1][0];
+        roboFrom[1] = solutionPath[1][1];
+        roboFrom[2] = solutionPath[1][2];
+        roboFrom[3] = solutionPath[1][3];
+        roboFrom[4] = solutionPath[1][4];
+        collaborativeSln.push_back(roboFrom);
+
+        RLOG(1, "Setting robo state to [%d %d %d %d %d]",
+             roboFrom[0], roboFrom[1], roboFrom[2], roboFrom[3], roboFrom[4]);
+
+        // Add all consecutive steps that are also human actions
+        for (size_t i=1; i<solutionPath.size()-1; ++i)
+        {
+
+          if ((solutionPath[i+1][0]!=solutionPath[i][0]) ||
+              (solutionPath[i+1][1]!=solutionPath[i][1]) ||
+              (solutionPath[i+1][2]!=solutionPath[i][2]))
+          {
+            break;
+          }
+
+          // if ((solutionPath[i+1][3]!=solutionPath[i][3]) ||
+          //     (solutionPath[i+1][4]!=solutionPath[i][4]))
+          {
+            roboFrom[0] = solutionPath[i+1][0];
+            roboFrom[1] = solutionPath[i+1][1];
+            roboFrom[2] = solutionPath[i+1][2];
+            roboFrom[3] = solutionPath[i+1][3];
+            roboFrom[4] = solutionPath[i+1][4];
+
+            RLOG(1, "[%zu]: Setting robo state to [%d %d %d %d %d]",
+                 i, roboFrom[0], roboFrom[1], roboFrom[2], roboFrom[3], roboFrom[4]);
+            collaborativeSln.push_back(roboFrom);
+          }
+        }   // for (size_t i=1; i<solutionPath.size()-1; ++i)
+
+      }
+
+      RLOG(1, "Collaborative solution:");
+      Gras::Astar::printSolution(roboExplorer, collaborativeSln);
+
+
+      RPAUSE_DL(1);
+    }   // while (true)
+
+
+    RLOG(0, "Initial solution:");
+    Gras::Astar::printSolution(roboExplorer, singleSln);
+    RLOG(0, "Collaborative solution:");
+    Gras::Astar::printSolution(roboExplorer, collaborativeSln);
+    RLOG(0, "Solutions %s", (singleSln==collaborativeSln) ? "are equal" : "differ");
+
+
+
+
+  }
+
+
+}
+
+/*******************************************************************************
+ *
+ ******************************************************************************/
 int main(int argc, char** argv)
 {
   char xmlFileName[128] = "cPolyROS.xml";
@@ -919,6 +1142,8 @@ int main(int argc, char** argv)
       printf("\tTestPolygonOutline:\n");
       printf("\tMode 1: Test with receiving polygons through ROS\n");
       printf("\tMode 2: Polygons from file with graphics window\n");
+      printf("\tMode 3: IK with task gui\n");
+      printf("\tMode 4: Planning only\n");
 #if defined (USE_DC_ROS)
       printf("\tROS is enabled\n");
 #else
@@ -936,6 +1161,10 @@ int main(int argc, char** argv)
 
     case 3:
       testIK("cInvKin.xml");
+      break;
+
+    case 4:
+      testPolyPlanner(argc, argv);
       break;
 
     default:

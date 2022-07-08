@@ -38,9 +38,9 @@
 #include <Rcs_utils.h>
 #include <Rcs_quaternion.h>
 #include <Rcs_typedef.h>
-#include <Rcs_graphicsUtils.h>
 #include <Rcs_body.h>
 #include <Rcs_shape.h>
+#include <Rcs_material.h>
 
 void parseQuaternion(const std::string& quaternion, double quat[4])
 {
@@ -196,22 +196,12 @@ std::string addRcsBodyMsg(const RcsBody* body, const std::string& parent)
     // Note: sMat is stored in buffer for next lookup - don't delete it.
     unsigned int color[4] = {255, 255, 255, 255};
 
-#if 0
-    Rcs::RcsMaterialData* sMat = Rcs::getMaterial(shape_i->color);
-    if (sMat)
-    {
-      for (int j=0; j<4; ++j)
-      {
-        color[j] = lround(255.0*sMat->amb[j]);
-      }
-    }
-#else
-    osg::Vec4 osgColor = Rcs::colorFromString(shape_i->color);
+    double osgColor[4];
+    Rcs_colorFromString(shape_i->color, osgColor);
     for (int j=0; j<4; ++j)
     {
       color[j] = lround(255.0*osgColor[j]);
     }
-#endif
 
     // Assemble shape name
     std::string sName = body->name+std::string("_")+std::to_string(i);

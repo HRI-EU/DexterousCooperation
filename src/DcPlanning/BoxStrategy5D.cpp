@@ -259,7 +259,7 @@ BoxStrategy5D::BoxStrategy5D(ObjectType object_, int numPhiDiscretizations_) :
   ExplorationStrategy(), deltaPhi(2.0*M_PI/numPhiDiscretizations_),
   maxAngularStateChange(0.7*M_PI),
   minimumHandDistance(0.0), maxAngleBetweenHands(M_PI_2), object(object_),
-  goalCondition(FullState)
+  goalCondition(FullState), startCondition(DoesNotMatter)
 {
   setObjectType(object);
   setNumPhiDiscretizations(numPhiDiscretizations_);
@@ -683,7 +683,7 @@ bool BoxStrategy5D::checkTransition(int phiOld, int raOld, int laOld, int rpOld,
   polyOK = Math_checkPolygon2D(poly, 3);
   if (!polyOK)
   {
-    REXEC(1)
+    REXEC(2)
     {
       RLOG(0, "Polygon malformed:");
       for (int i=0; i<3; ++i)
@@ -1099,6 +1099,14 @@ BoxStrategy5D::GoalCondition BoxStrategy5D::getGoalCondition() const
 void BoxStrategy5D::setGoalCondition(BoxStrategy5D::GoalCondition newCondition)
 {
   this->goalCondition = newCondition;
+}
+
+/*******************************************************************************
+ *
+ ******************************************************************************/
+void BoxStrategy5D::setStartCondition(BoxStrategy5D::StartCondition newCondition)
+{
+  this->startCondition = newCondition;
 }
 
 /*******************************************************************************
@@ -1530,129 +1538,140 @@ std::vector<std::vector<int>> BoxStrategy5D::explore(const std::vector<int>& cur
 
   // 1. Try to turn the box deltaPhi counter-clockwise by adding deltaPhi
   //    Check if the state is allowed and if the transition is possible
-  int i_min = (int)floor(M_PI / deltaPhi);
-
-  for (int i = -i_min; i < i_min; i++)
+  if ((startCondition==DoesNotMatter) || (startCondition==RobotHandsAndBox) || (startCondition==HumanHandsAndBox))
   {
-    // Skip i=0 because it ends up at the same state
-    if (i == 0)
-    {
-      continue;
-    }
+    int i_min = (int)floor(M_PI / deltaPhi);
 
-    if (checkState(phiCurrent + i, raCurrent, laCurrent, rpCurrent, lpCurrent) &&
-        checkTransition(phiCurrent, raCurrent, laCurrent, rpCurrent, lpCurrent,
-                        phiCurrent + i, raCurrent, laCurrent, rpCurrent, lpCurrent))
+    for (int i = -i_min; i < i_min; i++)
     {
-      std::vector<int> newStateValues;
-      newStateValues.push_back(phiCurrent + i);
-      newStateValues.push_back(raCurrent);
-      newStateValues.push_back(laCurrent);
-      newStateValues.push_back(rpCurrent);
-      newStateValues.push_back(lpCurrent);
-      nextStates.push_back(newStateValues);
-    }
-  }
+      // Skip i=0 because it ends up at the same state
+      if (i == 0)
+      {
+        continue;
+      }
 
+      if (checkState(phiCurrent + i, raCurrent, laCurrent, rpCurrent, lpCurrent) &&
+          checkTransition(phiCurrent, raCurrent, laCurrent, rpCurrent, lpCurrent,
+                          phiCurrent + i, raCurrent, laCurrent, rpCurrent, lpCurrent))
+      {
+        std::vector<int> newStateValues;
+        newStateValues.push_back(phiCurrent + i);
+        newStateValues.push_back(raCurrent);
+        newStateValues.push_back(laCurrent);
+        newStateValues.push_back(rpCurrent);
+        newStateValues.push_back(lpCurrent);
+        nextStates.push_back(newStateValues);
+      }
+    }
+  }   // if (startCondition...)
 
   // 2. Try to move the right agent hand: Loop loop through all positions
-  for (int newRight = 0; newRight < (int)roboContacts.size(); ++newRight)
+  if ((startCondition==DoesNotMatter) || (startCondition==RobotHands) || (startCondition==RobotHandsAndBox))
   {
-    // Skip the current value
-    if (newRight == raCurrent)
+    for (int newRight = 0; newRight < (int)roboContacts.size(); ++newRight)
     {
-      continue;
+      // Skip the current value
+      if (newRight == raCurrent)
+      {
+        continue;
+      }
+
+      // Check if the state is allowed and if the transition is possible
+      if (checkState(phiCurrent, newRight, laCurrent, rpCurrent, lpCurrent)
+          && checkTransition(phiCurrent, raCurrent, laCurrent, rpCurrent, lpCurrent,
+                             phiCurrent, newRight, laCurrent, rpCurrent, lpCurrent))
+      {
+        std::vector<int> newStateValues;
+        newStateValues.push_back(phiCurrent);
+        newStateValues.push_back(newRight);
+        newStateValues.push_back(laCurrent);
+        newStateValues.push_back(rpCurrent);
+        newStateValues.push_back(lpCurrent);
+        nextStates.push_back(newStateValues);
+      }
     }
 
-    // Check if the state is allowed and if the transition is possible
-    if (checkState(phiCurrent, newRight, laCurrent, rpCurrent, lpCurrent)
-        && checkTransition(phiCurrent, raCurrent, laCurrent, rpCurrent, lpCurrent,
-                           phiCurrent, newRight, laCurrent, rpCurrent, lpCurrent))
-    {
-      std::vector<int> newStateValues;
-      newStateValues.push_back(phiCurrent);
-      newStateValues.push_back(newRight);
-      newStateValues.push_back(laCurrent);
-      newStateValues.push_back(rpCurrent);
-      newStateValues.push_back(lpCurrent);
-      nextStates.push_back(newStateValues);
-    }
-  }
 
-
-  // 3. Try to move the left agent hand: Loop loop through all positions
-  for (int newLeft = 0; newLeft < (int)roboContacts.size(); ++newLeft)
-  {
-    // Skip the current value
-    if (newLeft == laCurrent)
+    // 3. Try to move the left agent hand: Loop loop through all positions
+    for (int newLeft = 0; newLeft < (int)roboContacts.size(); ++newLeft)
     {
-      continue;
-    }
+      // Skip the current value
+      if (newLeft == laCurrent)
+      {
+        continue;
+      }
 
-    // Check if the state is allowed and if the transition is possible
-    if (checkState(phiCurrent, raCurrent, newLeft, rpCurrent, lpCurrent) &&
-        checkTransition(phiCurrent, raCurrent, laCurrent, rpCurrent, lpCurrent,
-                        phiCurrent, raCurrent, newLeft, rpCurrent, lpCurrent))
-    {
-      std::vector<int> newStateValues;
-      newStateValues.push_back(phiCurrent);
-      newStateValues.push_back(raCurrent);
-      newStateValues.push_back(newLeft);
-      newStateValues.push_back(rpCurrent);
-      newStateValues.push_back(lpCurrent);
-      nextStates.push_back(newStateValues);
+      // Check if the state is allowed and if the transition is possible
+      if (checkState(phiCurrent, raCurrent, newLeft, rpCurrent, lpCurrent) &&
+          checkTransition(phiCurrent, raCurrent, laCurrent, rpCurrent, lpCurrent,
+                          phiCurrent, raCurrent, newLeft, rpCurrent, lpCurrent))
+      {
+        std::vector<int> newStateValues;
+        newStateValues.push_back(phiCurrent);
+        newStateValues.push_back(raCurrent);
+        newStateValues.push_back(newLeft);
+        newStateValues.push_back(rpCurrent);
+        newStateValues.push_back(lpCurrent);
+        nextStates.push_back(newStateValues);
+      }
     }
-  }
+  }   // if (startCondition...)
 
 
   // 4. Try to move the right partner hand: Loop loop through all positions
-  for (int newRight = 0; newRight < (int)roboContacts.size(); ++newRight)
+  if ((startCondition==DoesNotMatter) || (startCondition==HumanHands) || (startCondition==HumanHandsAndBox))
   {
-    // Skip the current value
-    if (newRight == rpCurrent)
+    for (int newRight = 0; newRight < (int)roboContacts.size(); ++newRight)
     {
-      continue;
+      // Skip the current value
+      if (newRight == rpCurrent)
+      {
+        continue;
+      }
+
+      // Check if the state is allowed and if the transition is possible
+      if (checkState(phiCurrent, raCurrent, laCurrent, newRight, lpCurrent)
+          && checkTransition(phiCurrent, raCurrent, laCurrent, rpCurrent, lpCurrent,
+                             phiCurrent, raCurrent, laCurrent, newRight, lpCurrent))
+      {
+        std::vector<int> newStateValues;
+        newStateValues.push_back(phiCurrent);
+        newStateValues.push_back(raCurrent);
+        newStateValues.push_back(laCurrent);
+        newStateValues.push_back(newRight);
+        newStateValues.push_back(lpCurrent);
+        nextStates.push_back(newStateValues);
+      }
     }
 
-    // Check if the state is allowed and if the transition is possible
-    if (checkState(phiCurrent, raCurrent, laCurrent, newRight, lpCurrent)
-        && checkTransition(phiCurrent, raCurrent, laCurrent, rpCurrent, lpCurrent,
-                           phiCurrent, raCurrent, laCurrent, newRight, lpCurrent))
+
+    // 5. Try to move the left partner hand: Loop loop through all positions
+    for (int newLeft = 0; newLeft < (int)roboContacts.size(); ++newLeft)
     {
-      std::vector<int> newStateValues;
-      newStateValues.push_back(phiCurrent);
-      newStateValues.push_back(raCurrent);
-      newStateValues.push_back(laCurrent);
-      newStateValues.push_back(newRight);
-      newStateValues.push_back(lpCurrent);
-      nextStates.push_back(newStateValues);
+      // Skip the current value
+      if (newLeft == lpCurrent)
+      {
+        continue;
+      }
+
+      // Check if the state is allowed and if the transition is possible
+      if (checkState(phiCurrent, raCurrent, laCurrent, rpCurrent, newLeft) &&
+          checkTransition(phiCurrent, raCurrent, laCurrent, rpCurrent, lpCurrent,
+                          phiCurrent, raCurrent, laCurrent, rpCurrent, newLeft))
+      {
+        std::vector<int> newStateValues;
+        newStateValues.push_back(phiCurrent);
+        newStateValues.push_back(raCurrent);
+        newStateValues.push_back(laCurrent);
+        newStateValues.push_back(rpCurrent);
+        newStateValues.push_back(newLeft);
+        nextStates.push_back(newStateValues);
+      }
     }
-  }
+  }   // if (startCondition...)
 
 
-  // 5. Try to move the left partner hand: Loop loop through all positions
-  for (int newLeft = 0; newLeft < (int)roboContacts.size(); ++newLeft)
-  {
-    // Skip the current value
-    if (newLeft == lpCurrent)
-    {
-      continue;
-    }
-
-    // Check if the state is allowed and if the transition is possible
-    if (checkState(phiCurrent, raCurrent, laCurrent, rpCurrent, newLeft) &&
-        checkTransition(phiCurrent, raCurrent, laCurrent, rpCurrent, lpCurrent,
-                        phiCurrent, raCurrent, laCurrent, rpCurrent, newLeft))
-    {
-      std::vector<int> newStateValues;
-      newStateValues.push_back(phiCurrent);
-      newStateValues.push_back(raCurrent);
-      newStateValues.push_back(laCurrent);
-      newStateValues.push_back(rpCurrent);
-      newStateValues.push_back(newLeft);
-      nextStates.push_back(newStateValues);
-    }
-  }
+  startCondition = DoesNotMatter;
 
   return nextStates;
 }

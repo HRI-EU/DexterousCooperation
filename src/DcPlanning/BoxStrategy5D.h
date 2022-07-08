@@ -63,6 +63,15 @@ public:
     RotationWithMaxStableHold
   };
 
+  enum StartCondition
+  {
+    RobotHands = 0,
+    RobotHandsAndBox,
+    HumanHands,
+    HumanHandsAndBox,
+    DoesNotMatter
+  };
+
 
 
 
@@ -113,6 +122,7 @@ public:
   bool setObjectType(ObjectType object);
   GoalCondition getGoalCondition() const;
   void setGoalCondition(GoalCondition newCondition);
+  void setStartCondition(StartCondition newCondition);
   void setGoal(const std::vector<int>& goal);
   void setEnableReba(bool enable);
   bool getEnableReba() const;
@@ -179,6 +189,7 @@ private:
   double mass;
   ObjectType object;
   GoalCondition goalCondition;
+  mutable StartCondition startCondition;
   std::vector< std::vector<int>> goalStates;
 
 public:

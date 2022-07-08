@@ -371,7 +371,7 @@ static void testGenericPoseGraphCreation()
     adja.push_back(a);
 
     double offset[3];
-    Vec3d_set(offset, 0.0, -2.5, 0.0);
+    Vec3d_set(offset, 0.0, -1.0, 0.0);
 
     seq = poseGraph.create(&controller, adja, postures, offset);
   }
