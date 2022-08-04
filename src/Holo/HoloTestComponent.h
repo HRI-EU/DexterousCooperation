@@ -58,24 +58,24 @@ private:
   // Events
   void onStart();
   void onMotionState(bool isMoving;
-  void onToggleTrajectories();
-  void onForwardKinematics(const MatNd* q_des);
+                     void onToggleTrajectories();
+                     void onForwardKinematics(const MatNd* q_des);
 
-  // Members
-  ControllerBase controller;
-  bool showTrajectory;
-  ViaPointTrajectoryPosition* robotLeftHandTrajectory;
-  ViaPointTrajectoryPosition* robotRightHandTrajectory;
-  ViaPointTrajectoryPosition* partnerLeftHandTrajectory;
-  ViaPointTrajectoryPosition* partnerRightHandTrajectory;
-  MatNd* robotLeftHandTrajectoryArray;
-  MatNd* robotRightHandTrajectoryArray;
-  MatNd* partnerLeftHandTrajectoryArray;
-  MatNd* partnerRightHandTrajectoryArray;
+                     // Members
+                     ControllerBase controller;
+                     bool showTrajectory;
+                     ViaPointTrajectoryPosition* robotLeftHandTrajectory;
+                     ViaPointTrajectoryPosition* robotRightHandTrajectory;
+                     ViaPointTrajectoryPosition* partnerLeftHandTrajectory;
+                     ViaPointTrajectoryPosition* partnerRightHandTrajectory;
+                     MatNd* robotLeftHandTrajectoryArray;
+                     MatNd* robotRightHandTrajectoryArray;
+                     MatNd* partnerLeftHandTrajectoryArray;
+                     MatNd* partnerRightHandTrajectoryArray;
 
-  // Avoid copying this class
-  HoloTestComponent(const HoloTestComponent&);
-  HoloTestComponent& operator=(const HoloTestComponent&);
+                     // Avoid copying this class
+                     HoloTestComponent(const HoloTestComponent&);
+                     HoloTestComponent& operator=(const HoloTestComponent&);
 };
 
 }

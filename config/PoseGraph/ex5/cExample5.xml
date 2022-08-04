@@ -1,0 +1,21 @@
+<Controller graph="gScenario.xml">
+
+  <Task name="Inclination Body" controlVariable="POLAR" effector="UpperBody" active="true" />
+
+  <Task name="Right Foot 6D" controlVariable="XYZABC" effector="FootR" active="true"
+	guiMin="-20 -10 -10 -360 -360 -360" guiMax="20 10 10 360 360 360" />
+
+  <Task name="Left Foot 6D" controlVariable="XYZABC" effector="FootL" active="true"
+	guiMin="-20 -10 -10 -360 -360 -360" guiMax="20 10 10 360 360 360" />
+
+  <Task name="Right Foot Slide" controlVariable="Composite" >
+    <Task controlVariable= "Z" effector="FootR" />
+    <Task controlVariable= "POLAR" effector="FootR" />
+  </Task>
+
+  <Task name="Left Foot Slide" controlVariable="Composite" >
+    <Task controlVariable= "Z" effector="FootL" />
+    <Task controlVariable= "POLAR" effector="FootL" />
+  </Task>
+
+</Controller>

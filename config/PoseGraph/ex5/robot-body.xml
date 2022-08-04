@@ -1,0 +1,30 @@
+<Graph name="trunk" >
+
+  <Body name="UpperBody" color="BRASS" mass="20" cogVector="0.025 0 0.2" >
+    <Joint name="DofWaistX"   type="TransX" range="-0.25 0.0793 0.25" speedLimit="1" weightJL="0" />
+    <Joint name="DofWaistY"   type="TransY" range="-0.25 0 0.25" speedLimit="1" weightJL="0" />
+    <Joint name="DofWaistZ"   type="TransZ" range="0.29 0.5771 0.6" speedLimit="1" weightJL="0" />
+    <Joint name="DofWaistThX" type="RotX"   range="-10 0 10" speedLimit="100" weightJL="0" />
+    <Joint name="DofWaistThY" type="RotY"   range="-10 0 12" speedLimit="100" weightJL="0" />
+    <Joint name="DofWaistThZ" type="RotZ"   range="-12 0 12" speedLimit="100" weightJL="0" />
+
+    <!-- Upper body model -->
+    <Shape type="SSL" length="0.08"  radius="0.12"  transform="0.02 0 0.1  0 10 0" graphics="true" />
+    <Shape type="SSL" length="0.08"  radius="0.15"  transform="0.02 0 0.2  0 10 0" graphics="true" />
+  </Body>
+
+  <Body name="HeadPan" prev="UpperBody" mass="1" extents="0.01 0.01 0.01" >
+    <Joint name="DofPan" type="RotZ" transform="0.06 0 0.43 0 0 0" range="-84 0 84" speedLimit="100" />
+  </Body>
+
+  <Body name="Helmet" prev="HeadPan" color="RUBY_S" mass="2" cogVector="0 0 0" extents="0.15 0.15 0.15" >
+    <Joint name="DofTilt" type="RotY" transform="0 0 0.055 0 0 0" range="-30 0 30" speedLimit="100" />
+    <Shape type="SSL" length="0" radius="0.12" transform="0.004 0 0.018 0 0 0" graphics="true" />
+    <Shape type="BOX" extents="0.1 0.16 0.08" transform="0.04 0 0.06 0 0 0" graphics="true" />
+  </Body>
+
+  <Body name="Camera" prev="Helmet" transform="0.118 0.037 0.039 0 0 0" >
+    <Shape type="FRAME" scale="0.25" graphics="true" />
+  </Body>
+
+</Graph>

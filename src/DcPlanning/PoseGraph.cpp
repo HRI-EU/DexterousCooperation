@@ -80,9 +80,21 @@ ControllerBase* PoseGraph::create(const ControllerBase* src,
   // Create the controller with a clone of the original controller for
   // each posture.
   ControllerBase* controller = createGraph(src, postures, offset);
+  REXEC(1)
+  {
+    int nw = 0, ne = 0;
+    RcsGraph_check(controller->getGraph(), &ne, &nw);
+    RLOG(1, "Graph check: %d warnings, %d errors", nw, ne);
+    RCHECK(ne == 0);
+    RLOG(1, "Writing graph file");
+    controller->toXML("cMultiplied.xml");
+    RLOG(1, "Writing dot file");
+    RcsGraph_writeDotFile(controller->getGraph(), "gMultiplied.dot");
+  }
 
   // Acquire the activation vector from the xml file so that we can also
   // deal with inactive tasks.
+  RLOG(1, "Reading activations");
   MatNd* src_activations = MatNd_create(src->getNumberOfTasks(), 1);
   src->readActivationsFromXML(src_activations);
 
@@ -98,8 +110,14 @@ ControllerBase* PoseGraph::create(const ControllerBase* src,
   RCHECK_MSG(activations->m==controller->getNumberOfTasks(), "%u   %zu",
              activations->m, controller->getNumberOfTasks());
 
-  // Connect joint constraints between poses
+  // Connect task constraints between poses
   for (size_t i=0; i<adjacencies.size(); ++i)
+  {
+    linkTasks(controller, adjacencies[i], activations);
+  }
+
+  // Connect joint constraints between poses
+  for (size_t i = 0; i < adjacencies.size(); ++i)
   {
     linkBodyJoints(controller, adjacencies[i], activations);
   }
@@ -114,7 +132,10 @@ ControllerBase* PoseGraph::create(const ControllerBase* src,
   eraseInactiveTasks(controller, activations);
 
   // Write config files
-  RcsGraph_writeXmlFile(controller->getGraph(), "PoseGraph.xml");
+  REXEC(1)
+  {
+    RcsGraph_writeXmlFile(controller->getGraph(), "PoseGraph.xml");
+  }
   controller->toXML("cPoseGraph.xml", activations);
 
   // Clean up
@@ -139,7 +160,7 @@ ControllerBase* PoseGraph::createGraph(const ControllerBase* src,
   HTr A_offset;
   HTr_setIdentity(&A_offset);
 
-  RLOG_CPP(0, "Creating " << postures->m << " postures");
+  RLOG_CPP(1, "Creating " << postures->m << " postures");
 
   for (size_t i=0; i<postures->m; ++i)
   {
@@ -207,6 +228,10 @@ void PoseGraph::linkBodyJoints(ControllerBase* controller,
                                const Adjacency& connection,
                                MatNd* activation)
 {
+  if (connection.bdyName.empty())
+  {
+    return;
+  }
   RcsGraph* graph = controller->getGraph();
 
   // Now we traverse all adjacencies and create the connections.
@@ -320,7 +345,7 @@ void PoseGraph::relax(ControllerBase* controller, const Adjacency& connection,
     }
   }
 
-  RLOG(0, "Last pose for %s is %zu", connection.bdyName.c_str(), lastPose);
+  RLOG(1, "Last pose for %s is %zu", connection.bdyName.c_str(), lastPose);
 
   // Now we traverse all adjacencies and look for non-coupled postures
   for (size_t bdyId=firstPose; bdyId<lastPose; ++bdyId)
@@ -346,7 +371,7 @@ void PoseGraph::relax(ControllerBase* controller, const Adjacency& connection,
     int tidxOld = controller->getTaskIndex(old.c_str());
     int tidxRelax = controller->getTaskIndex(relax.c_str());
 
-    RLOG(0, "Relaxing task %s - %s", old.c_str(), relax.c_str());
+    RLOG(1, "Relaxing task %s - %s", old.c_str(), relax.c_str());
 
     if (tidxOld!=-1)
     {
@@ -356,12 +381,12 @@ void PoseGraph::relax(ControllerBase* controller, const Adjacency& connection,
       }
 
       activation->ele[tidxOld] = 0.0;
-      RLOG(0, "Erasing task \"%s\"", controller->getTaskName(tidxOld).c_str());
-      RLOG(0, "Success: index %d = 0, index %d = 1", tidxOld, tidxRelax);
+      RLOG(1, "Erasing task \"%s\"", controller->getTaskName(tidxOld).c_str());
+      RLOG(1, "Success: index %d = 0, index %d = 1", tidxOld, tidxRelax);
     }
     else
     {
-      RLOG(0, "Failed: idx_old=%d idx_new=%d", tidxOld, tidxRelax);
+      RLOG(1, "Failed: idx_old=%d idx_new=%d", tidxOld, tidxRelax);
     }
 
   }
@@ -388,12 +413,67 @@ void PoseGraph::eraseInactiveTasks(ControllerBase* controller,
 
   for (size_t i=0; i<toDelete.size(); ++i)
   {
-    RLOG_CPP(0, "Erasing task " << toDelete[i] << " ("
+    RLOG_CPP(1, "Erasing task " << toDelete[i] << " ("
              << controller->getTaskName(toDelete[i]) << ")");
     controller->eraseTask(toDelete[i]);
     MatNd_deleteRow(activation, toDelete[i]);
   }
 
+}
+
+/*******************************************************************************
+ *
+ ******************************************************************************/
+void PoseGraph::linkTasks(ControllerBase* controller,
+                          const Adjacency& connection,
+                          MatNd* activation)
+{
+  if (connection.taskName.empty())
+  {
+    return;
+  }
+
+  RLOG(1, "Start linking tasks");
+  RcsGraph* graph = controller->getGraph();
+
+  // Now we traverse all adjacencies and create the connections.
+  for (size_t step=0; step<connection.adjacencyList.size(); ++step)
+  {
+    int prevStep = connection.adjacencyList[step];
+
+    // If the id to connect is -1, there is no connection and we go to the
+    // next entry.
+    if (prevStep == -1)
+    {
+      continue;
+    }
+
+    // Compute the body name of the connection according to the id of the pose
+    std::string taskName = connection.taskName;
+    if (step>0)
+    {
+      taskName += "_" + std::to_string(step);
+    }
+
+    // Compute the name of the parent body according to the id of the pose
+    std::string prevTaskName = connection.taskName;
+    if (prevStep>0)
+    {
+      prevTaskName += "_" + std::to_string(prevStep);
+    }
+
+    // We just replace refBdy and refFrame with the preceeding task
+    Rcs::Task* currTask = controller->getTask(taskName);
+    const Rcs::Task* prevTask = controller->getTask(prevTaskName);
+    RCHECK_MSG(currTask, "Current task \"%s\" not found", taskName.c_str());
+    RCHECK_MSG(prevTask, "Previous task \"%s\" not found", prevTaskName.c_str());
+    RLOG(1, "Changing task %s: effector id: %d -> %d",
+         taskName.c_str(), currTask->getEffectorId(), prevTask->getEffectorId());
+    currTask->setRefBodyId(prevTask->getEffectorId());
+    currTask->setRefFrameId(prevTask->getEffectorId());
+  }
+
+  RLOG(1, "Done linking tasks");
 }
 
 

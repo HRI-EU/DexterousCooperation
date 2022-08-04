@@ -27,28 +27,30 @@ struct Box_
     : center()
     , orientation()
     , extents()
-    , color()  {
-    }
+    , color()
+  {
+  }
   Box_(const ContainerAllocator& _alloc)
     : center(_alloc)
     , orientation(_alloc)
     , extents(_alloc)
-    , color(_alloc)  {
-  (void)_alloc;
-    }
+    , color(_alloc)
+  {
+    (void)_alloc;
+  }
 
 
 
-   typedef std::vector<double, typename ContainerAllocator::template rebind<double>::other >  _center_type;
+  typedef std::vector<double, typename ContainerAllocator::template rebind<double>::other >  _center_type;
   _center_type center;
 
-   typedef std::vector<double, typename ContainerAllocator::template rebind<double>::other >  _orientation_type;
+  typedef std::vector<double, typename ContainerAllocator::template rebind<double>::other >  _orientation_type;
   _orientation_type orientation;
 
-   typedef std::vector<double, typename ContainerAllocator::template rebind<double>::other >  _extents_type;
+  typedef std::vector<double, typename ContainerAllocator::template rebind<double>::other >  _extents_type;
   _extents_type extents;
 
-   typedef std::vector<uint8_t, typename ContainerAllocator::template rebind<uint8_t>::other >  _color_type;
+  typedef std::vector<uint8_t, typename ContainerAllocator::template rebind<uint8_t>::other >  _color_type;
   _color_type color;
 
 
@@ -69,10 +71,10 @@ typedef boost::shared_ptr< ::RcsROSMsg::Box const> BoxConstPtr;
 
 
 template<typename ContainerAllocator>
-std::ostream& operator<<(std::ostream& s, const ::RcsROSMsg::Box_<ContainerAllocator> & v)
+std::ostream& operator<<(std::ostream& s, const ::RcsROSMsg::Box_<ContainerAllocator>& v)
 {
-ros::message_operations::Printer< ::RcsROSMsg::Box_<ContainerAllocator> >::stream(s, "", v);
-return s;
+  ros::message_operations::Printer< ::RcsROSMsg::Box_<ContainerAllocator> >::stream(s, "", v);
+  return s;
 }
 
 } // namespace RcsROSMsg
@@ -95,32 +97,32 @@ namespace message_traits
 template <class ContainerAllocator>
 struct IsFixedSize< ::RcsROSMsg::Box_<ContainerAllocator> >
   : FalseType
-  { };
+{ };
 
 template <class ContainerAllocator>
 struct IsFixedSize< ::RcsROSMsg::Box_<ContainerAllocator> const>
   : FalseType
-  { };
+{ };
 
 template <class ContainerAllocator>
 struct IsMessage< ::RcsROSMsg::Box_<ContainerAllocator> >
   : TrueType
-  { };
+{ };
 
 template <class ContainerAllocator>
 struct IsMessage< ::RcsROSMsg::Box_<ContainerAllocator> const>
   : TrueType
-  { };
+{ };
 
 template <class ContainerAllocator>
 struct HasHeader< ::RcsROSMsg::Box_<ContainerAllocator> >
   : FalseType
-  { };
+{ };
 
 template <class ContainerAllocator>
 struct HasHeader< ::RcsROSMsg::Box_<ContainerAllocator> const>
   : FalseType
-  { };
+{ };
 
 
 template<class ContainerAllocator>
@@ -131,7 +133,10 @@ struct MD5Sum< ::RcsROSMsg::Box_<ContainerAllocator> >
     return "7d449619cc8365cdca7896d853c652e3";
   }
 
-  static const char* value(const ::RcsROSMsg::Box_<ContainerAllocator>&) { return value(); }
+  static const char* value(const ::RcsROSMsg::Box_<ContainerAllocator>&)
+  {
+    return value();
+  }
   static const uint64_t static_value1 = 0x7d449619cc8365cdULL;
   static const uint64_t static_value2 = 0xca7896d853c652e3ULL;
 };
@@ -144,7 +149,10 @@ struct DataType< ::RcsROSMsg::Box_<ContainerAllocator> >
     return "RcsROSMsg/Box";
   }
 
-  static const char* value(const ::RcsROSMsg::Box_<ContainerAllocator>&) { return value(); }
+  static const char* value(const ::RcsROSMsg::Box_<ContainerAllocator>&)
+  {
+    return value();
+  }
 };
 
 template<class ContainerAllocator>
@@ -159,7 +167,10 @@ uint8[] color\n\
 ";
   }
 
-  static const char* value(const ::RcsROSMsg::Box_<ContainerAllocator>&) { return value(); }
+  static const char* value(const ::RcsROSMsg::Box_<ContainerAllocator>&)
+  {
+    return value();
+  }
 };
 
 } // namespace message_traits
@@ -170,18 +181,18 @@ namespace ros
 namespace serialization
 {
 
-  template<class ContainerAllocator> struct Serializer< ::RcsROSMsg::Box_<ContainerAllocator> >
+template<class ContainerAllocator> struct Serializer< ::RcsROSMsg::Box_<ContainerAllocator> >
+{
+  template<typename Stream, typename T> inline static void allInOne(Stream& stream, T m)
   {
-    template<typename Stream, typename T> inline static void allInOne(Stream& stream, T m)
-    {
-      stream.next(m.center);
-      stream.next(m.orientation);
-      stream.next(m.extents);
-      stream.next(m.color);
-    }
+    stream.next(m.center);
+    stream.next(m.orientation);
+    stream.next(m.extents);
+    stream.next(m.color);
+  }
 
-    ROS_DECLARE_ALLINONE_SERIALIZER
-  }; // struct Box_
+  ROS_DECLARE_ALLINONE_SERIALIZER
+}; // struct Box_
 
 } // namespace serialization
 } // namespace ros

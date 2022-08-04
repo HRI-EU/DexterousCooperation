@@ -125,10 +125,12 @@ WheelPlannerComponent::WheelPlannerComponent(EntityBase* parent,
   {
     this->tc = new TrajectoryController<ZigZagTrajectory1D>(controller, horizon);
   }
-  tc->readActivationsFromXML();
+  //tc->readActivationsFromXML();
+  tc->takeControllerOwnership(true);   // Deleted by tc destructor
+  controller->readActivationsFromXML(this->a_des);
   for (unsigned int i=0; i<a_des->m; ++i)
   {
-    tc->setActivation(i, (tc->getActivation(i) > 0.0));
+    tc->setActivation(i, (a_des->ele[i]==0.0) ? false : true);
   }
 
   this->tSet = new WheelConstraint(this->tc, &wheelExplorer, this->getEntity());
@@ -161,7 +163,7 @@ WheelPlannerComponent::WheelPlannerComponent(EntityBase* parent,
 
 WheelPlannerComponent::~WheelPlannerComponent()
 {
-  delete this->tc->getController();
+  // delete this->tc->getController(); // now owned by tc
   delete this->tc;
   delete this->tSet;
   MatNd_destroy(this->a_des);
@@ -394,7 +396,7 @@ void WheelPlannerComponent::executePlan(std::vector<std::vector<int> > solutionP
 }
 void WheelPlannerComponent::stepTrajectory(RcsGraph* from)
 {
-  RcsGraph_setState(tc->getController()->getGraph(), from->q, from->q_dot);
+  RcsGraph_setState(tc->getInternalController()->getGraph(), from->q, from->q_dot);
   double lastMotionEndTime = this->motionEndTime;
   this->motionEndTime = tc->step(getEntity()->getDt());
 
@@ -402,7 +404,7 @@ void WheelPlannerComponent::stepTrajectory(RcsGraph* from)
   tc->getActivation(a_des);
 
   char text[256];
-  std::vector<int> stateValues = wheelExplorer.getState(tc->getController()->getGraph());
+  std::vector<int> stateValues = wheelExplorer.getState(tc->getInternalController()->getGraph());
   snprintf(text, 256, "Motion time: %5.2f, State: %s",   this->motionEndTime,
            Gras::vecToStr(stateValues).c_str());
   getEntity()->publish("SetTextLine", std::string(text), 2);
@@ -457,7 +459,7 @@ void WheelPlannerComponent::onEmergencyRecover()
 void WheelPlannerComponent::onInitFromState(const RcsGraph* target)
 {
   RLOG(0, "WheelPlannerComponent::onInitFromState()");
-  RcsGraph_setState(tc->getController()->getGraph(), target->q, target->q_dot);
+  RcsGraph_setState(tc->getInternalController()->getGraph(), target->q, target->q_dot);
   tc->init();
   tc->clear();
 }

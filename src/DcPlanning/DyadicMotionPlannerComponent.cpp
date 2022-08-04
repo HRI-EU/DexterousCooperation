@@ -124,11 +124,13 @@ DyadicMotionPlannerComponent::DyadicMotionPlannerComponent(EntityBase* parent,
   {
     this->tc = new tropic::TrajectoryController<tropic::ZigZagTrajectory1D>(controller, horizon);
   }
-  tc->readActivationsFromXML();
+
+  controller->readActivationsFromXML(this->a_des);
   for (unsigned int i=0; i<a_des->m; ++i)
   {
     tc->setActivation(i, (tc->getActivation(i)>0.0) ? true : false);
   }
+  tc->takeControllerOwnership(true);
 
   int nStepsAround = (int) lround(2.0*M_PI/deltaPhi);
   deltaPhi = 2.0*M_PI / (double)nStepsAround;
@@ -174,7 +176,7 @@ DyadicMotionPlannerComponent::DyadicMotionPlannerComponent(EntityBase* parent,
 
 DyadicMotionPlannerComponent::~DyadicMotionPlannerComponent()
 {
-  delete this->tc->getController();
+  //delete this->tc->getController();
   delete this->tc;
   delete this->tSet;
   MatNd_destroy(this->a_des);
@@ -815,7 +817,7 @@ const MatNd* DyadicMotionPlannerComponent::getTaskCommandPtr() const
 
 void DyadicMotionPlannerComponent::stepTrajectory(RcsGraph* from)
 {
-  RcsGraph_setState(tc->getController()->getGraph(), from->q, from->q_dot);
+  RcsGraph_setState(tc->getInternalController()->getGraph(), from->q, from->q_dot);
   computeControl(this->a_des, this->x_des);
 }
 
@@ -835,7 +837,7 @@ void DyadicMotionPlannerComponent::onEmergencyRecover()
 void DyadicMotionPlannerComponent::onInitFromState(const RcsGraph* target)
 {
   RLOG(0, "DyadicMotionPlannerComponent::onInitFromState()");
-  RcsGraph_setState(tc->getController()->getGraph(), target->q, target->q_dot);
+  RcsGraph_setState(tc->getInternalController()->getGraph(), target->q, target->q_dot);
   tc->init();
   tc->clear();
 }

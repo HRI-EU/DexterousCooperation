@@ -56,7 +56,7 @@ namespace Rcs
  *         since computational efficiency of them is determining the speed for
  *         the search algorithms.
  */
-  class WheelStrategy7D : public Gras::ExplorationStrategy
+class WheelStrategy7D : public Gras::ExplorationStrategy
 {
 public:
 

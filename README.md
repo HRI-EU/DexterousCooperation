@@ -172,7 +172,11 @@ See the [DcVision](src/DcVision/README.md) for the cool polygon detection and pl
   - Can't connect to Jaco due to more than one USB device:
     - Switch of other Jacos
     - Problem also exists if one USB-Jaco is operated along with networked Jacos
-    
+
+## Event validation
+
+  - pip install clang==10.0.1 tqdm colorama
+  
 ## FAQ
 
   - Why don't you make import libraries from rapidjson, ESlib etc.?

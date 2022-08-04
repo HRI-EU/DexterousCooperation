@@ -62,7 +62,7 @@ public:
 
 TaskGuiComponent::TaskGuiComponent(EntityBase* parent,
                                    const ControllerBase* controller_) :
-  Rcs::ComponentBase(parent), controller(*controller_), a_des(NULL), 
+  Rcs::ComponentBase(parent), controller(*controller_), a_des(NULL),
   x_des(NULL), x_des_filt(NULL), x_curr(NULL), filt(NULL), passive(false)
 {
   this->a_des   = MatNd_create(controller.getNumberOfTasks(), 1);
@@ -133,8 +133,8 @@ void TaskGuiComponent::stop()
   }
 
   RLOG_CPP(0, "Stop::stop() "
-            << (numDestroyed == handle.size() ? "SUCCEEDED" : "FAILED") << " ("
-            << numDestroyed << " from " << this->handle.size() << " deleted)");
+           << (numDestroyed == handle.size() ? "SUCCEEDED" : "FAILED") << " ("
+           << numDestroyed << " from " << this->handle.size() << " deleted)");
 
   this->handle.clear();
 }
@@ -202,11 +202,11 @@ void TaskGuiComponent::onInitFromState(const RcsGraph* target)
   filt->init(x_target->ele);
   pthread_mutex_unlock(&this->mtx);
 
-  for (size_t i=0;i<this->handle.size(); ++i)
+  for (size_t i=0; i<this->handle.size(); ++i)
   {
-     void* ptr = RcsGuiFactory_getPointer(this->handle[i]);
-     ControllerWidgetBase* widget = static_cast<ControllerWidgetBase*>(ptr);
-     widget->reset(this->a_des, x_target);
+    void* ptr = RcsGuiFactory_getPointer(this->handle[i]);
+    ControllerWidgetBase* widget = static_cast<ControllerWidgetBase*>(ptr);
+    widget->reset(this->a_des, x_target);
   }
 
   MatNd_destroy(x_target);

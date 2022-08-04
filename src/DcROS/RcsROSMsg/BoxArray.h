@@ -25,16 +25,18 @@ struct BoxArray_
   typedef BoxArray_<ContainerAllocator> Type;
 
   BoxArray_()
-    : boxVec()  {
-    }
+    : boxVec()
+  {
+  }
   BoxArray_(const ContainerAllocator& _alloc)
-    : boxVec(_alloc)  {
-  (void)_alloc;
-    }
+    : boxVec(_alloc)
+  {
+    (void)_alloc;
+  }
 
 
 
-   typedef std::vector< ::RcsROSMsg::Box_<ContainerAllocator> , typename ContainerAllocator::template rebind< ::RcsROSMsg::Box_<ContainerAllocator> >::other >  _boxVec_type;
+  typedef std::vector< ::RcsROSMsg::Box_<ContainerAllocator>, typename ContainerAllocator::template rebind< ::RcsROSMsg::Box_<ContainerAllocator> >::other >  _boxVec_type;
   _boxVec_type boxVec;
 
 
@@ -55,10 +57,10 @@ typedef boost::shared_ptr< ::RcsROSMsg::BoxArray const> BoxArrayConstPtr;
 
 
 template<typename ContainerAllocator>
-std::ostream& operator<<(std::ostream& s, const ::RcsROSMsg::BoxArray_<ContainerAllocator> & v)
+std::ostream& operator<<(std::ostream& s, const ::RcsROSMsg::BoxArray_<ContainerAllocator>& v)
 {
-ros::message_operations::Printer< ::RcsROSMsg::BoxArray_<ContainerAllocator> >::stream(s, "", v);
-return s;
+  ros::message_operations::Printer< ::RcsROSMsg::BoxArray_<ContainerAllocator> >::stream(s, "", v);
+  return s;
 }
 
 } // namespace RcsROSMsg
@@ -81,32 +83,32 @@ namespace message_traits
 template <class ContainerAllocator>
 struct IsFixedSize< ::RcsROSMsg::BoxArray_<ContainerAllocator> >
   : FalseType
-  { };
+{ };
 
 template <class ContainerAllocator>
 struct IsFixedSize< ::RcsROSMsg::BoxArray_<ContainerAllocator> const>
   : FalseType
-  { };
+{ };
 
 template <class ContainerAllocator>
 struct IsMessage< ::RcsROSMsg::BoxArray_<ContainerAllocator> >
   : TrueType
-  { };
+{ };
 
 template <class ContainerAllocator>
 struct IsMessage< ::RcsROSMsg::BoxArray_<ContainerAllocator> const>
   : TrueType
-  { };
+{ };
 
 template <class ContainerAllocator>
 struct HasHeader< ::RcsROSMsg::BoxArray_<ContainerAllocator> >
   : FalseType
-  { };
+{ };
 
 template <class ContainerAllocator>
 struct HasHeader< ::RcsROSMsg::BoxArray_<ContainerAllocator> const>
   : FalseType
-  { };
+{ };
 
 
 template<class ContainerAllocator>
@@ -117,7 +119,10 @@ struct MD5Sum< ::RcsROSMsg::BoxArray_<ContainerAllocator> >
     return "9862fba05703964b9b065069bee8eba4";
   }
 
-  static const char* value(const ::RcsROSMsg::BoxArray_<ContainerAllocator>&) { return value(); }
+  static const char* value(const ::RcsROSMsg::BoxArray_<ContainerAllocator>&)
+  {
+    return value();
+  }
   static const uint64_t static_value1 = 0x9862fba05703964bULL;
   static const uint64_t static_value2 = 0x9b065069bee8eba4ULL;
 };
@@ -130,7 +135,10 @@ struct DataType< ::RcsROSMsg::BoxArray_<ContainerAllocator> >
     return "RcsROSMsg/BoxArray";
   }
 
-  static const char* value(const ::RcsROSMsg::BoxArray_<ContainerAllocator>&) { return value(); }
+  static const char* value(const ::RcsROSMsg::BoxArray_<ContainerAllocator>&)
+  {
+    return value();
+  }
 };
 
 template<class ContainerAllocator>
@@ -149,7 +157,10 @@ uint8[] color\n\
 ";
   }
 
-  static const char* value(const ::RcsROSMsg::BoxArray_<ContainerAllocator>&) { return value(); }
+  static const char* value(const ::RcsROSMsg::BoxArray_<ContainerAllocator>&)
+  {
+    return value();
+  }
 };
 
 } // namespace message_traits
@@ -160,15 +171,15 @@ namespace ros
 namespace serialization
 {
 
-  template<class ContainerAllocator> struct Serializer< ::RcsROSMsg::BoxArray_<ContainerAllocator> >
+template<class ContainerAllocator> struct Serializer< ::RcsROSMsg::BoxArray_<ContainerAllocator> >
+{
+  template<typename Stream, typename T> inline static void allInOne(Stream& stream, T m)
   {
-    template<typename Stream, typename T> inline static void allInOne(Stream& stream, T m)
-    {
-      stream.next(m.boxVec);
-    }
+    stream.next(m.boxVec);
+  }
 
-    ROS_DECLARE_ALLINONE_SERIALIZER
-  }; // struct BoxArray_
+  ROS_DECLARE_ALLINONE_SERIALIZER
+}; // struct BoxArray_
 
 } // namespace serialization
 } // namespace ros

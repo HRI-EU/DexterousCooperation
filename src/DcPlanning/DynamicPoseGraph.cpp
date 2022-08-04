@@ -69,7 +69,10 @@ DynamicPoseGraph::DynamicPoseGraph(const std::string& cfgFile) :
     this->tc = new TrajectoryController<ZigZagTrajectory1D>(cfgFile, horizon);
   }
 
-  tc->readActivationsFromXML();
+  MatNd* a_des = MatNd_create(tc->getController()->getNumberOfTasks(), 1);
+  tc->getController()->readActivationsFromXML(a_des);
+  tc->setActivation(a_des);
+  MatNd_destroy(a_des);
   tc->setTurboMode(false);
   this->ikSolver = new IkSolverRMR(tc->getInternalController());
 }

@@ -52,6 +52,7 @@ public:
   struct Adjacency
   {
     std::string bdyName;   // without suffix
+    std::string taskName;  // without suffix
     std::vector<int> adjacencyList;
     std::string originalTask, relaxedTask;
     bool fixFirstPose;
@@ -78,6 +79,8 @@ protected:
 
   void linkBodyJoints(ControllerBase* controller, const Adjacency& connection,
                       MatNd* activation);
+  void linkTasks(ControllerBase* controller, const Adjacency& connection,
+                 MatNd* activation);
   void relax(ControllerBase* controller, const Adjacency& connection,
              MatNd* activation);
 

@@ -71,11 +71,12 @@ TrajectoryComponent::TrajectoryComponent(EntityBase* parent,
     tc = new tropic::TrajectoryController<tropic::ZigZagTrajectory1D>(controller, horizon);
   }
 
-  tc->readActivationsFromXML();
+  //tc->readActivationsFromXML();
+  controller->readActivationsFromXML(this->a_des);
   tc->takeControllerOwnership(true);
   for (unsigned int i=0; i<a_des->m; ++i)
   {
-    tc->setActivation(i, (tc->getActivation(i)==0.0) ? false : true);
+    tc->setActivation(i, (a_des->ele[i]==0.0) ? false : true);
   }
 
   subscribe<>("ClearTrajectory", &TrajectoryComponent::onClearTrajectory);
@@ -105,7 +106,7 @@ TrajectoryComponent::~TrajectoryComponent()
 
 void TrajectoryComponent::stepTrajectory(RcsGraph* from)
 {
-  RcsGraph_setState(tc->getController()->getGraph(), from->q, from->q_dot);
+  RcsGraph_setState(tc->getInternalController()->getGraph(), from->q, from->q_dot);
 
   this->lastMotionEndTime = motionEndTime;
   this->motionEndTime = tc->step(getEntity()->getDt());
@@ -163,7 +164,7 @@ void TrajectoryComponent::onEnableTrajectoryCheck(bool enable)
 void TrajectoryComponent::onInitFromState(const RcsGraph* target)
 {
   RLOG(0, "TrajectoryComponent::onInitFromState()");
-  RcsGraph_setState(tc->getController()->getGraph(), target->q, target->q_dot);
+  RcsGraph_setState(tc->getInternalController()->getGraph(), target->q, target->q_dot);
   tc->getController()->computeX(this->x_des);
   tc->clear();
   tc->init();

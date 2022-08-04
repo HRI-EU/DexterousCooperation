@@ -198,7 +198,7 @@ void TrajectoryPredictor::clearTrajectory()
 
 void TrajectoryPredictor::initFromState(const MatNd* q, const MatNd* q_dot)
 {
-  RcsGraph_setState(tc->getController()->getGraph(), q, q_dot);
+  RcsGraph_setState(tc->getInternalController()->getGraph(), q, q_dot);
   tc->clear();
   tc->init();
 }

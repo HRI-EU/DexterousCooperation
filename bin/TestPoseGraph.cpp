@@ -306,7 +306,7 @@ static void testGenericPoseGraphCreation()
   if (argP.hasArgument("-h"))
   {
     RLOG(0, "Run:\n\nbin/TestPoseGraph -m 2 "
-         "-example <ex0, ex1, ex2, ex3, ex4>\n\n");
+         "-example <ex0, ex1, ex2, ex3, ...>\n\n");
     return;
   }
 
@@ -454,8 +454,105 @@ static void testGenericPoseGraphCreation()
     seq = poseGraph.create(&controller, adja, postures, offset);
   }
 
+  else if (example=="ex5xxx")
+  {
+    RLOG(0, "Creating step sequence example");
+    ControllerBase controller("cExample5.xml");
+    PoseGraph::Adjacency a;
+
+    a.taskName = "Right Foot 6D";
+    a.adjacencyList = {-1, 0, -1, 2, -1, 4, -1, 6, -1};
+    a.originalTask = "Right Foot 6D";
+    a.relaxedTask = "Right Foot Slide";
+    a.fixFirstPose = false;   // We start with a step of the right foot
+    a.fixLastPose = true;
+    adja.push_back(a);
+
+    a.taskName = "Left Foot 6D";
+    a.adjacencyList = {-1, -1, 1, -1, 3, -1, 5, -1, 7};
+    a.originalTask = "Left Foot 6D";
+    a.relaxedTask = "Left Foot Slide";
+    a.fixFirstPose = true;
+    a.fixLastPose = false;
+    adja.push_back(a);
+
+    seq = poseGraph.create(&controller, adja, postures, Vec3d_zeroVec());
+  }
+
+  else if (example=="ex5ccc")
+  {
+    RLOG(0, "Creating step sequence example");
+    ControllerBase controller("cExample5.xml");
+    PoseGraph::Adjacency a;
+
+    a.taskName = "Right Foot 6D";
+    a.adjacencyList = {-1, 0, -1, 2, -1, 4, -1, 6};
+    a.originalTask = "Right Foot 6D";
+    a.relaxedTask = "Right Foot Slide";
+    a.fixFirstPose = false;   // We start with a step of the right foot
+    a.fixLastPose = false;
+    adja.push_back(a);
+
+    a.taskName = "Left Foot 6D";
+    a.adjacencyList = {-1, -1, 1, -1, 3, -1, 5, -1};
+    a.originalTask = "Left Foot 6D";
+    a.relaxedTask = "Left Foot Slide";
+    a.fixFirstPose = true;
+    a.fixLastPose = true;
+    adja.push_back(a);
+
+    seq = poseGraph.create(&controller, adja, postures, Vec3d_zeroVec());
+  }
+
+  else if (example=="ex5")
+  {
+    int nSteps = 8;
+    argP.getArgument("-nSteps", &nSteps, "Number of steps (default is %d)", nSteps);
+    RLOG(0, "Creating step sequence example with %d steps", nSteps);
+    ControllerBase controller("cExample5.xml");
+    PoseGraph::Adjacency a;
+    const bool evenNoSteps = (nSteps%2==0) ? true : false;
+
+    // For 8 steps, it must be: a.adjacencyList = {-1, 0, -1, 2, -1, 4, -1, 6};
+    a.taskName = "Right Foot 6D";
+    for (int i=0; i<nSteps; ++i)
+    {
+      int prevStep = (i%2==0) ? -1 : i-1;
+      RLOG(1, "Step %d: connection is %d", i, prevStep);
+      a.adjacencyList.push_back(prevStep);
+    }
+    a.originalTask = "Right Foot 6D";
+    a.relaxedTask = "Right Foot Slide";
+    a.fixFirstPose = false;   // We start with a step of the right foot
+    a.fixLastPose = evenNoSteps ? false : true;
+    adja.push_back(a);
+
+
+    //For 8 steps, it must be: a.adjacencyList = {-1, -1, 1, -1, 3, -1, 5, -1};
+    a.adjacencyList.clear();
+    a.taskName = "Left Foot 6D";
+    for (int i=0; i<nSteps; ++i)
+    {
+      int prevStep = (i%2==0) ? i-1 : -1;
+      a.adjacencyList.push_back(prevStep);
+      RLOG(1, "Step %d: connection is %d", i, prevStep);
+    }
+    a.originalTask = "Left Foot 6D";
+    a.relaxedTask = "Left Foot Slide";
+    a.fixFirstPose = true;
+    a.fixLastPose = evenNoSteps ? true : false;
+    adja.push_back(a);
+
+    seq = poseGraph.create(&controller, adja, postures, Vec3d_zeroVec());
+  }
+
+#if defined (_MSC_VER)
+  RLOG(0, "Run:\n\nbin\\Release\\Rcs -m 5 -f cPoseGraph.xml -algo 1 "
+       "-setDefaultStateFromInit -lambda 1.0e-12\n\n");
+#else
   RLOG(0, "Run:\n\nbin/Rcs -m 5 -f cPoseGraph.xml -algo 1 "
        "-setDefaultStateFromInit -lambda 1.0e-12\n\n");
+#endif
 
   MatNd_destroy(postures);
   delete seq;

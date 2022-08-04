@@ -1,0 +1,7 @@
+<Graph xmlns:xi="http://www.w3.org/2003/XInclude" >
+
+<xi:include href="robot-body.xml" />
+<xi:include href="robot-leftLeg.xml" />
+<xi:include href="robot-rightLeg.xml" />
+
+</Graph>

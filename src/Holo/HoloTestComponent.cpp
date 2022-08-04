@@ -135,7 +135,7 @@ void HoloTestComponent::onForwardKinematics(const MatNd* q_des)
 
     for (size_t i = 0; i < traj.getInternalDim(); ++i)
     {
-      ViaPointTrajectory1D *viaTraj = dynamic_cast<ViaPointTrajectory1D *>(traj[i]);
+      ViaPointTrajectory1D* viaTraj = dynamic_cast<ViaPointTrajectory1D*>(traj[i]);
       viaTraj->getViaSequence()->setTurboMode(false);
     }
 
@@ -244,33 +244,33 @@ void HoloTestComponent::callback()
   sdh_L.parent = "sdh-base_L";
   sdh_L.name = "LeftHandPoseable";
   sdh_L.setPose("SDH", controller.getGraph()->q, RcsGraph_getJointByName(controller.getGraph(),
-                                                                         "knuck3-base_L")->jointIndex, 8);
+                "knuck3-base_L")->jointIndex, 8);
   update(sdh_L, GraphType::Desired);
 
   PosedModel sdh_R;
   sdh_R.parent = "sdh-base_R";
   sdh_R.name = "RightHandPoseable";
   sdh_R.setPose("SDH", controller.getGraph()->q, RcsGraph_getJointByName(controller.getGraph(),
-                                                                         "knuck3-base_R")->jointIndex, 8);
+                "knuck3-base_R")->jointIndex, 8);
   update(sdh_R, GraphType::Desired);
 
   PosedModel lbr_L;
   lbr_L.parent = "lbr_link_0_L";
   lbr_L.name = "LBR_LEFT";
   lbr_L.setPose("KukaLBR", controller.getGraph()->q, RcsGraph_getJointByName(controller.getGraph(),
-                                                                             "lbr_joint_1_L")->jointIndex, 7);
+                "lbr_joint_1_L")->jointIndex, 7);
   update(lbr_L, GraphType::Desired);
 
   PosedModel lbr_R;
   lbr_L.parent = "lbr_link_0_R";
   lbr_L.name = "LBR_RIGHT";
   lbr_L.setPose("KukaLBR", controller.getGraph()->q, RcsGraph_getJointByName(controller.getGraph(),
-                                                                             "lbr_joint_1_R")->jointIndex, 7);
+                "lbr_joint_1_R")->jointIndex, 7);
   update(lbr_L, GraphType::Desired);
-//  update(robot, GraphType::Desired);
-//  robot.setPose("HondaRobot", "RightArm", controller.getGraph()->q, RcsGraph_getJointByName(controller.getGraph(),
+  //  update(robot, GraphType::Desired);
+  //  robot.setPose("HondaRobot", "RightArm", controller.getGraph()->q, RcsGraph_getJointByName(controller.getGraph(),
   //"lbr_joint_1_R")->jointIndex, 7);
-//  update(robot, GraphType::Desired);
+  //  update(robot, GraphType::Desired);
 
   {
     static int count = 0;

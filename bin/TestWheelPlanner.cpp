@@ -502,11 +502,12 @@ static void testWheelWithoutECS()
   MatNd_copy(x_curr, x_des);
   double dt_step = dt;
 
-  tc->readActivationsFromXML();
+  bool success = controller->readActivationsFromXML(a_des);
+  RCHECK(success);
 
-  for (unsigned int i=0; i<tc->getActivationPtr()->m; ++i)
+  for (unsigned int i=0; i<a_des->m; ++i)
   {
-    tc->setActivation(i, (tc->getActivationPtr()->ele[i]>0.0) ? true : false);
+    tc->setActivation(i, (a_des->ele[i]>0.0) ? true : false);
   }
 
 
@@ -608,8 +609,7 @@ static void testWheelWithoutECS()
     // We launch it in "show only" mode, so that there are no modifications
     // to the activations. Our interface is not very well designed, so that
     // we have to do some casting here.
-    ControllerWidgetBase::create(controller, (MatNd*)tc->getActivationPtr(),
-                                 x_des, x_curr, &mtx, true);
+    ControllerWidgetBase::create(controller, a_des, x_des, x_curr, &mtx, true);
   }
 
   if (withJointGui)
@@ -648,6 +648,7 @@ static void testWheelWithoutECS()
     double t_end = tc->step(dt_step);
     dt_traj = Timer_getSystemTime() - dt_traj;
     tc->getPosition(0.0, x_des);
+    tc->getActivation(a_des);
 
     /////////////////////////////////////////////////////////////////
     // Inverse kinematics
@@ -669,7 +670,7 @@ static void testWheelWithoutECS()
         dragger->addJointTorque(dH, controller->getGraph());
       }
 
-      ikSolver.solveRightInverse(dq_des, dx_des, dH, tc->getActivationPtr(), 0.0);
+      ikSolver.solveRightInverse(dq_des, dx_des, dH, a_des, 0.0);
 
       double scale = RcsGraph_limitJointSpeeds(controller->getGraph(), dq_des,
                                                dt, RcsStateFull);

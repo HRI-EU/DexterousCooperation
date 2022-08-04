@@ -44,7 +44,7 @@ class NamedBodyForceDragger: public Rcs::ForceDragger
 {
 public:
 
-NamedBodyForceDragger(PhysicsBase* sim) : ForceDragger(sim)
+  NamedBodyForceDragger(PhysicsBase* sim) : ForceDragger(sim)
   {
   }
 
