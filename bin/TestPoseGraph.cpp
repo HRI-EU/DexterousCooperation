@@ -454,7 +454,7 @@ static void testGenericPoseGraphCreation()
     seq = poseGraph.create(&controller, adja, postures, offset);
   }
 
-  else if (example=="ex5xxx")
+  else if (example=="ex5ccc")
   {
     RLOG(0, "Creating step sequence example");
     ControllerBase controller("cExample5.xml");
@@ -479,7 +479,7 @@ static void testGenericPoseGraphCreation()
     seq = poseGraph.create(&controller, adja, postures, Vec3d_zeroVec());
   }
 
-  else if (example=="ex5ccc")
+  else if (example=="ex5xxx")
   {
     RLOG(0, "Creating step sequence example");
     ControllerBase controller("cExample5.xml");
@@ -544,6 +544,24 @@ static void testGenericPoseGraphCreation()
     adja.push_back(a);
 
     seq = poseGraph.create(&controller, adja, postures, Vec3d_zeroVec());
+    RcsGraph_setState(seq->getGraph(), NULL, NULL);
+
+    // Here we set the task vector a bit different and write it out. To see
+    // the model converge, start the Rcs mode 5 with the command line
+    // option -xDesFile x_des.dat
+#if 1
+    MatNd* x = MatNd_create(seq->getTaskDim(), 1);
+    seq->computeX(x);
+    int idx = seq->getTaskArrayIndex(seq->getNumberOfTasks()-1);
+    MatNd_set(x, idx, 0, 5.0);
+    MatNd_set(x, idx+5, 0, M_PI);
+
+    idx = seq->getTaskArrayIndex(1);
+    MatNd_set(x, idx+1, 0, 2.0);
+    MatNd_set(x, idx+5, 0, -M_PI);
+    MatNd_toFile(x, "x_des.dat");
+    MatNd_destroy(x);
+#endif
   }
 
 #if defined (_MSC_VER)
@@ -555,6 +573,7 @@ static void testGenericPoseGraphCreation()
 #endif
 
   MatNd_destroy(postures);
+
   delete seq;
 }
 

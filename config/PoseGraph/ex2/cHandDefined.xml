@@ -128,30 +128,30 @@ usage="
 
 <!-- Traverse fixed - hand fixed -->
 <Task name="Traverse_1" controlVariable= "Joints" jnts="DofTraverse_X_1 DofTraverse_Y_1 DofTraverse_ThZ_1" active="true" hide="ntrue" />
-<Task name="Hand_1 Pose" controlVariable= "XYZABC" effector="PowerGrasp_R_1" refBdy="Traverse_1" active="true" hide="true" />
-<Task name="RoboConstraint_1" controlVariable= "XYZABC" effector="m10_1" refBdy="PowerGrasp_R_1" active="true" hide="true" />
+<Task name="Hand_1 Pose" controlVariable= "XYZABC" effector="PowerGrasp_R_1" refBdy="Traverse_1" active="true" hide="false" />
+<Task name="RoboConstraint_1" controlVariable= "XYZABC" effector="m10_1" refBdy="PowerGrasp_R_1" active="true" hide="false" />
 
 
 <!-- Traverse fixed - hand slides -->
-<Task name="Traverse_2" controlVariable= "Joints" jnts="DofTraverse_X_2 DofTraverse_Y_2 DofTraverse_ThZ_2" refJnts="DofTraverse_X_1 DofTraverse_Y_1 DofTraverse_ThZ_1" refGains="-1" active="true" hide="true" />
-<Task name="Hand_2 Y" controlVariable= "Y" effector="PowerGrasp_R_2" refBdy="Traverse_2" active="true" hide="true" />
-<Task name="Hand_2 Z" controlVariable= "Z" effector="PowerGrasp_R_2" refBdy="Traverse_2" active="true" hide="true" />
-<Task name="Hand_2 Polar" controlVariable= "POLAR" effector="PowerGrasp_R_2" refBdy="Traverse_2" active="true"  hide="true" />
-<Task name="RoboConstraint_2" controlVariable= "XYZABC" effector="m10_2" refBdy="PowerGrasp_R_2" active="true" hide="true" />
+<Task name="Traverse_2" controlVariable= "Joints" jnts="DofTraverse_X_2 DofTraverse_Y_2 DofTraverse_ThZ_2" refJnts="DofTraverse_X_1 DofTraverse_Y_1 DofTraverse_ThZ_1" refGains="-1" active="true" hide="false" />
+<Task name="Hand_2 Y" controlVariable= "Y" effector="PowerGrasp_R_2" refBdy="Traverse_2" active="true" hide="false" />
+<Task name="Hand_2 Z" controlVariable= "Z" effector="PowerGrasp_R_2" refBdy="Traverse_2" active="true" hide="false" />
+<Task name="Hand_2 Polar" controlVariable= "POLAR" effector="PowerGrasp_R_2" refBdy="Traverse_2" active="true"  hide="false" />
+<Task name="RoboConstraint_2" controlVariable= "XYZABC" effector="m10_2" refBdy="PowerGrasp_R_2" active="true" hide="false" />
 
 
 <!-- Hand fixed - traverse slides -->
-<Task name="Hand_3 XYZ" controlVariable= "Joints" xxeffector="PowerGrasp_R_3" xxrefBdy="PowerGrasp_R_2" jnts="plx_3 ply_3 plz_3 pla_3 plb_3 plc_3" refJnts="plx_2 ply_2 plz_2 pla_2 plb_2 plc_2" refGains="-1" active="true" hide="true"/>
-<Task name="Hand_3 Polar" controlVariable= "POLAR" effector="PowerGrasp_R_3" refBdy="Traverse_3" active="true" hide="true" />
-<Task name="RoboConstraint_3" controlVariable= "XYZABC" effector="m10_3" refBdy="PowerGrasp_R_3" active="true" hide="true" />
+<Task name="Hand_3 XYZ" controlVariable= "Joints" xxeffector="PowerGrasp_R_3" xxrefBdy="PowerGrasp_R_2" jnts="plx_3 ply_3 plz_3 pla_3 plb_3 plc_3" refJnts="plx_2 ply_2 plz_2 pla_2 plb_2 plc_2" refGains="-1" active="true" hide="false"/>
+<Task name="Hand_3 Polar" controlVariable= "POLAR" effector="PowerGrasp_R_3" refBdy="Traverse_3" active="true" hide="false" />
+<Task name="RoboConstraint_3" controlVariable= "XYZABC" effector="m10_3" refBdy="PowerGrasp_R_3" active="true" hide="false" />
 
 
 <!-- Traverse fixed - hand slides -->
-<Task name="Traverse_4" controlVariable= "Joints" jnts="DofTraverse_X_4 DofTraverse_Y_4 DofTraverse_ThZ_4" refJnts="DofTraverse_X_3 DofTraverse_Y_3 DofTraverse_ThZ_3" refGains="-1" active="true" hide="true" />
-<Task name="Hand_4 Y" controlVariable= "Y" effector="PowerGrasp_R_4" refBdy="Traverse_4" active="true" hide="true" />
-<Task name="Hand_4 Z" controlVariable= "Z" effector="PowerGrasp_R_4" refBdy="Traverse_4" active="true" hide="true" />
-<Task name="Hand_4 Polar" controlVariable= "POLAR" effector="PowerGrasp_R_4" refBdy="Traverse_4" active="true"  hide="true"/>
-<Task name="RoboConstraint_4" controlVariable= "XYZABC" effector="m10_4" refBdy="PowerGrasp_R_4" active="true" hide="true" />
+<Task name="Traverse_4" controlVariable= "Joints" jnts="DofTraverse_X_4 DofTraverse_Y_4 DofTraverse_ThZ_4" refJnts="DofTraverse_X_3 DofTraverse_Y_3 DofTraverse_ThZ_3" refGains="-1" active="true" hide="false" />
+<Task name="Hand_4 Y" controlVariable= "Y" effector="PowerGrasp_R_4" refBdy="Traverse_4" active="true" hide="false" />
+<Task name="Hand_4 Z" controlVariable= "Z" effector="PowerGrasp_R_4" refBdy="Traverse_4" active="true" hide="false" />
+<Task name="Hand_4 Polar" controlVariable= "POLAR" effector="PowerGrasp_R_4" refBdy="Traverse_4" active="true"  hide="false"/>
+<Task name="RoboConstraint_4" controlVariable= "XYZABC" effector="m10_4" refBdy="PowerGrasp_R_4" active="true" hide="false" />
 
 
 <!-- Hand fixed - traverse slides -->
@@ -159,9 +159,9 @@ usage="
 <xxTask name="Traverse_5 X" controlVariable= "X" effector="PowerGrasp_R_5" refBdy="Traverse_5" active="true" guiMin="-3" guiMax="3" />
 <Task name="Traverse_5 Y" controlVariable= "Y" effector="Traverse_5" active="true" />
 <Task name="Traverse_5 ThZ" controlVariable= "Joint" jnt="DofTraverse_ThZ_5" xxrefJnt="DofTraverse_ThZ_4" refGain="-1" active="true" guiMin="-400" guiMax="400" />
-<Task name="Hand_5 XYZ" controlVariable= "Joints" xxeffector="PowerGrasp_R_5" xxrefBdy="PowerGrasp_R_4"  jnts="plx_5 ply_5 plz_5 pla_5 plb_5 plc_5" refJnts="plx_4 ply_4 plz_4 pla_4 plb_4 plc_4" refGains="-1" active="true" hide="true"/>
-<Task name="Hand_5 Polar" controlVariable= "POLAR" effector="PowerGrasp_R_5" refBdy="Traverse_5" active="true" hide="true" />
-<Task name="RoboConstraint_5" controlVariable= "XYZABC" effector="m10_5" refBdy="PowerGrasp_R_5" active="true" hide="true" />
+<Task name="Hand_5 XYZ" controlVariable= "Joints" xxeffector="PowerGrasp_R_5" xxrefBdy="PowerGrasp_R_4"  jnts="plx_5 ply_5 plz_5 pla_5 plb_5 plc_5" refJnts="plx_4 ply_4 plz_4 pla_4 plb_4 plc_4" refGains="-1" active="true" hide="false"/>
+<Task name="Hand_5 Polar" controlVariable= "POLAR" effector="PowerGrasp_R_5" refBdy="Traverse_5" active="true" hide="false" />
+<Task name="RoboConstraint_5" controlVariable= "XYZABC" effector="m10_5" refBdy="PowerGrasp_R_5" active="true" hide="false" />
 
 
 </Controller>

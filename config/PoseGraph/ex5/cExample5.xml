@@ -8,14 +8,14 @@
   <Task name="Left Foot 6D" controlVariable="XYZABC" effector="FootL" active="true"
 	guiMin="-20 -10 -10 -360 -360 -360" guiMax="20 10 10 360 360 360" />
 
-  <Task name="Right Foot Slide" controlVariable="Composite" >
-    <Task controlVariable= "Z" effector="FootR" />
-    <Task controlVariable= "POLAR" effector="FootR" />
+  <Task name="Right Foot Slide" effector="FootR" controlVariable="Composite" >
+    <Task controlVariable="Z" effector="FootR" />
+    <Task controlVariable="POLAR" effector="FootR" />
   </Task>
 
   <Task name="Left Foot Slide" controlVariable="Composite" >
-    <Task controlVariable= "Z" effector="FootL" />
-    <Task controlVariable= "POLAR" effector="FootL" />
+    <Task controlVariable="Z" effector="FootL" />
+    <Task controlVariable="POLAR" effector="FootL" />
   </Task>
 
 </Controller>

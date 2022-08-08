@@ -136,6 +136,7 @@ ControllerBase* PoseGraph::create(const ControllerBase* src,
   {
     RcsGraph_writeXmlFile(controller->getGraph(), "PoseGraph.xml");
   }
+
   controller->toXML("cPoseGraph.xml", activations);
 
   // Clean up
@@ -169,10 +170,10 @@ ControllerBase* PoseGraph::createGraph(const ControllerBase* src,
 
     if (i>0)
     {
-      char a[64];
-      snprintf(a, 64, "_%zu", i);
+      char suffix[64];
+      snprintf(suffix, 64, "_%zu", i);
       Vec3d_constMul(A_offset.org, offset, (double) i);
-      controller->add(&ci, a, &A_offset);
+      controller->add(&ci, suffix, &A_offset);
     }
 
   }
@@ -281,7 +282,7 @@ void PoseGraph::linkBodyJoints(ControllerBase* controller,
     {
       jParent.push_back(JNT);
     }
-    RLOG_CPP(0, "Parent-body " << parentName << ": Connecting " << jBdy.size()
+    RLOG_CPP(1, "Parent-body " << parentName << ": Connecting " << jBdy.size()
              << " joints from body " << bdyName);
     RCHECK(jBdy.size() == jParent.size());
 
@@ -302,8 +303,8 @@ void PoseGraph::linkBodyJoints(ControllerBase* controller,
                                                        activation);
     for (size_t  i=0; i<toDelete.size(); ++i)
     {
-      RLOG(0, "Erasing task \"%s\"", controller->getTaskName(toDelete[i]).c_str());
-      RLOG(0, "Posture %zu, bdyName \"%s\"", bdyId, bdyName.c_str());
+      RLOG(1, "Erasing task \"%s\"", controller->getTaskName(toDelete[i]).c_str());
+      RLOG(1, "Posture %zu, bdyName \"%s\"", bdyId, bdyName.c_str());
       MatNd_set(activation, toDelete[i], 0, 0.0);
     }
 

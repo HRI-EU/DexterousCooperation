@@ -87,7 +87,7 @@ usage="
 <Task name="HandPose6d" controlVariable= "XYZABC" effector="PowerGrasp_R_1" refBdy="Traverse_1" active="true" />
 <Task name="RoboConstraint" controlVariable= "XYZABC" effector="m10_1" refBdy="PowerGrasp_R_1" active="true" />
 
-<Task name="HandPose4d" controlVariable="Composite" active="false" >
+<Task name="HandPose4d" controlVariable="Composite" active="false" effector="PowerGrasp_R_1" >
   <Task controlVariable= "YZ" effector="PowerGrasp_R_1" refBdy="Traverse_1" />
   <Task controlVariable= "POLAR" effector="PowerGrasp_R_1" refBdy="Traverse_1" />
 </Task>

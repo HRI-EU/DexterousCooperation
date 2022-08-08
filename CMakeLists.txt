@@ -65,6 +65,34 @@ ELSE()
 ENDIF()
 
 ################################################################################
+# Compile settings
+################################################################################
+IF(UNIX)
+  # SET(CMAKE_C_FLAGS   "${CMAKE_C_FLAGS} -Wall -pedantic -fPIC -Wno-long-long -Wno-variadic-macros -std=c99")
+  # SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -pedantic -fPIC -Wno-format -Wno-long-long -Wno-variadic-macros")
+  # ADD_DEFINITIONS(-D__linux__)
+
+  # Flag -rdynamic needed for backtrace()
+  IF("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
+    SET(CMAKE_C_FLAGS   "${CMAKE_C_FLAGS} -rdynamic")
+    SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -rdynamic")
+  ENDIF()
+  
+  IF(${CMAKE_BUILD_TYPE} STREQUAL "Debug")
+    # setting march to core2 to enable valgrind debugging (also good for Xeon)
+    # Low level optimization for debug mode, flag for checking stack corruption, flag for debug output
+    SET(CMAKE_C_FLAGS   "${CMAKE_C_FLAGS} -march=core2 -O0 -fstack-protector-all -ggdb")
+    SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -march=core2 -O0 -fstack-protector-all -ggdb")
+  ELSE()
+    # setting march to native for optimal performance on local machine
+    # Strong optimization for release mode
+    SET(CMAKE_C_FLAGS   "${CMAKE_C_FLAGS} -march=native -ggdb")
+    SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -march=native -ggdb")
+  ENDIF()
+  
+ENDIF()
+
+################################################################################
 #
 # Add the automatically determined parts of the RPATH which point to directories
 # outside the build tree to the install RPATH. Required for Vortex and other
