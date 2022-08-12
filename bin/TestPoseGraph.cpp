@@ -73,6 +73,42 @@ void quit(int)
 /*******************************************************************************
  *
  ******************************************************************************/
+bool convergeTaskConstraints(Rcs::ControllerBase* controller,
+                             const MatNd* activation,
+                             const MatNd* x_des)
+{
+  const double convergenceEps = RCS_DEG2RAD(0.1);   // make larger if it takes too long
+  const double alpha = 0.1;               // Null space gain - reduce if jitter
+  const double lambda = 1.0e-8;           // Make IK a bit singularity-robust
+  double maxDq = 0.0, maxDx = 0.0;
+  int iter = 0;
+  IkSolverRMR solver(controller);
+
+  MatNd* dq_des = MatNd_create(controller->getGraph()->dof, 1);
+  MatNd* dx_des = MatNd_create(controller->getTaskDim(), 1);
+  MatNd* dH = MatNd_create(1, controller->getGraph()->nJ);
+
+  // Inverse kinematics until convergence
+  do
+  {
+    controller->computeDX(dx_des, x_des, activation);
+    maxDx = MatNd_maxAbsEle(dx_des);
+    controller->computeJointlimitGradient(dH);   // Add other null space components if desired
+    MatNd_constMulSelf(dH, alpha);
+    solver.solveRightInverse(dq_des, dx_des, dH, activation, lambda);
+    maxDq = MatNd_maxAbsEle(dq_des);
+    MatNd_addSelf(controller->getGraph()->q, dq_des);
+    RcsGraph_setState(controller->getGraph(), NULL, NULL);
+    RLOG(0, "Iteration %d: maxDx = %f   maxDq = %f", iter++, maxDx, maxDq);
+  }
+  while (maxDq>convergenceEps);
+
+  return true;
+}
+
+/*******************************************************************************
+ *
+ ******************************************************************************/
 static void testPoseGraphCreation()
 {
   CmdLineParser argP;
@@ -560,6 +596,13 @@ static void testGenericPoseGraphCreation()
     MatNd_set(x, idx+1, 0, 2.0);
     MatNd_set(x, idx+5, 0, -M_PI);
     MatNd_toFile(x, "x_des.dat");
+
+    RPAUSE_MSG("Hit enter to converge task constaints");
+    MatNd* a_des = MatNd_create(seq->getNumberOfTasks(), 1);
+    MatNd_setElementsTo(a_des, 1.0);
+    convergeTaskConstraints(seq, a_des, x);
+    seq->toXML("cPoseGraph.xml", a_des);
+    MatNd_destroy(a_des);
     MatNd_destroy(x);
 #endif
   }
