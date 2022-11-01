@@ -727,7 +727,8 @@ static void testWheelWithoutECS()
     {
       RcsCollisionModel_fprintCollisions(stdout, controller->getCollisionMdl(),
                                          1000.0);
-      RcsGraph_fprintModelState(stdout, controller->getGraph(), controller->getGraph()->q);
+      RcsGraph_fprintModelState(stdout, controller->getGraph(),
+                                controller->getGraph()->q, NULL, 0);
     }
     else if (kc && kc->getAndResetKey('e'))
     {
@@ -759,7 +760,7 @@ static void testWheelWithoutECS()
       REXEC(4)
       {
         RcsGraph_fprintModelState(stdout, controller->getGraph(),
-                                  controller->getGraph()->q);
+                                  controller->getGraph()->q, NULL, 0);
       }
     }
     else if (kc && kc->getAndResetKey('o'))

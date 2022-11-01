@@ -125,7 +125,7 @@ bool GraphComponent::getEnableRender() const
 
 void GraphComponent::onPrint() const
 {
-  RcsGraph_fprintModelState(stdout, this->graph, this->graph->q);
+  RcsGraph_fprintModelState(stdout, this->graph, this->graph->q, NULL, 0);
 }
 
 }   // namespace Rcs

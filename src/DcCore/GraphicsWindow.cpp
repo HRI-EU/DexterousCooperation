@@ -784,7 +784,7 @@ void GraphicsWindow::onRenderCommand(std::string graphId, std::string command)
   else if (command=="model_state")
   {
     RcsGraph_fprintModelState(stdout, gn->getGraphPtr(),
-                              gn->getGraphPtr()->q);
+                              gn->getGraphPtr()->q, NULL, 0);
   }
 
 }

@@ -233,8 +233,8 @@ void PolyGraspDetector::setPolygon(const MatNd* polygon,
 
 void PolyGraspDetector::getContacts(MatNd* contacts, MatNd* normals) const
 {
-  MatNd_resizeCopy(&contacts, this->prunedPoly);
-  MatNd_resizeCopy(&normals, this->prunedNormals);
+  MatNd_resizeCopy(contacts, this->prunedPoly);
+  MatNd_resizeCopy(normals, this->prunedNormals);
 }
 
 void PolyGraspDetector::resamplePolygon(MatNd* polyOut,

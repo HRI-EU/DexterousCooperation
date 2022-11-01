@@ -295,7 +295,7 @@ void IKComponent::print() const
     RcsCollisionModel_fprintCollisions(stdout, controller.getCollisionMdl(), 1000.0);
   }
 
-  RcsGraph_fprintModelState(stdout, controller.getGraph(), controller.getGraph()->q);
+  RcsGraph_fprintModelState(stdout, controller.getGraph(), controller.getGraph()->q, NULL, 0);
 }
 
 void IKComponent::onSetBlending(double value)
