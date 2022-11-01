@@ -53,17 +53,29 @@ usage="
     <xi:include href="gHandTraverse.xml" />
   </Group >
 
-  <Group name="_1" transform="1.5 -1.6 0.59285 0 0 0" prev="Lab Frame" >
+  <Group name="_1" transform="1.5 -1.6 0.65 -10 30 0" prev="Lab Frame" >
     <xi:include href="gRoboTraverse.xml" />
   </Group >
 
 
   
 
+<model_state model="DefaultPose" time_stamp="0">
+  <joint_state joint="pla_1" position="89.998897" />
+  <joint_state joint="plb_1" position="90.000159" />
+  <joint_state joint="plc_1" position="0.001103" />
+  <joint_state joint="base-m3_1" position="-86.154332" />
+  <joint_state joint="m3-m4_1" position="-82.906304" />
+  <joint_state joint="m4-m5_1" position="42.674887" />
+  <joint_state joint="m5-m6_1" position="14.888922" />
+  <joint_state joint="m6-m7_1" position="109.551431" />
+  <joint_state joint="m7-m8_1" position="-13.581804" />
+  <joint_state joint="m8-m9_1" position="-51.785944" />
+</model_state>
 
 
 
-<model_state model="DefaultPose" time_stamp="">
+<model_state model="oldDefaultPose" time_stamp="">
   <!-- <joint_state joint="base-m3_1" position="5" /> -->
   <!-- <joint_state joint="m3-m4_1" position="-91" /> -->
   <!-- <joint_state joint="m5-m6_1" position="2" /> -->
@@ -83,13 +95,14 @@ usage="
 
 
 
-<Task name="Traverse" controlVariable= "Joints" effector="Traverse_1" active="true" />
-<Task name="HandPose6d" controlVariable= "XYZABC" effector="PowerGrasp_R_1" refBdy="Traverse_1" active="true" />
-<Task name="RoboConstraint" controlVariable= "XYZABC" effector="m10_1" refBdy="PowerGrasp_R_1" active="true" />
+<Task name="Traverse" controlVariable="Joints" effector="Traverse_1" active="true" />
+<Task name="RoboConstraintXYZ" controlVariable="XYZ" effector="m10_1" refBdy="PowerGrasp_R_1" active="true" />
+<Task name="RoboConstraintABC" controlVariable="ABC" effector="m10_1" refBdy="PowerGrasp_R_1" active="true" />
 
-<Task name="HandPose4d" controlVariable="Composite" active="false" effector="PowerGrasp_R_1" >
-  <Task controlVariable= "YZ" effector="PowerGrasp_R_1" refBdy="Traverse_1" />
-  <Task controlVariable= "POLAR" effector="PowerGrasp_R_1" refBdy="Traverse_1" />
-</Task>
+<Task name="HandPos" controlVariable="XYZ" effector="PowerGrasp_R_1" refBdy="Traverse_1" active="true" />
+<Task name="HandOri" controlVariable="ABC" effector="PowerGrasp_R_1" refBdy="Traverse_1" active="true" />
+
+<Task name="HandPosYZ" controlVariable="YZ" effector="PowerGrasp_R_1" refBdy="Traverse_1" />
+<Task name="HandOriPolar" controlVariable="POLAR" effector="PowerGrasp_R_1" refBdy="Traverse_1" />
 
 </Controller>

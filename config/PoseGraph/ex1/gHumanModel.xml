@@ -21,36 +21,36 @@
   </Body>
 
   <Body name="Chest" prev="Hips" mass="8" inertia="0.00421499 0 0   0 0.000217504 -6.79837e-05   0 -6.79837e-05 0.00421383" >
-    <Joint name="Chest_jnt_Yrotation" range="-10 0 10" weightCA="0" weightMetric="0.5" type="RotY" transform="0 0.109141 -0.000713 0 0 0" torqueLimit="0" speedLimit="1000" />
-    <Joint name="Chest_jnt_Xrotation" range="-30 0 30" weightCA="0" weightMetric="0.5" type="RotX" torqueLimit="0" speedLimit="1000" />
-    <Joint name="Chest_jnt_Zrotation" range="-10 0 10" weightCA="0" weightMetric="0.5" type="RotZ" torqueLimit="0" speedLimit="1000" />
+    <Joint name="Chest_jnt_Yrotation" range="-10 0 10" weightCA="0" weightMetric="0.05" type="RotY" transform="0 0.109141 -0.000713 0 0 0" torqueLimit="0" speedLimit="1000" />
+    <Joint name="Chest_jnt_Xrotation" range="-30 0 30" weightCA="0" weightMetric="0.05" type="RotX" torqueLimit="0" speedLimit="1000" />
+    <Joint name="Chest_jnt_Zrotation" range="-10 0 10" weightCA="0" weightMetric="0.05" type="RotZ" torqueLimit="0" speedLimit="1000" />
     <!-- <Shape type="FRAME" scale="0.1" /> -->
     <Shape type="BOX" extents="0.012193 0.012193 0.060965" distance="false" physics="false" graphics="true" transform="0 0.038098 0.000648 -89.025844 0 -90" color="#2dcc7eff" />
     <Shape type="SPHERE" radius="0.009145" distance="false" physics="false" graphics="true" color="#2dcc7eff" />
   </Body>
 
   <Body name="Chest2" prev="Chest" mass="8" inertia="0.00343563 0 0   0 0.000176335 -8.77241e-20   0 -8.77241e-20 0.00343563" >
-    <Joint name="Chest2_jnt_Yrotation" range="-10 0 10" weightCA="0" weightMetric="0.5" type="RotY" transform="0 0.076196 0.001296 0 0 0" torqueLimit="0" speedLimit="0" />
-    <Joint name="Chest2_jnt_Xrotation" range="-30 0 30" weightCA="0" weightMetric="0.5" type="RotX" torqueLimit="0" speedLimit="0" />
-    <Joint name="Chest2_jnt_Zrotation" range="-10 0 10" weightCA="0" weightMetric="0.5" type="RotZ" torqueLimit="0" speedLimit="0" />
+    <Joint name="Chest2_jnt_Yrotation" range="-10 0 10" weightCA="0" weightMetric="0.05" type="RotY" transform="0 0.076196 0.001296 0 0 0" torqueLimit="0" speedLimit="0" />
+    <Joint name="Chest2_jnt_Xrotation" range="-30 0 30" weightCA="0" weightMetric="0.05" type="RotX" torqueLimit="0" speedLimit="0" />
+    <Joint name="Chest2_jnt_Zrotation" range="-10 0 10" weightCA="0" weightMetric="0.05" type="RotZ" torqueLimit="0" speedLimit="0" />
     <!-- <Shape type="FRAME" scale="0.1" /> -->
     <Shape type="BOX" extents="0.011008 0.011008 0.055042" distance="false" physics="false" graphics="true" transform="0 0.034401 0 -90 0 -90" color="#e8aa43ff" />
     <Shape type="SPHERE" radius="0.008256" distance="false" physics="false" graphics="true" color="#e8aa43ff" />
   </Body>
 
   <Body name="Chest3" prev="Chest2" mass="10" inertia="0.00429454 0 0   0 0.000220418 -1.09655e-19   0 -1.09655e-19 0.00429454" >
-    <Joint name="Chest3_jnt_Yrotation" range="-10 0 10" weightCA="0" weightMetric="0.5" type="RotY" transform="0 0.068802 0 0 0 0" torqueLimit="0" speedLimit="1000" />
-    <Joint name="Chest3_jnt_Xrotation" range="-30 0 30" weightCA="0" weightMetric="0.5" type="RotX" torqueLimit="0" speedLimit="1000" />
-    <Joint name="Chest3_jnt_Zrotation" range="-10 0 10" weightCA="0" weightMetric="0.5" type="RotZ" torqueLimit="0" speedLimit="1000" />
+    <Joint name="Chest3_jnt_Yrotation" range="-10 0 10" weightCA="0" weightMetric="0.05" type="RotY" transform="0 0.068802 0 0 0 0" torqueLimit="0" speedLimit="1000" />
+    <Joint name="Chest3_jnt_Xrotation" range="-30 0 30" weightCA="0" weightMetric="0.05" type="RotX" torqueLimit="0" speedLimit="1000" />
+    <Joint name="Chest3_jnt_Zrotation" range="-10 0 10" weightCA="0" weightMetric="0.05" type="RotZ" torqueLimit="0" speedLimit="1000" />
     <!-- <Shape type="FRAME" scale="0.1" /> -->
     <Shape type="BOX" extents="0.011008 0.011008 0.055042" distance="false" physics="false" graphics="true" transform="0 0.034401 0 -90 0 -90" color="#263646ff" />
     <Shape type="SPHERE" radius="0.008256" distance="false" physics="false" graphics="true" color="#263646ff" />
   </Body>
 
   <Body name="Chest4" prev="Chest3" mass="7" inertia="0.00519552 0 -1.50463e-36   0 0.000613419 -1.22581e-19   -7.52316e-37 -1.22581e-19 0.00555499" >
-    <Joint name="Chest4_jnt_Yrotation" range="-10 0 10" weightCA="0" weightMetric="0.5" type="RotY" transform="0 0.068802 0 0 0 0" torqueLimit="0" speedLimit="1000" />
-    <Joint name="Chest4_jnt_Xrotation" range="-30 0 30" weightCA="0" weightMetric="0.5" type="RotX" torqueLimit="0" speedLimit="1000" />
-    <Joint name="Chest4_jnt_Zrotation" range="-10 0 10" weightCA="0" weightMetric="0.5" type="RotZ" torqueLimit="0" speedLimit="1000" />
+    <Joint name="Chest4_jnt_Yrotation" range="-10 0 10" weightCA="0" weightMetric="0.05" type="RotY" transform="0 0.068802 0 0 0 0" torqueLimit="0" speedLimit="1000" />
+    <Joint name="Chest4_jnt_Xrotation" range="-30 0 30" weightCA="0" weightMetric="0.05" type="RotX" torqueLimit="0" speedLimit="1000" />
+    <Joint name="Chest4_jnt_Zrotation" range="-10 0 10" weightCA="0" weightMetric="0.05" type="RotZ" torqueLimit="0" speedLimit="1000" />
     <!-- <Shape type="FRAME" scale="0.1" /> -->
     <Shape type="BOX" extents="0.015792 0.015792 0.078959" distance="false" physics="false" graphics="true" transform="0 0.04935 0 -90 0 -90" color="#7eac73ff" />
     <Shape type="SPHERE" radius="0.011844" distance="false" physics="false" graphics="true" color="#7eac73ff" />

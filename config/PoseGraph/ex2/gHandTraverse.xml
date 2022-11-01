@@ -119,12 +119,12 @@
   </Body>
   
   <Body name="PowerGrasp_R" prev="Traverse" >
-    <Joint name="plx" type="TransX" range="-3 0 3"  />
-    <Joint name="ply" type="TransY" range="-2 0 2"    />
-    <Joint name="plz" type="TransZ" range="-2 0.23 2"  />
-    <Joint name="pla" type="RotX"   range="-400 90 400" />
-    <Joint name="plb" type="RotY"   range="-400 90 400" />
-    <Joint name="plc" type="RotZ"   range="-400 0 400"  />
+    <Joint name="plx" type="TransX" weightJL="0" range="-3 0 3"  />
+    <Joint name="ply" type="TransY" weightJL="0" range="-2 0 2"    />
+    <Joint name="plz" type="TransZ" weightJL="0" range="-2 0.23 2"  />
+    <Joint name="pla" type="RotX" weightJL="0"   range="-400 90 400" />
+    <Joint name="plb" type="RotY" weightJL="0"   range="-400 90 400" />
+    <Joint name="plc" type="RotZ" weightJL="0"   range="-400 0 400"  />
     <xxJoint name="pla2" type="RotX"   range="-400 0 400" />
     <xxJoint name="plb2" type="RotY"   range="-400 0 400" />
     <xxJoint name="plc2" type="RotZ"   range="-400 0 400"  />

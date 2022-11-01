@@ -31,7 +31,7 @@
   </Body>
 
   <Body name="lbr_link_4" prev="lbr_link_3" mass="2.7" inertia="0.03 0 0 0 0.01 0 0 0 0.029" physics="dynamic" >
-    <Joint name="lbr_joint_4" range="-115 0 115" type="RotZ" transform="0 0 0.2155 90 0 0" torqueLimit="300" speedLimit="75" ctrlType="Torque" weightJL="2" />
+    <Joint name="lbr_joint_4" range="-115 0 115" type="RotZ" transform="0 0 0.2155 90 0 0" torqueLimit="300" speedLimit="75" ctrlType="Torque" />
     <Sensor type="JOINTTORQUE" name="lbr_joint_4_torque" transform="0 0 0 0 0 0" />
     <Shape type="SSL" radius="0.08" length="0.15" distance="true" physics="false" transform="0 0 0.04 -105 0 0" color="PEWTER" />
     <Shape type="MESH" meshFile="iiwa_description/meshes/iiwa14/visual/link_4.stl" color="ORANGE" />

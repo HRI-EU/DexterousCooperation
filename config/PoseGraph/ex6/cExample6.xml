@@ -1,0 +1,14 @@
+<Controller graph="gDualArmShldr.xml" >
+
+  <Task name="Hand Pose" controlVariable="XYZABC"
+        effector="PowerGrasp_L" refBdy="Cylinder" active="true" />
+  
+  <Task name="Hand Pose5" controlVariable="Composite" >
+    <Task name="c1" controlVariable="XY"
+          effector="PowerGrasp_L" refBdy="Cylinder" />
+    <Task name="c3" controlVariable="ABC"
+          effector="PowerGrasp_L" refBdy="Cylinder" />
+  </Task>
+
+  
+</Controller>

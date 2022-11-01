@@ -3,9 +3,9 @@
   <Body name="ImetronPlatform" mass="100" cogVector="0 0 0.1" >
     <Shape type="SSR" extents="0.85 1.25 0.28" graphics="false" physics="false" distance="true"  transform="0 0 0.14 0 0 0" color="DARKGRAY" />
     <Shape type="BOX" extents="0.85 1.25 0.2"  graphics="true"   physics="true"  distance="false" transform="0 0 0.1 0 0 0"  color="DARKGRAY" />
-    <Joint name="DofBaseX"   type="TransX" range="-4 0 4"     weightJL="0.0" weightMetric="0.5"   constraint="false" />
-    <Joint name="DofBaseY"   type="TransY" range="-1.5 0 1.5" weightJL="1"   weightMetric="0.01"  constraint="untrue" />
-    <Joint name="DofBaseThZ" type="RotZ"   range="-60 0 60"   weightJL="1"   weightMetric="0.001" constraint="untrue" />
+    <Joint name="DofBaseX"   type="TransX" range="-4 0 4"     weightJL="0" weightMetric="0.5"   constraint="true" />
+    <Joint name="DofBaseY"   type="TransY" range="-1.5 0 1.5" weightJL="0"   weightMetric="0.01"  constraint="true" />
+    <Joint name="DofBaseThZ" type="RotZ"   range="-60 0 60"   weightJL="0"   weightMetric="0.001" constraint="true" />
   </Body>
   
   <Body name="Base" prev="ImetronPlatform" mass="80" cogVector="0.13 0 0.9" transform="0 0 0.2 0 0 180" >

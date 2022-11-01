@@ -49,31 +49,106 @@ class PoseGraph
 {
 public:
 
+  struct TaskSpec
+  {
+    std::string taskName;
+    std::vector<double> x_des;
+    bool active;
+    bool beforRelaxation;
+    bool afterRelaxation;
+
+    TaskSpec() : active(false)
+    {
+    }
+  };
+
+
+
+  struct StepSpec
+  {
+    std::vector<TaskSpec> taskSpec;
+    std::vector<double> posture;
+  };
+
+
+
   struct Adjacency
   {
     std::string bdyName;   // without suffix
     std::string taskName;  // without suffix
     std::vector<int> adjacencyList;
-    std::string originalTask, relaxedTask;
+    std::vector<std::string> originalTasks;
+    std::vector<std::string> relaxedTasks;
     bool fixFirstPose;
     bool fixLastPose;
 
     Adjacency() : fixFirstPose(true), fixLastPose(true)
     {
-
     }
   };
 
-  ControllerBase* create(const ControllerBase* src,
-                         const std::vector<Adjacency>& adjacencies,
-                         const MatNd* postures,
-                         const double offset[3]);
+  struct Result
+  {
+    ControllerBase* controller;
+    MatNd* activation;
+    Result() : controller(NULL), activation(NULL)
+    { }
+  };
+
+  typedef enum
+  {
+    Coupled,
+    NaiiveFirstPose,
+    NaiiveSequence,
+    Duplicated
+
+  } SequenceAlgo;
+
+  Result create(const ControllerBase* src,
+                const std::vector<Adjacency>& adjacencies,
+                const std::vector<StepSpec>& stepSpecs,
+                const MatNd* postures,
+                const double offset[3],
+                SequenceAlgo algo=Coupled);
+
+  static MatNd* posturesFromModelState(const RcsGraph* graph,
+                                       const std::string& mdlStateName);
+
+  static bool convergeTaskConstraints(ControllerBase* controller,
+                                      const MatNd* activation,
+                                      const MatNd* x_des,
+                                      int maxIter=200,
+                                      double clipLimit=0.01);
 
 protected:
 
+  Result createNaiive(const ControllerBase* src,
+                      const std::vector<Adjacency>& adjacencies,
+                      const MatNd* postures,
+                      const double offset[3],
+                      bool avgSeq);
+
+  Result createNaiive_1(const ControllerBase* cSingle,
+                        const std::vector<Adjacency>& adjacencies,
+                        const MatNd* postures,
+                        const double offset[3],
+                        bool avgSeq,
+                        MatNd* x_relaxed);
+
+  void createNaiive_2(ControllerBase* cNaiive,
+                      const MatNd* aNaiive,
+                      const MatNd* x_des);
+
+  Result createCoupled(const ControllerBase* src,
+                       const std::vector<Adjacency>& adjacencies,
+                       const MatNd* postures,
+                       const double offset[3],
+                       bool duplicatedOnly=false);
+
   ControllerBase* createGraph(const ControllerBase* controller,
                               const MatNd* postures,
-                              const double offset[3]);
+                              const double offset[3],
+                              const MatNd* optionalInitState=NULL);
 
   void eraseInactiveTasks(ControllerBase* controller, MatNd* activation);
 
@@ -83,6 +158,13 @@ protected:
                  MatNd* activation);
   void relax(ControllerBase* controller, const Adjacency& connection,
              MatNd* activation);
+  void relaxAll(ControllerBase* controller, const Adjacency& connection,
+                MatNd* activation);
+  void computeAverageXdes(ControllerBase* controller,
+                          const Adjacency& connection,
+                          MatNd* activation,
+                          MatNd* x_des,
+                          bool avgSeq);
 
   std::vector<size_t> getTasksForEffector(const ControllerBase* controller,
                                           const std::string& effectorName,

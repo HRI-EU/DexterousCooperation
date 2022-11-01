@@ -8,9 +8,9 @@
   </Body>
 
   <Body name="RightHand" prev="Box" color="RED" >
-    <Joint name="rlx" range="-3  0    3" type="TransX" transform="-0.25 0 0 0 0 0" />
-    <Joint name="rly" range="-2 -0.3 2" type="TransY" />
-    <Joint name="rlz" range="-2 0 2" type="TransZ" />
+    <Joint name="rlx" range="-3  0    3" type="TransX" transform="-0.25 0 0 0 0 0" weightJL="0" />
+    <Joint name="rly" range="-2 -0.3 2" type="TransY" weightJL="0" />
+    <Joint name="rlz" range="-2 0 2" type="TransZ" weightJL="0" />
     <!-- <Joint name="rla" range="-400 0 400" type="RotX" /> -->
     <!-- <Joint name="rlb" range="-400 0 400" type="RotY" /> -->
     <!-- <Joint name="rlc" range="-400 0 400" type="RotZ" /> -->
@@ -18,9 +18,9 @@
   </Body>
 
   <Body name="LeftHand" prev="Box" color="GREEN" >
-    <Joint name="llx" range="-3  0    3" type="TransX" transform="-0.25 0 0 0 0 0" />
-    <Joint name="lly" range="-2  0.3 2" type="TransY" />
-    <Joint name="llz" range="-2 0 2" type="TransZ" />
+    <Joint name="llx" range="-3  0    3" type="TransX" transform="-0.25 0 0 0 0 0" weightJL="0" />
+    <Joint name="lly" range="-2  0.3 2" type="TransY" weightJL="0" />
+    <Joint name="llz" range="-2 0 2" type="TransZ" weightJL="0" />
     <!-- <Joint name="rla" range="-400 0 400" type="RotX" /> -->
     <!-- <Joint name="rlb" range="-400 0 400" type="RotY" /> -->
     <!-- <Joint name="rlc" range="-400 0 400" type="RotZ" /> -->

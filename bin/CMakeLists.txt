@@ -57,7 +57,7 @@ ADD_EXECUTABLE(TestPoseGraph TestPoseGraph.cpp)
 TARGET_INCLUDE_DIRECTORIES(TestPoseGraph PRIVATE
   ${CMAKE_CURRENT_SOURCE_DIR}
   ${CMAKE_CURRENT_SOURCE_DIR}/../src/DcCommon)
-TARGET_LINK_LIBRARIES(TestPoseGraph DcPlanning DcEventGui)
+TARGET_LINK_LIBRARIES(TestPoseGraph DcPlanning DcEventGui RcsExamples DcExamples)
 TARGET_COMPILE_DEFINITIONS(TestPoseGraph PRIVATE -DRCS_CONFIG_DIR="${RCS_CONFIG_DIR}")
 
 ###############################################################################

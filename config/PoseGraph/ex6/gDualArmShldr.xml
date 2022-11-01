@@ -1,0 +1,193 @@
+<Graph xmlns:xi="http://www.w3.org/2003/XInclude"
+       resourcePath="${SIT}/Data/RobotMeshes/1.0/data"
+       name="JacoDefaultPose" >
+     
+  <Body name="Lab Frame" physics="kinematic" >
+    <Shape type="BOX" extents="6.0 6.0 0.04" transform="0 0 -0.02 0 0 0"
+           color="PEWTER" graphics="true" physics="true" distance="true"/>
+    <Shape type="FRAME" scale="1.0" />
+  </Body>
+
+    
+  <Group prev="Lab Frame" >
+    
+  <xi:include href="scitos_base_right.xml" />
+    
+  <Body name="Shldr_R" prev="base_footprint" rigid_body_joints="-0.2 0 1.1   60 30 -90" >
+    <Shape type="FRAME" scale="0.2" />
+    <Shape type="SPHERE" radius="0.05" distance="true" graphics="false" />
+  </Body>
+
+  <Group name="_R" prev="Shldr_R" >
+    <xi:include href="kinova_ulw2_sph_7dof.xml" />
+  </Group>
+
+
+  <Body name="Shldr_L" prev="base_footprint" rigid_body_joints="-0.2 0 1.1   -60 30 90" >
+    <Shape type="FRAME" scale="0.2" />
+    <Shape type="SPHERE" radius="0.05" distance="true" graphics="false" />
+  </Body>
+
+  <Group name="_L" prev="Shldr_L" >
+    <xi:include href="kinova_ulw2_sph_7dof.xml" />
+  </Group>
+
+  </Group >
+
+  <Body name="PowerGrasp_R" prev="j2s7s300_link_7_R" transform="0.02 0 -0.15 0 90 0" >
+    <Shape type="FRAME" scale="0.2" />
+    <Shape type="SPHERE" radius="0.05" distance="true" graphics="false" />
+  </Body>
+
+  <Body name="PowerGrasp_L" prev="j2s7s300_link_7_L" transform="-0.02 0 -0.15 0 -90 180" >
+    <Shape type="FRAME" scale="0.2" />
+    <Shape type="SPHERE" radius="0.05" distance="true" graphics="false" />
+  </Body>
+
+
+
+  
+  <Body name="TableLow" prev="Lab Frame" transform="0.5 0 0.3 0 0 0" >
+    <Shape type="BOX" extents="0.6 0.8 0.02" transform="0 0.4 -0.01 0 0 0" graphics="true" />
+  </Body>
+  
+  <Body name="TableHigh" prev="Lab Frame" transform="0.5 0 1.0 0 0 0" >
+    <Shape type="BOX" extents="0.6 0.8 0.02" transform="0 -0.4 -0.01 0 0 0" graphics="true" />
+  </Body>
+ 
+  <Body name="Cylinder" prev="Lab Frame" rigid_body_joints="0.4 0.5 0.3 0 0 0" color="RED" >
+    <Shape type="CYLINDER" length="1" radius="0.0325" graphics="true" transform="0 0 0.5 0 0 0"  distance="true"/>
+    <Shape type="FRAME" scale="0.15" />
+  </Body>
+  
+  
+
+
+  <model_state model="JacoDefaultPose" time_stamp="">
+    <joint_state joint="j2s7s300_joint_1_R" position="-70" />
+    <joint_state joint="j2s7s300_joint_2_R" position="290" />
+    <joint_state joint="j2s7s300_joint_3_R" position="-90" />
+    <joint_state joint="j2s7s300_joint_4_R" position="70" />
+    <joint_state joint="j2s7s300_joint_5_R" position="0" />
+    <joint_state joint="j2s7s300_joint_6_R" position="200" />
+    <joint_state joint="j2s7s300_joint_7_R" position="0" />
+    <joint_state joint="j2s7s300_joint_finger_1_R" position="10" />
+    <joint_state joint="j2s7s300_joint_finger_2_R" position="10" />
+    <joint_state joint="j2s7s300_joint_finger_3_R" position="10" />
+    <joint_state joint="j2s7s300_joint_1_L" position="70" />
+    <joint_state joint="j2s7s300_joint_2_L" position="70" />
+    <joint_state joint="j2s7s300_joint_3_L" position="90" />
+    <joint_state joint="j2s7s300_joint_4_L" position="290" />
+    <joint_state joint="j2s7s300_joint_5_L" position="0" />
+    <joint_state joint="j2s7s300_joint_6_L" position="160" />
+    <joint_state joint="j2s7s300_joint_7_L" position="0" />
+    <joint_state joint="j2s7s300_joint_finger_1_L" position="50" />
+    <joint_state joint="j2s7s300_joint_finger_2_L" position="50" />
+    <joint_state joint="j2s7s300_joint_finger_3_L" position="50" />
+  </model_state>
+  
+  <model_state model="Step" time_stamp="0">
+    <joint_state joint="j2s7s300_joint_1_R" position="-70" />
+    <joint_state joint="j2s7s300_joint_2_R" position="290" />
+    <joint_state joint="j2s7s300_joint_3_R" position="-90" />
+    <joint_state joint="j2s7s300_joint_4_R" position="70" />
+    <joint_state joint="j2s7s300_joint_5_R" position="0" />
+    <joint_state joint="j2s7s300_joint_6_R" position="200" />
+    <joint_state joint="j2s7s300_joint_7_R" position="200" />
+    <joint_state joint="j2s7s300_joint_finger_1_R" position="10" />
+    <joint_state joint="j2s7s300_joint_finger_2_R" position="10" />
+    <joint_state joint="j2s7s300_joint_finger_3_R" position="10" />
+    <joint_state joint="j2s7s300_joint_1_L" position="84.68816" />
+    <joint_state joint="j2s7s300_joint_2_L" position="71.441429" />
+    <joint_state joint="j2s7s300_joint_3_L" position="126.67208" />
+    <joint_state joint="j2s7s300_joint_4_L" position="264.724521" />
+    <joint_state joint="j2s7s300_joint_5_L" position="14.480068" />
+    <joint_state joint="j2s7s300_joint_6_L" position="164.687594" />
+    <joint_state joint="j2s7s300_joint_7_L" position="4.208762" />
+    <joint_state joint="j2s7s300_joint_finger_1_L" position="10" />
+    <joint_state joint="j2s7s300_joint_finger_2_L" position="10" />
+    <joint_state joint="j2s7s300_joint_finger_3_L" position="10" />
+    <joint_state joint="Cylinder_rigidBodyJnt0" position="0.4" />
+    <joint_state joint="Cylinder_rigidBodyJnt1" position="0.5" />
+    <joint_state joint="Cylinder_rigidBodyJnt2" position="0.3" />
+  </model_state>
+  
+  <model_state model="Step" time_stamp="1">
+    <joint_state joint="j2s7s300_joint_1_R" position="-70" />
+    <joint_state joint="j2s7s300_joint_2_R" position="290" />
+    <joint_state joint="j2s7s300_joint_3_R" position="-90" />
+    <joint_state joint="j2s7s300_joint_4_R" position="70" />
+    <joint_state joint="j2s7s300_joint_5_R" position="0" />
+    <joint_state joint="j2s7s300_joint_6_R" position="200" />
+    <joint_state joint="j2s7s300_joint_7_R" position="0" />
+    <joint_state joint="j2s7s300_joint_finger_1_R" position="10" />
+    <joint_state joint="j2s7s300_joint_finger_2_R" position="10" />
+    <joint_state joint="j2s7s300_joint_finger_3_R" position="10" />
+    <joint_state joint="j2s7s300_joint_1_L" position="184.394648" />
+    <joint_state joint="j2s7s300_joint_2_L" position="91.729478" />
+    <joint_state joint="j2s7s300_joint_3_L" position="113.25269" />
+    <joint_state joint="j2s7s300_joint_4_L" position="275.90813" />
+    <joint_state joint="j2s7s300_joint_5_L" position="48.603619" />
+    <joint_state joint="j2s7s300_joint_6_L" position="265.100704" />
+    <joint_state joint="j2s7s300_joint_7_L" position="-0.84759" />
+    <joint_state joint="j2s7s300_joint_finger_1_L" position="10" />
+    <joint_state joint="j2s7s300_joint_finger_2_L" position="10" />
+    <joint_state joint="j2s7s300_joint_finger_3_L" position="10" />
+    <joint_state joint="Cylinder_rigidBodyJnt0" position="0.4" />
+    <joint_state joint="Cylinder_rigidBodyJnt1" position="-0.2" />
+    <joint_state joint="Cylinder_rigidBodyJnt2" position="1" />
+  </model_state>
+  
+  <model_state model="Step1" time_stamp="0">
+    <joint_state joint="j2s7s300_joint_1_R" position="-70" />
+    <joint_state joint="j2s7s300_joint_2_R" position="290" />
+    <joint_state joint="j2s7s300_joint_3_R" position="-90" />
+    <joint_state joint="j2s7s300_joint_4_R" position="70" />
+    <joint_state joint="j2s7s300_joint_5_R" position="0" />
+    <joint_state joint="j2s7s300_joint_6_R" position="200" />
+    <joint_state joint="j2s7s300_joint_7_R" position="200" />
+    <joint_state joint="j2s7s300_joint_finger_1_R" position="10" />
+    <joint_state joint="j2s7s300_joint_finger_2_R" position="10" />
+    <joint_state joint="j2s7s300_joint_finger_3_R" position="10" />
+    <joint_state joint="j2s7s300_joint_1_L" position="84.68816" />
+    <joint_state joint="j2s7s300_joint_2_L" position="71.441429" />
+    <joint_state joint="j2s7s300_joint_3_L" position="126.67208" />
+    <joint_state joint="j2s7s300_joint_4_L" position="264.724521" />
+    <joint_state joint="j2s7s300_joint_5_L" position="14.480068" />
+    <joint_state joint="j2s7s300_joint_6_L" position="164.687594" />
+    <joint_state joint="j2s7s300_joint_7_L" position="4.208762" />
+    <joint_state joint="j2s7s300_joint_finger_1_L" position="50" />
+    <joint_state joint="j2s7s300_joint_finger_2_L" position="50" />
+    <joint_state joint="j2s7s300_joint_finger_3_L" position="50" />
+    <joint_state joint="Cylinder_rigidBodyJnt0" position="0.4" />
+    <joint_state joint="Cylinder_rigidBodyJnt1" position="0.5" />
+    <joint_state joint="Cylinder_rigidBodyJnt2" position="0.3" />
+  </model_state>
+  
+  <model_state model="Step2" time_stamp="1">
+    <joint_state joint="j2s7s300_joint_1_R" position="-70" />
+    <joint_state joint="j2s7s300_joint_2_R" position="290" />
+    <joint_state joint="j2s7s300_joint_3_R" position="-90" />
+    <joint_state joint="j2s7s300_joint_4_R" position="70" />
+    <joint_state joint="j2s7s300_joint_5_R" position="0" />
+    <joint_state joint="j2s7s300_joint_6_R" position="200" />
+    <joint_state joint="j2s7s300_joint_7_R" position="0" />
+    <joint_state joint="j2s7s300_joint_finger_1_R" position="10" />
+    <joint_state joint="j2s7s300_joint_finger_2_R" position="10" />
+    <joint_state joint="j2s7s300_joint_finger_3_R" position="10" />
+    <joint_state joint="j2s7s300_joint_1_L" position="184.394648" />
+    <joint_state joint="j2s7s300_joint_2_L" position="91.729478" />
+    <joint_state joint="j2s7s300_joint_3_L" position="113.25269" />
+    <joint_state joint="j2s7s300_joint_4_L" position="275.90813" />
+    <joint_state joint="j2s7s300_joint_5_L" position="48.603619" />
+    <joint_state joint="j2s7s300_joint_6_L" position="265.100704" />
+    <joint_state joint="j2s7s300_joint_7_L" position="-0.84759" />
+    <joint_state joint="j2s7s300_joint_finger_1_L" position="50" />
+    <joint_state joint="j2s7s300_joint_finger_2_L" position="50" />
+    <joint_state joint="j2s7s300_joint_finger_3_L" position="50" />
+    <joint_state joint="Cylinder_rigidBodyJnt0" position="0.4" />
+    <joint_state joint="Cylinder_rigidBodyJnt1" position="-0.2" />
+    <joint_state joint="Cylinder_rigidBodyJnt2" position="1" />
+  </model_state>
+
+</Graph>

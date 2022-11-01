@@ -18,8 +18,8 @@
 
   <Body name="Box_v_trans" prev="Box Base" >
     <Joint name="DofX_v"   type="TransX" range="-10 0 10"       weightJL="0"  />
-    <Joint name="DofY_v"   type="TransY" range="-10 1.13 10"    weightJL="1"  weightMetric="0.1" />
-    <Joint name="DofZ_v"   type="TransZ" range="-10 -0.86 10"   weightJL="10" weightMetric="0.1" />
+    <Joint name="DofY_v"   type="TransY" range="-10 1.13 10"    was_weightJL="1"  weightJL="0" weightMetric="0.1" />
+    <Joint name="DofZ_v"   type="TransZ" range="-10 -0.86 10"   was_weightJL="10" weightJL="0" weightMetric="0.1" />
   </Body>
 
   <Body name="Box_v" prev="Box_v_trans" >
@@ -39,15 +39,15 @@
 
   
   <Body name="PowerGrasp_L" prev="Box_v" physics="kinematic" mass="1" transform="0 0 0 -90 0 -90" >
-    <Joint name="rlx" type="TransX" range="-3 -0.25 3"  />
-    <Joint name="rly" type="TransY" range="-2 -0.2 2"    />
-    <Joint name="rlz" type="TransZ" range="-2 0 2"  />
-    <Joint name="rla" type="RotX"   range="-400 90 400" />
-    <Joint name="rlb" type="RotY"   range="-400 90 400" />
-    <Joint name="rlc" type="RotZ"   range="-400 0 400"  />
-    <Joint name="rla2" type="RotX"   range="-400 0  400" />
-    <Joint name="rlb2" type="RotY"   range="-400 0  400" />
-    <Joint name="rlc2" type="RotZ"   range="-400 0  400"  />
+    <Joint name="rlx" type="TransX"  weightJL="0" range="-3 -0.25 3"  />
+    <Joint name="rly" type="TransY"  weightJL="0" range="-2 -0.2 2"    />
+    <Joint name="rlz" type="TransZ"  weightJL="0" range="-2 0 2"  />
+    <Joint name="rla" type="RotX"    weightJL="0" range="-400 90 400" />
+    <Joint name="rlb" type="RotY"    weightJL="0" range="-400 90 400" />
+    <Joint name="rlc" type="RotZ"    weightJL="0" range="-400 0 400"  />
+    <Joint name="rla2" type="RotX"   weightJL="0" range="-400 0  400" />
+    <Joint name="rlb2" type="RotY"   weightJL="0" range="-400 0  400" />
+    <Joint name="rlc2" type="RotZ"   weightJL="0" range="-400 0  400"  />
     <Shape type="BOX" extents="0.1 0.2 0.02" graphics="true" physics="true"
            transform="0 0.1 0.01 0 0 0" />
     <Shape type="BOX" extents="0.1 0.02 0.2" graphics="true" physics="true"
@@ -56,15 +56,15 @@
   </Body>
   
   <Body name="PowerGrasp_R" prev="Box_v" physics="kinematic" mass="1" transform="0 0 0 -90 0 -90" >
-    <Joint name="rrx" type="TransX" range="-3 0.25 3"  />
-    <Joint name="rry" type="TransY" range="-2 -0.2 2"   />
-    <Joint name="rrz" type="TransZ" range="-2 0 2"  />
-    <Joint name="rra" type="RotX"   range="-400 90 400" />
-    <Joint name="rrb" type="RotY"   range="-400 90 400" />
-    <Joint name="rrc" type="RotZ"   range="-400 0 400"  />
-    <Joint name="rra2" type="RotX"   range="-400 0 400" />
-    <Joint name="rrb2" type="RotY"   range="-400 0 400" />
-    <Joint name="rrc2" type="RotZ"   range="-400 0 400"  />
+    <Joint name="rrx" type="TransX"  weightJL="0" range="-3 0.25 3"  />
+    <Joint name="rry" type="TransY"  weightJL="0" range="-2 -0.2 2"   />
+    <Joint name="rrz" type="TransZ"  weightJL="0" range="-2 0 2"  />
+    <Joint name="rra" type="RotX"    weightJL="0" range="-400 90 400" />
+    <Joint name="rrb" type="RotY"    weightJL="0" range="-400 90 400" />
+    <Joint name="rrc" type="RotZ"    weightJL="0" range="-400 0 400"  />
+    <Joint name="rra2" type="RotX"   weightJL="0" range="-400 0 400" />
+    <Joint name="rrb2" type="RotY"   weightJL="0" range="-400 0 400" />
+    <Joint name="rrc2" type="RotZ"   weightJL="0" range="-400 0 400"  />
     <Shape type="BOX" extents="0.1 0.2 0.02" graphics="true" physics="true"
            transform="0 0.1 0.01 0 0 0" />
     <Shape type="BOX" extents="0.1 0.02 0.2" graphics="true" physics="true"
@@ -112,6 +112,250 @@
     <joint_state joint="pry" position="0.2079" />
     <joint_state joint="prz" position="0.95" />
   </model_state>
+
+<model_state model="Step" time_stamp="0">
+  <joint_state joint="DofBaseX" position="0.019695" />
+  <joint_state joint="DofBaseY" position="-0.005744" />
+  <joint_state joint="DofChestZ" position="0.803058" />
+  <joint_state joint="lbr_joint_1_L" position="15.013332" />
+  <joint_state joint="lbr_joint_2_L" position="51.311032" />
+  <joint_state joint="lbr_joint_3_L" position="35.130674" />
+  <joint_state joint="lbr_joint_4_L" position="75.200525" />
+  <joint_state joint="lbr_joint_5_L" position="-57.743675" />
+  <joint_state joint="lbr_joint_6_L" position="-6.529904" />
+  <joint_state joint="lbr_joint_7_L" position="-45.898067" />
+  <joint_state joint="lbr_joint_1_R" position="-12.486547" />
+  <joint_state joint="lbr_joint_2_R" position="-52.033523" />
+  <joint_state joint="lbr_joint_3_R" position="-34.787304" />
+  <joint_state joint="lbr_joint_4_R" position="-76.348822" />
+  <joint_state joint="lbr_joint_5_R" position="63.740089" />
+  <joint_state joint="lbr_joint_6_R" position="4.519144" />
+  <joint_state joint="lbr_joint_7_R" position="67.417901" />
+  <joint_state joint="rlx" position="-0.2079" />
+  <joint_state joint="rly" position="-0.18" />
+  <joint_state joint="rla2" position="-20" />
+  <joint_state joint="rrx" position="0.2079" />
+  <joint_state joint="rry" position="-0.18" />
+  <joint_state joint="rra2" position="20" />
+</model_state>
+
+<model_state model="Step" time_stamp="1">
+  <joint_state joint="DofBaseX" position="0.026023" />
+  <joint_state joint="DofBaseY" position="-0.065502" />
+  <joint_state joint="DofBaseThZ" position="0.11217" />
+  <joint_state joint="DofChestZ" position="0.883785" />
+  <joint_state joint="lbr_joint_1_L" position="45.273267" />
+  <joint_state joint="lbr_joint_2_L" position="37.23278" />
+  <joint_state joint="lbr_joint_3_L" position="2.784784" />
+  <joint_state joint="lbr_joint_4_L" position="103.481857" />
+  <joint_state joint="lbr_joint_5_L" position="-14.227534" />
+  <joint_state joint="lbr_joint_6_L" position="59.283032" />
+  <joint_state joint="lbr_joint_7_L" position="-25.133464" />
+  <joint_state joint="lbr_joint_1_R" position="-7.254611" />
+  <joint_state joint="lbr_joint_2_R" position="-49.306485" />
+  <joint_state joint="lbr_joint_3_R" position="-49.263578" />
+  <joint_state joint="lbr_joint_4_R" position="-63.743466" />
+  <joint_state joint="lbr_joint_5_R" position="58.731636" />
+  <joint_state joint="lbr_joint_6_R" position="17.923568" />
+  <joint_state joint="lbr_joint_7_R" position="75.248095" />
+  <joint_state joint="rlx" position="-0.315" />
+  <joint_state joint="rly" position="0.1188" />
+  <joint_state joint="rla" position="87.541459" />
+  <joint_state joint="rlb" position="44.177457" />
+  <joint_state joint="rlc" position="-1.309932" />
+  <joint_state joint="rla2" position="-22.705153" />
+  <joint_state joint="rlb2" position="-42.159266" />
+  <joint_state joint="rlc2" position="-14.70631" />
+  <joint_state joint="rrx" position="0.2079" />
+  <joint_state joint="rry" position="-0.18" />
+  <joint_state joint="rra2" position="20" />
+</model_state>
+
+<model_state model="Step" time_stamp="2">
+  <joint_state joint="DofBaseX" position="0.028032" />
+  <joint_state joint="DofBaseY" position="-0.006146" />
+  <joint_state joint="DofBaseThZ" position="-0.023603" />
+  <joint_state joint="DofChestZ" position="0.796097" />
+  <joint_state joint="lbr_joint_1_L" position="2.133148" />
+  <joint_state joint="lbr_joint_2_L" position="47.435773" />
+  <joint_state joint="lbr_joint_3_L" position="57.727215" />
+  <joint_state joint="lbr_joint_4_L" position="52.055164" />
+  <joint_state joint="lbr_joint_5_L" position="-51.892356" />
+  <joint_state joint="lbr_joint_6_L" position="-26.038575" />
+  <joint_state joint="lbr_joint_7_L" position="-54.759988" />
+  <joint_state joint="lbr_joint_1_R" position="-9.365281" />
+  <joint_state joint="lbr_joint_2_R" position="-5.055789" />
+  <joint_state joint="lbr_joint_3_R" position="-36.409296" />
+  <joint_state joint="lbr_joint_4_R" position="-97.703593" />
+  <joint_state joint="lbr_joint_5_R" position="11.097875" />
+  <joint_state joint="lbr_joint_6_R" position="-86.4538" />
+  <joint_state joint="lbr_joint_7_R" position="59.816008" />
+  <joint_state joint="DofThZ_v" position="90.00021" />
+  <joint_state joint="rlx" position="-0.315" />
+  <joint_state joint="rly" position="0.1188" />
+  <joint_state joint="rla" position="87.179158" />
+  <joint_state joint="rlb" position="43.950799" />
+  <joint_state joint="rlc" position="-1.602772" />
+  <joint_state joint="rla2" position="-21.91421" />
+  <joint_state joint="rlb2" position="-42.150336" />
+  <joint_state joint="rlc2" position="-13.907002" />
+  <joint_state joint="rrx" position="0.2079" />
+  <joint_state joint="rry" position="-0.18" />
+  <joint_state joint="rra2" position="20" />
+</model_state>
+
+<model_state model="Step" time_stamp="3">
+  <joint_state joint="DofBaseX" position="0.009989" />
+  <joint_state joint="DofBaseY" position="-0.051905" />
+  <joint_state joint="DofBaseThZ" position="-0.05579" />
+  <joint_state joint="DofChestZ" position="0.673281" />
+  <joint_state joint="lbr_joint_1_L" position="6.652269" />
+  <joint_state joint="lbr_joint_2_L" position="51.62458" />
+  <joint_state joint="lbr_joint_3_L" position="37.760696" />
+  <joint_state joint="lbr_joint_4_L" position="72.30637" />
+  <joint_state joint="lbr_joint_5_L" position="-52.901456" />
+  <joint_state joint="lbr_joint_6_L" position="-5.351342" />
+  <joint_state joint="lbr_joint_7_L" position="-44.789843" />
+  <joint_state joint="lbr_joint_1_R" position="10.843325" />
+  <joint_state joint="lbr_joint_2_R" position="-55.90586" />
+  <joint_state joint="lbr_joint_3_R" position="-42.209377" />
+  <joint_state joint="lbr_joint_4_R" position="-69.612339" />
+  <joint_state joint="lbr_joint_5_R" position="68.077552" />
+  <joint_state joint="lbr_joint_6_R" position="2.616399" />
+  <joint_state joint="lbr_joint_7_R" position="44.823624" />
+  <joint_state joint="DofThZ_v" position="90.00021" />
+  <joint_state joint="rlx" position="-0.315" />
+  <joint_state joint="rly" position="0.1188" />
+  <joint_state joint="rla" position="87.065473" />
+  <joint_state joint="rlb" position="43.908856" />
+  <joint_state joint="rlc" position="-1.703445" />
+  <joint_state joint="rla2" position="-21.667719" />
+  <joint_state joint="rlb2" position="-42.175864" />
+  <joint_state joint="rlc2" position="-13.659908" />
+  <joint_state joint="rrx" position="-0.315" />
+  <joint_state joint="rry" position="-0.1188" />
+  <joint_state joint="rra" position="92.458541" />
+  <joint_state joint="rrb" position="44.177457" />
+  <joint_state joint="rrc" position="1.309932" />
+  <joint_state joint="rra2" position="22.705153" />
+  <joint_state joint="rrb2" position="-42.159266" />
+  <joint_state joint="rrc2" position="14.70631" />
+</model_state>
+
+<model_state model="Step" time_stamp="4">
+  <joint_state joint="DofBaseX" position="0.140674" />
+  <joint_state joint="DofBaseY" position="-0.104691" />
+  <joint_state joint="DofBaseThZ" position="0.103366" />
+  <joint_state joint="DofChestZ" position="0.884057" />
+  <joint_state joint="lbr_joint_1_L" position="18.7551" />
+  <joint_state joint="lbr_joint_2_L" position="32.085362" />
+  <joint_state joint="lbr_joint_3_L" position="17.920729" />
+  <joint_state joint="lbr_joint_4_L" position="122.958463" />
+  <joint_state joint="lbr_joint_5_L" position="-5.915306" />
+  <joint_state joint="lbr_joint_6_L" position="87.933945" />
+  <joint_state joint="lbr_joint_7_L" position="-18.039151" />
+  <joint_state joint="lbr_joint_1_R" position="8.208018" />
+  <joint_state joint="lbr_joint_2_R" position="-59.375971" />
+  <joint_state joint="lbr_joint_3_R" position="-64.784516" />
+  <joint_state joint="lbr_joint_4_R" position="-46.542484" />
+  <joint_state joint="lbr_joint_5_R" position="47.444013" />
+  <joint_state joint="lbr_joint_6_R" position="36.27301" />
+  <joint_state joint="lbr_joint_7_R" position="77.849978" />
+  <joint_state joint="DofThZ_v" position="90.00021" />
+  <joint_state joint="rlx" position="0.2079" />
+  <joint_state joint="rly" position="0.18" />
+  <joint_state joint="rla" position="78.860544" />
+  <joint_state joint="rlb" position="-4.08789" />
+  <joint_state joint="rlc" position="-17.336443" />
+  <joint_state joint="rla2" position="-17.709143" />
+  <joint_state joint="rlb2" position="-81.980639" />
+  <joint_state joint="rlc2" position="-26.969904" />
+  <joint_state joint="rrx" position="-0.315" />
+  <joint_state joint="rry" position="-0.1188" />
+  <joint_state joint="rra" position="92.667155" />
+  <joint_state joint="rrb" position="44.031276" />
+  <joint_state joint="rrc" position="1.473598" />
+  <joint_state joint="rra2" position="22.248801" />
+  <joint_state joint="rrb2" position="-42.138946" />
+  <joint_state joint="rrc2" position="14.244139" />
+</model_state>
+
+<model_state model="Step" time_stamp="5">
+  <joint_state joint="DofBaseX" position="-0.044206" />
+  <joint_state joint="DofBaseY" position="-0.012138" />
+  <joint_state joint="DofBaseThZ" position="0.266834" />
+  <joint_state joint="DofChestZ" position="0.755227" />
+  <joint_state joint="lbr_joint_1_L" position="-1.744077" />
+  <joint_state joint="lbr_joint_2_L" position="48.784913" />
+  <joint_state joint="lbr_joint_3_L" position="26.051116" />
+  <joint_state joint="lbr_joint_4_L" position="69.066128" />
+  <joint_state joint="lbr_joint_5_L" position="-90.773905" />
+  <joint_state joint="lbr_joint_6_L" position="11.127001" />
+  <joint_state joint="lbr_joint_7_L" position="2.170761" />
+  <joint_state joint="lbr_joint_1_R" position="-18.856416" />
+  <joint_state joint="lbr_joint_2_R" position="-16.064191" />
+  <joint_state joint="lbr_joint_3_R" position="-13.49811" />
+  <joint_state joint="lbr_joint_4_R" position="-90.886327" />
+  <joint_state joint="lbr_joint_5_R" position="12.046764" />
+  <joint_state joint="lbr_joint_6_R" position="-72.125341" />
+  <joint_state joint="lbr_joint_7_R" position="42.752637" />
+  <joint_state joint="DofThZ_v" position="179.999848" />
+  <joint_state joint="rlx" position="0.207901" />
+  <joint_state joint="rly" position="0.179999" />
+  <joint_state joint="rla" position="76.852928" />
+  <joint_state joint="rlb" position="-1.547721" />
+  <joint_state joint="rlc" position="-18.619649" />
+  <joint_state joint="rla2" position="-9.020453" />
+  <joint_state joint="rlb2" position="-84.005276" />
+  <joint_state joint="rlc2" position="-20.928866" />
+  <joint_state joint="rrx" position="-0.315001" />
+  <joint_state joint="rry" position="-0.1188" />
+  <joint_state joint="rra" position="93.018932" />
+  <joint_state joint="rrb" position="43.889055" />
+  <joint_state joint="rrc" position="1.781236" />
+  <joint_state joint="rra2" position="21.48541" />
+  <joint_state joint="rrb2" position="-42.205869" />
+  <joint_state joint="rrc2" position="13.478074" />
+</model_state>
+
+<model_state model="Step" time_stamp="6">
+  <joint_state joint="DofBaseX" position="-0.027714" />
+  <joint_state joint="DofBaseY" position="-0.018379" />
+  <joint_state joint="DofBaseThZ" position="0.180606" />
+  <joint_state joint="DofChestZ" position="0.741839" />
+  <joint_state joint="lbr_joint_1_L" position="9.685452" />
+  <joint_state joint="lbr_joint_2_L" position="47.167665" />
+  <joint_state joint="lbr_joint_3_L" position="29.168596" />
+  <joint_state joint="lbr_joint_4_L" position="74.200862" />
+  <joint_state joint="lbr_joint_5_L" position="-73.56858" />
+  <joint_state joint="lbr_joint_6_L" position="3.648915" />
+  <joint_state joint="lbr_joint_7_L" position="-26.466244" />
+  <joint_state joint="lbr_joint_1_R" position="17.415653" />
+  <joint_state joint="lbr_joint_2_R" position="-56.259204" />
+  <joint_state joint="lbr_joint_3_R" position="-19.062662" />
+  <joint_state joint="lbr_joint_4_R" position="-75.478885" />
+  <joint_state joint="lbr_joint_5_R" position="65.533271" />
+  <joint_state joint="lbr_joint_6_R" position="-22.627885" />
+  <joint_state joint="lbr_joint_7_R" position="34.498032" />
+  <joint_state joint="DofThZ_v" position="179.999848" />
+  <joint_state joint="rlx" position="0.207901" />
+  <joint_state joint="rly" position="0.179999" />
+  <joint_state joint="rla" position="76.564733" />
+  <joint_state joint="rlb" position="-0.834699" />
+  <joint_state joint="rlc" position="-18.80652" />
+  <joint_state joint="rla2" position="-7.5668" />
+  <joint_state joint="rlb2" position="-84.608177" />
+  <joint_state joint="rlc2" position="-19.972173" />
+  <joint_state joint="rrx" position="-0.207901" />
+  <joint_state joint="rry" position="0.18" />
+  <joint_state joint="rra" position="101.174282" />
+  <joint_state joint="rrb" position="-4.014022" />
+  <joint_state joint="rrc" position="17.381007" />
+  <joint_state joint="rra2" position="17.497493" />
+  <joint_state joint="rrb2" position="-82.050695" />
+  <joint_state joint="rrc2" position="26.811917" />
+</model_state>
+
 
 
 
