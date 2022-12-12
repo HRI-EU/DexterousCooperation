@@ -68,18 +68,22 @@ ExamplePoseGraph::~ExamplePoseGraph()
 {
 }
 
-void ExamplePoseGraph::initParameters()
+bool ExamplePoseGraph::initParameters()
 {
   xmlFileName = "cExample0.xml";
   directory = "config/xml/DexterousCooperation/PoseGraph/ex0";
   algo = 1;
   dt = 0.002;
   initToQ0 = true;
+
+  return true;
 }
 
-void ExamplePoseGraph::parseArgs(Rcs::CmdLineParser* argP)
+bool ExamplePoseGraph::parseArgs(Rcs::CmdLineParser* argP)
 {
   ExampleIK::parseArgs(argP);
+
+  return true;
 }
 
 bool ExamplePoseGraph::initAlgo()
@@ -156,11 +160,13 @@ ExamplePoseGraph2::~ExamplePoseGraph2()
 {
 }
 
-void ExamplePoseGraph2::initParameters()
+bool ExamplePoseGraph2::initParameters()
 {
   ExamplePoseGraph::initParameters();
   xmlFileName = "cExample1.xml";
   directory = "config/xml/DexterousCooperation/PoseGraph/ex1";
+
+  return true;
 }
 
 bool ExamplePoseGraph2::initAlgo()
@@ -218,11 +224,13 @@ ExamplePoseGraph3::~ExamplePoseGraph3()
 {
 }
 
-void ExamplePoseGraph3::initParameters()
+bool ExamplePoseGraph3::initParameters()
 {
   ExamplePoseGraph::initParameters();
   xmlFileName = "cExample2.xml";
   directory = "config/xml/DexterousCooperation/PoseGraph/ex2";
+
+  return true;
 }
 
 bool ExamplePoseGraph3::initAlgo()
@@ -281,11 +289,13 @@ ExamplePoseGraph4::~ExamplePoseGraph4()
 {
 }
 
-void ExamplePoseGraph4::initParameters()
+bool ExamplePoseGraph4::initParameters()
 {
   ExamplePoseGraph::initParameters();
   xmlFileName = "cExample3.xml";
   directory = "config/xml/DexterousCooperation/PoseGraph/ex3";
+
+  return true;
 }
 
 bool ExamplePoseGraph4::initAlgo()
@@ -344,11 +354,13 @@ ExamplePoseGraph5::~ExamplePoseGraph5()
 {
 }
 
-void ExamplePoseGraph5::initParameters()
+bool ExamplePoseGraph5::initParameters()
 {
   ExamplePoseGraph::initParameters();
   xmlFileName = "cExample4.xml";
   directory = "config/xml/DexterousCooperation/PoseGraph/ex4";
+
+  return true;
 }
 
 bool ExamplePoseGraph5::initAlgo()
@@ -410,18 +422,22 @@ ExamplePoseGraph6::~ExamplePoseGraph6()
 {
 }
 
-void ExamplePoseGraph6::initParameters()
+bool ExamplePoseGraph6::initParameters()
 {
   ExamplePoseGraph::initParameters();
   xmlFileName = "cExample5.xml";
   directory = "config/xml/DexterousCooperation/PoseGraph/ex5";
   nSteps = 8;
+
+  return true;
 }
 
-void ExamplePoseGraph6::parseArgs(Rcs::CmdLineParser* argP)
+bool ExamplePoseGraph6::parseArgs(Rcs::CmdLineParser* argP)
 {
   ExampleIK::parseArgs(argP);
   argP->getArgument("-nSteps", &nSteps, "Number of steps (default is %d)", nSteps);
+
+  return true;
 }
 
 bool ExamplePoseGraph6::initAlgo()
@@ -517,11 +533,13 @@ ExamplePoseGraph7::~ExamplePoseGraph7()
 {
 }
 
-void ExamplePoseGraph7::initParameters()
+bool ExamplePoseGraph7::initParameters()
 {
   ExamplePoseGraph::initParameters();
   xmlFileName = "cExample6.xml";
   directory = "config/xml/DexterousCooperation/PoseGraph/ex6";
+
+  return true;
 }
 
 bool ExamplePoseGraph7::initAlgo()

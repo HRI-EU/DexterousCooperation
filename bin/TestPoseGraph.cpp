@@ -245,13 +245,15 @@ public:
   {
   }
 
-  void initParameters()
+  bool initParameters()
   {
     xmlFileName = "cPoseGraph.xml";
     directory = "";
     algo = 1;
     dt = 0.002;
     initToQ0 = true;
+
+    return true;
   }
 
   // Takes ownership of c and activation.

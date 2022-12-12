@@ -52,8 +52,8 @@ public:
 
   ExamplePoseGraph(int argc, char** argv);
   virtual ~ExamplePoseGraph();
-  virtual void initParameters();
-  virtual void parseArgs(CmdLineParser* parser);
+  virtual bool initParameters();
+  virtual bool parseArgs(CmdLineParser* parser);
   virtual bool initAlgo();
   virtual std::string help();
 };
@@ -64,7 +64,7 @@ public:
 
   ExamplePoseGraph2(int argc, char** argv);
   virtual ~ExamplePoseGraph2();
-  virtual void initParameters();
+  virtual bool initParameters();
   virtual bool initAlgo();
 };
 
@@ -74,7 +74,7 @@ public:
 
   ExamplePoseGraph3(int argc, char** argv);
   virtual ~ExamplePoseGraph3();
-  virtual void initParameters();
+  virtual bool initParameters();
   virtual bool initAlgo();
 };
 
@@ -84,7 +84,7 @@ public:
 
   ExamplePoseGraph4(int argc, char** argv);
   virtual ~ExamplePoseGraph4();
-  virtual void initParameters();
+  virtual bool initParameters();
   virtual bool initAlgo();
 };
 
@@ -94,7 +94,7 @@ public:
 
   ExamplePoseGraph5(int argc, char** argv);
   virtual ~ExamplePoseGraph5();
-  virtual void initParameters();
+  virtual bool initParameters();
   virtual bool initAlgo();
 };
 
@@ -104,9 +104,9 @@ public:
 
   ExamplePoseGraph6(int argc, char** argv);
   virtual ~ExamplePoseGraph6();
-  virtual void initParameters();
+  virtual bool initParameters();
   virtual bool initAlgo();
-  virtual void parseArgs(CmdLineParser* parser);
+  virtual bool parseArgs(CmdLineParser* parser);
 
   int nSteps;
 };
@@ -117,7 +117,7 @@ public:
 
   ExamplePoseGraph7(int argc, char** argv);
   virtual ~ExamplePoseGraph7();
-  virtual void initParameters();
+  virtual bool initParameters();
   virtual bool initAlgo();
 };
 
