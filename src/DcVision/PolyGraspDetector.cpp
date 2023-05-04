@@ -154,7 +154,7 @@ static bool pruneGraspPoints2_(MatNd* graspPoints,
 
 
 
-namespace Rcs
+namespace Dc
 {
 
 PolyGraspDetector::PolyGraspDetector() : originalPoly(NULL),
@@ -516,7 +516,7 @@ std::vector<osg::ref_ptr<Rcs::VertexArrayNode>>
     const double* posPtr = MatNd_getRowPtr(prunedPoly, i);
     double pos[3];
     Vec3d_set(pos, posPtr[0], posPtr[1], 0.0);   // prunedPoly has 2 columns
-    osg::ref_ptr<SphereNode> cn = new SphereNode(pos, 0.01);
+    osg::ref_ptr<Rcs::SphereNode> cn = new Rcs::SphereNode(pos, 0.01);
     cn->setMaterial("RED");
 
     osg::ref_ptr<osg::Geode> textGeode = new osg::Geode();
@@ -603,13 +603,13 @@ osg::Node* PolyGraspDetector::createVis3d(const double extrudeDir[3],
 
   if (segLength==0.0)
   {
-    extrusion = new ExtrudedPolygonNode(originalPoly, extrudeDir);
+    extrusion = new Rcs::ExtrudedPolygonNode(originalPoly, extrudeDir);
   }
   else
   {
     MatNd* coarsePoly = MatNd_create(1, 2);
     resamplePolygon(coarsePoly, originalPoly, segLength);
-    extrusion = new ExtrudedPolygonNode(coarsePoly, extrudeDir);
+    extrusion = new Rcs::ExtrudedPolygonNode(coarsePoly, extrudeDir);
     MatNd_destroy(coarsePoly);
   }
 
@@ -644,7 +644,7 @@ std::vector<osg::ref_ptr<Rcs::VertexArrayNode>>
     double pos[3];
     Vec3d_set(pos, posPtr[0], posPtr[1], 0.0);   // prunedPoly has 2 columns
     RLOG(0, "2d poly is %f %f", posPtr[0], posPtr[1]);
-    osg::ref_ptr<SphereNode> cn = new SphereNode(pos, 0.01);
+    osg::ref_ptr<Rcs::SphereNode> cn = new Rcs::SphereNode(pos, 0.01);
     cn->setMaterial("RED");
 
     osg::ref_ptr<osg::Geode> textGeode = new osg::Geode();

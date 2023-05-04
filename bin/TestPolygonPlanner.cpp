@@ -59,11 +59,12 @@
 #include <Rcs_math.h>
 #include <Rcs_geometry.h>
 #include <Rcs_guiFactory.h>
+#include <ExampleFactory.h>
 #include <ForceDragger.h>
 #include <COSNode.h>
 #include <SegFaultHandler.h>
 
-#if defined (USE_DC_ROS)
+#if defined (USE_ROS)
 #include <ROSSpinnerComponent.h>
 #include <VirtualKinect2.h>
 #endif
@@ -195,7 +196,7 @@ static void testIK(const char* cfgFile)
     noEventGui = true;
   }
 
-  Rcs::EntityBase entity;
+  Dc::EntityBase entity;
   entity.setDt(dt);
   if (pause)
   {
@@ -219,23 +220,23 @@ static void testIK(const char* cfgFile)
   entity.registerEvent<>("Quit");
   entity.subscribe("Quit", &quit);
 
-  std::shared_ptr<Rcs::GraphicsWindow> viewer;
+  std::shared_ptr<Dc::GraphicsWindow> viewer;
 
   if (!valgrind)
   {
-    viewer = std::make_shared<Rcs::GraphicsWindow>(&entity, false, seqViewer,
-                                                   simpleGraphics);
+    viewer = std::make_shared<Dc::GraphicsWindow>(&entity, false, seqViewer,
+                                                  simpleGraphics);
   }
 
-  Rcs::GraphComponent graphC(&entity, graph);
-  Rcs::IKComponent ikc(&entity, controller);
+  Dc::GraphComponent graphC(&entity, graph);
+  Dc::IKComponent ikc(&entity, controller);
   ikc.setSpeedLimitCheck(!noSpeedCheck);
   ikc.setJointLimitCheck(!noJointCheck);
   ikc.setCollisionCheck(!noCollCheck);
-  Rcs::TaskGuiComponent gui(&entity, controller);
+  Dc::TaskGuiComponent gui(&entity, controller);
 
-  Rcs::ComponentFactory::print();
-  std::vector<Rcs::ComponentBase*> hwc = getHardwareComponents(entity, graph);
+  Dc::printHardwareComponents();
+  std::vector<Dc::ComponentBase*> hwc = getHardwareComponents(entity, graph);
   if (hwc.empty())
   {
     physics = true;
@@ -249,9 +250,9 @@ static void testIK(const char* cfgFile)
       JNT->ctrlType = RCSJOINT_CTRL_POSITION;
     }
 
-    Rcs::PhysicsComponent* pc = new Rcs::PhysicsComponent(&entity, graph,
-                                                          physicsEngine,
-                                                          physicsCfg, !seqSim);
+    Dc::PhysicsComponent* pc = new Dc::PhysicsComponent(&entity, graph,
+                                                        physicsEngine,
+                                                        physicsCfg, !seqSim);
     if (pc->getPhysicsSimulation() && viewer)
     {
       viewer->add(new NamedBodyForceDragger(pc->getPhysicsSimulation()));
@@ -286,7 +287,7 @@ static void testIK(const char* cfgFile)
 
   if (noEventGui == false)
   {
-    Rcs::EventGui::create(&entity);
+    new Dc::EventGui(&entity);
   }
 
   entity.initialize(graphC.getGraph());
@@ -332,15 +333,25 @@ static void testIK(const char* cfgFile)
 /*******************************************************************************
  * bin/TestPolygonPlanner -m 1 -polyDebug -ime -ief -lbr1 -lbr2 -sdh1 -sdh2
  ******************************************************************************/
-static void testROS(const char* cfgFile)
+static void testROS(int argc, char** argv)
 {
+#if 1
+
+  Rcs::ExampleFactory::runExample("Dexterous Cooperation", "Polygon planner",
+                                  argc, argv, false);
+
+#else
+
   Rcs::CmdLineParser argP;
   double dt = 0.01, dPhi = 30.0, ttc = 8.0;
+  char cfgFile[128] = "cPolyROS.xml";
   char physicsEngine[32] = "Bullet";
   char physicsCfg[128] = "config/physics/physics.xml";
   std::string polyDir = "config/xml/DexterousCooperation/PolygonTurning/polygons/recordings";
   int polyDirIdx = 3;
   unsigned int speedUp = 1, loopCount = 0;
+  argP.getArgument("-f", cfgFile, "Configuration file name "
+                   "(default is %s)", cfgFile);
   argP.getArgument("-physicsEngine", physicsEngine,
                    "Physics engine (default is \"%s\")", physicsEngine);
   argP.getArgument("-physics_config", physicsCfg, "Configuration file name"
@@ -375,7 +386,7 @@ static void testROS(const char* cfgFile)
   bool eternalTest = argP.hasArgument("-eternalTest", "Run eternal test");
   bool skipTrajectoryCheck = argP.hasArgument("-skipTrajectoryCheck",
                                               "Perform plan without checking trajectory");
-#if defined (USE_DC_ROS)
+#if defined (USE_ROS)
   bool withROS = argP.hasArgument("-ros", "Connect to ROS");
   bool withVirtualKinect = argP.hasArgument("-kinect", "Enable virtual Kinect2");
 #else
@@ -402,7 +413,7 @@ static void testROS(const char* cfgFile)
     noEventGui = true;
   }
 
-  Rcs::EntityBase entity;
+  Dc::EntityBase entity;
   entity.setDt(dt);
   if (pause)
   {
@@ -427,33 +438,33 @@ static void testROS(const char* cfgFile)
   entity.registerEvent<>("Quit");
   entity.subscribe("Quit", &quit);
 
-  std::shared_ptr<Rcs::GraphicsWindow> viewer;
+  std::shared_ptr<Dc::GraphicsWindow> viewer;
 
   if (!valgrind)
   {
-    viewer = std::make_shared<Rcs::GraphicsWindow>(&entity, false, seqViewer,
-                                                   simpleGraphics);
+    viewer = std::make_shared<Dc::GraphicsWindow>(&entity, false, seqViewer,
+                                                  simpleGraphics);
   }
 
-  Rcs::GraphComponent graphC(&entity, graph);
-  Rcs::TrajectoryComponent trajC(&entity, controller, !zigzag, 1.0,
-                                 !skipTrajectoryCheck);
-  Rcs::IKComponent ikc(&entity, controller);
+  Dc::GraphComponent graphC(&entity, graph);
+  Dc::TrajectoryComponent trajC(&entity, controller, !zigzag, 1.0,
+                                !skipTrajectoryCheck);
+  Dc::IKComponent ikc(&entity, controller);
   ikc.setSpeedLimitCheck(!noSpeedCheck);
   ikc.setJointLimitCheck(!noJointCheck);
   ikc.setCollisionCheck(!noCollCheck);
-  Rcs::PolygonObjectPlanner pop(&entity, controller, dPhi);
-  Rcs::RebaComponent rebaC(&entity, "cLinda.xml");
+  Dc::PolygonObjectPlanner pop(&entity, controller, dPhi);
+  Dc::RebaComponent rebaC(&entity, "cLinda.xml");
 
-  std::shared_ptr<Rcs::TaskGuiComponent> taskGui;
+  std::shared_ptr<Dc::TaskGuiComponent> taskGui;
   if (withGui == true)
   {
-    taskGui = std::make_shared<Rcs::TaskGuiComponent>(&entity, controller);
+    taskGui = std::make_shared<Dc::TaskGuiComponent>(&entity, controller);
     taskGui->setPassive(true);
   }
 
-  Rcs::ComponentFactory::print();
-  std::vector<Rcs::ComponentBase*> hwc = getHardwareComponents(entity, graph);
+  Dc::printHardwareComponents();
+  std::vector<Dc::ComponentBase*> hwc = getHardwareComponents(entity, graph);
   if (hwc.empty())
   {
     physics = true;
@@ -467,9 +478,9 @@ static void testROS(const char* cfgFile)
       JNT->ctrlType = RCSJOINT_CTRL_POSITION;
     }
 
-    Rcs::PhysicsComponent* pc = new Rcs::PhysicsComponent(&entity, graph,
-                                                          physicsEngine,
-                                                          physicsCfg, !seqSim);
+    Dc::PhysicsComponent* pc = new Dc::PhysicsComponent(&entity, graph,
+                                                        physicsEngine,
+                                                        physicsCfg, !seqSim);
     if (pc->getPhysicsSimulation() && viewer)
     {
       viewer->add(new NamedBodyForceDragger(pc->getPhysicsSimulation()));
@@ -482,9 +493,9 @@ static void testROS(const char* cfgFile)
     hwc.push_back(pc);
   }
 
-  Rcs::PolyROSComponent poly(&entity, "/dexco/polygon", polyDebug);
+  Dc::PolyROSComponent poly(&entity, "/dexco/polygon", polyDebug);
 
-#if defined (USE_DC_ROS)
+#if defined (USE_ROS)
   if (withROS)
   {
     hwc.push_back(new Rcs::ROSSpinnerComponent(&entity, 1));
@@ -615,7 +626,7 @@ static void testROS(const char* cfgFile)
 
   if (noEventGui == false)
   {
-    Rcs::EventGui::create(&entity);
+    Dc::EventGui::create(&entity);
   }
 
   entity.initialize(graphC.getGraph());
@@ -634,7 +645,7 @@ static void testROS(const char* cfgFile)
 
 
 
-#if defined (USE_DC_ROS)
+#if defined (USE_ROS)
   if (withVirtualKinect)
   {
     poly.setCameraBodyName("kinect2_dexco");
@@ -677,6 +688,7 @@ static void testROS(const char* cfgFile)
     delete hwc[i];
   }
 
+#endif
 }
 
 /*******************************************************************************
@@ -783,7 +795,7 @@ void testPolyFromClass(int argc, char** argv)
   Rcs::Viewer* viewer = new Rcs::Viewer();
   viewer->setCameraTransform(0.03, -0.09, 1.70, -1.53, -0.61, 1.58);
   viewer->setTrackballCenter(0.0, 0.0, 0.0);
-  Rcs::PolyGraspDetector graspDetector;
+  Dc::PolyGraspDetector graspDetector;
 
   //////////////////////////////////////////////////////////////////////////////
   // Create polygon rectangle, or from data file
@@ -895,7 +907,7 @@ void testPolyFromClass(int argc, char** argv)
 /*******************************************************************************
  *
  ******************************************************************************/
-static Rcs::BoxStrategy5D createExplorer(bool roboSide)
+static Dc::BoxStrategy5D createExplorer(bool roboSide)
 {
   // Create exploration strategy
   double dPhi = RCS_DEG2RAD(30.0);   // does not need to multiply exactly into 360 degrees
@@ -904,25 +916,25 @@ static Rcs::BoxStrategy5D createExplorer(bool roboSide)
   const double minHandDist = 0.2;
   const double maxHandAngle = 0.95*M_PI;
 
-  Rcs::PolygonObjectModel poly;
+  Dc::PolygonObjectModel poly;
   poly.setBoxPolygon(0.36, 0.63);
 
-  Rcs::BoxStrategy5D explorer = Rcs::BoxStrategy5D(Rcs::BoxStrategy5D::None, nStepsAround);
+  Dc::BoxStrategy5D explorer = Dc::BoxStrategy5D(Dc::BoxStrategy5D::None, nStepsAround);
   explorer.setMinimumHandDistance(minHandDist);
-  explorer.setGoalCondition(Rcs::BoxStrategy5D::RotationOnly);
+  explorer.setGoalCondition(Dc::BoxStrategy5D::RotationOnly);
   explorer.setMaxAngleBetweenHands(maxHandAngle);
   explorer.roboContacts.clear();
   explorer.partnerContacts.clear();
 
-  std::vector<Rcs::PolygonContactPoint2D> c2d = poly.getContacts2d();
+  std::vector<Dc::PolygonContactPoint2D> c2d = poly.getContacts2d();
 
   for (size_t i=0; i<c2d.size(); ++i)
   {
-    auto cpi = Rcs::BoxStrategy5D::ContactPoint2D(c2d[i].getX(),
-                                                  c2d[i].getY(),
-                                                  c2d[i].getNormalAngle(),
-                                                  c2d[i].getFrictionAngle(),
-                                                  c2d[i].getMaxLever());
+    auto cpi = Dc::BoxStrategy5D::ContactPoint2D(c2d[i].getX(),
+                                                 c2d[i].getY(),
+                                                 c2d[i].getNormalAngle(),
+                                                 c2d[i].getFrictionAngle(),
+                                                 c2d[i].getMaxLever());
     explorer.roboContacts.push_back(cpi);
   }
 
@@ -930,11 +942,11 @@ static Rcs::BoxStrategy5D createExplorer(bool roboSide)
 
   if (roboSide)
   {
-    Rcs::BoxStrategy5D::mirrorContacts(explorer.partnerContacts);
+    Dc::BoxStrategy5D::mirrorContacts(explorer.partnerContacts);
   }
   else
   {
-    Rcs::BoxStrategy5D::mirrorContacts(explorer.roboContacts);
+    Dc::BoxStrategy5D::mirrorContacts(explorer.roboContacts);
   }
 
   return explorer;
@@ -942,8 +954,8 @@ static Rcs::BoxStrategy5D createExplorer(bool roboSide)
 
 static void testPolyPlanner(int argc, char** argv)
 {
-  Rcs::BoxStrategy5D roboExplorer = createExplorer(true);
-  Rcs::BoxStrategy5D humanExplorer = createExplorer(true);
+  Dc::BoxStrategy5D roboExplorer = createExplorer(true);
+  Dc::BoxStrategy5D humanExplorer = createExplorer(true);
 
   // Collaborative planning. State: phi[0], right robo[1], left robo[2], right human[3], left human[4]
   {
@@ -957,7 +969,7 @@ static void testPolyPlanner(int argc, char** argv)
 
     std::vector<int> humanFrom = roboFrom;
     std::vector<int> humanTo = humanFrom;
-    humanTo[0] = roboExplorer.getPhiFromAngle(-2.0*M_PI);
+    humanTo[0] = roboExplorer.getPhiFromAngle(2.0*M_PI);
     humanExplorer.setGoal(humanTo);
 
 
@@ -970,7 +982,7 @@ static void testPolyPlanner(int argc, char** argv)
       {
         RLOG(1, "Start planning for robo");
         double t = Timer_getSystemTime();
-        roboExplorer.setStartCondition(Rcs::BoxStrategy5D::RobotHandsAndBox);
+        roboExplorer.setStartCondition(Dc::BoxStrategy5D::RobotHandsAndBox);
         std::vector<std::vector<int>> solutionPath = Gras::Astar::search(roboExplorer, roboFrom);
         t = Timer_getSystemTime() - t;
         if (!init)
@@ -1038,7 +1050,7 @@ static void testPolyPlanner(int argc, char** argv)
       {
         RLOG(1, "Start planning for human");
         double t = Timer_getSystemTime();
-        humanExplorer.setStartCondition(Rcs::BoxStrategy5D::HumanHands);
+        humanExplorer.setStartCondition(Dc::BoxStrategy5D::HumanHands);
         std::vector<std::vector<int>> solutionPath = Gras::Astar::search(humanExplorer, humanFrom);
         t = Timer_getSystemTime() - t;
         REXEC(1)
@@ -1118,14 +1130,11 @@ static void testPolyPlanner(int argc, char** argv)
  ******************************************************************************/
 int main(int argc, char** argv)
 {
-  char xmlFileName[128] = "cPolyROS.xml";
   char directory[128] = "config/xml/DexterousCooperation/PolygonTurning";
   int mode = 0;
   Rcs::CmdLineParser argP(argc, argv);
   argP.getArgument("-dl", &RcsLogLevel, "Debug level (default is %d)",
                    RcsLogLevel);
-  argP.getArgument("-f", xmlFileName, "Configuration file name "
-                   "(default is %s)", xmlFileName);
   argP.getArgument("-dir", directory, "Configuration file directory "
                    "(default is %s)", directory);
   argP.getArgument("-m", &mode, "Test mode (default is %d)", mode);
@@ -1144,7 +1153,7 @@ int main(int argc, char** argv)
       printf("\tMode 2: Polygons from file with graphics window\n");
       printf("\tMode 3: IK with task gui\n");
       printf("\tMode 4: Planning only\n");
-#if defined (USE_DC_ROS)
+#if defined (USE_ROS)
       printf("\tROS is enabled\n");
 #else
       printf("\tROS is disabled\n");
@@ -1152,7 +1161,10 @@ int main(int argc, char** argv)
       break;
 
     case 1:
-      testROS(xmlFileName);
+      testROS(argc, argv);
+      RPAUSE_DL(1);
+      xmlCleanupParser();
+      return 0;
       break;
 
     case 2:

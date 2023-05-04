@@ -31,8 +31,8 @@
 
 *******************************************************************************/
 
-#ifndef RCS_BOXOBJECTCHANGER_H
-#define RCS_BOXOBJECTCHANGER_H
+#ifndef DC_BOXOBJECTCHANGER_H
+#define DC_BOXOBJECTCHANGER_H
 
 
 #include "ComponentBase.h"
@@ -46,14 +46,13 @@
 #include <vector>
 
 
-namespace Rcs
+namespace Dc
 {
 class BoxObjectChanger : public ComponentBase
 {
 public:
 
-  BoxObjectChanger(EntityBase* parent) :
-    Rcs::ComponentBase(parent), objIdx(0)
+  BoxObjectChanger(EntityBase* parent) : ComponentBase(parent), objIdx(0)
   {
     getEntity()->subscribe<std::string>("ChangeObjectShape", &BoxObjectChanger::onSelectObject, this);
     getEntity()->subscribe<>("ToggleObjectShape", &BoxObjectChanger::onToggleObject, this);
@@ -130,4 +129,4 @@ private:
 
 }
 
-#endif   // RCS_BOXOBJECTCHANGER_H
+#endif   // DC_BOXOBJECTCHANGER_H

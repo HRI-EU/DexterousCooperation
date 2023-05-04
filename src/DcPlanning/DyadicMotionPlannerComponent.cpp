@@ -44,7 +44,7 @@
 
 #include <thread>
 
-namespace Rcs
+namespace Dc
 {
 
 void DyadicMotionPlannerComponent::plannerThread(std::vector<int> from,
@@ -103,7 +103,7 @@ void DyadicMotionPlannerComponent::plannerThread(std::vector<int> from,
 
 
 DyadicMotionPlannerComponent::DyadicMotionPlannerComponent(EntityBase* parent,
-                                                           const ControllerBase* controller_,
+                                                           const Rcs::ControllerBase* controller_,
                                                            double deltaPhi,
                                                            bool via,
                                                            double horizon) :
@@ -111,7 +111,7 @@ DyadicMotionPlannerComponent::DyadicMotionPlannerComponent(EntityBase* parent,
   motionEndTime(0.0),
   lastMotionEndTime(0.0), a_des(NULL), x_des(NULL), eStop(false)
 {
-  ControllerBase* controller = new ControllerBase(*controller_);
+  Rcs::ControllerBase* controller = new Rcs::ControllerBase(*controller_);
   this->a_des   = MatNd_create((int) controller->getNumberOfTasks(), 1);
   this->x_des   = MatNd_create((int) controller->getTaskDim(), 1);
   controller->computeX(this->x_des);
@@ -624,7 +624,7 @@ void DyadicMotionPlannerComponent::computeControl(MatNd* a, MatNd* x)
   this->lastMotionEndTime = currentMotionEndTime;
 }
 
-const ControllerBase* DyadicMotionPlannerComponent::getController() const
+const Rcs::ControllerBase* DyadicMotionPlannerComponent::getController() const
 {
   return tc->getController();
 }
@@ -991,4 +991,4 @@ std::shared_ptr<tropic::ConstraintSet> DyadicMotionPlannerComponent::createExamp
 }
 
 
-}   // namespace Rcs
+}   // namespace Dc

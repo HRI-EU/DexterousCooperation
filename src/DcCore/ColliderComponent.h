@@ -31,8 +31,8 @@
 
 *******************************************************************************/
 
-#ifndef RCS_COLLIDERCOMPONENT_H
-#define RCS_COLLIDERCOMPONENT_H
+#ifndef DC_COLLIDERCOMPONENT_H
+#define DC_COLLIDERCOMPONENT_H
 
 
 #include "ComponentBase.h"
@@ -41,7 +41,7 @@
 
 
 
-namespace Rcs
+namespace Dc
 {
 /*! \brief To do
  */
@@ -77,4 +77,4 @@ private:
 
 }
 
-#endif   // RCS_COLLIDERCOMPONENT_H
+#endif   // DC_COLLIDERCOMPONENT_H

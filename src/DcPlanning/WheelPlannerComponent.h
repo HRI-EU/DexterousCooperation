@@ -10,8 +10,8 @@
      this list of conditions and the following disclaimer.
 
   2. Redistributions in binary form must reproduce the above copyright
-   notice, this list of conditions and the following disclaimer in the
-   documentation and/or other materials provided with the distribution.
+     notice, this list of conditions and the following disclaimer in the
+     documentation and/or other materials provided with the distribution.
 
   3. Neither the name of the copyright holder nor the names of its
      contributors may be used to endorse or promote products derived from
@@ -31,8 +31,8 @@
 
 *******************************************************************************/
 
-#ifndef RCS_WHEELPLANNERCOMPONENT_H
-#define RCS_WHEELPLANNERCOMPONENT_H
+#ifndef DC_WHEELPLANNERCOMPONENT_H
+#define DC_WHEELPLANNERCOMPONENT_H
 
 
 #include "ComponentBase.h"
@@ -42,7 +42,7 @@
 #include <TrajectoryController.h>
 
 
-namespace Rcs
+namespace Dc
 {
 
 class WheelPlannerComponent : public ComponentBase
@@ -50,7 +50,7 @@ class WheelPlannerComponent : public ComponentBase
 public:
 
   WheelPlannerComponent(EntityBase* parent,
-                        const ControllerBase* controller,
+                        const Rcs::ControllerBase* controller,
                         bool viaPtTrj=true,
                         double horizon=1.0);
 
@@ -102,4 +102,4 @@ private:
 
 }
 
-#endif   // RCS_WHEELPLANNERCOMPONENT_H
+#endif   // DC_WHEELPLANNERCOMPONENT_H

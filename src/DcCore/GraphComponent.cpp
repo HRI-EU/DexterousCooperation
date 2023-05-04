@@ -38,7 +38,7 @@
 #include <Rcs_typedef.h>
 
 
-namespace Rcs
+namespace Dc
 {
 
 GraphComponent::GraphComponent(EntityBase* parent, const std::string& cfgFile) :
@@ -128,4 +128,4 @@ void GraphComponent::onPrint() const
   RcsGraph_fprintModelState(stdout, this->graph, this->graph->q, NULL, 0);
 }
 
-}   // namespace Rcs
+}   // namespace Dc

@@ -46,10 +46,10 @@
 
 
 
-namespace Rcs
+namespace Dc
 {
 
-class MapItem : public GraphNode
+class MapItem : public Rcs::GraphNode
 {
 public:
 
@@ -209,7 +209,7 @@ public:
     return mi;
   }
 
-  static void clear(Viewer* viewer)
+  static void clear(Rcs::Viewer* viewer)
   {
     mapMtx.lock();
     std::map<std::string,osg::ref_ptr<MapItem>> cpyOfMap = MapItem::eventMap;
@@ -336,7 +336,7 @@ private:
     mapMtx.lock();
     for (size_t i = 0; i < deactivatedBodies.size(); ++i)
     {
-      BodyNode* bnd = mi->getBodyNode(deactivatedBodies[i].c_str());
+      Rcs::BodyNode* bnd = mi->getBodyNode(deactivatedBodies[i].c_str());
 
       if (bnd != NULL)
       {
@@ -369,7 +369,7 @@ std::map<std::string,osg::ref_ptr<MapItem>> MapItem::eventMap;
 std::mutex MapItem::mapMtx;
 std::vector<std::string> MapItem::deactivatedBodies;
 
-} // namespace
+} // namespace Dc
 
 
 
@@ -395,12 +395,12 @@ std::vector<std::string> MapItem::deactivatedBodies;
 
 
 
-namespace Rcs
+namespace Dc
 {
 
 GraphicsWindow::GraphicsWindow(EntityBase* parent, bool startWithStartEvent,
                                bool synWithEventLoop_, bool simpleGraphics) :
-  Rcs::ComponentBase(parent),
+  ComponentBase(parent),
   Viewer(!simpleGraphics, !simpleGraphics),
   synWithEventLoop(synWithEventLoop_),
   resizeable(false)
@@ -507,7 +507,7 @@ const RcsGraph* GraphicsWindow::getGraphById(std::string graphId)
   return NULL;
 }
 
-GraphNode* GraphicsWindow::getGraphNodeById(std::string graphId)
+Rcs::GraphNode* GraphicsWindow::getGraphNodeById(std::string graphId)
 {
   osg::ref_ptr<MapItem> mi = MapItem::getEntry(graphId);
 
@@ -571,7 +571,7 @@ void GraphicsWindow::onAddChildNode(osg::ref_ptr<osg::Node> node,
     return;
   }
 
-  GraphNode* gnd = getGraphNodeById(graphId);
+  Rcs::GraphNode* gnd = getGraphNodeById(graphId);
   if (!gnd)
   {
     // \todo: Allow to append to non-graph nodes
@@ -579,7 +579,7 @@ void GraphicsWindow::onAddChildNode(osg::ref_ptr<osg::Node> node,
     return;
   }
 
-  BodyNode* bnd = gnd->getBodyNode(parent.c_str());
+  Rcs::BodyNode* bnd = gnd->getBodyNode(parent.c_str());
   if (!bnd)
   {
     RLOG(5, "Can't find parent node with name %s in graph %s- skipping",
@@ -603,7 +603,7 @@ void GraphicsWindow::onRemoveNode(std::string graphId, std::string nodeName)
   }
 
 
-  GraphNode* gnd = getGraphNodeById(graphId);
+  Rcs::GraphNode* gnd = getGraphNodeById(graphId);
   if (!gnd)
   {
     RLOG(5, "Can't find GraphNode with id \"%s\" - skipping", graphId.c_str());
@@ -722,7 +722,7 @@ void GraphicsWindow::onRenderCommand(std::string graphId, std::string command)
     return;
   }
 
-  GraphNode* gn = mi;
+  Rcs::GraphNode* gn = mi;
 
   if (command=="setGhostMode")
   {
@@ -1090,7 +1090,7 @@ void GraphicsWindow::onObjectActivation(std::string objectName, bool activation)
       continue;
     }
 
-    BodyNode* bnd = mi->getBodyNode(objectName.c_str());
+    Rcs::BodyNode* bnd = mi->getBodyNode(objectName.c_str());
 
     if (bnd == NULL)
     {
@@ -1132,7 +1132,7 @@ void GraphicsWindow::onObjectColor(std::string whichGraph, std::string objectNam
       continue;
     }
 
-    BodyNode* bnd = mi->getBodyNode(objectName.c_str());
+    Rcs::BodyNode* bnd = mi->getBodyNode(objectName.c_str());
 
     if (bnd == NULL)
     {
@@ -1161,4 +1161,4 @@ bool GraphicsWindow::getResizeable() const
   return this->resizeable;
 }
 
-}   // namespace Rcs
+}   // namespace Dc

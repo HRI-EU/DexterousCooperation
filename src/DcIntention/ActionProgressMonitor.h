@@ -10,8 +10,8 @@
      this list of conditions and the following disclaimer.
 
   2. Redistributions in binary form must reproduce the above copyright
-   notice, this list of conditions and the following disclaimer in the
-   documentation and/or other materials provided with the distribution.
+     notice, this list of conditions and the following disclaimer in the
+     documentation and/or other materials provided with the distribution.
 
   3. Neither the name of the copyright holder nor the names of its
      contributors may be used to endorse or promote products derived from
@@ -31,8 +31,8 @@
 
 *******************************************************************************/
 
-#ifndef RCS_ACTIONPROGRESSMONITOR_H
-#define RCS_ACTIONPROGRESSMONITOR_H
+#ifndef DC_ACTIONPROGRESSMONITOR_H
+#define DC_ACTIONPROGRESSMONITOR_H
 
 #include "ActionProgressGraph.h"
 #include "ActionProgressState.h"
@@ -41,7 +41,7 @@
 
 #include <map>
 
-namespace Rcs
+namespace Dc
 {
 
 typedef std::vector<int> SearchNode_ptr;
@@ -105,7 +105,7 @@ public:
    *  \param[in] startTime              Start time
    *  \returns                          True if action was found
    */
-  bool monitor(std::string action, Rcs::SearchNode_ptr goal, double duration, double startTime);
+  bool monitor(std::string action, SearchNode_ptr goal, double duration, double startTime);
 
   /*!
    *  \brief Configure the ActionProgressMonitor to load action with provided ID, set the action goal, duration,
@@ -117,7 +117,7 @@ public:
    *  \param[in] startTime              Start time
    *  \returns                          True if action was found
    */
-  bool monitor(Apg_ptr action, Rcs::SearchNode_ptr goal, double duration, double startTime);
+  bool monitor(Apg_ptr action, SearchNode_ptr goal, double duration, double startTime);
 
   /*!
    *  \brief Add new actions to the list of known actions.
@@ -186,4 +186,4 @@ private:
 
 }
 
-#endif //RCS_ACTIONPROGRESSMONITOR_H
+#endif // DC_ACTIONPROGRESSMONITOR_H

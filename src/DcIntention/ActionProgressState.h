@@ -31,8 +31,8 @@
 
 *******************************************************************************/
 
-#ifndef RCS_ACTIONPROGRESSSTATE_H
-#define RCS_ACTIONPROGRESSSTATE_H
+#ifndef DC_ACTIONPROGRESSSTATE_H
+#define DC_ACTIONPROGRESSSTATE_H
 
 #include "MonitorRequest.h"
 
@@ -40,7 +40,7 @@
 #include <vector>
 #include <SearchNode.h>
 
-namespace Rcs
+namespace Dc
 {
 
 
@@ -150,4 +150,4 @@ private:
 
 }
 
-#endif //RCS_ACTIONPROGRESSSTATE_H
+#endif // DC_ACTIONPROGRESSSTATE_H

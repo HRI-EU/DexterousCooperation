@@ -10,8 +10,8 @@
      this list of conditions and the following disclaimer.
 
   2. Redistributions in binary form must reproduce the above copyright
-   notice, this list of conditions and the following disclaimer in the
-   documentation and/or other materials provided with the distribution.
+     notice, this list of conditions and the following disclaimer in the
+     documentation and/or other materials provided with the distribution.
 
   3. Neither the name of the copyright holder nor the names of its
      contributors may be used to endorse or promote products derived from
@@ -31,8 +31,8 @@
 
 *******************************************************************************/
 
-#ifndef RCS_STATEESTIMATORCOMPONENT_H
-#define RCS_STATEESTIMATORCOMPONENT_H
+#ifndef DC_STATEESTIMATORCOMPONENT_H
+#define DC_STATEESTIMATORCOMPONENT_H
 
 
 #include "ComponentBase.h"
@@ -40,7 +40,7 @@
 
 
 
-namespace Rcs
+namespace Dc
 {
 
 /*! \brief StateEstimatorComponent computes the current state defined by the
@@ -93,4 +93,4 @@ private:
 
 }
 
-#endif   // RCS_STATEESTIMATORCOMPONENT_H
+#endif   // DC_STATEESTIMATORCOMPONENT_H

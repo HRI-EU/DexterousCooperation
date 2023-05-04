@@ -53,7 +53,7 @@
 #include <ArucoComponent.h>
 #endif
 
-#if defined (USE_DC_ROS)
+#if defined (USE_ROS)
 #include <ROSSpinnerComponent.h>
 #endif
 
@@ -97,7 +97,7 @@ void quit()
  ******************************************************************************/
 static void testJointGui(int argc, char** argv)
 {
-  EntityBase entity;
+  Dc::EntityBase entity;
 
   CmdLineParser argP;
   double dt = 0.005, tmc=0.25;
@@ -135,14 +135,14 @@ static void testJointGui(int argc, char** argv)
   entity.registerEvent<>("Quit");
   entity.subscribe("Quit", &quit);
 
-  GraphicsWindow viewer(&entity, startViewerWithStartEvent);
-  GraphComponent graphC(&entity, graph);
-  JointGuiComponent gui(&entity, graph, tmc);
-  BoxObjectChanger objC(&entity);
+  Dc::GraphicsWindow viewer(&entity, startViewerWithStartEvent);
+  Dc::GraphComponent graphC(&entity, graph);
+  Dc::JointGuiComponent gui(&entity, graph, tmc);
+  Dc::BoxObjectChanger objC(&entity);
 
-  std::vector<ComponentBase*> hwc = getHardwareComponents(entity, graph);
+  std::vector<Dc::ComponentBase*> hwc = Dc::getHardwareComponents(entity, graph);
 
-#if defined (USE_DC_ROS)
+#if defined (USE_ROS)
   //ros::init(argc, argv, "RcsROS", ros::init_options::NoSigintHandler);
   //RPAUSE();
   if (withROS)
@@ -158,7 +158,7 @@ static void testJointGui(int argc, char** argv)
     {
       JNT->ctrlType = RCSJOINT_CTRL_POSITION;
     }
-    hwc.push_back(new PhysicsComponent(&entity, graph, physicsEngine, physicsCfg, false));
+    hwc.push_back(new Dc::PhysicsComponent(&entity, graph, physicsEngine, physicsCfg, false));
   }
 
   viewer.setKeyCallback('m', [&gui, &graphC](char k)
@@ -200,7 +200,7 @@ static void testJointGui(int argc, char** argv)
     return;
   }
 
-  EventGui::create(&entity);
+  new Dc::EventGui(&entity);
 
   entity.initialize(graphC.getGraph());
 
@@ -221,7 +221,7 @@ static void testJointGui(int argc, char** argv)
     entity.publish<std::string>("SetText", std::string(text));
 
     Timer_waitDT(entity.getDt());
-    RPAUSE_DL(2);
+    RPAUSE_DL(5);
   }
 
   entity.publish<>("Stop");
@@ -270,7 +270,7 @@ static void testTaskGui()
 
   Rcs_addResourcePath(directory);
 
-  EntityBase entity;
+  Dc::EntityBase entity;
 
   if (argP.hasArgument("-h"))
   {
@@ -312,14 +312,14 @@ static void testTaskGui()
   entity.registerEvent<>("Quit");
   entity.subscribe("Quit", &quit);
 
-  GraphicsWindow viewer(&entity, false, seqViewer, simpleGraphics);
-  GraphComponent graphC(&entity, graph);
-  TaskGuiComponent gui(&entity, controller);
-  IKComponent ikc(&entity, controller, IKComponent::IkSolverType::RMR);
+  Dc::GraphicsWindow viewer(&entity, false, seqViewer, simpleGraphics);
+  Dc::GraphComponent graphC(&entity, graph);
+  Dc::TaskGuiComponent gui(&entity, controller);
+  Dc::IKComponent ikc(&entity, controller, Dc::IKComponent::IkSolverType::RMR);
   ikc.setSpeedLimitCheck(!noSpeedCheck);
   ikc.setJointLimitCheck(!noJointCheck);
   ikc.setCollisionCheck(!noCollCheck);
-  BoxObjectChanger objC(&entity);
+  Dc::BoxObjectChanger objC(&entity);
 
   std::vector<std::string> b1, b2;
   b1.push_back("Box_real");
@@ -327,9 +327,9 @@ static void testTaskGui()
   //b2.push_back("sdh-base_R");
   b2.push_back("kinect2_dexco");
 
-  Rcs::ColliderComponent collider(&entity, b1, b2, false);
-  std::vector<ComponentBase*> hwc = getHardwareComponents(entity, graph);
-  PhysicsComponent* pc = NULL;
+  Dc::ColliderComponent collider(&entity, b1, b2, false);
+  std::vector<Dc::ComponentBase*> hwc = Dc::getHardwareComponents(entity, graph);
+  Dc::PhysicsComponent* pc = NULL;
 
   if (hwc.empty())
   {
@@ -338,8 +338,8 @@ static void testTaskGui()
       JNT->ctrlType = RCSJOINT_CTRL_POSITION;
     }
 
-    pc = new PhysicsComponent(&entity, graph, physicsEngine,
-                              physicsCfg, !seqSim);
+    pc = new Dc::PhysicsComponent(&entity, graph, physicsEngine,
+                                  physicsCfg, !seqSim);
     if (pc->getPhysicsSimulation())
     {
       osg::ref_ptr<NamedBodyForceDragger> dragger =
@@ -376,7 +376,7 @@ static void testTaskGui()
   // Start threads (if any)
   if (withGui==true)
   {
-    EventGui::create(&entity);
+    new Dc::EventGui(&entity);
   }
 
   entity.initialize(graphC.getGraph());
@@ -439,10 +439,10 @@ static void testTaskGui()
 /*******************************************************************************
  * Task-level control with trajectory generation
  ******************************************************************************/
-class JacoHandOpener : public ComponentBase
+class JacoHandOpener : public Dc::ComponentBase
 {
 public:
-  JacoHandOpener(EntityBase* parent) : ComponentBase(parent), t_blind(0.0), isOpen(false)
+  JacoHandOpener(Dc::EntityBase* parent) : Dc::ComponentBase(parent), t_blind(0.0), isOpen(false)
   {
     RLOG(0, "Creating JacoHandOpener");
     subscribe("JacoHandForce", &JacoHandOpener::onOpenHand);
@@ -523,7 +523,7 @@ static void testTrajectory()
 
   Rcs_addResourcePath(directory);
 
-  EntityBase entity;
+  Dc::EntityBase entity;
 
   if (argP.hasArgument("-h"))
   {
@@ -567,19 +567,19 @@ static void testTrajectory()
   entity.subscribe("Quit", &quit);
 
   JacoHandOpener handOpener(&entity);
-  TrajectoryComponent trajC(&entity, controller, !zigzag, 1.0, false);
-  GraphicsWindow viewer(&entity, false, seqViewer, simpleGraphics);
-  GraphComponent graphC(&entity, graph);
-  BoxObjectChanger objC(&entity);
-  IKComponent ikc(&entity, controller, IKComponent::IkSolverType::RMR);
+  Dc::TrajectoryComponent trajC(&entity, controller, !zigzag, 1.0, false);
+  Dc::GraphicsWindow viewer(&entity, false, seqViewer, simpleGraphics);
+  Dc::GraphComponent graphC(&entity, graph);
+  Dc::BoxObjectChanger objC(&entity);
+  Dc::IKComponent ikc(&entity, controller, Dc::IKComponent::IkSolverType::RMR);
   ikc.setSpeedLimitCheck(!noSpeedCheck);
   ikc.setJointLimitCheck(!noJointCheck);
   ikc.setCollisionCheck(!noCollCheck);
-  TaskGuiComponent gui(&entity, controller);
+  Dc::TaskGuiComponent gui(&entity, controller);
   gui.setPassive(true);
 
-  std::vector<ComponentBase*> hwc = getHardwareComponents(entity, graph);
-  PhysicsComponent* pc = NULL;
+  std::vector<Dc::ComponentBase*> hwc = Dc::getHardwareComponents(entity, graph);
+  Dc::PhysicsComponent* pc = NULL;
 
   if (hwc.empty())
   {
@@ -588,8 +588,8 @@ static void testTrajectory()
       JNT->ctrlType = RCSJOINT_CTRL_POSITION;
     }
 
-    pc = new PhysicsComponent(&entity, graph, physicsEngine,
-                              physicsCfg, !seqSim);
+    pc = new Dc::PhysicsComponent(&entity, graph, physicsEngine,
+                                  physicsCfg, !seqSim);
 
     if (pc->getPhysicsSimulation())
     {
@@ -727,7 +727,7 @@ static void testTrajectory()
   // Start threads (if any)
   if (withGui==true)
   {
-    EventGui::create(&entity);
+    new Dc::EventGui(&entity);
   }
 
   entity.initialize(graphC.getGraph());
@@ -866,21 +866,25 @@ static void testAruco()
  ******************************************************************************/
 static void testTTS(int argc, char** argv)
 {
-  size_t loopCount = 0;
-  EntityBase entity;
-  EventGui::create(&entity);
+  const double dt = 0.01;
+  Dc::EntityBase entity;
+  entity.subscribe("Quit", &quit);
+  entity.setDt(dt);
 
-  Rcs::TTSComponent tts(&entity);
-  entity.publish<>("Start");
+  Dc::TTSComponent tts(&entity, -1);
+  new Dc::EventGui(&entity);
+  entity.publish("Start");
 
   while (runLoop)
   {
     entity.process();
-    Timer_waitDT(0.1);
-    RLOG_CPP(1, "Loop count: " << loopCount++);
+    entity.stepTime();
+    Timer_waitDT(dt);
+    RLOG_CPP(1, "Time: " << entity.getTime());
   }
 
-  entity.publish<>("Stop");
+  entity.publish("Stop");
+  entity.process();
 }
 
 /*******************************************************************************
@@ -936,10 +940,10 @@ int main(int argc, char** argv)
   {
     Rcs_printResourcePath();
     Rcs::KeyCatcherBase::printRegisteredKeys();
-    EntityBase entity;
-    getHardwareComponents(entity, NULL, true);
+    Dc::EntityBase entity;
+    Dc::getHardwareComponents(entity, NULL, true);
     argP.print();
-    Rcs::printHardwareComponents();
+    Dc::printHardwareComponents();
   }
 
 

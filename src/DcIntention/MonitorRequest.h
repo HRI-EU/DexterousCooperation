@@ -32,8 +32,8 @@
 *******************************************************************************/
 
 
-#ifndef RCS_MONITORREQUEST_H
-#define RCS_MONITORREQUEST_H
+#ifndef DC_MONITORREQUEST_H
+#define DC_MONITORREQUEST_H
 
 #include <string>
 #include <map>
@@ -41,7 +41,7 @@
 #include <memory>
 
 
-namespace Rcs
+namespace Dc
 {
 
 class MonitorRequest;
@@ -226,4 +226,4 @@ public:
 
 }
 
-#endif //RCS_MONITORREQUEST_H
+#endif // DC_MONITORREQUEST_H

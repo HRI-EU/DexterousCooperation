@@ -31,8 +31,8 @@
 
 *******************************************************************************/
 
-#ifndef RCS_POSEGRAPH_H
-#define RCS_POSEGRAPH_H
+#ifndef DC_POSEGRAPH_H
+#define DC_POSEGRAPH_H
 
 #include <ControllerBase.h>
 
@@ -54,10 +54,10 @@ public:
     std::string taskName;
     std::vector<double> x_des;
     bool active;
-    bool beforRelaxation;
+    bool beforeRelaxation;
     bool afterRelaxation;
 
-    TaskSpec() : active(false)
+    TaskSpec() : active(false), beforeRelaxation(false), afterRelaxation(false)
     {
     }
   };
@@ -89,9 +89,10 @@ public:
 
   struct Result
   {
+    ControllerBase* cSingle;
     ControllerBase* controller;
     MatNd* activation;
-    Result() : controller(NULL), activation(NULL)
+    Result() : cSingle(NULL), controller(NULL), activation(NULL)
     { }
   };
 
@@ -176,4 +177,4 @@ protected:
 
 }   // namespace Rcs
 
-#endif // RCS_POSEGRAPH_H
+#endif // DC_POSEGRAPH_H

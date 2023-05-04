@@ -1,6 +1,21 @@
 # DexterousCooperation
 ======================
 
+DexterousCooperation is a software repository that contains most of the code
+that has been written for a project on physical human-robot collaboration. The
+below image shows one example, in which a person and a robot collaboratively 
+rotate a box. The corresponding video is here: 
+https://www.honda-ri.de/human-robot-cooperative-object-manipulation-with-contact-changes
+The project depends on a few libraries for robot kinematics and control 
+(https://github.com/HRI-EU/Rcs), trajectory generation (https://github.com/HRI-EU/Tropic), 
+path planning (https://github.com/HRI-EU/Gras) and an entity-component header-only
+library (https://github.com/HRI-EU/ESLib). It is written in C++ and requires
+the standard C++11. 
+
+
+<p float="left">
+<img src="doc/images/DexterousCooperation.png" width="50%" > 
+</p>
 ## License
 
 This project is licensed under the BSD 3-clause license - see the [LICENSE.md](LICENSE.md) file for details
@@ -13,12 +28,9 @@ This project is licensed under the BSD 3-clause license - see the [LICENSE.md](L
 
 
 
-# Test programs
-===============
+# Test program: TestDexterousCooperation
 
-## TestDexterousCooperation
-
-### Mode 1: Box demo
+## Mode 1: Box demo
 
 Start command simulator:
 
@@ -27,6 +39,7 @@ Start command simulator:
 ```
   1. Press \"go to start\" button in GUI
   2. Optional: Check \"Auto accept all confirmation requests\" in GUI to enable movement to next canonical state
+  3. Press 'o' for turning the box in one direction, 'i' to turn into the other direction
 
 Start command real robot:
 
@@ -37,10 +50,11 @@ Start command real robot:
   2. Press d twice in viewer window to enable IME
   3. Press t in viewer window to tare force torque sensors
   4. Check \"Auto\" in GUI to enable automatic triggering on sensor signals
+  5. Enjoy playing around with the robot
 
-### Mode 2: Wheel demo
+## Mode 2: Wheel demo
 
-#### Start command simulator:
+### Start command simulator:
 
 ```
  bin/TestDexterousCooperation -m 2
@@ -50,7 +64,7 @@ Start command real robot:
   3. Press \"close hands\" button in GUI
   2. Optional: Check \"Auto accept all confirmation requests\" in GUI to enable movement to next canonical state
 
-#### Start command real robot:
+### Start command real robot:
 
 - Make sure that Vicon feedback is enabled in IMEComponent
 
@@ -66,7 +80,7 @@ Start command real robot:
   6. Press \"close hands\" button in GUI
   7. Check \"Auto evaluate\" in GUI to enable automatic triggering on sensor signals
 
-#### Move platform back home:
+### Move platform back home:
 
   - Change iiwa control programs to position control
 
@@ -79,7 +93,7 @@ Start command real robot:
 
 
 
-## TestPoseGraph
+# Test program: TestPoseGraph
 
 ```
     bin/Rcs -m 5 -alpha 1 -algo 1 -lambda 0 -f config/xml/DexterousCooperation/PoseGraph/mode1/cHandDefinedCoupledJoints.xml -scaleDragForce 0.5 -dt 0.025
@@ -87,21 +101,21 @@ Start command real robot:
 ```
 
 
-## TestPolygonPlanner
+# Test program: TestPolygonPlanner
 
 See the [DcVision](src/DcVision/README.md) for the cool polygon detection and planning project.
 
-### Mode 1: Contact point processing in graphics window
+## Mode 1: Contact point processing in graphics window
 
-### Mode 2: Simulation / real system in action
+## Mode 2: Simulation / real system in action
 
-#### Start command simulator:
+### Start command simulator:
 
 ```
     bin/TestPolygonPlanner -m 1
 ```
 
-#### Start command real system:
+### Start command real system:
 
 ```
     source ~/ros-melodic.env
@@ -113,7 +127,7 @@ See the [DcVision](src/DcVision/README.md) for the cool polygon detection and pl
   - To toggle updating from ROS, use message GetPolygonsFromROS (in EventGui)
   - To see from the robot's camera perspective, use message SetViewFromKinect
 
-#### Here are a few useful ROS commands:
+### Here are a few useful ROS commands:
 
 
 ```
@@ -136,9 +150,9 @@ See the [DcVision](src/DcVision/README.md) for the cool polygon detection and pl
     - /dexco/rgb_overlay
 
 
-## ExampleDcComponents
+# Test program: ExampleDcComponents
 
-### Jaco mode
+## Jaco mode
 
 - Single joint control:
 

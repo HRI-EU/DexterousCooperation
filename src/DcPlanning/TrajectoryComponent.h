@@ -31,8 +31,8 @@
 
 *******************************************************************************/
 
-#ifndef RCS_TRAJECTORYCOMPONENT_H
-#define RCS_TRAJECTORYCOMPONENT_H
+#ifndef DC_TRAJECTORYCOMPONENT_H
+#define DC_TRAJECTORYCOMPONENT_H
 
 
 #include "ComponentBase.h"
@@ -41,7 +41,7 @@
 
 
 
-namespace Rcs
+namespace Dc
 {
 /*! \brief Trajectory generation class. The trajectory is stepped within the
  *         ComputeTrajectory event.
@@ -84,7 +84,7 @@ public:
    * \param[in] horizon    Trajectory receding horizon length.
    */
   TrajectoryComponent(EntityBase* parent,
-                      const ControllerBase* controller,
+                      const Rcs::ControllerBase* controller,
                       bool viaPtTrj=true,
                       double horizon=1.0,
                       bool checkTrajectory=true);
@@ -136,4 +136,4 @@ private:
 
 }
 
-#endif   // RCS_TRAJECTORYCOMPONENT_H
+#endif   // DC_TRAJECTORYCOMPONENT_H

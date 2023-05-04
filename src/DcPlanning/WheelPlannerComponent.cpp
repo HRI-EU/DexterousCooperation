@@ -48,7 +48,7 @@
 
 using namespace tropic;
 
-namespace Rcs
+namespace Dc
 {
 
 
@@ -106,13 +106,13 @@ void WheelPlannerComponent::plannerThread(std::vector<int> from,
 
 
 WheelPlannerComponent::WheelPlannerComponent(EntityBase* parent,
-                                             const ControllerBase* controller_,
+                                             const Rcs::ControllerBase* controller_,
                                              bool via,
                                              double horizon) :
   ComponentBase(parent), tc(NULL), tSet(NULL), motionEndTime(0.0),
   a_des(NULL), x_des(NULL), eStop(false), wheelExplorer(controller_->getGraph())
 {
-  ControllerBase* controller = new ControllerBase(*controller_);
+  Rcs::ControllerBase* controller = new Rcs::ControllerBase(*controller_);
   this->a_des   = MatNd_create((int) controller->getNumberOfTasks(), 1);
   this->x_des   = MatNd_create((int) controller->getTaskDim(), 1);
   controller->computeX(this->x_des);

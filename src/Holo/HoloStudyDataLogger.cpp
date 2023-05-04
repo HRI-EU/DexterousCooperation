@@ -40,7 +40,7 @@
 
 
 
-namespace Rcs
+namespace Dc
 {
 
 
@@ -270,4 +270,4 @@ void HoloStudyDataLogger::onMotionState(bool isMoving)
   }
 }
 
-}  // namespace Rcs
+}  // namespace

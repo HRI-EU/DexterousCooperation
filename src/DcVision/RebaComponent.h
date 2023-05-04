@@ -10,8 +10,8 @@
      this list of conditions and the following disclaimer.
 
   2. Redistributions in binary form must reproduce the above copyright
-   notice, this list of conditions and the following disclaimer in the
-   documentation and/or other materials provided with the distribution.
+     notice, this list of conditions and the following disclaimer in the
+     documentation and/or other materials provided with the distribution.
 
   3. Neither the name of the copyright holder nor the names of its
      contributors may be used to endorse or promote products derived from
@@ -31,15 +31,15 @@
 
 *******************************************************************************/
 
-#ifndef RCS_REBACOMPONENT_H
-#define RCS_REBACOMPONENT_H
+#ifndef DC_REBACOMPONENT_H
+#define DC_REBACOMPONENT_H
 
 #include "ComponentBase.h"
 
 #include <IkSolverRMR.h>
 
 
-namespace Rcs
+namespace Dc
 {
 
 class RebaComponent : public ComponentBase
@@ -55,8 +55,8 @@ private:
   void onComputeReba(RcsGraph* graph);
   void onRender();
 
-  ControllerBase controller;
-  IkSolverRMR ikSolver;
+  Rcs::ControllerBase controller;
+  Rcs::IkSolverRMR ikSolver;
   RcsGraph* rebaGraph;
   MatNd* a_des;
   MatNd* x_des;
@@ -67,4 +67,4 @@ private:
 
 }
 
-#endif // RCS_REBACOMPONENT_H
+#endif // DC_REBACOMPONENT_H

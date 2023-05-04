@@ -64,7 +64,7 @@
 #define COND_RETURN(condition) if ((condition)) { return false;}
 
 
-namespace Rcs
+namespace Dc
 {
 
 WheelStrategy7D::WheelStrategy7D(const RcsGraph* graph) :
@@ -1347,4 +1347,4 @@ void WheelStrategy7D::setGoal(const std::vector<int>& goal)
   goalState = goal;
 }
 
-}   // namespace Rcs
+}   // namespace Dc

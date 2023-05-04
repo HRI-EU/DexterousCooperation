@@ -31,8 +31,8 @@
 
 *******************************************************************************/
 
-#ifndef RCS_WHEELNODE_H
-#define RCS_WHEELNODE_H
+#ifndef DC_WHEELNODE_H
+#define DC_WHEELNODE_H
 
 #include "WheelStrategy7D.h"
 
@@ -44,14 +44,14 @@
 #include <vector>
 
 
-namespace Rcs
+namespace Dc
 {
-class WheelNode: public VertexArrayNode
+class WheelNode: public Rcs::VertexArrayNode
 {
 public:
 
   WheelNode(const WheelStrategy7D* strategy) :
-    VertexArrayNode(osg::PrimitiveSet::LINE_STRIP, "RED"),
+    Rcs::VertexArrayNode(osg::PrimitiveSet::LINE_STRIP, "RED"),
     goalSphereRadius(0.03), traj(NULL)
   {
 
@@ -59,7 +59,7 @@ public:
 
     for (size_t i=0; i<sState.size(); ++i)
     {
-      osg::ref_ptr<CapsuleNode> cn = new CapsuleNode(sState[i].org, NULL, goalSphereRadius, 0.0);
+      osg::ref_ptr<Rcs::CapsuleNode> cn = new Rcs::CapsuleNode(sState[i].org, NULL, goalSphereRadius, 0.0);
       cn->setWireframe(false);
       cn->setMaterial("RED");
       addChild(cn.get());
@@ -77,10 +77,10 @@ public:
     return false;
   }
 
-  std::vector<CapsuleNode*> sNode;
+  std::vector<Rcs::CapsuleNode*> sNode;
   double goalSphereRadius;
   MatNd* traj;
 };
 }
 
-#endif   // RCS_WHEELNODE_H
+#endif   // DC_WHEELNODE_H

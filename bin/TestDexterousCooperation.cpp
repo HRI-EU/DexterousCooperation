@@ -78,7 +78,7 @@
 #include <WheelObjectModel.h>
 #include <WheelPlannerComponent.h>
 
-#if defined (USE_DC_ROS)
+#if defined (USE_ROS)
 #include <VirtualFence.h>
 #include <ROSSpinnerComponent.h>
 #include <HoloFence.h>
@@ -146,7 +146,7 @@ public:
  ******************************************************************************/
 static void boxDemo(int argc, char** argv)
 {
-  EntityBase entity;
+  Dc::EntityBase entity;
 
   CmdLineParser argP(argc, argv);
   double dt = 0.01;
@@ -192,15 +192,15 @@ static void boxDemo(int argc, char** argv)
   entity.registerEvent<>("Quit");
   entity.subscribe("Quit", &quit);
 
-  GraphicsWindow viewer(&entity, true);
-  GraphComponent graphC(&entity, graph);
-  std::shared_ptr<BoxObjectModel> model(new BoxObjectModel(controller, BoxStrategy5D::Box, 36, &entity));
+  Dc::GraphicsWindow viewer(&entity, true);
+  Dc::GraphComponent graphC(&entity, graph);
+  std::shared_ptr<Dc::BoxObjectModel> model(new Dc::BoxObjectModel(controller, Dc::BoxStrategy5D::Box, 36, &entity));
 
-  DyadicMotionPlannerComponent dmpc(&entity, controller, 10.0*M_PI/180.0);
-  StateEstimatorComponent sec(&entity, model);
-  ManipulationComponent mc(&entity, graph, model);
-  IKComponent ikc(&entity, controller);
-  RemoteVisualizationComponent rv(&entity, ikc.getGraph());
+  Dc::DyadicMotionPlannerComponent dmpc(&entity, controller, 10.0*M_PI/180.0);
+  Dc::StateEstimatorComponent sec(&entity, model);
+  Dc::ManipulationComponent mc(&entity, graph, model);
+  Dc::IKComponent ikc(&entity, controller);
+  Dc::RemoteVisualizationComponent rv(&entity, ikc.getGraph());
 #if defined (WITH_HOLO)
   HoloComponent hc(&entity, "IME_VuforiaMarker");
 #endif
@@ -208,22 +208,22 @@ static void boxDemo(int argc, char** argv)
 #if defined (WITH_INTENTION_VISUALIZATION)
   IntentionVisualizationComponent<BoxObjectModel::Intention> ivc(&entity);
 #endif
-  BoxObjectChanger objC(&entity);
+  Dc::BoxObjectChanger objC(&entity);
 
   //real sensors ,  show Gui  , auto publish, auto accept all confirmation requests
-  MonitorComponent monC(&entity, graph, model, false, false, false, false); // for simulator
+  Dc::MonitorComponent monC(&entity, graph, model, false, false, false, false); // for simulator
   monC.enableGui(!noMonitorGui);
   monC.useRealSensors(true);
   //  monC.enableAutoPublish(true);
 
-  std::shared_ptr<TaskGuiComponent> taskGui;
+  std::shared_ptr<Dc::TaskGuiComponent> taskGui;
   if (withGui)
   {
-    taskGui = std::make_shared<TaskGuiComponent>(&entity, controller);
+    taskGui = std::make_shared<Dc::TaskGuiComponent>(&entity, controller);
     taskGui->setPassive(true);
   }
 
-  std::vector<ComponentBase*> hwc = getHardwareComponents(entity, graph);
+  std::vector<Dc::ComponentBase*> hwc = Dc::getHardwareComponents(entity, graph);
 
   if (!hwc.empty())
   {
@@ -253,7 +253,7 @@ static void boxDemo(int argc, char** argv)
         JNT->ctrlType = RCSJOINT_CTRL_POSITION;
       }
 
-      PhysicsComponent* pc = new PhysicsComponent(&entity, graph, physicsEngine, physicsCfg, !seqSim);
+      Dc::PhysicsComponent* pc = new Dc::PhysicsComponent(&entity, graph, physicsEngine, physicsCfg, !seqSim);
       osg::ref_ptr<NamedBodyForceDragger> dragger = new NamedBodyForceDragger(pc->getPhysicsSimulation());
 
       viewer.add(dragger.get());
@@ -271,14 +271,14 @@ static void boxDemo(int argc, char** argv)
   viewer.setKeyCallback('o',
                         [&entity](char k)
   {
-    entity.publish("Intention", (int) BoxObjectModel::Intention::ROTATE_RIGHT, 10000);
+    entity.publish("Intention", (int)Dc::BoxObjectModel::Intention::ROTATE_RIGHT, 10000);
   },
   "Broadcast intention to rotate object RIGHT"
                        );
   viewer.setKeyCallback('i',
                         [&entity](char k)
   {
-    entity.publish("Intention", (int) BoxObjectModel::Intention::ROTATE_LEFT, 10000);
+    entity.publish("Intention", (int)Dc::BoxObjectModel::Intention::ROTATE_LEFT, 10000);
   },
   "Broadcast intention to rotate object LEFT"
                        );
@@ -432,7 +432,7 @@ static void boxDemo(int argc, char** argv)
   // Start threads (if any)
   if (noEventGui == false)
   {
-    EventGui::create(&entity);
+    Dc::EventGui::create(&entity);
   }
   entity.publish("SetTTC", 6.0);
 
@@ -614,7 +614,7 @@ static void boxDemo(int argc, char** argv)
  ******************************************************************************/
 static void wheelDemo(int argc, char** argv)
 {
-  EntityBase entity;
+  Dc::EntityBase entity;
 
   CmdLineParser argP(argc, argv);
   double dt = 0.01;
@@ -663,35 +663,35 @@ static void wheelDemo(int argc, char** argv)
   entity.registerEvent<>("Quit");
   entity.subscribe("Quit", &quit);
 
-  GraphicsWindow viewer(&entity, true);
+  Dc::GraphicsWindow viewer(&entity, true);
   viewer.setCameraTransform(0.709573, 5.297887, 3.003564,   0.400872, -0.086577, -1.813365);
-  GraphComponent graphC(&entity, graph);
-  std::shared_ptr<WheelObjectModel> model(new WheelObjectModel(controller, &entity));
+  Dc::GraphComponent graphC(&entity, graph);
+  std::shared_ptr<Dc::WheelObjectModel> model(new Dc::WheelObjectModel(controller, &entity));
 
   //HoloComponent hc(&entity, "ViconVuforia");
   //IntentionVisualizationComponent<WheelObjectModel::Intention> ivc(&entity);
-  WheelPlannerComponent dmpc(&entity, controller, !zigzag, 1.0);
-  StateEstimatorComponent sec(&entity, model);
-  ManipulationComponent mc(&entity, graph, model);
-  IKComponent ikc(&entity, controller);
+  Dc::WheelPlannerComponent dmpc(&entity, controller, !zigzag, 1.0);
+  Dc::StateEstimatorComponent sec(&entity, model);
+  Dc::ManipulationComponent mc(&entity, graph, model);
+  Dc::IKComponent ikc(&entity, controller);
 
   //  RemoteVisualizationComponent rv(&entity, ikc.getGraph());
   //  BoxObjectChanger objC(&entity);
 
   //real sensors ,  show Gui  , auto publish, auto accept all confirmation requests
-  MonitorComponent monC(&entity, graph, model, false, false, false, false); // for simulator
+  Dc::MonitorComponent monC(&entity, graph, model, false, false, false, false); // for simulator
   monC.enableGui(!noMonitorGui);
   monC.useRealSensors(true);
   //  monC.enableAutoPublish(true);
 
-  std::shared_ptr<TaskGuiComponent> taskGui;
+  std::shared_ptr<Dc::TaskGuiComponent> taskGui;
   if (withGui)
   {
-    taskGui = std::make_shared<TaskGuiComponent>(&entity, controller);
+    taskGui = std::make_shared<Dc::TaskGuiComponent>(&entity, controller);
     taskGui->setPassive(true);
   }
 
-  std::vector<ComponentBase*> hwc = getHardwareComponents(entity, graph);
+  std::vector<Dc::ComponentBase*> hwc = Dc::getHardwareComponents(entity, graph);
 
   if (!hwc.empty())
   {
@@ -723,7 +723,7 @@ static void wheelDemo(int argc, char** argv)
         JNT->ctrlType = RCSJOINT_CTRL_POSITION;
       }
 
-      PhysicsComponent* pc = new PhysicsComponent(&entity, graph, physicsEngine, physicsCfg, !seqSim);
+      Dc::PhysicsComponent* pc = new Dc::PhysicsComponent(&entity, graph, physicsEngine, physicsCfg, !seqSim);
       osg::ref_ptr<NamedBodyForceDragger> dragger = new NamedBodyForceDragger(pc->getPhysicsSimulation());
 
       viewer.add(dragger.get());
@@ -732,7 +732,7 @@ static void wheelDemo(int argc, char** argv)
   }
 
 
-#if defined (USE_DC_ROS)
+#if defined (USE_ROS)
 
   HoloFence* hFence = NULL;
 
@@ -750,7 +750,7 @@ static void wheelDemo(int argc, char** argv)
 
   if (speak)
   {
-    hwc.push_back(new TTSComponent(&entity));
+    hwc.push_back(new Dc::TTSComponent(&entity));
   }
 
   viewer.setKeyCallback('u',
@@ -763,14 +763,14 @@ static void wheelDemo(int argc, char** argv)
   viewer.setKeyCallback('o',
                         [&entity](char k)
   {
-    entity.publish("Intention", (int) BoxObjectModel::Intention::ROTATE_RIGHT, 10000);
+    entity.publish("Intention", (int)Dc::BoxObjectModel::Intention::ROTATE_RIGHT, 10000);
   },
   "Broadcast intention to rotate object RIGHT"
                        );
   viewer.setKeyCallback('i',
                         [&entity](char k)
   {
-    entity.publish("Intention", (int) BoxObjectModel::Intention::ROTATE_LEFT, 10000);
+    entity.publish("Intention", (int)Dc::BoxObjectModel::Intention::ROTATE_LEFT, 10000);
   },
   "Broadcast intention to rotate object LEFT"
                        );
@@ -918,7 +918,7 @@ static void wheelDemo(int argc, char** argv)
   entity.publish("Render");
   entity.processUntilEmpty(10);
 
-#if defined (USE_DC_ROS)
+#if defined (USE_ROS)
 
   if (hFence)
   {
@@ -936,7 +936,7 @@ static void wheelDemo(int argc, char** argv)
 
   if (noEventGui == false)
   {
-    EventGui::create(&entity);
+    Dc::EventGui::create(&entity);
   }
 
   entity.publish("SetTTC", 6.0);

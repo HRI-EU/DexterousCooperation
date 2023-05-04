@@ -10,8 +10,8 @@
      this list of conditions and the following disclaimer.
 
   2. Redistributions in binary form must reproduce the above copyright
-   notice, this list of conditions and the following disclaimer in the
-   documentation and/or other materials provided with the distribution.
+     notice, this list of conditions and the following disclaimer in the
+     documentation and/or other materials provided with the distribution.
 
   3. Neither the name of the copyright holder nor the names of its
      contributors may be used to endorse or promote products derived from
@@ -57,7 +57,7 @@
 #include <thread>
 
 
-namespace Rcs
+namespace Dc
 {
 
 PolyROSComponent::PolyROSComponent(EntityBase* parent, std::string rosTopic,
@@ -542,7 +542,7 @@ bool PolyROSComponent::updatePolygon(const geometry_msgs::PolygonStamped::ConstP
   // Visualize. Centroid and dir are in body coordinates.
   //////////////////////////////////////////////////////////
   osg::ref_ptr<osg::Group> visGroup = new osg::Group();
-  visGroup->addChild(new COSNode(0.25));
+  visGroup->addChild(new Rcs::COSNode(0.25));
 
 
   //////////////////////////////////////////////////////////
@@ -594,7 +594,7 @@ bool PolyROSComponent::updatePolygon(const geometry_msgs::PolygonStamped::ConstP
 // event)
 void PolyROSComponent::onStart()
 {
-#if defined (USE_DC_ROS)
+#if defined (USE_ROS)
   RLOG_CPP(0, "PolyROSComponent::onStart():: Subscribing to "
            << rosFullTopicName);
   if (nh == nullptr)
@@ -612,7 +612,7 @@ void PolyROSComponent::onStart()
 // event)
 void PolyROSComponent::onStop()
 {
-#if defined (USE_DC_ROS)
+#if defined (USE_ROS)
   RLOG(0, "PolyROSComponent::onStop()");
   if (nh)
   {
@@ -685,7 +685,7 @@ void PolyROSComponent::onSetNewData(std::string fileName)
     removeGraphicsNode("IK", graphicsNodeName);
     double center[3];
     Vec3d_set(center, 0.0, 0.0, -0.375);
-    osg::ref_ptr<BoxNode> box = new BoxNode(center, 0.63, 0.36, 0.75);
+    osg::ref_ptr<Rcs::BoxNode> box = new Rcs::BoxNode(center, 0.63, 0.36, 0.75);
     box->setWireframe(false);
     box->setMaterial("DARKRED_TRANS", 0.5);
     addGraphicsNode(box, "IK", objectBdy);
@@ -704,7 +704,7 @@ void PolyROSComponent::onSetNewData(std::string fileName)
     removeGraphicsNode("IK", graphicsNodeName);
     double cCntr[3];
     Vec3d_set(cCntr, 0.0, 0.0, -0.375);
-    osg::ref_ptr<CylinderNode> cyl = new CylinderNode(cCntr, NULL, 0.3, 0.75);
+    osg::ref_ptr<Rcs::CylinderNode> cyl = new Rcs::CylinderNode(cCntr, NULL, 0.3, 0.75);
     cyl->setWireframe(false);
     cyl->setMaterial("DARKRED_TRANS", 0.5);
     addGraphicsNode(cyl, "IK", objectBdy);
@@ -723,11 +723,11 @@ void PolyROSComponent::onSetNewData(std::string fileName)
     removeGraphicsNode("IK", graphicsNodeName);
     double center[3];
     Vec3d_set(center, 0.08, -0.1075, -0.375);
-    osg::ref_ptr<BoxNode> l1 = new BoxNode(center, 0.5, 0.125, 0.75);
+    osg::ref_ptr<Rcs::BoxNode> l1 = new Rcs::BoxNode(center, 0.5, 0.125, 0.75);
     l1->setWireframe(false);
     l1->setMaterial("DARKRED_TRANS", 0.5);
     Vec3d_set(center, -0.1075, 0.1425, -0.375);
-    osg::ref_ptr<BoxNode> l2 = new BoxNode(center, 0.125, 0.375, 0.75);
+    osg::ref_ptr<Rcs::BoxNode> l2 = new Rcs::BoxNode(center, 0.125, 0.375, 0.75);
     l2->setWireframe(false);
     l2->setMaterial("DARKRED_TRANS", 0.5);
     osg::ref_ptr<osg::Group> lshape = new osg::Group();
@@ -751,7 +751,7 @@ void PolyROSComponent::onSetNewData(std::string fileName)
 
 geometry_msgs::PolygonStamped::ConstPtr PolyROSComponent::polyFromFile(std::string fileName) const
 {
-#if !defined (USE_DC_ROS)
+#if !defined (USE_ROS)
   auto tmpPoly = std::make_shared<geometry_msgs::PolygonStamped>();
 #else
   auto tmpPoly = boost::make_shared<geometry_msgs::PolygonStamped>();
@@ -824,4 +824,4 @@ void PolyROSComponent::removeGraphicsNode(std::string nodeName) const
   ntt->publish<std::string, std::string>("RemoveNode", "", nodeName);
 }
 
-}   // namespace Rcs
+}   // namespace

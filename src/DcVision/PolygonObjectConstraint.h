@@ -10,8 +10,8 @@
      this list of conditions and the following disclaimer.
 
   2. Redistributions in binary form must reproduce the above copyright
-   notice, this list of conditions and the following disclaimer in the
-   documentation and/or other materials provided with the distribution.
+     notice, this list of conditions and the following disclaimer in the
+     documentation and/or other materials provided with the distribution.
 
   3. Neither the name of the copyright holder nor the names of its
      contributors may be used to endorse or promote products derived from
@@ -31,13 +31,13 @@
 
 *******************************************************************************/
 
-#ifndef RCS_POLYGONOBJECTCONSTRAINT_H
-#define RCS_POLYGONOBJECTCONSTRAINT_H
+#ifndef DC_POLYGONOBJECTCONSTRAINT_H
+#define DC_POLYGONOBJECTCONSTRAINT_H
 
 #include <ConstraintSet.h>
 
 
-namespace Rcs
+namespace Dc
 {
 
 class PolygonObjectConstraint
@@ -92,6 +92,6 @@ private:
   std::vector<HTr> contacts;
 };
 
-}   // namespace Rcs
+}   // namespace Dc
 
-#endif   // RCS_POLYGONOBJECTCONSTRAINT_H
+#endif   // DC_POLYGONOBJECTCONSTRAINT_H

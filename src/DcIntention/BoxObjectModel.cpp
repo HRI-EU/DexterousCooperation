@@ -41,12 +41,12 @@
 #include <Rcs_macros.h>
 
 
-namespace Rcs
+namespace Dc
 {
 
 
 
-BoxObjectModel::BoxObjectModel(const ControllerBase* controller_,
+BoxObjectModel::BoxObjectModel(const Rcs::ControllerBase* controller_,
                                BoxStrategy5D::ObjectType object_,
                                int numPhiDiscretizations_,
                                EntityBase* entity_) :

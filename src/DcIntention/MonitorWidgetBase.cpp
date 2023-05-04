@@ -51,7 +51,7 @@
 
 #include <Rcs_macros.h>
 
-namespace Rcs
+namespace Dc
 {
 
 typedef struct

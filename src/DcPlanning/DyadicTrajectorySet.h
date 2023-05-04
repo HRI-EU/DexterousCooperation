@@ -31,13 +31,13 @@
 
 *******************************************************************************/
 
-#ifndef RCS_DYADICTRAJECTORYSET_H
-#define RCS_DYADICTRAJECTORYSET_H
+#ifndef DC_DYADICTRAJECTORYSET_H
+#define DC_DYADICTRAJECTORYSET_H
 
 #include <TrajectoryController.h>
 
 
-namespace Rcs
+namespace Dc
 {
 
 class RelGrip;
@@ -87,6 +87,6 @@ private:
   DyadicTrajectorySet(const DyadicTrajectorySet& copyFromMe);
 };
 
-}   // namespace Rcs
+}   // namespace Dc
 
-#endif   // RCS_DYADICTRAJECTORYSET_H
+#endif   // DC_DYADICTRAJECTORYSET_H

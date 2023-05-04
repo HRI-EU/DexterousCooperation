@@ -31,8 +31,8 @@
 
 *******************************************************************************/
 
-#ifndef RCS_GRAPHICSWINDOW_H
-#define RCS_GRAPHICSWINDOW_H
+#ifndef DC_GRAPHICSWINDOW_H
+#define DC_GRAPHICSWINDOW_H
 
 #include "ComponentBase.h"
 
@@ -45,7 +45,7 @@
 #include <utility>
 
 
-namespace Rcs
+namespace Dc
 {
 /*! \brief Graphics window class.
  *
@@ -92,7 +92,7 @@ namespace Rcs
  *         - This class uses some static maps. Make it a member to support
  *           several GraphicsWindows
  */
-class GraphicsWindow : public ComponentBase, public Viewer
+class GraphicsWindow : public ComponentBase, public Rcs::Viewer
 {
 public:
 
@@ -168,7 +168,7 @@ public:
    * \param[in]   graphId   Id string that a graph has been added with
    * \return Pointer to GraphNode corresponding to graphId
    */
-  GraphNode* getGraphNodeById(std::string graphId);
+  Rcs::GraphNode* getGraphNodeById(std::string graphId);
 
   /*! \brief Enables / disables construction of new GraphNodes that are
    *         dynamically resizeable. The default is false.
@@ -211,9 +211,9 @@ protected:
   void clearText();
   void clear();
 
-  osg::ref_ptr<KeyCatcher> keyCatcher;
-  osg::ref_ptr<HUD> hud;
-  osg::ref_ptr<VertexArrayNode> vertexNode;
+  osg::ref_ptr<Rcs::KeyCatcher> keyCatcher;
+  osg::ref_ptr<Rcs::HUD> hud;
+  osg::ref_ptr<Rcs::VertexArrayNode> vertexNode;
   std::map<char, std::function<void(char)>> keyCallbacks;
   std::vector<std::string> hudText;
   mutable pthread_mutex_t frameMtx;
@@ -228,4 +228,4 @@ private:
 
 }
 
-#endif   // RCS_GRAPHICSWINDOW_H
+#endif   // DC_GRAPHICSWINDOW_H

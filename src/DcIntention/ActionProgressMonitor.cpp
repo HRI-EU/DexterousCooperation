@@ -10,8 +10,8 @@
      this list of conditions and the following disclaimer.
 
   2. Redistributions in binary form must reproduce the above copyright
-   notice, this list of conditions and the following disclaimer in the
-   documentation and/or other materials provided with the distribution.
+     notice, this list of conditions and the following disclaimer in the
+     documentation and/or other materials provided with the distribution.
 
   3. Neither the name of the copyright holder nor the names of its
      contributors may be used to endorse or promote products derived from
@@ -37,7 +37,7 @@
 #include "Rcs_macros.h"
 
 
-namespace Rcs
+namespace Dc
 {
 
 //double gazeAttentionThreshold =  RCS_DEG2RAD(60.0);
@@ -474,7 +474,7 @@ ActionProgressMonitor::~ActionProgressMonitor()
 
 
 
-bool ActionProgressMonitor::monitor(std::string action, Rcs::SearchNode_ptr goal, double duration, double startTime)
+bool ActionProgressMonitor::monitor(std::string action, SearchNode_ptr goal, double duration, double startTime)
 {
   bool actionFound = false;
   Apg_ptr a_ptr;
@@ -499,7 +499,7 @@ bool ActionProgressMonitor::monitor(std::string action, Rcs::SearchNode_ptr goal
   return monitor(a_ptr, goal, duration, startTime);
 }
 
-bool ActionProgressMonitor::monitor(Apg_ptr action, Rcs::SearchNode_ptr goal, double duration, double startTime)
+bool ActionProgressMonitor::monitor(Apg_ptr action, SearchNode_ptr goal, double duration, double startTime)
 {
   actionStartTime_ = startTime;
   currentAction_ = action;

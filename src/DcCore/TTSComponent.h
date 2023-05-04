@@ -31,15 +31,15 @@
 
 *******************************************************************************/
 
-#ifndef RCS_TTSCOMPONENT_H
-#define RCS_TTSCOMPONENT_H
+#ifndef DC_TTSCOMPONENT_H
+#define DC_TTSCOMPONENT_H
 
 #include "ComponentBase.h"
 
 #include <thread>
 
 
-namespace Rcs
+namespace Dc
 {
 
 class TTSComponent : public ComponentBase
@@ -72,4 +72,4 @@ private:
 
 }
 
-#endif   // RCS_TTSCOMPONENT_H
+#endif   // DC_TTSCOMPONENT_H

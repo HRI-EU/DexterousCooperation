@@ -10,8 +10,8 @@
      this list of conditions and the following disclaimer.
 
   2. Redistributions in binary form must reproduce the above copyright
-   notice, this list of conditions and the following disclaimer in the
-   documentation and/or other materials provided with the distribution.
+     notice, this list of conditions and the following disclaimer in the
+     documentation and/or other materials provided with the distribution.
 
   3. Neither the name of the copyright holder nor the names of its
      contributors may be used to endorse or promote products derived from
@@ -31,8 +31,8 @@
 
 *******************************************************************************/
 
-#ifndef RCS_MANIPULATIONCOMPONENT_H
-#define RCS_MANIPULATIONCOMPONENT_H
+#ifndef DC_MANIPULATIONCOMPONENT_H
+#define DC_MANIPULATIONCOMPONENT_H
 
 #include "ComponentBase.h"
 #include "SearchNode.h"
@@ -48,7 +48,7 @@
 
 
 
-namespace Rcs
+namespace Dc
 {
 
 /*!
@@ -177,7 +177,7 @@ public:
    *  \param[in] graph_       A graph to clone for internal use
    *  \param[in] objModel_    The ObjectModel that defines all behavior
    */
-  ManipulationComponent(Rcs::EntityBase* entity, const RcsGraph* graph_, std::shared_ptr<ObjectModel> objModel);
+  ManipulationComponent(EntityBase* entity, const RcsGraph* graph_, std::shared_ptr<ObjectModel> objModel);
   ~ManipulationComponent();
 
   /*!
@@ -237,7 +237,7 @@ private:
    *  \param[in] executeAll     Boolean to define if the whole resulting planned sequence should just be executed (without handling
    *                            by ManipulationComponent)
    */
-  virtual void planSequence(Rcs::SearchNode_ptr curState, Rcs::SearchNode_ptr stop, double ttcPerAction, bool executeAll = false);
+  virtual void planSequence(SearchNode_ptr curState, SearchNode_ptr stop, double ttcPerAction, bool executeAll = false);
 
   /*! \brief Issues a request to execute a planned sequence on topic "ExecutePlan".
    *         It also publishes the transition type on topic "MotionType" and requests the necessary
@@ -359,8 +359,8 @@ private:
 
   bool interactionEnabled;
 
-  Rcs::SearchNode_ptr currentState;
-  Rcs::SearchNode_ptr desiredState;
+  SearchNode_ptr currentState;
+  SearchNode_ptr desiredState;
 
 
   InteractionState interactionState;
@@ -396,6 +396,6 @@ private:
   RcsGraph* graph;
 };
 
-} // namespace Rcs
+} // namespace
 
-#endif //RCS_MANIPULATIONCOMPONENT_H
+#endif //DC_MANIPULATIONCOMPONENT_H

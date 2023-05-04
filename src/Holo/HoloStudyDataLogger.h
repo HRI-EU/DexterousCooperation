@@ -31,8 +31,8 @@
 
 *******************************************************************************/
 
-#ifndef RCS_HOLOSTUDYDATALOGGER_H
-#define RCS_HOLOSTUDYDATALOGGER_H
+#ifndef DC_HOLOSTUDYDATALOGGER_H
+#define DC_HOLOSTUDYDATALOGGER_H
 
 #include "ComponentBase.h"
 
@@ -42,7 +42,7 @@
 
 
 
-namespace Rcs
+namespace Dc
 {
 
 class HoloStudyDataLogger : public ComponentBase
@@ -76,4 +76,4 @@ private:
 
 }
 
-#endif // RCS_HOLOSTUDYDATALOGGER_H
+#endif // DC_HOLOSTUDYDATALOGGER_H

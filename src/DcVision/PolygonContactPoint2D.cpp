@@ -53,7 +53,7 @@
 #include <cmath>
 #include <sstream>
 
-namespace Rcs
+namespace Dc
 {
 
 PolygonContactPoint2D::PolygonContactPoint2D() : normalAngle(0.0), frictionAngle(65.0*M_PI/180.0), maxLever(1.0)
@@ -227,4 +227,4 @@ void PolygonContactPoint2D::setNormalAngle(double value)
 }
 
 
-}  // namespace Rcs
+}  // namespace

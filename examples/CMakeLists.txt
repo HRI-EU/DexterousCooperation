@@ -1,7 +1,7 @@
 ###############################################################################
 # Test program for component-based wheel turning
 ###############################################################################
-ADD_EXECUTABLE(ExampleDcComponents ExampleDcComponents.cpp)
+ADD_EXECUTABLE(ExampleDcComponents ExampleDcComponents.cpp ../src/DcCommon/EcsHardwareComponents.cpp)
 IF(USE_BULLET)
   TARGET_COMPILE_DEFINITIONS(ExampleDcComponents PRIVATE ${BULLET_DEFINITIONS})
 ENDIF(USE_BULLET)
@@ -14,23 +14,23 @@ IF(USE_DC_ROS)
 ENDIF(USE_DC_ROS)
 
 TARGET_COMPILE_DEFINITIONS(ExampleDcComponents PRIVATE -DRCS_CONFIG_DIR="${RCS_CONFIG_DIR}")
+TARGET_COMPILE_DEFINITIONS(ExampleDcComponents PRIVATE ${ROBO_DEFINES})
 #TARGET_VALIDATE_EVENTS(TestDexterousCooperation)
 
 ###############################################################################
 # Example classes for ExampleRunner
 ###############################################################################
-ADD_LIBRARY(DcExamples ExamplePoseGraph.cpp)
-TARGET_INCLUDE_DIRECTORIES(DcExamples PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
-TARGET_LINK_LIBRARIES(DcExamples RcsGraphics RcsPhysics RcsGui Tropic DcPlanning RcsExamples)
+ADD_LIBRARY(DcExamples ExamplePoseGraph.cpp ExampleWheelPlanner.cpp ExamplePolygonPlanner.cpp ../src/DcCommon/EcsHardwareComponents.cpp)
+TARGET_INCLUDE_DIRECTORIES(DcExamples PUBLIC ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_SOURCE_DIR}/../src/DcCommon)
+TARGET_LINK_LIBRARIES(DcExamples RcsGraphics RcsPhysics RcsGui Tropic DcPlanning DcVision DcEventGui RcsExamples TropicExamples ${ROBO_LIBS})
+TARGET_COMPILE_DEFINITIONS(DcExamples PRIVATE -DRCS_CONFIG_DIR="${RCS_CONFIG_DIR}")
+TARGET_COMPILE_DEFINITIONS(DcExamples PRIVATE ${ROBO_DEFINES})
+IF(USE_DC_ROS)
+  TARGET_LINK_LIBRARIES(DcExamples DcROS)
+ENDIF(USE_DC_ROS)
 
 # Copy the .dll file to the same folder as the executable
-IF (WIN32)
-ADD_CUSTOM_COMMAND(
-    TARGET DcExamples POST_BUILD
-    COMMAND ${CMAKE_COMMAND} -E copy
-    ${LIBRARY_OUTPUT_PATH}/${CMAKE_BUILD_TYPE}/DcExamples.dll
-    ${EXECUTABLE_OUTPUT_PATH}/${CMAKE_BUILD_TYPE}/DcExamples.dll)
-ENDIF()
+COPY_DLL(DcExamples)
 
 # We add this option to force the linker to export the symbols. This
 # solves the issue that it will not be exposed, since all initialization 

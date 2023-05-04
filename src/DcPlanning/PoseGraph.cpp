@@ -83,6 +83,8 @@ PoseGraph::Result PoseGraph::create(const ControllerBase* src,
       RFATAL("Unknown algorithm: %d", algo);
   }
 
+  res.cSingle = new Rcs::ControllerBase(*src);
+
   return res;
 }
 
@@ -470,7 +472,7 @@ void PoseGraph::linkBodyJoints(ControllerBase* controller,
     {
       jParent.push_back(JNT);
     }
-    RLOG_CPP(0, "Parent-body " << parentName << ": Connecting " << jBdy.size()
+    RLOG_CPP(1, "Parent-body " << parentName << ": Connecting " << jBdy.size()
              << " joints from body " << bdyName);
     RCHECK(jBdy.size() == jParent.size());
 
@@ -485,7 +487,7 @@ void PoseGraph::linkBodyJoints(ControllerBase* controller,
       jBdy[i]->coupledToId = RcsJoint_getNonCoupledParentId(graph, jParent[i]);
       jBdy[i]->couplingPoly[0] = 1.0;
       jBdy[i]->nCouplingCoeff = 1;
-      RLOG(0, "Connecting joint \"%s\" to \"%s\"",
+      RLOG(1, "Connecting joint \"%s\" to \"%s\"",
            jBdy[i]->name, RCSJOINT_NAME_BY_ID(graph, jBdy[i]->coupledToId));
     }
 
@@ -570,6 +572,18 @@ void PoseGraph::relax(ControllerBase* controller, const Adjacency& connection,
 
       int tidxOld = controller->getTaskIndex(old.c_str());
       int tidxRelax = controller->getTaskIndex(relax.c_str());
+      // We check this since it's hard to find a typo mismatch.
+      if (!connection.originalTasks[i].empty())
+      {
+        RCHECK_MSG(tidxOld != -1, "Task \"%s\" not found",
+                   connection.originalTasks[i].c_str());
+      }
+
+      if (!connection.relaxedTasks[i].empty())
+      {
+        RCHECK_MSG(tidxRelax != -1, "Task \"%s\" not found",
+                   connection.relaxedTasks[i].c_str());
+      }
 
       RLOG(1, "Relaxing task %s - %s", old.c_str(), relax.c_str());
 
@@ -753,10 +767,12 @@ bool PoseGraph::convergeTaskConstraints(ControllerBase* controller,
     maxDq = MatNd_maxAbsEle(dq_des);
     MatNd_addSelf(controller->getGraph()->q, dq_des);
     RcsGraph_setState(controller->getGraph(), NULL, NULL);
-    RLOG(0, "Iteration %d of %d: maxDx = %f   maxDq = %f",
-         iter++, maxIter, maxDx, maxDq);
+    iter++;
+    RLOG(1, "Iteration %d of %d: maxDx = %f   maxDq = %f",
+         iter, maxIter, maxDx, maxDq);
   }
   while ((maxDq>convergenceEps) && (iter<maxIter));
+  RLOG(0, "Pose converged after %d iterations", iter);
 
   return true;
 }
@@ -822,6 +838,17 @@ void PoseGraph::relaxAll(ControllerBase* controller,
 
       int tidxOld = controller->getTaskIndex(old.c_str());
       int tidxRelax = controller->getTaskIndex(relax.c_str());
+      if (!connection.originalTasks[i].empty())
+      {
+        RCHECK_MSG(tidxOld != -1, "Task \"%s\" not found",
+                   connection.originalTasks[i].c_str());
+      }
+
+      if (!connection.relaxedTasks[i].empty())
+      {
+        RCHECK_MSG(tidxRelax != -1, "Task \"%s\" not found",
+                   connection.relaxedTasks[i].c_str());
+      }
 
       RLOG(1, "Relaxing task %s - %s", old.c_str(), relax.c_str());
 

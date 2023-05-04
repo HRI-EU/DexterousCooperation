@@ -31,8 +31,8 @@
 
 *******************************************************************************/
 
-#ifndef RCS_DYADICMOTIONPLANNERCOMPONENT_H
-#define RCS_DYADICMOTIONPLANNERCOMPONENT_H
+#ifndef DC_DYADICMOTIONPLANNERCOMPONENT_H
+#define DC_DYADICMOTIONPLANNERCOMPONENT_H
 
 
 #include "DyadicTrajectorySet.h"
@@ -46,7 +46,7 @@
 
 
 
-namespace Rcs
+namespace Dc
 {
 /*! \brief Motion planning and trajectory generation class
  *
@@ -71,7 +71,7 @@ class DyadicMotionPlannerComponent : public ComponentBase
 public:
 
   DyadicMotionPlannerComponent(EntityBase* parent,
-                               const ControllerBase* controller,
+                               const Rcs::ControllerBase* controller,
                                double deltaPhi=30.0*M_PI/180.0,
                                bool viaPtTrj=true,
                                double horizon=1.0);
@@ -89,7 +89,7 @@ public:
   void moveTo(std::vector<int> to, double ttc);
   void moveRobotTo(int phi, int ra, int la, double ttc);
   void executePlan(std::vector<std::vector<int> > solutionPath, double ttc);
-  const ControllerBase* getController() const;
+  const Rcs::ControllerBase* getController() const;
   void stopTrajectory(double dt);
   double getDeltaPhi() const;
   double getNextCanonicalAngle(double startAngle, int direction) const;
@@ -140,4 +140,4 @@ private:
 
 }
 
-#endif   // RCS_DYADICMOTIONPLANNERCOMPONENT_H
+#endif   // DC_DYADICMOTIONPLANNERCOMPONENT_H

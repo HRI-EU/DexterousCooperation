@@ -10,8 +10,8 @@
      this list of conditions and the following disclaimer.
 
   2. Redistributions in binary form must reproduce the above copyright
-   notice, this list of conditions and the following disclaimer in the
-   documentation and/or other materials provided with the distribution.
+     notice, this list of conditions and the following disclaimer in the
+     documentation and/or other materials provided with the distribution.
 
   3. Neither the name of the copyright holder nor the names of its
      contributors may be used to endorse or promote products derived from
@@ -31,8 +31,8 @@
 
 *******************************************************************************/
 
-#ifndef RCS_MONITORCOMPONENT_H
-#define RCS_MONITORCOMPONENT_H
+#ifndef DC_MONITORCOMPONENT_H
+#define DC_MONITORCOMPONENT_H
 
 #include "ComponentBase.h"
 #include "MonitorRequest.h"
@@ -44,7 +44,7 @@
 #include <map>
 
 
-namespace Rcs
+namespace Dc
 {
 
 class MonitorRequestWidget;
@@ -103,7 +103,7 @@ public:
    *  \param[in] autoConfirm_     Boolean to determine if confirmation request should automatically be fulfilled.
    *                              Useful for work in simulation and debugging.
    */
-  MonitorComponent(Rcs::EntityBase* entity, const RcsGraph* graph_, std::shared_ptr<ObjectModel> model, bool useRealSensors, bool showGui, bool autoPublish_ = true, bool autoConfirm_ = false);
+  MonitorComponent(EntityBase* entity, const RcsGraph* graph_, std::shared_ptr<ObjectModel> model, bool useRealSensors, bool showGui, bool autoPublish_ = true, bool autoConfirm_ = false);
   ~MonitorComponent();
 
   /*!
@@ -163,19 +163,19 @@ private:
   void processRequests();
 
 
-  void addMonitorRequest(Rcs::MonitorRequest req);
+  void addMonitorRequest(MonitorRequest req);
   void clearMonitorRequests(std::string type = "");
-  void resetAndAddMonitorRequest(Rcs::MonitorRequest req);
-  void removeMonitorRequest(std::vector<Rcs::MonitorRequest>::iterator it);
+  void resetAndAddMonitorRequest(MonitorRequest req);
+  void removeMonitorRequest(std::vector<MonitorRequest>::iterator it);
 
   RcsGraph* graph;
   std::map<std::string, double> sensorData;
 
 
   //TODO: make this shared_pointers and they can be used directly by the GUI as well
-  std::vector<Rcs::MonitorRequest> requests;
-  std::vector<Rcs::MonitorRequest> addedRequests;
-  std::vector<Rcs::MonitorRequest> removedRequests;
+  std::vector<MonitorRequest> requests;
+  std::vector<MonitorRequest> addedRequests;
+  std::vector<MonitorRequest> removedRequests;
   bool gui;
   bool realSensors;
   bool autoPublish;
@@ -193,4 +193,4 @@ private:
 };
 
 }
-#endif //MONITORCOMPONENT_H
+#endif // DC_MONITORCOMPONENT_H

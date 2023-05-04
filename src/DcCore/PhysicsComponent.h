@@ -43,7 +43,7 @@
 
 
 
-namespace Rcs
+namespace Dc
 {
 /*! \brief Physics simulation class. Given some control input, this class
  *         computes the physics response according to the underlying physics
@@ -88,7 +88,7 @@ namespace Rcs
  *                               deactivation leads to the body not taking part
  *                               in the dynamics responses any more.
  */
-class PhysicsComponent : public ComponentBase, public PeriodicCallback
+class PhysicsComponent : public ComponentBase, public Rcs::PeriodicCallback
 {
 public:
 
@@ -105,7 +105,7 @@ public:
   virtual std::string getName() const;
   virtual void getLastPositionCommand(MatNd* q_des) const;
   virtual void setFeedForward(bool ffwd);
-  virtual PhysicsBase* getPhysicsSimulation() const;
+  virtual Rcs::PhysicsBase* getPhysicsSimulation() const;
   virtual int sprint(char* str, size_t size) const;
   virtual double getStartTime() const;
   const RcsGraph* getGraph() const;
@@ -139,13 +139,13 @@ private:
   void onInitFromState(const RcsGraph* target);
   void onObjectActivation(std::string objectName, bool activation);
   void onEnableCommands();
-  void subscribeAll(PhysicsBase* physics);
+  void subscribeAll(Rcs::PhysicsBase* physics);
   void onResetRigidBodies();
 
   MatNd* q_curr;
   MatNd* q_dot_curr;
   double dtSim, tStart;
-  PhysicsBase* sim;
+  Rcs::PhysicsBase* sim;
   mutable std::mutex simMtx;
   mutable std::mutex updateMtx;
   bool ffwd;

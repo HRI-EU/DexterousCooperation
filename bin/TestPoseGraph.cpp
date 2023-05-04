@@ -705,7 +705,7 @@ static void testGenericPoseGraphCreation(int argc, char** argv)
     a.bdyName = "PowerGrasp_R_1";
     a.adjacencyList = {-1, -1, 1, -1, 3, -1, 5};
     a.originalTasks = {"HandPos", "HandOri"};
-    a.relaxedTasks = {"HandPosXY", "HandOriPolar"};
+    a.relaxedTasks = {"HandPosYZ", "HandOriPolar"};
     a.fixLastPose = false;
     adja.push_back(a);
 
@@ -716,6 +716,7 @@ static void testGenericPoseGraphCreation(int argc, char** argv)
 
     res = poseGraph.create(controller, adja, stepSpec, postures, offset, salgo);
 
+#if 1
     int tidx = res.controller->getTaskArrayIndex("Traverse_6");
     RCHECK(tidx!=-1);
     MatNd* x_curr = MatNd_create(res.controller->getTaskDim(), 1);
@@ -723,6 +724,7 @@ static void testGenericPoseGraphCreation(int argc, char** argv)
     MatNd_set(x_curr, tidx, 0, -3.5);
     Rcs::PoseGraph::convergeTaskConstraints(res.controller, res.activation, x_curr, 200);
     MatNd_destroy(x_curr);
+#endif
   }
   else if (example=="ex3")
   {
@@ -1010,6 +1012,10 @@ static void testGenericPoseGraphCreation(int argc, char** argv)
   }
 
 
+  else
+  {
+    RFATAL("Unknown example: \"%s\"", example.c_str());
+  }
 
 
 

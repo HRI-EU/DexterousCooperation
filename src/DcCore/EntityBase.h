@@ -10,8 +10,8 @@
      this list of conditions and the following disclaimer.
 
   2. Redistributions in binary form must reproduce the above copyright
-   notice, this list of conditions and the following disclaimer in the
-   documentation and/or other materials provided with the distribution.
+     notice, this list of conditions and the following disclaimer in the
+     documentation and/or other materials provided with the distribution.
 
   3. Neither the name of the copyright holder nor the names of its
      contributors may be used to endorse or promote products derived from
@@ -31,8 +31,8 @@
 
 *******************************************************************************/
 
-#ifndef RCS_ENTITYBASE_H
-#define RCS_ENTITYBASE_H
+#ifndef DC_ENTITYBASE_H
+#define DC_ENTITYBASE_H
 
 #include <EventSystem.h>
 #include <Rcs_graph.h>
@@ -40,7 +40,7 @@
 #include <pthread.h>
 
 
-namespace Rcs
+namespace Dc
 {
 /*! \brief Class wrapping event-loop specific functionality, Maintains some
  *         members related to timings, such as the time step dt, a flag
@@ -122,6 +122,8 @@ public:
 
   bool initialize(RcsGraph* graph);
 
+  std::string printToString() const;
+
 private:
 
   void onTogglePause();
@@ -141,4 +143,4 @@ private:
 
 }
 
-#endif   // RCS_ENTITYBASE_H
+#endif   // DC_ENTITYBASE_H

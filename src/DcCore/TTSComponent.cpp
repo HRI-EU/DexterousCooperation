@@ -54,12 +54,11 @@
 #endif
 
 
-namespace Rcs
+namespace Dc
 {
 
 TTSComponent::TTSComponent(EntityBase* parent, int port_) :
-  Rcs::ComponentBase(parent),
-  port(port_), threadRunning(false)
+  ComponentBase(parent), port(port_), threadRunning(false)
 {
 #if defined (_MSC_VER)
   port = -1;
@@ -72,6 +71,7 @@ TTSComponent::TTSComponent(EntityBase* parent, int port_) :
 
 TTSComponent::~TTSComponent()
 {
+  onStop();
 }
 
 void TTSComponent::setPort(int port_)
@@ -118,7 +118,9 @@ void TTSComponent::onStop()
   }
 
   this->threadRunning = false;
+  RLOG(1, "Joining thread");
   ttsThread.join();
+  RLOG(1, "Done joining thread");
 }
 
 void TTSComponent::onSpeak(std::string text)
@@ -247,4 +249,4 @@ void TTSComponent::localThread()
 
 }
 
-}   // namespace Rcs
+}   // namespace Dc

@@ -31,8 +31,8 @@
 
 *******************************************************************************/
 
-#ifndef RCS_GRAPHCOMPONENT_H
-#define RCS_GRAPHCOMPONENT_H
+#ifndef DC_GRAPHCOMPONENT_H
+#define DC_GRAPHCOMPONENT_H
 
 
 #include "ComponentBase.h"
@@ -41,7 +41,7 @@
 
 
 
-namespace Rcs
+namespace Dc
 {
 /*! \brief Graph wrapper class. Provides methods to compute forward kinematics,
  *         to initialize, and to visualize graphs.
@@ -127,4 +127,4 @@ private:
 
 }
 
-#endif   // RCS_GRAPHCOMPONENT_H
+#endif   // DC_GRAPHCOMPONENT_H

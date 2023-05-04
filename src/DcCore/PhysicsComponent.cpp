@@ -42,7 +42,7 @@
 
 
 
-namespace Rcs
+namespace Dc
 {
 
 /*******************************************************************************
@@ -67,7 +67,7 @@ PhysicsComponent::PhysicsComponent(EntityBase* parent,
 {
   setClassName("PhysicsComponent");
   setUpdateFrequency(200.0);
-  this->sim = PhysicsFactory::create(engine, graph_, cfgFile);
+  this->sim = Rcs::PhysicsFactory::create(engine, graph_, cfgFile);
   this->q_curr = MatNd_clone(graph_->q);
   this->q_dot_curr = MatNd_clone(graph_->q_dot);
 
@@ -89,7 +89,7 @@ PhysicsComponent::PhysicsComponent(EntityBase* parent,
 /*******************************************************************************
  * Destructor
  ******************************************************************************/
-void PhysicsComponent::subscribeAll(PhysicsBase* physics)
+void PhysicsComponent::subscribeAll(Rcs::PhysicsBase* physics)
 {
   subscribe("SetRandomPose", &PhysicsComponent::onRandomPose);
   subscribe("EnableCommands", &PhysicsComponent::onEnableCommands);
@@ -296,7 +296,7 @@ void PhysicsComponent::getLastPositionCommand(MatNd* q_des) const
 /*******************************************************************************
  *
  ******************************************************************************/
-PhysicsBase* PhysicsComponent::getPhysicsSimulation() const
+Rcs::PhysicsBase* PhysicsComponent::getPhysicsSimulation() const
 {
   return this->sim;
 }
@@ -528,4 +528,4 @@ void PhysicsComponent::onResetRigidBodies()
 
 }
 
-}   // namespace Rcs
+}   // namespace Dc

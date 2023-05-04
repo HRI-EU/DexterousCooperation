@@ -31,8 +31,8 @@
 
 *******************************************************************************/
 
-#ifndef RCS_POLYGONOBJECTPLANNER_H
-#define RCS_POLYGONOBJECTPLANNER_H
+#ifndef DC_POLYGONOBJECTPLANNER_H
+#define DC_POLYGONOBJECTPLANNER_H
 
 
 #include "ComponentBase.h"
@@ -42,7 +42,7 @@
 
 
 
-namespace Rcs
+namespace Dc
 {
 /*! \brief Motion planner class for polygon objects.
  *
@@ -106,7 +106,7 @@ public:
    * \param[in] deltaPhi   Angular discretization of the search state.
    */
   PolygonObjectPlanner(EntityBase* parent,
-                       const ControllerBase* controller,
+                       const Rcs::ControllerBase* controller,
                        double deltaPhi);
 
   /*! \brief Computes the search state from the state corresponding to the
@@ -157,7 +157,7 @@ private:
   bool checkState(std::vector<int> state) const;
 
   PolygonObjectModel objectModel;
-  ControllerBase controller;
+  Rcs::ControllerBase controller;
   double deltaPhi;
   bool eStop;
   bool isMoving;
@@ -169,4 +169,4 @@ private:
 
 }
 
-#endif   // RCS_POLYGONOBJECTPLANNER_H
+#endif   // DC_POLYGONOBJECTPLANNER_H

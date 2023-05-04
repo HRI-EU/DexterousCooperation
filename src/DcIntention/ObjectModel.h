@@ -31,15 +31,15 @@
 
 *******************************************************************************/
 
-#ifndef RCS_OBJECTMODEL_H
-#define RCS_OBJECTMODEL_H
+#ifndef DC_OBJECTMODEL_H
+#define DC_OBJECTMODEL_H
 
 #include "ActionProgressGraph.h"
 #include <Rcs_graph.h>
 
 
 
-namespace Rcs
+namespace Dc
 {
 
 /*!
@@ -71,6 +71,7 @@ public:
    *         StateEstimatorComponent, and MonitorComponent.
    */
   ObjectModel();
+
   virtual ~ObjectModel();
 
   /*! \brief Provides an empty state with the right dimensionality for this
@@ -248,4 +249,4 @@ public:
 
 }
 
-#endif // RCS_OBJECTMODEL_H
+#endif // DC_OBJECTMODEL_H

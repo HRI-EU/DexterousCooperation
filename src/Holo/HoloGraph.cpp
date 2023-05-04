@@ -46,12 +46,12 @@
 #include <Rcs_utils.h>
 
 
-namespace Rcs
+namespace Dc
 {
 
 HoloGraph::HoloGraph(EntityBase* parent, const RcsGraph* graph_, int port_) :
-  Rcs::ComponentBase(parent),
-  PeriodicCallback(),
+  ComponentBase(parent),
+  Rcs::PeriodicCallback(),
   graph(RcsGraph_clone(graph_)),
   holoConn(),
   port(port_)
@@ -138,4 +138,4 @@ void HoloGraph::callback()
   getEntity()->publish("SetTextLine", std::string(text), 1);
 }
 
-}   // namespace Rcs
+}   // namespace

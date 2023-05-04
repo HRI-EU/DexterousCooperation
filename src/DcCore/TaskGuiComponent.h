@@ -31,8 +31,8 @@
 
 *******************************************************************************/
 
-#ifndef RCS_TASKGUICOMPONENT_H
-#define RCS_TASKGUICOMPONENT_H
+#ifndef DC_TASKGUICOMPONENT_H
+#define DC_TASKGUICOMPONENT_H
 
 
 #include "ComponentBase.h"
@@ -41,7 +41,7 @@
 #include <Rcs_filters.h>
 
 
-namespace Rcs
+namespace Dc
 {
 
 /*! \brief Task gui class. Runs a TaskWidget in its own thread, reads in
@@ -80,7 +80,7 @@ public:
    *                        this classes activation vector is set according to
    *                        the entries in the xml file (active-tag)
    */
-  TaskGuiComponent(EntityBase* parent, const ControllerBase* controller);
+  TaskGuiComponent(EntityBase* parent, const Rcs::ControllerBase* controller);
 
   /*! \brief Unsubscribes all subscribers and frees all memory. Also cleans
    *         up mutex.
@@ -119,12 +119,12 @@ private:
   void start();
   void stop();
 
-  ControllerBase controller;
+  Rcs::ControllerBase controller;
   MatNd* a_des;
   MatNd* x_des;
   MatNd* x_des_filt;
   MatNd* x_curr;
-  RampFilterND* filt;
+  Rcs::RampFilterND* filt;
   std::vector<int> handle;
   mutable pthread_mutex_t mtx;
   bool passive;
@@ -135,4 +135,4 @@ private:
 
 }
 
-#endif   // RCS_TASKGUICOMPONENT_H
+#endif   // DC_TASKGUICOMPONENT_H

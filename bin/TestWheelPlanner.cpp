@@ -140,7 +140,7 @@ static void testPlannerOnly(bool interactive = true)
   // Planner
   //////////////////////////////////////////////////////////////////////
   RcsGraph* graph = RcsGraph_create(xmlFileName);
-  WheelStrategy7D strategy(graph);
+  Dc::WheelStrategy7D strategy(graph);
   if (strategy.test(graph, 100) == false)
   {
     RLOG(0, "Planner test failed");
@@ -158,7 +158,7 @@ static void testPlannerOnly(bool interactive = true)
 
   if (withStateGui)
   {
-    stateMatDes = MatNd_create(WheelStrategy7D::StateElement::StateMaxIndex, 1);
+    stateMatDes = MatNd_create(Dc::WheelStrategy7D::StateElement::StateMaxIndex, 1);
 
     std::vector<int> guiState = strategy.getState(graph);
     for (size_t i = 0; i < guiState.size(); ++i)
@@ -214,7 +214,7 @@ static void testPlannerOnly(bool interactive = true)
     Rcs::BodyNode* anchor = gn->getBodyNode("WheelPole");
     if (anchor)
     {
-      anchor->addChild(new Rcs::WheelNode(&strategy));
+      anchor->addChild(new Dc::WheelNode(&strategy));
     }
     viewer->runInThread(&mtx);
   }
@@ -247,7 +247,7 @@ static void testPlannerOnly(bool interactive = true)
     if (withStateGui)
     {
       std::vector<int> guiState;
-      for (size_t i = 0; i < WheelStrategy7D::StateElement::StateMaxIndex; ++i)
+      for (size_t i = 0; i < Dc::WheelStrategy7D::StateElement::StateMaxIndex; ++i)
       {
         guiState.push_back(lround(MatNd_get(stateMatDes, i, 0)));
       }
@@ -523,11 +523,11 @@ static void testWheelWithoutECS()
 
   IkSolverConstraintRMR ikSolver(controller);
 
-  WheelStrategy7D strategy(controller->getGraph());
+  Dc::WheelStrategy7D strategy(controller->getGraph());
   std::vector<int> state0 = strategy.getState(controller->getGraph());
   std::vector<int> state1(state0.size());
   std::vector<std::vector<int>> solutionPath;
-  WheelConstraint wConstraint(tc, &strategy);
+  Dc::WheelConstraint wConstraint(tc, &strategy);
 
   //////////////////////////////////////////////////////////////////////
   // Visualization
@@ -563,7 +563,7 @@ static void testWheelWithoutECS()
     viewer->add(dragger);
     Rcs::BodyNode* anchor = gn->getBodyNode("WheelPole");
     RCHECK(anchor);
-    anchor->addChild(new Rcs::WheelNode(&strategy));
+    anchor->addChild(new Dc::WheelNode(&strategy));
     viewer->runInThread(&mtx);
   }
   else
@@ -582,7 +582,7 @@ static void testWheelWithoutECS()
 
   if (withStateGui)
   {
-    stateMatDes = MatNd_create(WheelStrategy7D::StateElement::StateMaxIndex, 1);
+    stateMatDes = MatNd_create(Dc::WheelStrategy7D::StateElement::StateMaxIndex, 1);
 
     std::vector<int> guiState = strategy.getState(controller->getGraph());
     for (size_t i=0; i<guiState.size(); ++i)
@@ -765,12 +765,12 @@ static void testWheelWithoutECS()
     }
     else if (kc && kc->getAndResetKey('o'))
     {
-      std::vector<int> goalState(WheelStrategy7D::StateMaxIndex);
+      std::vector<int> goalState(Dc::WheelStrategy7D::StateMaxIndex);
 
       if (withStateGui)
       {
         RMSGS("Moving to state from GUI ");
-        for (int i=0; i<WheelStrategy7D::StateElement::StateMaxIndex; ++i)
+        for (int i=0; i< Dc::WheelStrategy7D::StateElement::StateMaxIndex; ++i)
         {
           int state_i = lround(MatNd_get(stateMatDes, i, 0));
           goalState[i] = state_i;
@@ -1106,7 +1106,7 @@ static void testWheelWithECS(int argc, char** argv)
     seqViewer = true;
   }
 
-  EntityBase entity;
+  Dc::EntityBase entity;
   entity.setDt(dt);
   if (pause)
   {
@@ -1132,16 +1132,16 @@ static void testWheelWithECS(int argc, char** argv)
   entity.registerEvent<>("Quit");
   entity.subscribe("Quit", &quit);
 
-  GraphicsWindow viewer(&entity, startViewerWithStartEvent, seqViewer, simpleGraphics);
-  GraphComponent graphC(&entity, graph);
-  WheelPlannerComponent dmpc(&entity, controller, !zigzag);
-  IKComponent ikc(&entity, controller);
+  Dc::GraphicsWindow viewer(&entity, startViewerWithStartEvent, seqViewer, simpleGraphics);
+  Dc::GraphComponent graphC(&entity, graph);
+  Dc::WheelPlannerComponent dmpc(&entity, controller, !zigzag);
+  Dc::IKComponent ikc(&entity, controller);
   ikc.setSpeedLimitCheck(!noSpeedCheck);
   ikc.setJointLimitCheck(!noJointCheck);
   ikc.setCollisionCheck(!noCollCheck);
   ikc.setAlpha(alpha);
 
-  std::vector<ComponentBase*> hwc = getHardwareComponents(entity, graph);
+  std::vector<Dc::ComponentBase*> hwc = Dc::getHardwareComponents(entity, graph);
 
   if (hwc.empty())
   {
@@ -1151,8 +1151,8 @@ static void testWheelWithECS(int argc, char** argv)
       JNT->ctrlType = RCSJOINT_CTRL_POSITION;
     }
 
-    PhysicsComponent* pc = new PhysicsComponent(&entity, graph, physicsEngine,
-                                                physicsCfg, !seqSim);
+    Dc::PhysicsComponent* pc = new Dc::PhysicsComponent(&entity, graph, physicsEngine,
+                                                        physicsCfg, !seqSim);
     if (pc->getPhysicsSimulation())
     {
       osg::ref_ptr<NamedBodyForceDragger> dragger =
@@ -1218,7 +1218,7 @@ static void testWheelWithECS(int argc, char** argv)
 
   if (noEventGui == false)
   {
-    EventGui::create(&entity);
+    Dc::EventGui::create(&entity);
   }
 
   // Start threads (if any)
@@ -1264,7 +1264,7 @@ static void testWheelWithECS(int argc, char** argv)
     Rcs::BodyNode* anchor = gn->getBodyNode("WheelPole");
     if (anchor)
     {
-      anchor->addChild(new Rcs::WheelNode(dmpc.getStrategy()));
+      anchor->addChild(new Dc::WheelNode(dmpc.getStrategy()));
       entity.publish("Render");
       entity.processUntilEmpty(10);
     }

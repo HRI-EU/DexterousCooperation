@@ -10,8 +10,8 @@
      this list of conditions and the following disclaimer.
 
   2. Redistributions in binary form must reproduce the above copyright
-   notice, this list of conditions and the following disclaimer in the
-   documentation and/or other materials provided with the distribution.
+     notice, this list of conditions and the following disclaimer in the
+     documentation and/or other materials provided with the distribution.
 
   3. Neither the name of the copyright holder nor the names of its
      contributors may be used to endorse or promote products derived from
@@ -31,8 +31,8 @@
 
 *******************************************************************************/
 
-#ifndef RCS_BOXSTRATEGY5D_H
-#define RCS_BOXSTRATEGY5D_H
+#ifndef DC_BOXSTRATEGY5D_H
+#define DC_BOXSTRATEGY5D_H
 
 #include <ExplorationStrategy.h>
 #include <Rcs_HTr.h>
@@ -40,7 +40,7 @@
 #include <memory>
 
 
-namespace Rcs
+namespace Dc
 {
 
 class BoxStrategy5D : public Gras::ExplorationStrategy
@@ -205,4 +205,4 @@ typedef std::shared_ptr<BoxStrategy5D> BoxStrategy5D_ptr;
 
 }
 
-#endif // RCS_BOXSTRATEGY5D_H
+#endif // DC_BOXSTRATEGY5D_H

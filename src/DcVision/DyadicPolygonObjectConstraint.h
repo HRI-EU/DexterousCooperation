@@ -31,13 +31,13 @@
 
 *******************************************************************************/
 
-#ifndef RCS_DYADICPOLYGONOBJECTCONSTRAINT_H
-#define RCS_DYADICPOLYGONOBJECTCONSTRAINT_H
+#ifndef DC_DYADICPOLYGONOBJECTCONSTRAINT_H
+#define DC_DYADICPOLYGONOBJECTCONSTRAINT_H
 
 #include "PolygonObjectConstraint.h"
 
 
-namespace Rcs
+namespace Dc
 {
 
 class DyadicPolygonObjectConstraint
@@ -63,6 +63,6 @@ private:
   PolygonObjectConstraint ttp; // partner
 };
 
-}   // namespace Rcs
+}   // namespace Dc
 
-#endif   // RCS_DYADICPOLYGONOBJECTCONSTRAINT_H
+#endif   // DC_DYADICPOLYGONOBJECTCONSTRAINT_H

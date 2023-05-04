@@ -31,8 +31,8 @@
 
 *******************************************************************************/
 
-#ifndef RCS_POLYGONOBJECTMODEL_H
-#define RCS_POLYGONOBJECTMODEL_H
+#ifndef DC_POLYGONOBJECTMODEL_H
+#define DC_POLYGONOBJECTMODEL_H
 
 #include "PolygonContactPoint2D.h"
 
@@ -43,7 +43,7 @@
 #include <vector>
 
 
-namespace Rcs
+namespace Dc
 {
 
 /*! \brief Class to compute and represent grasp features from polygon data.
@@ -283,4 +283,4 @@ private:
 
 
 
-#endif   // RCS_POLYGONOBJECTMODEL_H
+#endif   // DC_POLYGONOBJECTMODEL_H

@@ -10,8 +10,8 @@
      this list of conditions and the following disclaimer.
 
   2. Redistributions in binary form must reproduce the above copyright
-   notice, this list of conditions and the following disclaimer in the
-   documentation and/or other materials provided with the distribution.
+     notice, this list of conditions and the following disclaimer in the
+     documentation and/or other materials provided with the distribution.
 
   3. Neither the name of the copyright holder nor the names of its
      contributors may be used to endorse or promote products derived from
@@ -31,16 +31,16 @@
 
 *******************************************************************************/
 
-#ifndef RCS_JOINTGUICOMPONENT_H
-#define RCS_JOINTGUICOMPONENT_H
+#ifndef DC_JOINTGUICOMPONENT_H
+#define DC_JOINTGUICOMPONENT_H
 
 #include "ComponentBase.h"
 
-#include <Rcs_graph.h>
+#include <JointWidget.h>
 #include <Rcs_filters.h>
 
 
-namespace Rcs
+namespace Dc
 {
 /*! \brief Joint gui class. Runs a JointWidget in its own thread, reads in
  *         the slider values, filters them, and provides them as command
@@ -117,13 +117,14 @@ private:
   void onFilterAndUpdateGui(RcsGraph* from);
   void onEmergencyStop();
   void onEmergencyRecover();
+  void onGoalPose(std::string goalPose);
 
   RcsGraph* graph;
   MatNd* q_des;
   MatNd* q_curr;
   MatNd* q_des_filt;
-  RampFilterND* filt;
-  std::vector<int> handle;
+  Rcs::RampFilterND* filt;
+  Rcs::JointGui* jGui;
   mutable pthread_mutex_t mtx;
 
   JointGuiComponent(const JointGuiComponent&);
@@ -132,4 +133,4 @@ private:
 
 }
 
-#endif   // RCS_JOINTGUICOMPONENT_H
+#endif   // DC_JOINTGUICOMPONENT_H

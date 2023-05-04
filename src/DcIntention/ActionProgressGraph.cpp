@@ -36,11 +36,11 @@
 #include "ActionProgressState.h"
 #include "ActionProgressTransition.h"
 #include "MonitorRequest.h"
-//#include <iostream>
+
 #include <fstream>
 #include <SearchNode.h>
 
-namespace Rcs
+namespace Dc
 {
 
 ActionProgressGraph::ActionProgressGraph()

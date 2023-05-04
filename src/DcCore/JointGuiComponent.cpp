@@ -36,14 +36,14 @@
 #include <JointWidget.h>
 #include <Rcs_typedef.h>
 #include <Rcs_macros.h>
-#include <Rcs_guiFactory.h>
+#include <Rcs_graphParser.h>
 
 
 
-namespace Rcs
+namespace Dc
 {
 
-class JointUpdateCallback : public JointWidget::JointChangeCallback
+class JointUpdateCallback : public Rcs::JointWidget::JointChangeCallback
 {
 public:
   JointUpdateCallback(JointGuiComponent* gui_) : gui(gui_)
@@ -66,7 +66,8 @@ JointGuiComponent::JointGuiComponent(EntityBase* parent, const RcsGraph* g,
   q_des(NULL),
   q_curr(NULL),
   q_des_filt(NULL),
-  filt(NULL)
+  filt(NULL),
+  jGui(NULL)
 {
   RCHECK(tmc>=0.0);
   RCHECK(vmax>=0.0);
@@ -75,7 +76,7 @@ JointGuiComponent::JointGuiComponent(EntityBase* parent, const RcsGraph* g,
   this->q_des_filt = MatNd_clone(g->q);
   this->q_curr = MatNd_clone(g->q);
 
-  this->filt = new RampFilterND(q_curr->ele, tmc, vmax, parent->getDt(), g->dof);
+  this->filt = new Rcs::RampFilterND(q_curr->ele, tmc, vmax, parent->getDt(), g->dof);
   pthread_mutex_init(&this->mtx, NULL);
 
   subscribeAll();
@@ -84,11 +85,15 @@ JointGuiComponent::JointGuiComponent(EntityBase* parent, const RcsGraph* g,
 JointGuiComponent::~JointGuiComponent()
 {
   unsubscribe();
+
+  delete this->jGui;
+  delete this->filt;
+
   RcsGraph_destroy(this->graph);
   MatNd_destroy(this->q_des);
   MatNd_destroy(this->q_des_filt);
   MatNd_destroy(this->q_curr);
-  delete this->filt;
+
   pthread_mutex_destroy(&this->mtx);
 }
 
@@ -100,22 +105,30 @@ void JointGuiComponent::subscribeAll()
   subscribe("ComputeKinematics", &JointGuiComponent::onFilterAndUpdateGui);
   subscribe("EmergencyStop", &JointGuiComponent::onEmergencyStop);
   subscribe("EmergencyRecover", &JointGuiComponent::onEmergencyRecover);
+  subscribe("SetModelStatePose", &JointGuiComponent::onGoalPose);
 }
 
 void JointGuiComponent::onStart()
 {
+  jGui = new Rcs::JointGui(this->graph, &this->mtx, this->q_des, this->q_curr);
   RLOG(1, "Start::start()");
   MatNd_copy(this->q_des, graph->q);
-  int guiHandle = JointWidget::create(this->graph, &this->mtx,
-                                      this->q_des, this->q_curr);
-
-  this->handle.push_back(guiHandle);
-
-  void* ptr = RcsGuiFactory_getPointer(guiHandle);
-  JointWidget* widget = static_cast<JointWidget*>(ptr);
 
   JointUpdateCallback* jcb = new JointUpdateCallback(this);
-  widget->registerCallback(jcb);
+  Rcs::JointWidget* jw = static_cast<Rcs::JointWidget*>(jGui->getWidget());
+  jw->registerCallback(jcb);
+
+
+  // int guiHandle = Rcs::JointWidget::create(this->graph, &this->mtx,
+  //                                          this->q_des, this->q_curr);
+
+  // this->handle.push_back(guiHandle);
+
+  // void* ptr = RcsGuiFactory_getPointer(guiHandle);
+  // Rcs::JointWidget* widget = static_cast<Rcs::JointWidget*>(ptr);
+
+  // JointUpdateCallback* jcb = new JointUpdateCallback(this);
+  // widget->registerCallback(jcb);
 }
 
 void JointGuiComponent::guiCallback()
@@ -123,6 +136,19 @@ void JointGuiComponent::guiCallback()
   pthread_mutex_lock(&this->mtx);
   filt->setTarget(this->q_des->ele);
   pthread_mutex_unlock(&this->mtx);
+}
+
+void JointGuiComponent::onGoalPose(std::string goalPose)
+{
+  MatNd* q_goal = MatNd_clone(graph->q);
+  bool ok = RcsGraph_getModelStateFromXML(q_goal, graph, goalPose.c_str(), -1);
+
+  if (ok)
+  {
+    setGoalPose(q_goal);
+  }
+
+  MatNd_destroy(q_goal);
 }
 
 void JointGuiComponent::setGoalPose(const MatNd* q_goal)
@@ -137,14 +163,11 @@ void JointGuiComponent::setGoalPose(const MatNd* q_goal)
 
   pthread_mutex_lock(&this->mtx);
   filt->setTarget(q_goal->ele);
-
-  for (size_t i=0; i<this->handle.size(); ++i)
+  Rcs::JointWidget* jw = static_cast<Rcs::JointWidget*>(jGui->getWidget());
+  if (jw)
   {
-    void* ptr = RcsGuiFactory_getPointer(handle[i]);
-    JointWidget* widget = static_cast<JointWidget*>(ptr);
-    widget->reset(q_goal);
+    jw->reset(q_goal);
   }
-
   pthread_mutex_unlock(&this->mtx);
 }
 
@@ -187,30 +210,16 @@ void JointGuiComponent::onInitialize(const RcsGraph* target)
   MatNd_copy(this->q_des_filt, target->q);
   filt->init(target->q->ele);
 
-  for (size_t i=0; i<this->handle.size(); ++i)
-  {
-    void* ptr = RcsGuiFactory_getPointer(handle[i]);
-    JointWidget* widget = static_cast<JointWidget*>(ptr);
-    widget->reset(target->q);
-  }
+  Rcs::JointWidget* jw = static_cast<Rcs::JointWidget*>(jGui->getWidget());
+  jw->reset(target->q);
 
   pthread_mutex_unlock(&this->mtx);
 }
 
 void JointGuiComponent::onStop()
 {
-  size_t numDestroyed = 0;
-  for (size_t i=0; i<this->handle.size(); ++i)
-  {
-    bool success = RcsGuiFactory_destroyGUI(this->handle[i]);
-    numDestroyed += success ? 1 : 0;
-  }
-
-  RLOG(1, "Stop::stop() %s (%d from %d deleted)",
-       (numDestroyed==this->handle.size()) ? "SUCCEEDED" : "FAILED",
-       (int) numDestroyed, (int) this->handle.size());
-
-  this->handle.clear();
+  delete jGui;
+  jGui = NULL;
 }
 
 const MatNd* JointGuiComponent::getJointCommandPtr() const
@@ -218,4 +227,4 @@ const MatNd* JointGuiComponent::getJointCommandPtr() const
   return this->q_des_filt;
 }
 
-}   // namespace Rcs
+}   // namespace Dc

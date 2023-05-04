@@ -1,6 +1,6 @@
 /*******************************************************************************
 
-  Copyright (c) by Honda Research Institute Europe GmbH
+  Copyright (c) Honda Research Institute Europe GmbH
 
   Redistribution and use in source and binary forms, with or without
   modification, are permitted provided that the following conditions are
@@ -10,8 +10,8 @@
      this list of conditions and the following disclaimer.
 
   2. Redistributions in binary form must reproduce the above copyright
-   notice, this list of conditions and the following disclaimer in the
-   documentation and/or other materials provided with the distribution.
+     notice, this list of conditions and the following disclaimer in the
+     documentation and/or other materials provided with the distribution.
 
   3. Neither the name of the copyright holder nor the names of its
      contributors may be used to endorse or promote products derived from
@@ -31,37 +31,32 @@
 
 *******************************************************************************/
 
-#ifndef RCS_EVENTGUI_H
-#define RCS_EVENTGUI_H
+#ifndef DC_EVENTGUI_H
+#define DC_EVENTGUI_H
 
-#include "ComponentBase.h"
+#include <EventSystem.h>
+
+#include <AsyncWidget.h>
 
 #include <QScrollArea>
 #include <QString>
 #include <QStringList>
 #include <QLineEdit>
 
-namespace Rcs
+
+
+namespace Dc
 {
 
-class EventGui : public QScrollArea, public ComponentBase
+class EventGui : public Rcs::AsyncWidget
 {
-  Q_OBJECT
-
 public:
-  static int create(EntityBase* entity);
-  std::string getName() const;
-
-public slots:
-  void handleButton(const QString& eventName);
-  void handleMultiArgsButton(const QString& eventNameAndArgs);
-
+  static EventGui* create(ES::EventSystem* entity);
+  EventGui(ES::EventSystem* entity);
+  void construct();
 
 private:
-  EventGui(EntityBase* entity);
-  virtual ~EventGui() = default;
-  static void* threadFunc(void* arg);
-
+  ES::EventSystem* entity;
 };
 
 class EventLine : public QWidget
@@ -69,20 +64,21 @@ class EventLine : public QWidget
   Q_OBJECT
 
 public:
-  EventLine(std::string eventName, EntityBase* entity, ES::SubscriberCollectionBase* event);
+  EventLine(std::string eventName, ES::EventSystem* entity, ES::SubscriberCollectionBase* event);
+  virtual ~EventLine() = default;
 
-public slots:
+private slots:
   void handleButton();
   void handleText();
   void handleText2();
 
 private:
   std::string eventName;
-  EntityBase* entity;
+  ES::EventSystem* entity;
   QLineEdit* text;
   QLineEdit* text2;
   ES::SubscriberCollectionBase* event;
 };
 
 }
-#endif //   RCS_EVENTGUI_H
+#endif //   DC_EVENTGUI_H

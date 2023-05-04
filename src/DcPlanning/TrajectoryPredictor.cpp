@@ -41,14 +41,14 @@
 
 
 
-namespace Rcs
+namespace Dc
 {
 
 TrajectoryPredictor::TrajectoryPredictor(const tropic::TrajectoryControllerBase* tc_) :
   tc(NULL), ikSolver(NULL), predSteps(0), qStack(NULL), det(0.0)
 {
   this->tc = new tropic::TrajectoryControllerBase(*tc_);
-  this->ikSolver = new IkSolverConstraintRMR(tc->getInternalController());
+  this->ikSolver = new Rcs::IkSolverConstraintRMR(tc->getInternalController());
   this->qStack = MatNd_create(1, tc->getController()->getGraph()->dof);
 }
 
@@ -135,7 +135,7 @@ bool TrajectoryPredictor::predict(double dt)
 double TrajectoryPredictor::stepTrajectory(double dt)
 {
   double alpha = 0.05;//HACK TODO
-  ControllerBase* controller = tc->getInternalController();
+  Rcs::ControllerBase* controller = tc->getInternalController();
 
   MatNd* a_des = MatNd_create(tc->getController()->getNumberOfTasks(), 1);
   MatNd* x_des = MatNd_create(tc->getController()->getTaskDim(), 1);

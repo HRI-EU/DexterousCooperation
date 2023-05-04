@@ -150,7 +150,7 @@ static void testBoxPlanner(const char* cfgFile)
     seqViewer = true;
   }
 
-  EntityBase entity;
+  Dc::EntityBase entity;
   entity.setDt(dt);
   if (pause)
   {
@@ -175,25 +175,25 @@ static void testBoxPlanner(const char* cfgFile)
   entity.registerEvent<>("Quit");
   entity.subscribe("Quit", &quit);
 
-  GraphicsWindow viewer(&entity, startViewerWithStartEvent, seqViewer, simpleGraphics);
-  GraphComponent graphC(&entity, graph);
-  DyadicMotionPlannerComponent dmpc(&entity, controller, dPhi*M_PI/180.0, !zigzag);
-  IKComponent ikc(&entity, controller);
+  Dc::GraphicsWindow viewer(&entity, startViewerWithStartEvent, seqViewer, simpleGraphics);
+  Dc::GraphComponent graphC(&entity, graph);
+  Dc::DyadicMotionPlannerComponent dmpc(&entity, controller, dPhi*M_PI/180.0, !zigzag);
+  Dc::IKComponent ikc(&entity, controller);
   ikc.setSpeedLimitCheck(!noSpeedCheck);
   ikc.setJointLimitCheck(!noJointCheck);
   ikc.setCollisionCheck(!noCollCheck);
 
   //RebaComponent rebaC(&entity, "cLinda.xml");
-  BoxObjectChanger objC(&entity);
+  Dc::BoxObjectChanger objC(&entity);
 
-  std::shared_ptr<TaskGuiComponent> taskGui;
+  std::shared_ptr<Dc::TaskGuiComponent> taskGui;
   if (withGui==true)
   {
-    taskGui = std::make_shared<TaskGuiComponent>(&entity, controller);
+    taskGui = std::make_shared<Dc::TaskGuiComponent>(&entity, controller);
     taskGui->setPassive(true);
   }
 
-  std::vector<ComponentBase*> hwc = getHardwareComponents(entity, graph);
+  std::vector<Dc::ComponentBase*> hwc = Dc::getHardwareComponents(entity, graph);
 
   if (hwc.empty())
   {
@@ -202,8 +202,8 @@ static void testBoxPlanner(const char* cfgFile)
       JNT->ctrlType = RCSJOINT_CTRL_POSITION;
     }
 
-    PhysicsComponent* pc = new PhysicsComponent(&entity, graph, physicsEngine,
-                                                physicsCfg, !seqSim);
+    Dc::PhysicsComponent* pc = new Dc::PhysicsComponent(&entity, graph, physicsEngine,
+                                                        physicsCfg, !seqSim);
 
     ttc = 1.0;
     argP.getArgument("-ttc", &ttc, "Transition time (default is %f)", ttc);
@@ -294,7 +294,7 @@ static void testBoxPlanner(const char* cfgFile)
 
   if (noEventGui == false)
   {
-    EventGui::create(&entity);
+    new Dc::EventGui(&entity);
   }
 
   RPAUSE_MSG_DL(1, "ChangeObjectShape");

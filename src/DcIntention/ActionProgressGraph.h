@@ -31,14 +31,14 @@
 
 *******************************************************************************/
 
-#ifndef RCS_ACTIONPROGRESSGRAPH_H
-#define RCS_ACTIONPROGRESSGRAPH_H
+#ifndef DC_ACTIONPROGRESSGRAPH_H
+#define DC_ACTIONPROGRESSGRAPH_H
 
 #include "MonitorRequest.h"
 
 
 
-namespace Rcs
+namespace Dc
 {
 
 class ActionProgressState;
@@ -153,4 +153,4 @@ typedef std::weak_ptr<ActionProgressGraph> Apg_wptr;
 
 }
 
-#endif //RCS_ACTIONPROGRESSGRAPH_H
+#endif // DC_ACTIONPROGRESSGRAPH_H

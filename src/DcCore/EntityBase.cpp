@@ -38,7 +38,7 @@
 #include <algorithm>
 
 
-namespace Rcs
+namespace Dc
 {
 
 EntityBase::EntityBase() : dt(0.05), pause(false), timeFrozen(false),
@@ -226,5 +226,12 @@ bool EntityBase::initialize(RcsGraph* graph)
   return true;
 }
 
+std::string EntityBase::printToString() const
+{
+  std::ostringstream os;
+  print(os);
+  os << std::endl;
+  return os.str();
+}
 
-}   // namespace Rcs
+}   // namespace Dc

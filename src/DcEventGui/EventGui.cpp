@@ -33,87 +33,27 @@
 
 #include "EventGui.h"
 
-#include "Rcs_guiFactory.h"
-#include "Rcs_macros.h"
+#include <Rcs_macros.h>
 
 #include <QLayout>
 #include <QLabel>
 #include <QPushButton>
 #include <QSignalMapper>
 #include <QTextStream>
-#include <QDebug>
 
 #include <algorithm>
 
-namespace Rcs
+
+namespace Dc
 {
 
-void* EventGui::threadFunc(void* arg)
-{
-  EntityBase* entity = (EntityBase*)arg;
-  RCHECK(arg);
-
-  EventGui* gui = new EventGui(entity);
-  gui->show();
-  return gui;
-}
-
-
-
-int EventGui::create(EntityBase* entity)
-{
-  return RcsGuiFactory_requestGUI(threadFunc, entity);
-}
-
-std::string EventGui::getName() const
-{
-  return std::string("EventGui");
-}
-
-void EventGui::handleMultiArgsButton(const QString& eventNameAndArgs)
-{
-  RLOG(0, "handleMultiArgsButton: %s", eventNameAndArgs.toStdString().c_str());
-}
-
-void EventGui::handleButton(const QString& eventName)
-{
-  RLOG(0, "handleButton: %s", eventName.toStdString().c_str());
-  getEntity()->publish(eventName.toStdString());
-}
-
-EventGui::EventGui(EntityBase* entity) : QScrollArea(), ComponentBase(entity)
-{
-  setWindowTitle("EventGui");
-
-  QVBoxLayout* gridLayout = new QVBoxLayout();
-
-  // this is needed for the widget actually being scrollable
-  QWidget* scrollWidget = new QWidget(this);
-  scrollWidget->setLayout(gridLayout);
-  this->setWidget(scrollWidget);
-
-  for (auto& entry : getEntity()->getRegisteredEvents())
-  {
-    std::string eventName = entry.first;
-    ES::SubscriberCollectionBase* event = entry.second;
-    unsigned int pCount = event->getParametersParser()->getParameterCount();
-
-    if ((pCount==0)
-        || (pCount==1 && event->getParametersParser()->getParameterType(0)!= ES::ParameterType::UNSUPPORTED)
-        || (pCount==2 && event->getParametersParser()->getParameterType(0)!= ES::ParameterType::UNSUPPORTED && event->getParametersParser()->getParameterType(1)!= ES::ParameterType::UNSUPPORTED))
-    {
-      gridLayout->addWidget(new EventLine(eventName, getEntity(), event));
-    }
-  }   // for (auto ...
-
-  int height = std::min(1100, ((int) getEntity()->getRegisteredEvents().size()) * 19);
-
-  resize(450, height);
-  this->setWidgetResizable(true);
-}
-
-
-EventLine::EventLine(std::string eventName_, EntityBase* entity_, ES::SubscriberCollectionBase* hc) : eventName(eventName_), entity(entity_), text(NULL), event(hc)
+/*******************************************************************************
+ *
+ ******************************************************************************/
+EventLine::EventLine(std::string eventName_,
+                     ES::EventSystem* entity_,
+                     ES::SubscriberCollectionBase* hc) :
+  eventName(eventName_), entity(entity_), text(NULL), text2(NULL), event(hc)
 {
   unsigned int pCount = event->getParametersParser()->getParameterCount();
   QHBoxLayout* gridLayout = new QHBoxLayout;
@@ -398,8 +338,71 @@ void EventLine::handleText2()
 
 void EventLine::handleButton()
 {
-  RLOG(0, "handleButton: %s", eventName.c_str());
   entity->publish(eventName);
 }
 
-}   // namespace Rcs
+/*******************************************************************************
+ *
+ ******************************************************************************/
+class EventWidget : public QScrollArea
+{
+public:
+  EventWidget(ES::EventSystem* entity);
+  virtual ~EventWidget() = default;
+};
+
+EventWidget::EventWidget(ES::EventSystem* entity) : QScrollArea()
+{
+  setWindowTitle("EventWidget");
+  setObjectName("EventWidget");
+
+  QVBoxLayout* gridLayout = new QVBoxLayout();
+
+  // this is needed for the widget actually being scrollable
+  QWidget* scrollWidget = new QWidget(this);
+  scrollWidget->setLayout(gridLayout);
+  this->setWidget(scrollWidget);
+
+  for (auto& entry : entity->getRegisteredEvents())
+  {
+    std::string eventName = entry.first;
+    ES::SubscriberCollectionBase* event = entry.second;
+    unsigned int pCount = event->getParametersParser()->getParameterCount();
+
+    if ((pCount==0) ||
+        ((pCount==1) && (event->getParametersParser()->getParameterType(0)!=ES::ParameterType::UNSUPPORTED)) ||
+        ((pCount==2) && (event->getParametersParser()->getParameterType(0)!=ES::ParameterType::UNSUPPORTED) && (event->getParametersParser()->getParameterType(1)!=ES::ParameterType::UNSUPPORTED)))
+    {
+      gridLayout->addWidget(new EventLine(eventName, entity, event));
+    }
+  }   // for (auto ...
+
+  int height = std::min(1100, ((int)entity->getRegisteredEvents().size()) * 19);
+
+  resize(450, height);
+  this->setWidgetResizable(true);
+}
+
+
+
+/*******************************************************************************
+ *
+ ******************************************************************************/
+EventGui* EventGui::create(ES::EventSystem* e)
+{
+  return new EventGui(e);
+}
+
+EventGui::EventGui(ES::EventSystem* e) : AsyncWidget(), entity(e)
+{
+  launch();
+}
+
+void EventGui::construct()
+{
+  setWidget(new EventWidget(entity));
+}
+
+
+
+}   // namespace

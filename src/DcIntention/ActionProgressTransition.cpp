@@ -36,7 +36,7 @@
 #include "ActionProgressState.h"
 #include "Rcs_macros.h"
 
-namespace Rcs
+namespace Dc
 {
 
 ActionProgressTransition::ActionProgressTransition()

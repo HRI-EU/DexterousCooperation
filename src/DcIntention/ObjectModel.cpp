@@ -35,7 +35,7 @@
 
 
 
-namespace Rcs
+namespace Dc
 {
 
 ObjectModel::ObjectModel()
@@ -59,10 +59,6 @@ bool ObjectModel::confirmationNeeded(std::vector<int> stateFrom,
 {
   return false;
 }
-
-
-
-
 
 
 }

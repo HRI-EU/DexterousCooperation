@@ -10,8 +10,8 @@
      this list of conditions and the following disclaimer.
 
   2. Redistributions in binary form must reproduce the above copyright
-   notice, this list of conditions and the following disclaimer in the
-   documentation and/or other materials provided with the distribution.
+     notice, this list of conditions and the following disclaimer in the
+     documentation and/or other materials provided with the distribution.
 
   3. Neither the name of the copyright holder nor the names of its
      contributors may be used to endorse or promote products derived from
@@ -40,11 +40,11 @@
 #include <Rcs_macros.h>
 
 
-namespace Rcs
+namespace Dc
 {
 
 TrajectoryComponent::TrajectoryComponent(EntityBase* parent,
-                                         const ControllerBase* controller_,
+                                         const Rcs::ControllerBase* controller_,
                                          bool via,
                                          double horizon,
                                          bool checkTrajectory_) :
@@ -55,7 +55,7 @@ TrajectoryComponent::TrajectoryComponent(EntityBase* parent,
   eStop(false)
 
 {
-  ControllerBase* controller = new ControllerBase(*controller_);
+  Rcs::ControllerBase* controller = new Rcs::ControllerBase(*controller_);
   this->a_des   = MatNd_create((int) controller->getNumberOfTasks(), 1);
   this->x_des   = MatNd_create((int) controller->getTaskDim(), 1);
   controller->computeX(this->x_des);

@@ -10,8 +10,8 @@
      this list of conditions and the following disclaimer.
 
   2. Redistributions in binary form must reproduce the above copyright
-   notice, this list of conditions and the following disclaimer in the
-   documentation and/or other materials provided with the distribution.
+     notice, this list of conditions and the following disclaimer in the
+     documentation and/or other materials provided with the distribution.
 
   3. Neither the name of the copyright holder nor the names of its
      contributors may be used to endorse or promote products derived from
@@ -31,8 +31,8 @@
 
 *******************************************************************************/
 
-#ifndef RCS_BOXOBJECTMODEL_H
-#define RCS_BOXOBJECTMODEL_H
+#ifndef DC_BOXOBJECTMODEL_H
+#define DC_BOXOBJECTMODEL_H
 
 #include "EntityBase.h"
 #include "ObjectModel.h"
@@ -44,7 +44,7 @@
 
 
 
-namespace Rcs
+namespace Dc
 {
 
 /*!
@@ -98,10 +98,10 @@ public:
    *  \param[in] entity                     EntityBase that can be passed to components that need to publish
    *                                        (e.g. visualization in triggerExecutionVisualization())
    */
-  BoxObjectModel(const ControllerBase* controller,
+  BoxObjectModel(const Rcs::ControllerBase* controller,
                  BoxStrategy5D::ObjectType object,
                  int numPhiDiscretizations,
-                 Rcs::EntityBase* entity=NULL);
+                 EntityBase* entity=NULL);
   ~BoxObjectModel();
 
   /*!
@@ -403,16 +403,16 @@ public:
 
 private:
 
-  ControllerBase controller;
+  Rcs::ControllerBase controller;
   std::shared_ptr<BoxStrategy5D> boxExplorer;
 
   double deltaPhi;
 
-  Task* taskPhi;
-  Task* taskPosR;
-  Task* taskPosL;
-  Task* taskPartnerPosR;
-  Task* taskPartnerPosL;
+  Rcs::Task* taskPhi;
+  Rcs::Task* taskPosR;
+  Rcs::Task* taskPosL;
+  Rcs::Task* taskPartnerPosR;
+  Rcs::Task* taskPartnerPosL;
 
   std::vector<HTr> contactPointsRobot;
   std::vector<HTr> contactPointsPartner;
@@ -428,4 +428,4 @@ private:
 
 }
 
-#endif //RCS_OBJECT_MODEL_H
+#endif // DC_OBJECT_MODEL_H

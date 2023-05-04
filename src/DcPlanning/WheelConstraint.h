@@ -31,8 +31,8 @@
 
 *******************************************************************************/
 
-#ifndef RCS_WHEELCONSTRAINT_H
-#define RCS_WHEELCONSTRAINT_H
+#ifndef DC_WHEELCONSTRAINT_H
+#define DC_WHEELCONSTRAINT_H
 
 #include "EventSystem.h"
 
@@ -41,7 +41,7 @@
 #include <functional>
 
 
-namespace Rcs
+namespace Dc
 {
 
 class WheelStrategy7D;
@@ -74,7 +74,9 @@ class WheelConstraint
 {
 public:
 
-  WheelConstraint(tropic::TrajectoryControllerBase* tc, const WheelStrategy7D* st, ES::EventSystem* es = nullptr);
+  WheelConstraint(tropic::TrajectoryControllerBase* tc,
+                  const WheelStrategy7D* st,
+                  ES::EventSystem* es = nullptr);
   virtual ~WheelConstraint();
 
   std::shared_ptr<tropic::ConstraintSet> createEngageMove(double ttc, double distance);
@@ -123,6 +125,6 @@ private:
 };
 
 
-}   // namespace Rcs
+}   // namespace Dc
 
-#endif   // RCS_WHEELCONSTRAINT_H
+#endif   // DC_WHEELCONSTRAINT_H

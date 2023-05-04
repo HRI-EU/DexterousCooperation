@@ -37,9 +37,11 @@
 #include <Rcs_typedef.h>
 #include <Rcs_macros.h>
 
+namespace Dc
+{
 
-Rcs::ManipulationComponent::ManipulationComponent(Rcs::EntityBase* entity, const RcsGraph* graph_,
-                                                  std::shared_ptr<ObjectModel> objModel_) :
+ManipulationComponent::ManipulationComponent(EntityBase* entity, const RcsGraph* graph_,
+                                             std::shared_ptr<ObjectModel> objModel_) :
   ComponentBase(entity), interactionEnabled(false), ttc(6.0), locationInSequence(0), timeToWait(0.0),
   validSeqStart(0), currentSeqSent(0), eStop(false), inMotion(false),
   objModel(objModel_)
@@ -87,7 +89,7 @@ Rcs::ManipulationComponent::ManipulationComponent(Rcs::EntityBase* entity, const
 
   // write out debug file in .dot format for each loaded action progress graph
   //  std::vector<int> tmp2 = {0, 1, 3, 2, 7};
-  SearchNode_ptr tmp3=objModel->getEmptyState();
+  SearchNode_ptr tmp3 = objModel->getEmptyState();
   //TODO: state
 
   for (size_t i = 0; i < progressMonitor.actions_.size(); i++)
@@ -103,15 +105,15 @@ Rcs::ManipulationComponent::ManipulationComponent(Rcs::EntityBase* entity, const
 }
 
 
-Rcs::ManipulationComponent::~ManipulationComponent()
+ManipulationComponent::~ManipulationComponent()
 {
   RcsGraph_destroy(this->graph);
 }
 
 
-void Rcs::ManipulationComponent::status() const
+void ManipulationComponent::status() const
 {
-  RLOG(0, "InteractionState: %d: '%s'", (int) interactionState, InteractionStateStr(interactionState).c_str());
+  RLOG(0, "InteractionState: %d: '%s'", (int)interactionState, InteractionStateStr(interactionState).c_str());
 
   if (plannedSequence.empty())
   {
@@ -129,12 +131,12 @@ void Rcs::ManipulationComponent::status() const
     if (i >= 1)
     {
       //TODO: object specific
-      typeId = objModel->getTransitionType(plannedSequence[i-1], plannedSequence[i]);
+      typeId = objModel->getTransitionType(plannedSequence[i - 1], plannedSequence[i]);
       transitionName = objModel->transitionTypeToString(typeId);
     }
 
-    printf("%s %2d : %s  %s (%d) \n", (locationInSequence==i ? "g": (locationInSequence-1==i ? "c": " ")),
-           (int) i, Gras::vecToStr(plannedSequence[i]).c_str(), transitionName.c_str(), (int) typeId);
+    printf("%s %2d : %s  %s (%d) \n", (locationInSequence == i ? "g" : (locationInSequence - 1 == i ? "c" : " ")),
+           (int)i, Gras::vecToStr(plannedSequence[i]).c_str(), transitionName.c_str(), (int)typeId);
   }
   if (locationInSequence >= plannedSequence.size())
   {
@@ -145,21 +147,21 @@ void Rcs::ManipulationComponent::status() const
 
 
 /// TODO: Cancel trajectories, etc.
-void Rcs::ManipulationComponent::onEmergencyStop()
+void ManipulationComponent::onEmergencyStop()
 {
   eStop = true;
 
   onStop(); // we may need to do more handling here
 }
 
-void Rcs::ManipulationComponent::onEmergencyRecover()
+void ManipulationComponent::onEmergencyRecover()
 {
   eStop = false;
   toIdle();//onStop(); // we may need to do more handling here
 }
 
 
-void Rcs::ManipulationComponent::onPause()
+void ManipulationComponent::onPause()
 {
   if (eStop)
   {
@@ -168,7 +170,7 @@ void Rcs::ManipulationComponent::onPause()
 
   if (locationInSequence > 0)
   {
-    locationInSequence --;
+    locationInSequence--;
     RLOG(0, "Location in sequence decremented to %zd", locationInSequence);
   }
 
@@ -178,7 +180,7 @@ void Rcs::ManipulationComponent::onPause()
   interactionState = InteractionState::PAUSED;
 }
 
-void Rcs::ManipulationComponent::onResume()
+void ManipulationComponent::onResume()
 {
   if (interactionState != InteractionState::PAUSED)
   {
@@ -194,7 +196,7 @@ void Rcs::ManipulationComponent::onResume()
   startNextAction();
 }
 
-void Rcs::ManipulationComponent::onStop()
+void ManipulationComponent::onStop()
 {
   getEntity()->publish("ClearTrajectory");
   getEntity()->publish("ClearMonitors", std::string("all"));
@@ -222,7 +224,7 @@ void Rcs::ManipulationComponent::onStop()
   }
 }
 
-void Rcs::ManipulationComponent::toClosestState()
+void ManipulationComponent::toClosestState()
 {
   //TODO: this could result in illegal states and thus self collisions
   //TODO: even without collision, planning from an illegal state is prohibited and the robot would be stuck
@@ -232,7 +234,7 @@ void Rcs::ManipulationComponent::toClosestState()
 }
 
 
-void Rcs::ManipulationComponent::onMotionState(bool isMoving)
+void ManipulationComponent::onMotionState(bool isMoving)
 {
   //TODO: motionstate needs to be defined in a better place!
   RLOG(0, "Motion State: %s, Current state: %s",
@@ -258,7 +260,7 @@ void Rcs::ManipulationComponent::onMotionState(bool isMoving)
         toIdle();
       }
     }
-    else if (interactionState==InteractionState::IN_PROGRESS)
+    else if (interactionState == InteractionState::IN_PROGRESS)
     {
       RLOG(0, "Movement done. Checking for next action.");
       startNextAction();
@@ -296,11 +298,11 @@ void Rcs::ManipulationComponent::onMotionState(bool isMoving)
   /// TODO: There's a timing issue here which can cause us to transition: WAITING_FOR_PLANNER->IDLE->IN_PROGRESS
   /// Enforcing state transitions better will solve this
 }
-void Rcs::ManipulationComponent::onMotionPlanResult(std::vector<std::vector<int> > plan)
+void ManipulationComponent::onMotionPlanResult(std::vector<std::vector<int> > plan)
 {
   interactionState = InteractionState::START_NEXT_ACTION;
 
-  if ((int) plan.size() < 2)
+  if ((int)plan.size() < 2)
   {
     RLOG(0, "No plan found. Idling.");
     //    interactionState = InteractionState::IDLE;
@@ -308,7 +310,7 @@ void Rcs::ManipulationComponent::onMotionPlanResult(std::vector<std::vector<int>
   }
   else
   {
-    RLOG(0, "onMotionPlanResult with %d steps", (int) plan.size());
+    RLOG(0, "onMotionPlanResult with %d steps", (int)plan.size());
 
     plannedSequence = plan;
     locationInSequence = 1;
@@ -319,7 +321,7 @@ void Rcs::ManipulationComponent::onMotionPlanResult(std::vector<std::vector<int>
   // TODO: Separate individual actions, execute in sequence, WaitForConfirmation
 }
 
-void Rcs::ManipulationComponent::updateGraph(RcsGraph* graph_)
+void ManipulationComponent::updateGraph(RcsGraph* graph_)
 {
   RcsGraph_setState(this->graph, graph_->q, NULL);
 
@@ -362,10 +364,10 @@ void Rcs::ManipulationComponent::updateGraph(RcsGraph* graph_)
 /*******************************************************************************
  *
  ******************************************************************************/
-void Rcs::ManipulationComponent::planSequence(Rcs::SearchNode_ptr curState,
-                                              Rcs::SearchNode_ptr goalState,
-                                              double ttcPerAction,
-                                              bool executeAll)
+void ManipulationComponent::planSequence(SearchNode_ptr curState,
+                                         SearchNode_ptr goalState,
+                                         double ttcPerAction,
+                                         bool executeAll)
 {
   RLOG(0, "planSequence");
 
@@ -382,7 +384,7 @@ void Rcs::ManipulationComponent::planSequence(Rcs::SearchNode_ptr curState,
 /*******************************************************************************
  *
  ******************************************************************************/
-void Rcs::ManipulationComponent::setAutoConfirm(bool enable)
+void ManipulationComponent::setAutoConfirm(bool enable)
 {
   this->autoConfirm = enable;
 }
@@ -390,7 +392,7 @@ void Rcs::ManipulationComponent::setAutoConfirm(bool enable)
 /*******************************************************************************
  *
  ******************************************************************************/
-bool Rcs::ManipulationComponent::getAutoConfirm()
+bool ManipulationComponent::getAutoConfirm()
 {
   return this->autoConfirm;
 }
@@ -398,7 +400,7 @@ bool Rcs::ManipulationComponent::getAutoConfirm()
 /*******************************************************************************
  *
  ******************************************************************************/
-void Rcs::ManipulationComponent::setObjectBottomPos(double* pos)
+void ManipulationComponent::setObjectBottomPos(double* pos)
 {
   Vec3d_copy(objectBottomPos, pos);
 }
@@ -406,13 +408,13 @@ void Rcs::ManipulationComponent::setObjectBottomPos(double* pos)
 /*******************************************************************************
  *
  ******************************************************************************/
-void Rcs::ManipulationComponent::getObjectBottomPos(double* pos) const
+void ManipulationComponent::getObjectBottomPos(double* pos) const
 {
   Vec3d_copy(pos, objectBottomPos);
 }
 
 
-void Rcs::ManipulationComponent::executeAndMonitorSequence(std::vector<std::vector<int> > plan, double localTtc)
+void ManipulationComponent::executeAndMonitorSequence(std::vector<std::vector<int> > plan, double localTtc)
 {
   RLOG(0, "Execute and Monitor Sequence");
 
@@ -420,7 +422,7 @@ void Rcs::ManipulationComponent::executeAndMonitorSequence(std::vector<std::vect
   unsigned int type = objModel->getTransitionType(plan[0], plan[1]);
   std::string typeStr(std::to_string(type));
 
-  getEntity()->publish("MotionType", (int) type, typeStr);
+  getEntity()->publish("MotionType", (int)type, typeStr);
 
   SearchNode_ptr goal = plan[1];
   progressMonitor.monitor(typeStr, goal, localTtc, getEntity()->getTime());
@@ -448,7 +450,7 @@ void Rcs::ManipulationComponent::executeAndMonitorSequence(std::vector<std::vect
   //TODO: determine what needs to be done to start progress monitor
 }
 
-void Rcs::ManipulationComponent::onIntention(int intention_id, int seq)
+void ManipulationComponent::onIntention(int intention_id, int seq)
 {
   if (seq < validSeqStart)
   {
@@ -470,7 +472,7 @@ void Rcs::ManipulationComponent::onIntention(int intention_id, int seq)
       return;
     }
 
-    Rcs::SearchNode_ptr endState = nextGoalState;
+    SearchNode_ptr endState = nextGoalState;
 
     planSequence(currentState, endState, ttc, false);
     interactionState = InteractionState::WAITING_FOR_PLANNER;
@@ -486,7 +488,7 @@ void Rcs::ManipulationComponent::onIntention(int intention_id, int seq)
 
 }
 
-void Rcs::ManipulationComponent::onConfirmation(int id, int seq)
+void ManipulationComponent::onConfirmation(int id, int seq)
 {
   if (seq < validSeqStart)
   {
@@ -506,7 +508,7 @@ void Rcs::ManipulationComponent::onConfirmation(int id, int seq)
 
 }
 
-void Rcs::ManipulationComponent::onProgress(int id, int seq)
+void ManipulationComponent::onProgress(int id, int seq)
 {
   if (seq < validSeqStart)
   {
@@ -560,7 +562,7 @@ void Rcs::ManipulationComponent::onProgress(int id, int seq)
 
 }
 
-void Rcs::ManipulationComponent::onState(std::vector<int> desiredStateIn, std::vector<int> currentStateIn)
+void ManipulationComponent::onState(std::vector<int> desiredStateIn, std::vector<int> currentStateIn)
 {
   desiredState = desiredStateIn;
 
@@ -570,7 +572,7 @@ void Rcs::ManipulationComponent::onState(std::vector<int> desiredStateIn, std::v
   //TODO: what to do with this...?
 }
 
-void Rcs::ManipulationComponent::onSetTTC(double ttcNew)
+void ManipulationComponent::onSetTTC(double ttcNew)
 {
   if (ttcNew <= 0.0)
   {
@@ -583,9 +585,9 @@ void Rcs::ManipulationComponent::onSetTTC(double ttcNew)
   }
 }
 
-void Rcs::ManipulationComponent::startNextAction()
+void ManipulationComponent::startNextAction()
 {
-  RLOG(0, "Start next action. Location %d, sequence size: %d", (int) locationInSequence, (int) plannedSequence.size());
+  RLOG(0, "Start next action. Location %d, sequence size: %d", (int)locationInSequence, (int)plannedSequence.size());
 
   status();
 
@@ -602,7 +604,7 @@ void Rcs::ManipulationComponent::startNextAction()
     if (locationInSequence > 0)
     {
       bool same = true;
-      for (int i = 0; i < (int) currentState.size(); i++)
+      for (int i = 0; i < (int)currentState.size(); i++)
       {
         if (plannedSequence[locationInSequence - 1][i] != currentState[i])
         {
@@ -626,7 +628,7 @@ void Rcs::ManipulationComponent::startNextAction()
     RLOG(1, "Current action:");
     RLOG(1, "     %s", Gras::vecToStr(currentAction[0]).c_str());
     RLOG(1, "     %s", Gras::vecToStr(currentAction[1]).c_str());
-    RLOG(1, "Transition type: %d ('%s')", (int) type, objModel->transitionTypeToString(type).c_str());
+    RLOG(1, "Transition type: %d ('%s')", (int)type, objModel->transitionTypeToString(type).c_str());
 
     this->nextTtc = objModel->getTtc(currentAction[0], currentAction[1], this->ttc);
     RLOG(0, "Action: %s TTC: %4.2f", objModel->transitionTypeToString(type).c_str(), nextTtc);
@@ -684,7 +686,7 @@ void Rcs::ManipulationComponent::startNextAction()
   }
 }
 
-void Rcs::ManipulationComponent::toIdle()
+void ManipulationComponent::toIdle()
 {
   currentAction.clear();
   plannedSequence.clear();
@@ -706,3 +708,5 @@ void Rcs::ManipulationComponent::toIdle()
 
   this->interactionState = InteractionState::IDLE;
 }
+
+} // namespace

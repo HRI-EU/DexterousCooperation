@@ -10,8 +10,8 @@
      this list of conditions and the following disclaimer.
 
   2. Redistributions in binary form must reproduce the above copyright
-   notice, this list of conditions and the following disclaimer in the
-   documentation and/or other materials provided with the distribution.
+     notice, this list of conditions and the following disclaimer in the
+     documentation and/or other materials provided with the distribution.
 
   3. Neither the name of the copyright holder nor the names of its
      contributors may be used to endorse or promote products derived from
@@ -52,7 +52,7 @@
 #define MIN_HAND_DIST (0.2)
 #define MAX_HAND_ANGLE (0.95*M_PI)
 
-namespace Rcs
+namespace Dc
 {
 
 BoxStrategy5D getExplorer(int nStepsAround, const PolygonObjectModel& poly)
@@ -132,7 +132,7 @@ void PolygonObjectPlanner::plannerThread(std::vector<int> from,
 }
 
 PolygonObjectPlanner::PolygonObjectPlanner(EntityBase* parent,
-                                           const ControllerBase* controller_,
+                                           const Rcs::ControllerBase* controller_,
                                            double deltaPhi_) :
   ComponentBase(parent), objectModel(), controller(*controller_),
   deltaPhi(deltaPhi_), eStop(false), isMoving(false)
@@ -293,9 +293,9 @@ void PolygonObjectPlanner::showContacts(const std::vector<HTr>& contacts,
 
   for (size_t i=0; i<contacts.size(); ++i)
   {
-    osg::ref_ptr<SphereNode> cn = new SphereNode(contacts[i].org, 0.01);
+    osg::ref_ptr<Rcs::SphereNode> cn = new Rcs::SphereNode(contacts[i].org, 0.01);
     cn->setMaterial("GREEN");
-    cn->addChild(new TextNode3D(std::to_string(i)));
+    cn->addChild(new Rcs::TextNode3D(std::to_string(i)));
     grp->addChild(cn.get());
   }
 
@@ -311,15 +311,15 @@ std::vector<int> PolygonObjectPlanner::getCurrentState() const
     return searchState;
   }
 
-  const Task* taskPhi = controller.getTask("Phi_Box");
+  const Rcs::Task* taskPhi = controller.getTask("Phi_Box");
   RCHECK(taskPhi);
-  const Task* taskPosR = controller.getTask("XYZ_R");
+  const Rcs::Task* taskPosR = controller.getTask("XYZ_R");
   RCHECK(taskPosR);
-  const Task* taskPosL = controller.getTask("XYZ_L");
+  const Rcs::Task* taskPosL = controller.getTask("XYZ_L");
   RCHECK(taskPosL);
-  const Task* taskPartnerPosR = controller.getTask("Partner_XYZ_R");
+  const Rcs::Task* taskPartnerPosR = controller.getTask("Partner_XYZ_R");
   RCHECK(taskPartnerPosR);
-  const Task* taskPartnerPosL = controller.getTask("Partner_XYZ_L");
+  const Rcs::Task* taskPartnerPosL = controller.getTask("Partner_XYZ_L");
   RCHECK(taskPartnerPosL);
 
   std::vector<int> state(5);

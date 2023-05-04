@@ -10,8 +10,8 @@
      this list of conditions and the following disclaimer.
 
   2. Redistributions in binary form must reproduce the above copyright
-   notice, this list of conditions and the following disclaimer in the
-   documentation and/or other materials provided with the distribution.
+     notice, this list of conditions and the following disclaimer in the
+     documentation and/or other materials provided with the distribution.
 
   3. Neither the name of the copyright holder nor the names of its
      contributors may be used to endorse or promote products derived from
@@ -31,15 +31,15 @@
 
 *******************************************************************************/
 
-#ifndef RCS_POLYGRASPDETECTOR_H
-#define RCS_POLYGRASPDETECTOR_H
+#ifndef DC_POLYGRASPDETECTOR_H
+#define DC_POLYGRASPDETECTOR_H
 
 #include <VertexArrayNode.h>
 #include <Rcs_MatNd.h>
 #include <Rcs_HTr.h>
 
 
-namespace Rcs
+namespace Dc
 {
 /*! \brief Class to receive polygonial 2d shapes. This class can operate in
  *         two modes:
@@ -141,4 +141,4 @@ private:
 };
 }
 
-#endif   // RCS_POLYGRASPDETECTOR_H
+#endif   // DC_POLYGRASPDETECTOR_H

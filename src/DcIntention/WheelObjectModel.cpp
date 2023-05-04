@@ -47,10 +47,10 @@
 #define TURN_BOTH_DIRECTIONS
 
 
-namespace Rcs
+namespace Dc
 {
 
-WheelObjectModel::WheelObjectModel(const ControllerBase* controller_,
+WheelObjectModel::WheelObjectModel(const Rcs::ControllerBase* controller_,
                                    EntityBase* entity_) :
   controller(*controller_),
   entity(entity_)
@@ -650,7 +650,7 @@ std::map<std::string, double> WheelObjectModel::computeSensorSignals(RcsGraph* d
   }
 
   {
-    Task* rot = controller.getTask("RobotLeftConstraint");
+    Rcs::Task* rot = controller.getTask("RobotLeftConstraint");
     RcsGraph_setState(controller.getGraph(), desiredGraph->q, NULL);
     MatNd* dq = MatNd_create(desiredGraph->dof, 1);
     MatNd_sub(dq, desiredGraph->q, currentGraph->q);

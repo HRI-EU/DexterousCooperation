@@ -10,8 +10,8 @@
      this list of conditions and the following disclaimer.
 
   2. Redistributions in binary form must reproduce the above copyright
-   notice, this list of conditions and the following disclaimer in the
-   documentation and/or other materials provided with the distribution.
+     notice, this list of conditions and the following disclaimer in the
+     documentation and/or other materials provided with the distribution.
 
   3. Neither the name of the copyright holder nor the names of its
      contributors may be used to endorse or promote products derived from
@@ -43,10 +43,12 @@
 #include <Rcs_Vec3d.h>
 
 
+namespace Dc
+{
 
-Rcs::MonitorComponent::MonitorComponent(Rcs::EntityBase* entity, const RcsGraph* graph_,
-                                        std::shared_ptr<ObjectModel> model, bool useRealSensors, bool showGui,
-                                        bool autoPublish_, bool autoConfirm_) :
+MonitorComponent::MonitorComponent(EntityBase* entity, const RcsGraph* graph_,
+                                   std::shared_ptr<ObjectModel> model, bool useRealSensors, bool showGui,
+                                   bool autoPublish_, bool autoConfirm_) :
   ComponentBase(entity), gui(showGui), realSensors(useRealSensors), autoPublish(autoPublish_),
   autoConfirm(autoConfirm_), publishOnce(false), monitorWidgetBase(NULL), objModel(model)
 {
@@ -67,20 +69,20 @@ Rcs::MonitorComponent::MonitorComponent(Rcs::EntityBase* entity, const RcsGraph*
   publishOnce = false;
 }
 
-Rcs::MonitorComponent::~MonitorComponent()
+MonitorComponent::~MonitorComponent()
 {
   RcsGraph_destroy(this->graph);
 }
 
-void Rcs::MonitorComponent::start()
+void MonitorComponent::start()
 {
   RLOG(0, "Start::start()");
 
   if (gui)
   {
-    monitorWidgetBaseHandle = Rcs::MonitorWidgetBase::create(getEntity(), !realSensors, autoPublish, autoConfirm);
+    monitorWidgetBaseHandle = MonitorWidgetBase::create(getEntity(), !realSensors, autoPublish, autoConfirm);
 
-    monitorWidgetBase = (MonitorWidgetBase*) RcsGuiFactory_getPointer(monitorWidgetBaseHandle);
+    monitorWidgetBase = (MonitorWidgetBase*)RcsGuiFactory_getPointer(monitorWidgetBaseHandle);
     monitorWidgetBase->syncSensorSignals(sensorData);
 
     for (size_t i = 0; i < requests.size(); i++)
@@ -90,7 +92,7 @@ void Rcs::MonitorComponent::start()
   }
 }
 
-void Rcs::MonitorComponent::stop()
+void MonitorComponent::stop()
 {
   if (gui && monitorWidgetBase)
   {
@@ -110,7 +112,7 @@ void Rcs::MonitorComponent::stop()
   }
 }
 
-void Rcs::MonitorComponent::postUpdateGraph(RcsGraph* desiredGraph, RcsGraph* currentGraph)
+void MonitorComponent::postUpdateGraph(RcsGraph* desiredGraph, RcsGraph* currentGraph)
 {
   if (objModel)
   {
@@ -142,7 +144,7 @@ void Rcs::MonitorComponent::postUpdateGraph(RcsGraph* desiredGraph, RcsGraph* cu
   }
 
   char text2[256];
-  snprintf(text2, 256, "Requests: %d (%d, %d, %d)", (int) requests.size(), countIntentions, countConfirmation,
+  snprintf(text2, 256, "Requests: %d (%d, %d, %d)", (int)requests.size(), countIntentions, countConfirmation,
            countProgress);
   getEntity()->publish<std::string>("SetTextLine", std::string(text2), 4);
 
@@ -151,7 +153,7 @@ void Rcs::MonitorComponent::postUpdateGraph(RcsGraph* desiredGraph, RcsGraph* cu
   processRequests();
 }
 
-void Rcs::MonitorComponent::syncGui()
+void MonitorComponent::syncGui()
 {
   if (gui && monitorWidgetBase != NULL)
   {
@@ -190,14 +192,14 @@ void Rcs::MonitorComponent::syncGui()
   }
 }
 
-void Rcs::MonitorComponent::processRequests()
+void MonitorComponent::processRequests()
 {
   this->newTime = getEntity()->getTime();
 
   int count = 0;
   // check all requests
-  std::vector<Rcs::MonitorRequest>::iterator itReq = requests.begin();
-  while (itReq!=requests.end())
+  std::vector<MonitorRequest>::iterator itReq = requests.begin();
+  while (itReq != requests.end())
   {
     count++;
 
@@ -257,7 +259,7 @@ void Rcs::MonitorComponent::processRequests()
   publishOnce = false;
 }
 
-void Rcs::MonitorComponent::addMonitorRequest(Rcs::MonitorRequest req)
+void MonitorComponent::addMonitorRequest(MonitorRequest req)
 {
   //TODO: not sure if this is good
   if (req.creationTime == 0.0)
@@ -280,13 +282,13 @@ void Rcs::MonitorComponent::addMonitorRequest(Rcs::MonitorRequest req)
 
 
 //TODO: input string for selective clear
-void Rcs::MonitorComponent::clearMonitorRequests(std::string type)
+void MonitorComponent::clearMonitorRequests(std::string type)
 {
   //  RLOG(0, "Clearing all monitor requests. Type: '%s'", type.c_str());
 
   //  int count = 0;
-  std::vector<Rcs::MonitorRequest>::iterator itReq = requests.begin();
-  while (itReq!=requests.end())
+  std::vector<MonitorRequest>::iterator itReq = requests.begin();
+  while (itReq != requests.end())
   {
     //    RLOG(0, "Request #%d of type '%s' and ID '%d', Seq: '%d'",
     //++count, itReq->topic.c_str(), itReq->id, itReq->sequenceNum);
@@ -301,7 +303,7 @@ void Rcs::MonitorComponent::clearMonitorRequests(std::string type)
   }
 }
 
-void Rcs::MonitorComponent::resetAndAddMonitorRequest(Rcs::MonitorRequest req)
+void MonitorComponent::resetAndAddMonitorRequest(MonitorRequest req)
 {
   clearMonitorRequests();
 
@@ -310,7 +312,7 @@ void Rcs::MonitorComponent::resetAndAddMonitorRequest(Rcs::MonitorRequest req)
   addMonitorRequest(req);
 }
 
-void Rcs::MonitorComponent::removeMonitorRequest(std::vector<Rcs::MonitorRequest>::iterator it)
+void MonitorComponent::removeMonitorRequest(std::vector<MonitorRequest>::iterator it)
 {
   if (gui)
   {
@@ -318,3 +320,6 @@ void Rcs::MonitorComponent::removeMonitorRequest(std::vector<Rcs::MonitorRequest
   }
   requests.erase(it);
 }
+
+
+}   // namespace

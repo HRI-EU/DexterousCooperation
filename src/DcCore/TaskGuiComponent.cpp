@@ -41,7 +41,7 @@
 
 
 
-namespace Rcs
+namespace Dc
 {
 
 class TaskUpdateCallback : public TaskWidget::TaskChangeCallback
@@ -61,8 +61,8 @@ public:
 
 
 TaskGuiComponent::TaskGuiComponent(EntityBase* parent,
-                                   const ControllerBase* controller_) :
-  Rcs::ComponentBase(parent), controller(*controller_), a_des(NULL),
+                                   const Rcs::ControllerBase* controller_) :
+  ComponentBase(parent), controller(*controller_), a_des(NULL),
   x_des(NULL), x_des_filt(NULL), x_curr(NULL), filt(NULL), passive(false)
 {
   this->a_des   = MatNd_create(controller.getNumberOfTasks(), 1);
@@ -74,8 +74,8 @@ TaskGuiComponent::TaskGuiComponent(EntityBase* parent,
 
   const double tmc = 0.25;
   const double vmax = 0.4;
-  this->filt = new RampFilterND(this->x_curr->ele, tmc, vmax, parent->getDt(),
-                                controller.getTaskDim());
+  this->filt = new Rcs::RampFilterND(this->x_curr->ele, tmc, vmax, parent->getDt(),
+                                     controller.getTaskDim());
 
   pthread_mutex_init(&this->mtx, NULL);
 
@@ -110,13 +110,13 @@ void TaskGuiComponent::start()
   }
 
   int guiHandle =
-    ControllerWidgetBase::create(&this->controller, this->a_des, this->x_des,
-                                 this->x_curr, &this->mtx, this->passive);
+    Rcs::ControllerWidgetBase::create(&this->controller, this->a_des, this->x_des,
+                                      this->x_curr, &this->mtx, this->passive);
 
   this->handle.push_back(guiHandle);
 
   void* ptr = RcsGuiFactory_getPointer(guiHandle);
-  ControllerWidgetBase* widget = static_cast<ControllerWidgetBase*>(ptr);
+  Rcs::ControllerWidgetBase* widget = static_cast<Rcs::ControllerWidgetBase*>(ptr);
   TaskUpdateCallback* jcb = new TaskUpdateCallback(this);
   widget->registerCallback(jcb);
 
@@ -205,7 +205,7 @@ void TaskGuiComponent::onInitFromState(const RcsGraph* target)
   for (size_t i=0; i<this->handle.size(); ++i)
   {
     void* ptr = RcsGuiFactory_getPointer(this->handle[i]);
-    ControllerWidgetBase* widget = static_cast<ControllerWidgetBase*>(ptr);
+    Rcs::ControllerWidgetBase* widget = static_cast<Rcs::ControllerWidgetBase*>(ptr);
     widget->reset(this->a_des, x_target);
   }
 

@@ -39,10 +39,12 @@
 #include <Rcs_math.h>
 #include <Rcs_quaternion.h>
 
+namespace Dc
+{
 
-Rcs::RemoteVisualizationComponent::RemoteVisualizationComponent(EntityBase* parent, RcsGraph* _graph,
-                                                                unsigned int _port) :
-  Rcs::ComponentBase(parent),
+RemoteVisualizationComponent::RemoteVisualizationComponent(EntityBase* parent, RcsGraph* _graph,
+                                                           unsigned int _port) :
+  ComponentBase(parent),
   port(_port),
   graphCur(RcsGraph_clone(_graph)), graphDes(RcsGraph_clone(_graph))
 {
@@ -51,7 +53,7 @@ Rcs::RemoteVisualizationComponent::RemoteVisualizationComponent(EntityBase* pare
   //  getEntity()->subscribe("UpdateGraph", &RemoteVisualizationComponent::updateGraph, this);
   //  getEntity()->subscribe("SetJointCommand", &RemoteVisualizationComponent::updateDesiredGraph, this);
   getEntity()->subscribe("Start", &RemoteVisualizationComponent::start, this);
-  getEntity()->subscribe("Stop",  &RemoteVisualizationComponent::stop, this);
+  getEntity()->subscribe("Stop", &RemoteVisualizationComponent::stop, this);
   getEntity()->subscribe("DesiredStateChanged", &RemoteVisualizationComponent::setDesiredBoxAngle, this);
   getEntity()->subscribe("DesiredHandPoses", &RemoteVisualizationComponent::setDesiredHandPoses, this);
   getEntity()->subscribe("Prompt.lean_left", &RemoteVisualizationComponent::prompt_LeanLeft, this);
@@ -67,7 +69,7 @@ Rcs::RemoteVisualizationComponent::RemoteVisualizationComponent(EntityBase* pare
   // configure ws server
   this->server.clear_access_channels(websocketpp::log::alevel::all);
   this->server.clear_error_channels(websocketpp::log::elevel::all);
-  this->server.set_error_channels(websocketpp::log::elevel::warn   |
+  this->server.set_error_channels(websocketpp::log::elevel::warn |
                                   websocketpp::log::elevel::rerror |
                                   websocketpp::log::elevel::fatal);
   this->server.set_message_handler([](websocketpp::connection_hdl hdl, WebsocketServer::message_ptr msg)
@@ -129,17 +131,17 @@ Rcs::RemoteVisualizationComponent::RemoteVisualizationComponent(EntityBase* pare
   //  }
   for (const auto& b : trackedBodies_always_des)
   {
-    double eulers[3] = {0, 0, 0};
+    double eulers[3] = { 0, 0, 0 };
     Mat3d_toEulerAngles(eulers, b->A_BI.rot);
 
-    base_orientations_des.insert({b->name, {eulers[0], eulers[1], eulers[2]}});
+    base_orientations_des.insert({ b->name, {eulers[0], eulers[1], eulers[2]} });
   }
   for (const auto& b : trackedBodies_always_curr)
   {
-    double eulers[3] = {0, 0, 0};
+    double eulers[3] = { 0, 0, 0 };
     Mat3d_toEulerAngles(eulers, b->A_BI.rot);
 
-    base_orientations_cur.insert({b->name, {eulers[0], eulers[1], eulers[2]}});
+    base_orientations_cur.insert({ b->name, {eulers[0], eulers[1], eulers[2]} });
   }
 
   // init websocket server
@@ -150,13 +152,13 @@ Rcs::RemoteVisualizationComponent::RemoteVisualizationComponent(EntityBase* pare
 
 }
 
-Rcs::RemoteVisualizationComponent::~RemoteVisualizationComponent()
+RemoteVisualizationComponent::~RemoteVisualizationComponent()
 {
   stop();
   pthread_mutex_destroy(&this->mtx);
 }
 
-void Rcs::RemoteVisualizationComponent::postUpdateGraph(RcsGraph* desiredGraph, RcsGraph* currentGraph)
+void RemoteVisualizationComponent::postUpdateGraph(RcsGraph* desiredGraph, RcsGraph* currentGraph)
 {
   pthread_mutex_lock(&this->mtx);
   RcsGraph_setState(this->graphCur, currentGraph->q, NULL);
@@ -165,27 +167,27 @@ void Rcs::RemoteVisualizationComponent::postUpdateGraph(RcsGraph* desiredGraph, 
 }
 
 
-void Rcs::RemoteVisualizationComponent::updateGraph(RcsGraph* graph)
+void RemoteVisualizationComponent::updateGraph(RcsGraph* graph)
 {
   pthread_mutex_lock(&this->mtx);
   RcsGraph_setState(this->graphDes, graph->q, NULL);
   pthread_mutex_unlock(&this->mtx);
 }
 
-void Rcs::RemoteVisualizationComponent::updateDesiredGraph(const MatNd* q)
+void RemoteVisualizationComponent::updateDesiredGraph(const MatNd* q)
 {
   pthread_mutex_lock(&this->mtx);
   RcsGraph_setState(this->graphDes, q, NULL);
   pthread_mutex_unlock(&this->mtx);
 }
 
-void Rcs::RemoteVisualizationComponent::setCommand(const MatNd* q_des,
-                                                   const MatNd* qp_des,
-                                                   const MatNd* T_des)
+void RemoteVisualizationComponent::setCommand(const MatNd* q_des,
+                                              const MatNd* qp_des,
+                                              const MatNd* T_des)
 {
 }
 
-void Rcs::RemoteVisualizationComponent::onEmergencyStop(const ComponentBase* fault)
+void RemoteVisualizationComponent::onEmergencyStop(const ComponentBase* fault)
 {
   if (this->connected)
   {
@@ -195,7 +197,7 @@ void Rcs::RemoteVisualizationComponent::onEmergencyStop(const ComponentBase* fau
   }
 }
 
-bool Rcs::RemoteVisualizationComponent::onEmergencyRecovery()
+bool RemoteVisualizationComponent::onEmergencyRecovery()
 {
   if (this->connected)
   {
@@ -205,12 +207,12 @@ bool Rcs::RemoteVisualizationComponent::onEmergencyRecovery()
   return true; // we have no safety-critical parts to hold up the robot with
 }
 
-bool Rcs::RemoteVisualizationComponent::checkEmergencyCondition()
+bool RemoteVisualizationComponent::checkEmergencyCondition()
 {
   return false; // this component CANNOT fail in a way which impacts the robot's safety
 }
 
-void Rcs::RemoteVisualizationComponent::runThread(double freq)
+void RemoteVisualizationComponent::runThread(double freq)
 {
   while (started)
   {
@@ -300,14 +302,14 @@ void Rcs::RemoteVisualizationComponent::runThread(double freq)
   }
 }
 
-void Rcs::RemoteVisualizationComponent::setDesiredBoxAngle(const double angle)
+void RemoteVisualizationComponent::setDesiredBoxAngle(const double angle)
 {
   RLOG(0, "Setting desired box angle %5.3f (%5.3f)", angle, RCS_RAD2DEG(angle));
   setProperty("box_des", angle);
 }
 
-void Rcs::RemoteVisualizationComponent::setDesiredHandPoses(double posX_r, double posY_r, double posZ_r,
-                                                            double posX_l, double posY_l, double posZ_l)
+void RemoteVisualizationComponent::setDesiredHandPoses(double posX_r, double posY_r, double posZ_r,
+                                                       double posX_l, double posY_l, double posZ_l)
 {
   if (this->connected)
   {
@@ -343,7 +345,7 @@ void Rcs::RemoteVisualizationComponent::setDesiredHandPoses(double posX_r, doubl
   }
 }
 
-void Rcs::RemoteVisualizationComponent::onNewObjectModel(std::vector<HTr> grasps, std::vector<HTr> partnerGrasps)
+void RemoteVisualizationComponent::onNewObjectModel(std::vector<HTr> grasps, std::vector<HTr> partnerGrasps)
 {
   RLOG(0, "Got new model!");
   if (this->connected)
@@ -352,33 +354,33 @@ void Rcs::RemoteVisualizationComponent::onNewObjectModel(std::vector<HTr> grasps
   }
 }
 
-void Rcs::RemoteVisualizationComponent::display_update(std::string displayType)
+void RemoteVisualizationComponent::display_update(std::string displayType)
 {
   RLOG(0, "New display type: %s", displayType.c_str());
   setProperty("display_type", displayType);
 }
 
-void Rcs::RemoteVisualizationComponent::prompt_LeanRight()
+void RemoteVisualizationComponent::prompt_LeanRight()
 {
   perform("lean_full_r.clamp");
 }
 
-void Rcs::RemoteVisualizationComponent::prompt_LeanLeft()
+void RemoteVisualizationComponent::prompt_LeanLeft()
 {
   perform("lean_full_l.clamp");
 }
 
-void Rcs::RemoteVisualizationComponent::prompt_Clear()
+void RemoteVisualizationComponent::prompt_Clear()
 {
   perform("idle.looped");
 }
 
-void Rcs::RemoteVisualizationComponent::prompt_Confirm()
+void RemoteVisualizationComponent::prompt_Confirm()
 {
   perform("nod_quick");
 }
 
-void Rcs::RemoteVisualizationComponent::setAttention(const std::string& name, const double attention)
+void RemoteVisualizationComponent::setAttention(const std::string& name, const double attention)
 {
   if (this->connected)
   {
@@ -386,7 +388,7 @@ void Rcs::RemoteVisualizationComponent::setAttention(const std::string& name, co
   }
 }
 
-void Rcs::RemoteVisualizationComponent::perform(const std::string& action)
+void RemoteVisualizationComponent::perform(const std::string& action)
 {
   if (this->connected)
   {
@@ -394,7 +396,7 @@ void Rcs::RemoteVisualizationComponent::perform(const std::string& action)
   }
 }
 
-void Rcs::RemoteVisualizationComponent::prompt(const PromptType& p, std::initializer_list<std::string> gazeTargets)
+void RemoteVisualizationComponent::prompt(const PromptType& p, std::initializer_list<std::string> gazeTargets)
 {
   if (this->currPrompt != p && this->currPrompt != PromptType::None)
   {
@@ -409,7 +411,7 @@ void Rcs::RemoteVisualizationComponent::prompt(const PromptType& p, std::initial
   }
 }
 
-void Rcs::RemoteVisualizationComponent::clearPrompt()
+void RemoteVisualizationComponent::clearPrompt()
 {
   this->prompt_idx = 0;
   this->prompt_t = this->prompt_interval;
@@ -424,21 +426,21 @@ void Rcs::RemoteVisualizationComponent::clearPrompt()
   this->prompt_targets.clear();
 }
 
-void Rcs::RemoteVisualizationComponent::sendMsg(const std::string& msg)
+void RemoteVisualizationComponent::sendMsg(const std::string& msg)
 {
   this->server.send(this->hdl, msg, websocketpp::frame::opcode::TEXT);
 }
 
-void Rcs::RemoteVisualizationComponent::sendMsg(const char* msg, const size_t len)
+void RemoteVisualizationComponent::sendMsg(const char* msg, const size_t len)
 {
   this->server.send(this->hdl, msg, len, websocketpp::frame::opcode::TEXT);
 }
 
-std::string Rcs::RemoteVisualizationComponent ::updatePoseMsg(const std::string objName, const double position[3],
-                                                              double rotation[3][3], GraphType g)
+std::string RemoteVisualizationComponent::updatePoseMsg(const std::string objName, const double position[3],
+                                                        double rotation[3][3], GraphType g)
 {
-  double rot[4] = {1, 0, 0, 0};
-  double euler[3] = {0, 0, 0};
+  double rot[4] = { 1, 0, 0, 0 };
+  double euler[3] = { 0, 0, 0 };
   Quat_fromRotationMatrix(rot, rotation);
   Mat3d_toEulerAngles(euler, rotation);
 
@@ -519,11 +521,11 @@ std::string Rcs::RemoteVisualizationComponent ::updatePoseMsg(const std::string 
   return buf.GetString();
 }
 
-std::string Rcs::RemoteVisualizationComponent ::updatePoseMsg(const std::string objName, HTr* transform, GraphType g)
+std::string RemoteVisualizationComponent::updatePoseMsg(const std::string objName, HTr* transform, GraphType g)
 {
-  double rot[4] = {1, 0, 0, 0};
+  double rot[4] = { 1, 0, 0, 0 };
   Quat_fromRotationMatrix(rot, transform->rot);
-  double euler[3] = {0, 0, 0};
+  double euler[3] = { 0, 0, 0 };
   double trans[6];
   HTr_to6DVector(trans, transform);
   Vec3d_copy(euler, &trans[3]);
@@ -615,12 +617,12 @@ std::string Rcs::RemoteVisualizationComponent ::updatePoseMsg(const std::string 
   return buf.GetString();
 }
 
-std::string Rcs::RemoteVisualizationComponent::updatePoseMsg(const std::string objName, HTr* transform,
-                                                             const double velocity[3], GraphType g)
+std::string RemoteVisualizationComponent::updatePoseMsg(const std::string objName, HTr* transform,
+                                                        const double velocity[3], GraphType g)
 {
-  double rot[4] = {1, 0, 0, 0};
+  double rot[4] = { 1, 0, 0, 0 };
   Quat_fromRotationMatrix(rot, transform->rot);
-  double euler[3] = {0, 0, 0};
+  double euler[3] = { 0, 0, 0 };
   double trans[6];
   HTr_to6DVector(trans, transform);
   Vec3d_copy(euler, &trans[3]);
@@ -715,12 +717,12 @@ std::string Rcs::RemoteVisualizationComponent::updatePoseMsg(const std::string o
   return buf.GetString();
 }
 
-std::string Rcs::RemoteVisualizationComponent::updatePoseMsg(const std::string objName, const double position[3],
-                                                             double rotation[3][3], const double velocity[3],
-                                                             GraphType g)
+std::string RemoteVisualizationComponent::updatePoseMsg(const std::string objName, const double position[3],
+                                                        double rotation[3][3], const double velocity[3],
+                                                        GraphType g)
 {
-  double rot[4] = {1, 0, 0, 0};
-  double euler[3] = {0, 0, 0};
+  double rot[4] = { 1, 0, 0, 0 };
+  double euler[3] = { 0, 0, 0 };
   Quat_fromRotationMatrix(rot, rotation);
   Mat3d_toEulerAngles(euler, rotation);
 
@@ -804,7 +806,7 @@ std::string Rcs::RemoteVisualizationComponent::updatePoseMsg(const std::string o
   return buf.GetString();
 }
 
-std::string Rcs::RemoteVisualizationComponent::setAttentionMsg(const std::string objName, const double attention)
+std::string RemoteVisualizationComponent::setAttentionMsg(const std::string objName, const double attention)
 {
   rapidjson::StringBuffer buf;
   rapidjson::Writer<rapidjson::StringBuffer> writer(buf);
@@ -820,7 +822,7 @@ std::string Rcs::RemoteVisualizationComponent::setAttentionMsg(const std::string
   return buf.GetString();
 }
 
-std::string Rcs::RemoteVisualizationComponent::setAttentionMsg(const double position[3], const double attention)
+std::string RemoteVisualizationComponent::setAttentionMsg(const double position[3], const double attention)
 {
   rapidjson::StringBuffer buf;
   rapidjson::Writer<rapidjson::StringBuffer> writer(buf);
@@ -841,7 +843,7 @@ std::string Rcs::RemoteVisualizationComponent::setAttentionMsg(const double posi
   return buf.GetString();
 }
 
-std::string Rcs::RemoteVisualizationComponent::setEmergencyMsg(const bool emergencyActive, const std::string reason)
+std::string RemoteVisualizationComponent::setEmergencyMsg(const bool emergencyActive, const std::string reason)
 {
   rapidjson::StringBuffer buf;
   rapidjson::Writer<rapidjson::StringBuffer> writer(buf);
@@ -857,7 +859,7 @@ std::string Rcs::RemoteVisualizationComponent::setEmergencyMsg(const bool emerge
   return buf.GetString();
 }
 
-std::string Rcs::RemoteVisualizationComponent::performActionMsg(const std::string& action)
+std::string RemoteVisualizationComponent::performActionMsg(const std::string& action)
 {
   rapidjson::StringBuffer buf;
   rapidjson::Writer<rapidjson::StringBuffer> writer(buf);
@@ -872,7 +874,7 @@ std::string Rcs::RemoteVisualizationComponent::performActionMsg(const std::strin
   return buf.GetString();
 }
 
-std::string Rcs::RemoteVisualizationComponent::setDesiredBoxAngleMsg(const double angle)
+std::string RemoteVisualizationComponent::setDesiredBoxAngleMsg(const double angle)
 {
   rapidjson::StringBuffer buf;
   rapidjson::Writer<rapidjson::StringBuffer> writer(buf);
@@ -887,7 +889,7 @@ std::string Rcs::RemoteVisualizationComponent::setDesiredBoxAngleMsg(const doubl
   return buf.GetString();
 }
 
-std::string Rcs::RemoteVisualizationComponent::setDisplayMsg(const std::string display)
+std::string RemoteVisualizationComponent::setDisplayMsg(const std::string display)
 {
   rapidjson::StringBuffer buf;
   rapidjson::Writer<rapidjson::StringBuffer> writer(buf);
@@ -902,7 +904,7 @@ std::string Rcs::RemoteVisualizationComponent::setDisplayMsg(const std::string d
   return buf.GetString();
 }
 
-std::string Rcs::RemoteVisualizationComponent::objectModelMsg(std::vector<HTr> grasps)
+std::string RemoteVisualizationComponent::objectModelMsg(std::vector<HTr> grasps)
 {
   rapidjson::StringBuffer buf;
   rapidjson::Writer<rapidjson::StringBuffer> w(buf);
@@ -919,7 +921,7 @@ std::string Rcs::RemoteVisualizationComponent::objectModelMsg(std::vector<HTr> g
   {
     rapidjson::Value v(rapidjson::kObjectType);
     v.AddMember("x", i, d.GetAllocator());
-    v.AddMember("y", i-1, d.GetAllocator());
+    v.AddMember("y", i - 1, d.GetAllocator());
     vertices.PushBack(v, d.GetAllocator());
   }
   d.AddMember("perimiter", vertices, d.GetAllocator());
@@ -951,7 +953,7 @@ std::string Rcs::RemoteVisualizationComponent::objectModelMsg(std::vector<HTr> g
   return buf.GetString();
 }
 
-void Rcs::RemoteVisualizationComponent::start()
+void RemoteVisualizationComponent::start()
 {
   if (!started)
   {
@@ -960,7 +962,7 @@ void Rcs::RemoteVisualizationComponent::start()
   }
 }
 
-void Rcs::RemoteVisualizationComponent::stop()
+void RemoteVisualizationComponent::stop()
 {
   if (connected)
   {
@@ -978,3 +980,6 @@ void Rcs::RemoteVisualizationComponent::stop()
     bgThread.join();
   }
 }
+
+
+} // namespace

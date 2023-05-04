@@ -49,7 +49,7 @@
 // DON'T CREATE MORE THAN ONE INSTANCE OF THIS COMPONENT! IT REQUIRES A
 // NETWORKCONNECTION AND BINDS TO A SPECIFIC PORT
 
-namespace Rcs
+namespace Dc
 {
 
 GraphType operator|(const GraphType& lhs, const GraphType& rhs)
@@ -99,8 +99,8 @@ HoloComponent::HoloComponent(EntityBase* parent,
                              std::string rootObj,
                              unsigned int port_broadcast,
                              unsigned int port_receive) :
-  Rcs::ComponentBase(parent),
-  PeriodicCallback(),
+  ComponentBase(parent),
+  Rcs::PeriodicCallback(),
   rootName(rootObj),
   broadcastPort(port_broadcast),
   receivePort(port_receive),
@@ -650,7 +650,7 @@ bool HoloComponent::parseHoloMessage(std::string message)
     RMSG("Parsing \"%s\"", message.c_str());
   }
 
-  std::vector<std::string> split = String_split(message, SEP_Block);
+  std::vector<std::string> split = Rcs::String_split(message, SEP_Block);
   if (split.empty())
   {
     RLOG(0, "Received unsupported message: \"%s\"", debugMsg.c_str());
@@ -677,7 +677,7 @@ bool HoloComponent::parseHoloMessage(std::string message)
 
     if (deviceId.find("WORKBOY") == std::string::npos) // discard desktop PC's poses
     {
-      split = String_split(split[2], SEP_Parameter);
+      split = Rcs::String_split(split[2], SEP_Parameter);
       RCHECK(split.size() == 2);
 
       // split[0] contains position, split[1] contains quaternion
@@ -777,4 +777,4 @@ std::string HoloComponent::addGraphSuffix(const std::string& name, const GraphTy
   return name;
 }
 
-}   // namespace Rcs
+}   // namespace Dc

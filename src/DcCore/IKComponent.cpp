@@ -41,11 +41,12 @@
 #include <cfloat>
 
 
-namespace Rcs
+namespace Dc
 {
 
 IKComponent::IKComponent(EntityBase* parent,
-                         const ControllerBase* controller_, IkSolverType ik) :
+                         const Rcs::ControllerBase* controller_,
+                         IkSolverType ik) :
   ComponentBase(parent), controller(*controller_), ikSolver(NULL),
   eStop(false), alphaMax(0.05), alpha(0.0), lambda(1.0e-6), blending(1.0),
   renderSolid(false), speedLimitCheck(true), jointLimitCheck(true),
@@ -54,11 +55,11 @@ IKComponent::IKComponent(EntityBase* parent,
   switch (ik)
   {
     case RMR:
-      ikSolver = new IkSolverRMR(&controller);
+      ikSolver = new Rcs::IkSolverRMR(&controller);
       break;
 
     case ConstraintRMR:
-      ikSolver = new IkSolverConstraintRMR(&controller);
+      ikSolver = new Rcs::IkSolverConstraintRMR(&controller);
       break;
 
     default:
@@ -330,4 +331,4 @@ void IKComponent::renderSolidModel()
   this->renderSolid = true;
 }
 
-}   // namespace Rcs
+}   // namespace Dc

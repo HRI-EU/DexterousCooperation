@@ -31,8 +31,8 @@
 
 *******************************************************************************/
 
-#ifndef RCS_REMOTEVISUALIZATIONCOMPONENT_H
-#define RCS_REMOTEVISUALIZATIONCOMPONENT_H
+#ifndef DC_REMOTEVISUALIZATIONCOMPONENT_H
+#define DC_REMOTEVISUALIZATIONCOMPONENT_H
 
 #define RAPIDJSON_HAS_STDSTRING 1
 #include <rapidjson/stringbuffer.h>
@@ -55,7 +55,7 @@
 
 #include <thread>
 
-namespace Rcs
+namespace Dc
 {
 typedef websocketpp::server<websocketpp::config::asio> WebsocketServer;
 
@@ -252,4 +252,4 @@ private:
 
 }
 
-#endif   // RCS_REMOTEVISUALIZATIONCOMPONENT_H
+#endif   // DC_REMOTEVISUALIZATIONCOMPONENT_H

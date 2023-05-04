@@ -10,8 +10,8 @@
      this list of conditions and the following disclaimer.
 
   2. Redistributions in binary form must reproduce the above copyright
-   notice, this list of conditions and the following disclaimer in the
-   documentation and/or other materials provided with the distribution.
+     notice, this list of conditions and the following disclaimer in the
+     documentation and/or other materials provided with the distribution.
 
   3. Neither the name of the copyright holder nor the names of its
      contributors may be used to endorse or promote products derived from
@@ -56,7 +56,7 @@
 
 #define COND_RETURN(condition) if ((condition)) { return false;}
 
-namespace Rcs
+namespace Dc
 {
 
 BoxStrategy5D::ContactPoint2D::ContactPoint2D() : normalAngle(0.0), frictionAngle(65.0*M_PI/180.0), maxLever(1.0)
@@ -1682,4 +1682,4 @@ void BoxStrategy5D::setGoal(const std::vector<int>& goal)
   goalStates.push_back(goal);
 }
 
-}  // namespace Rcs
+}  // namespace Dc

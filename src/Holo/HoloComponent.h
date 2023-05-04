@@ -31,8 +31,8 @@
 
 *******************************************************************************/
 
-#ifndef RCS_HOLOCOMPONENT_H
-#define RCS_HOLOCOMPONENT_H
+#ifndef DC_HOLOCOMPONENT_H
+#define DC_HOLOCOMPONENT_H
 
 #include "ComponentBase.h"
 #include "HoloNetworkConnection.h"
@@ -45,7 +45,7 @@
 #include <mutex>
 
 
-namespace Rcs
+namespace Dc
 {
 
 
@@ -67,7 +67,7 @@ GraphType operator^(const GraphType& lhs, const GraphType& rhs);
 GraphType& operator^=(GraphType& lhs, const GraphType& rhs);
 GraphType operator~(const GraphType& g);
 
-class HoloComponent : public ComponentBase, public PeriodicCallback
+class HoloComponent : public ComponentBase, public Rcs::PeriodicCallback
 {
 public:
 
@@ -114,4 +114,4 @@ protected:
 
 }
 
-#endif   // RCS_HOLOCOMPONENT_H
+#endif   // DC_HOLOCOMPONENT_H

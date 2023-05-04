@@ -37,7 +37,7 @@
 
 #include <Rcs_macros.h>
 
-namespace Rcs
+namespace Dc
 {
 
 NotifyConstraintSet::NotifyConstraintSet(double timeToFire, std::string notifyerName, std::function<void()> cb)
@@ -89,13 +89,13 @@ std::string NotifyConstraintSet::getClassName() const
   return std::string("NotifyConstraintSet");
 }
 
-}   // namespace Rcs
+}   // namespace Dc
 
 
 
 
 
-namespace Rcs
+namespace Dc
 {
 
 // Distance: 0.0 is engage, 0.1 is disengage
@@ -653,4 +653,4 @@ bool WheelConstraint::isEngaged(const tropic::TrajectoryND* constraintTraj) cons
 
 
 
-}   // namespace Rcs
+}   // namespace Dc

@@ -31,8 +31,8 @@
 
 *******************************************************************************/
 
-#ifndef RCS_IKCOMPONENT_H
-#define RCS_IKCOMPONENT_H
+#ifndef DC_IKCOMPONENT_H
+#define DC_IKCOMPONENT_H
 
 
 #include "ComponentBase.h"
@@ -41,7 +41,7 @@
 
 
 
-namespace Rcs
+namespace Dc
 {
 
 /*! \brief Inverse kinematics class. Solves the inverse kinematics (resolved
@@ -104,7 +104,7 @@ public:
    * \param[in] controller Controller with all task variables and (possibly)
    *                       a collision model. It will be cloned.
    */
-  IKComponent(EntityBase* parent, const ControllerBase* controller,
+  IKComponent(EntityBase* parent, const Rcs::ControllerBase* controller,
               IkSolverType ik=ConstraintRMR);
 
   /*! \brief Destroys the IkSolverRMR and all other allocated memory.
@@ -201,8 +201,8 @@ private:
   void onSetBlending(double value);
   void print() const;
 
-  ControllerBase controller;
-  IkSolverRMR* ikSolver;
+  Rcs::ControllerBase controller;
+  Rcs::IkSolverRMR* ikSolver;
   bool eStop;
   double alphaMax;
   double alpha;

@@ -31,10 +31,10 @@
 
 *******************************************************************************/
 
-#ifndef RCS_POLYGONCONTACTPOINT2D_H
-#define RCS_POLYGONCONTACTPOINT2D_H
+#ifndef DC_POLYGONCONTACTPOINT2D_H
+#define DC_POLYGONCONTACTPOINT2D_H
 
-namespace Rcs
+namespace Dc
 {
 
 /*! \brief Class to represent 2d polygon points. The points also contain
@@ -154,4 +154,4 @@ private:
 
 }
 
-#endif // RCS_POLYGONCONTACTPOINT2D_H
+#endif // DC_POLYGONCONTACTPOINT2D_H

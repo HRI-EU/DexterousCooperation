@@ -42,7 +42,7 @@
 
 
 
-namespace Rcs
+namespace Dc
 {
 
 class RelGrip
@@ -105,17 +105,17 @@ private:
   tropic::TrajectoryND* trajOriL;
   tropic::TrajectoryND* trajPosObj;
 
-  const Task* taskPhi;
-  const Task* taskPosR;
-  const Task* taskPosL;
-  const Task* taskOriR;
-  const Task* taskOriL;
-  const Task* taskPosObj;
+  const Rcs::Task* taskPhi;
+  const Rcs::Task* taskPosR;
+  const Rcs::Task* taskPosL;
+  const Rcs::Task* taskOriR;
+  const Rcs::Task* taskOriL;
+  const Rcs::Task* taskPosObj;
 
   tropic::TrajectoryND* trajFingersL;
   tropic::TrajectoryND* trajFingersR;
-  const Task* taskFingersL;
-  const Task* taskFingersR;
+  const Rcs::Task* taskFingersL;
+  const Rcs::Task* taskFingersR;
 
   tropic::TrajectoryND* trajHandLinkL;
   tropic::TrajectoryND* trajHandLinkR;
@@ -1105,4 +1105,4 @@ DyadicTrajectorySet::createMoveRobotToSet(int phi, int ra, int la,
 }
 
 
-}   // namespace Rcs
+}   // namespace Dc

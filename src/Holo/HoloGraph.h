@@ -31,8 +31,8 @@
 
 *******************************************************************************/
 
-#ifndef RCS_HOLOGRAPH_H
-#define RCS_HOLOGRAPH_H
+#ifndef DC_HOLOGRAPH_H
+#define DC_HOLOGRAPH_H
 
 #include "HoloNetworkConnection.h"
 #include "ComponentBase.h"
@@ -46,10 +46,10 @@
 #include <vector>
 
 
-namespace Rcs
+namespace Dc
 {
 
-class HoloGraph : public ComponentBase, public PeriodicCallback
+class HoloGraph : public ComponentBase, public Rcs::PeriodicCallback
 {
 public:
 
@@ -79,4 +79,4 @@ private:
 
 }
 
-#endif   // RCS_HOLOGRAPH_H
+#endif   // DC_HOLOGRAPH_H

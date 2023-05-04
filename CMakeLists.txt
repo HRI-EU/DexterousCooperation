@@ -60,6 +60,7 @@ ENDIF(WIN32)
 IF (TARGET RoboComponents)
   MESSAGE(STATUS "Compiling with robot interfaces")
   SET(ROBO_LIBS RoboComponents)
+  SET(ROBO_DEFINES -DUSE_ROBOCOMPONENTS)
 ELSE()
   MESSAGE(STATUS "Compiling without robot interfaces")
 ENDIF()
@@ -67,6 +68,8 @@ ENDIF()
 ################################################################################
 # Compile settings
 ################################################################################
+SET(CMAKE_CXX_STANDARD 17)
+
 IF(UNIX)
   # SET(CMAKE_C_FLAGS   "${CMAKE_C_FLAGS} -Wall -pedantic -fPIC -Wno-long-long -Wno-variadic-macros -std=c99")
   # SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -pedantic -fPIC -Wno-format -Wno-long-long -Wno-variadic-macros")
@@ -132,6 +135,7 @@ ENDFUNCTION()
 ADD_SUBDIRECTORY(src)
 ADD_SUBDIRECTORY(bin)
 ADD_SUBDIRECTORY(examples)
+ADD_SUBDIRECTORY(doc)
 
 ################################################################################
 # Deep copy of the config directory for windows

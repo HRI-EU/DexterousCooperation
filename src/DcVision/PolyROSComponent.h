@@ -10,8 +10,8 @@
      this list of conditions and the following disclaimer.
 
   2. Redistributions in binary form must reproduce the above copyright
-   notice, this list of conditions and the following disclaimer in the
-   documentation and/or other materials provided with the distribution.
+     notice, this list of conditions and the following disclaimer in the
+     documentation and/or other materials provided with the distribution.
 
   3. Neither the name of the copyright holder nor the names of its
      contributors may be used to endorse or promote products derived from
@@ -31,15 +31,15 @@
 
 *******************************************************************************/
 
-#ifndef RCS_POLYROSCOMPONENT_H
-#define RCS_POLYROSCOMPONENT_H
+#ifndef DC_POLYROSCOMPONENT_H
+#define DC_POLYROSCOMPONENT_H
 
 #include "PolyGraspDetector.h"
 
 #include <ComponentBase.h>
 #include <Rcs_graph.h>
 
-#if defined (USE_DC_ROS)
+#if defined (USE_ROS)
 #include <ros/ros.h>
 #include <geometry_msgs/PolygonStamped.h>
 #else
@@ -77,7 +77,7 @@ struct PolygonStamped
 
 
 
-namespace Rcs
+namespace Dc
 {
 
 /*! \brief Class to receive polygonial 2d shapes. This class can operate in two
@@ -173,7 +173,7 @@ private:
   mutable EntityBase* ntt;
   PolyGraspDetector graspDetector;
   std::string rosFullTopicName;
-#if defined (USE_DC_ROS)
+#if defined (USE_ROS)
   ros::Subscriber polySubscriber;
   std::unique_ptr<ros::NodeHandle> nh;
 #endif
@@ -198,4 +198,4 @@ private:
 
 }
 
-#endif   // RCS_POLYROSCOMPONENT_H
+#endif   // DC_POLYROSCOMPONENT_H

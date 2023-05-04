@@ -10,8 +10,8 @@
      this list of conditions and the following disclaimer.
 
   2. Redistributions in binary form must reproduce the above copyright
-   notice, this list of conditions and the following disclaimer in the
-   documentation and/or other materials provided with the distribution.
+     notice, this list of conditions and the following disclaimer in the
+     documentation and/or other materials provided with the distribution.
 
   3. Neither the name of the copyright holder nor the names of its
      contributors may be used to endorse or promote products derived from
@@ -31,14 +31,14 @@
 
 *******************************************************************************/
 
-#ifndef RCS_COMPONENTBASE_H
-#define RCS_COMPONENTBASE_H
+#ifndef DC_COMPONENTBASE_H
+#define DC_COMPONENTBASE_H
 
 #include "EntityBase.h"
 
 
 
-namespace Rcs
+namespace Dc
 {
 
 /*! \brief Base class for all components. It stores a reference to the
@@ -155,4 +155,4 @@ private:
 
 }
 
-#endif   // RCS_COMPONENTBASE_H
+#endif   // DC_COMPONENTBASE_H

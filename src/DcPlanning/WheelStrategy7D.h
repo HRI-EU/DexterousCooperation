@@ -10,8 +10,8 @@
      this list of conditions and the following disclaimer.
 
   2. Redistributions in binary form must reproduce the above copyright
-   notice, this list of conditions and the following disclaimer in the
-   documentation and/or other materials provided with the distribution.
+     notice, this list of conditions and the following disclaimer in the
+     documentation and/or other materials provided with the distribution.
 
   3. Neither the name of the copyright holder nor the names of its
      contributors may be used to endorse or promote products derived from
@@ -31,8 +31,8 @@
 
 *******************************************************************************/
 
-#ifndef RCS_WHEELSTRATEGY7D_H
-#define RCS_WHEELSTRATEGY7D_H
+#ifndef DC_WHEELSTRATEGY7D_H
+#define DC_WHEELSTRATEGY7D_H
 
 #include <ExplorationStrategy.h>
 #include <Rcs_graph.h>
@@ -45,7 +45,7 @@
 
 
 
-namespace Rcs
+namespace Dc
 {
 
 /*! \brief Class to describe discrete search problem of finding a sequence of
@@ -438,6 +438,6 @@ protected:
   int contactDiscretization;   // Number of tics to get once around 360 degrees
 };
 
-}   // namespace Rcs
+}   // namespace Dc
 
-#endif // RCS_WHEELSTRATEGY7D_H
+#endif // DC_WHEELSTRATEGY7D_H

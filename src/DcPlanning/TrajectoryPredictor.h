@@ -31,8 +31,8 @@
 
 *******************************************************************************/
 
-#ifndef RCS_TRAJECTORYPREDICTOR_H
-#define RCS_TRAJECTORYPREDICTOR_H
+#ifndef DC_TRAJECTORYPREDICTOR_H
+#define DC_TRAJECTORYPREDICTOR_H
 
 #include <TrajectoryController.h>
 #include <IkSolverRMR.h>
@@ -40,7 +40,7 @@
 
 // \todo: Merge with retro
 
-namespace Rcs
+namespace Dc
 {
 class TrajectoryPredictor
 {
@@ -74,7 +74,7 @@ public:
   void clearTrajectory();
 
   tropic::TrajectoryControllerBase* tc;
-  IkSolverRMR* ikSolver;
+  Rcs::IkSolverRMR* ikSolver;
   int predSteps;
   MatNd* qStack;
   double det;
@@ -85,4 +85,4 @@ public:
 
 }
 
-#endif   // RCS_TRAJECTORYPREDICTOR_H
+#endif   // DC_TRAJECTORYPREDICTOR_H

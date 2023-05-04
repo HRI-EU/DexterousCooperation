@@ -39,7 +39,7 @@
 #include <Rcs_body.h>
 
 
-namespace Rcs
+namespace Dc
 {
 
 ColliderComponent::ColliderComponent(EntityBase* parent,
@@ -109,4 +109,4 @@ void ColliderComponent::onPostUpdateGraph(RcsGraph* desired, RcsGraph* current)
 
 
 
-}   // namespace Rcs
+}   // namespace Dc

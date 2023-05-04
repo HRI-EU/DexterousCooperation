@@ -31,8 +31,8 @@
 
 *******************************************************************************/
 
-#ifndef RCS_WHEELOBJECTMODEL_H
-#define RCS_WHEELOBJECTMODEL_H
+#ifndef DC_WHEELOBJECTMODEL_H
+#define DC_WHEELOBJECTMODEL_H
 
 #include "EntityBase.h"
 #include "ObjectModel.h"
@@ -43,7 +43,7 @@
 #include <map>
 
 
-namespace Rcs
+namespace Dc
 {
 
 /*! \brief WheelObjectModel implements ObjectModel to define interaction
@@ -76,7 +76,8 @@ public:
    *                          need to publish (e.g. visualization in
    *                          triggerExecutionVisualization())
    */
-  WheelObjectModel(const ControllerBase* controller, EntityBase* entity=NULL);
+  WheelObjectModel(const Rcs::ControllerBase* controller,
+                   EntityBase* entity=NULL);
   ~WheelObjectModel();
 
   /*! \brief Provides an empty state with the right dimensionality for this
@@ -347,7 +348,7 @@ private:
 
   void initCanonicalStates();
 
-  ControllerBase controller;
+  Rcs::ControllerBase controller;
 
   std::vector< std::vector<int> > canonicalStates;
   std::vector<HTr> sState;
@@ -358,4 +359,4 @@ private:
 
 }
 
-#endif //RCS_OBJECT_MODEL_H
+#endif // DC_OBJECT_MODEL_H
