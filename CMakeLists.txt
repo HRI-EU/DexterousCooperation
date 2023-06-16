@@ -175,11 +175,16 @@ FILE(GLOB DcCommonFiles "${CMAKE_CURRENT_SOURCE_DIR}/src/DcCommon/*")
 INSTALL(FILES ${DcCommonFiles} DESTINATION include)
 
 ###############################################################################
-# Install config files
+# Install config files and external header-only files
 ###############################################################################
 INSTALL(
   DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/config/
   DESTINATION config/xml/DexterousCooperation
+  )
+
+INSTALL(
+  DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/external/websocketpp/
+  DESTINATION include
 )
 
 ################################################################################
