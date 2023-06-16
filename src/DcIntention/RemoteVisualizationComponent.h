@@ -34,26 +34,29 @@
 #ifndef DC_REMOTEVISUALIZATIONCOMPONENT_H
 #define DC_REMOTEVISUALIZATIONCOMPONENT_H
 
-#define RAPIDJSON_HAS_STDSTRING 1
-#include <rapidjson/stringbuffer.h>
-#include <rapidjson/document.h>
-#include <rapidjson/writer.h>
-
 #include "EntityBase.h"
 #include "ComponentBase.h"
-
-#include <map>
-#include <vector>
-
-#define ASIO_STANDALONE
-#include <websocketpp/config/asio_no_tls.hpp>
-#include <websocketpp/server.hpp>
 
 #include <PeriodicCallback.h>
 #include <Rcs_graph.h>
 #include <Rcs_macros.h>
 
+#define RAPIDJSON_HAS_STDSTRING 1
+#include <rapidjson/stringbuffer.h>
+#include <rapidjson/document.h>
+#include <rapidjson/writer.h>
+
+#define ASIO_STANDALONE
+
+#if defined (_MSC_VER)
+#define _WEBSOCKETPP_CPP11_TYPE_TRAITS_
+#endif
+#include <websocketpp/config/asio_no_tls.hpp>
+#include <websocketpp/server.hpp>
+
 #include <thread>
+#include <map>
+#include <vector>
 
 namespace Dc
 {

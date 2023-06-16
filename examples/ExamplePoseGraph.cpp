@@ -249,6 +249,7 @@ ExamplePoseGraph::ExamplePoseGraph(int argc, char** argv) :
   ExampleIK(argc, argv), seqAlgo(PoseGraph::SequenceAlgo::Coupled),
   sequenceAlgorithm("Coupled"), animateTrajectory(false)
 {
+  Rcs::KeyCatcherBase::registerKey("A", "Animate trajectory");
   HTr_setIdentity(&subGraphOffset);
 }
 
@@ -355,6 +356,8 @@ std::string ExamplePoseGraph::help()
   s << Rcs::getResourcePaths();
   s << Rcs::CmdLineParser::printToString();
   s << Rcs::RcsGraph_printUsageToString(xmlFileName);
+  s << "\n\tWhen pressing the A-key, the example creates a trajectory and";
+  s << "\n\tanimates it in a graphics window.\n";
   return s.str();
 }
 
