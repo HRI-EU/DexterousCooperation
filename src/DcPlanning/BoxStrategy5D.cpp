@@ -695,7 +695,7 @@ bool BoxStrategy5D::checkTransition(int phiOld, int raOld, int laOld, int rpOld,
     }
   }
 
-  double d = Math_distPointConvexPolygon2D(comPrj, poly, 3, NULL, NULL);
+  double d = Math_distPointPolygon2D(comPrj, poly, 3, NULL, NULL);
 
   // COM can lie a bit outside of support polygon as hand width has not been considered
   double handWidthHalf = 0.06;
